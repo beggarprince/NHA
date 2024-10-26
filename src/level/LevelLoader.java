@@ -1,4 +1,4 @@
-package Level;
+package level;
 
 //All level loader will do is load in a TXT file, csv or not idk
 import java.io.BufferedReader;

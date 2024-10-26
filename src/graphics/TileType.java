@@ -1,4 +1,4 @@
-package Graphics;
+package graphics;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -8,7 +8,8 @@ import java.io.IOException;
 //not yet implemented, atm will constantly be calling
 public enum TileType {
     DIRT("dirt.png"),
-    GRASS("grass.png");
+    GRASS("grass.png"),
+    BRICK("brick.png");
 
     private BufferedImage image;
 

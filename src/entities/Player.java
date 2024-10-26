@@ -1,6 +1,7 @@
-package Entities;
+package entities;
 
 import io.KBInput;
+import util.Coordinate;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,26 +10,30 @@ import java.io.IOException;
 public class Player {
     public BufferedImage PlayerImage = null;
     static final public  int playerSpeed = 4;
-    public static int cPosX = 100;
-    public static int cPosY = 100;
+
+
+    public Coordinate pos = new Coordinate(100,100);
 
     public Player(){
         setPlayerImage();
+        //pos = coordinate;
     }
 
     public void playerPosUpdate(KBInput kb) {
         if (kb.upPressed) {
-            Player.cPosY -= Player.playerSpeed;
+            pos.y -= Player.playerSpeed;
         } else if (kb.downPressed) {
-            Player.cPosY += Player.playerSpeed;
+            pos.y += Player.playerSpeed;
         } else if (kb.rightPressed) {
-            Player.cPosX += Player.playerSpeed;
+            pos.x += Player.playerSpeed;
         } else if (kb.leftPressed) {
-            Player.cPosX -= Player.playerSpeed;
+            pos.x -= Player.playerSpeed;
         }
     }
 
-    public void setPlayerImage(){
+    //BC the player is just a cursor in this game it needs to pan to whatever direction the player is headed towards
+
+    private void setPlayerImage(){
         try{
             PlayerImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("dumbaahknight.png"));
         }catch(IOException e){
