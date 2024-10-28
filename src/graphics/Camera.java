@@ -1,5 +1,7 @@
 package graphics;
 
+import io.kbInput;
+import level.LevelCreate;
 import util.Coordinate;
 
 // Updated Camera class with Coordinate pairs for each corner
@@ -12,59 +14,101 @@ public class Camera {
         this.topLeft = tl;
     }
 
-    public void posUpdate(Coordinate player) {
+    //Will attempt to pan and notify the engine if it panned or whether we have to displace the player
+    public boolean cameraUpdate(Coordinate player, kbInput kb) {
+        //code to decide if camera pans
+        //ATM it will only pan at the edge
+        boolean cameraPanned = false;
+        //Nasty if else
 
-        //Horizontal
-        //Less than 0
-        if (player.x + offsetX < topLeft.x *ScreenSettings.TILE_SIZE) {
-     //       System.out.println("player.x: " + player.x + "< topLeft.x: " + topLeft.x + "\n");
-            topLeft.x--;
-            offsetX++;
+        //TODO down leftTop changes when it shouldn't
+        if(kb.downPressed){
+
+            cameraPanned = verifyValidCoordinate(topLeft, 0, ScreenSettings.TILE_SIZE);
+        }
+        else if(kb.upPressed){
+            cameraPanned = verifyValidCoordinate(topLeft, 0, -ScreenSettings.TILE_SIZE);
+        }
+        else if(kb.leftPressed){
+            cameraPanned = verifyValidCoordinate(topLeft, -ScreenSettings.TILE_SIZE , 0);
+        }
+        //TODO right changes leftTop when it shouldn't
+        else if(kb.rightPressed){
+            cameraPanned = verifyValidCoordinate(topLeft, ScreenSettings.TILE_SIZE, 0);
+        }
+        else{
+            //No change to camera, no need to get the player sprite moving
+            return true;
         }
 
-        //Greater than Max
-        else if (player.x +offsetX  > topLeft.x* ScreenSettings.TILE_SIZE + ScreenSettings.SCREEN_WIDTH) {
-       //     System.out.println("player.x: " + player.x + "> topRight.x: " + topRight.x + "\n");
-            topLeft.x++;
-            offsetX--;
+        //Pan it
+        if(cameraPanned){
+            panCamera(kb);
+            System.out.println("Player " + player.x / ScreenSettings.TILE_SIZE+ " " + player.y / ScreenSettings.TILE_SIZE);
+            System.out.println(topLeft.x / ScreenSettings.TILE_SIZE+ " " + topLeft.y / ScreenSettings.TILE_SIZE+ "\n");
+            return true;
         }
 
-        //Vertical
-        //Less than 0
-        if (player.y + offsetY < topLeft.y * ScreenSettings.TILE_SIZE) {
-            topLeft.y--;
+        //At this point the camera is at the edge and cannot move, so we must move the player sprite instead
+        //Or we simply don't want to move teh camera
+     //   System.out.println("Camera did not pan");
+        return false;
+    }
+
+    // Movement of the camera, nothing else
+    private void panCamera(kbInput kb) {
+        int movementAmount = ScreenSettings.TILE_SIZE;
+
+        if (kb.downPressed) {
+            topLeft.y += movementAmount;
             offsetY++;
-        }
-
-        //Greater than max
-        else if (player.y+ offsetY > topLeft.y * ScreenSettings.TILE_SIZE + ScreenSettings.SCREEN_HEIGHT) {
-            topLeft.y++;
+         //   System.out.println("Camera panned down by " + movementAmount + " units.");
+        } else if (kb.upPressed) {
+            topLeft.y -= movementAmount;
             offsetY--;
+         //   System.out.println("Camera panned up by " + movementAmount + " units.");
+        } else if (kb.leftPressed) {
+            topLeft.x -= movementAmount;
+            offsetX--;
+           // System.out.println("Camera panned left by " + movementAmount + " units.");
+
+        } else if (kb.rightPressed) {
+            topLeft.x += movementAmount;
+            offsetX++;
+          //  System.out.println("Camera panned right by " + movementAmount + " units.");
+        } else {
+            System.out.println("No movement detected.");
         }
     }
 
-    public void printPlayerAndCameraInfo(Coordinate player) {
-        System.out.println("NEW\n");
-        System.out.println("Player Coordinates:");
-        System.out.println("Absolute: (" + player.x + ", " + player.y + ")");
-        System.out.println("Divided by Tile Size: ("
-                + (player.x / ScreenSettings.TILE_SIZE) + ", "
-                + (player.y / ScreenSettings.TILE_SIZE) + ")\n");
 
-        // Calculate the player's position relative to the top-left corner
-        int relativeX = player.x - (topLeft.x * ScreenSettings.TILE_SIZE);
-        int relativeY = player.y - (topLeft.y * ScreenSettings.TILE_SIZE);
 
-        System.out.println("Player Coordinates Relative to Top-Left:");
-        System.out.println("Relative: (" + relativeX + ", " + relativeY + ")\n");
+    //FUNCTIONAL
+    private boolean verifyValidCoordinate(Coordinate player, int x, int y) {
+        boolean xWithinLeftBound = (player.x + x) >= 0;
+        boolean xWithinRightBound = (player.x + x) < LevelCreate.levelx * ScreenSettings.TILE_SIZE;
+        boolean yWithinUpperBound = (player.y + y) >= 0;
+        boolean yWithinLowerBound = (player.y + y) < LevelCreate.levely * ScreenSettings.TILE_SIZE;
 
-        System.out.println("Camera Top-Left Tile Coordinates:");
-        System.out.println("X: " + topLeft.x);
-        System.out.println("Y: " + topLeft.y );
+//        if (!xWithinLeftBound) {
+//            System.out.println("Failed: x is out of left bound");
+//        }
+//        if (!xWithinRightBound) {
+//            System.out.println("Failed: x is out of right bound");
+//        }
+//        if (!yWithinUpperBound) {
+//            System.out.println("Failed: y is out of upper bound");
+//        }
+//        if (!yWithinLowerBound) {
+//            System.out.println("Failed: y is out of lower bound");
+//        }
 
-        System.out.println("Camera Offsets:");
-        System.out.println("OffsetX: " + offsetX);
-        System.out.println("OffsetY: " + offsetY + "\n");
+        if (xWithinLeftBound && xWithinRightBound && yWithinUpperBound && yWithinLowerBound) {
+           // System.out.println("All cases passed: valid coordinate");
+            return true;
+        }
+        return false;
     }
+
 
 }

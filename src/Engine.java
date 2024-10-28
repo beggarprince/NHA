@@ -2,7 +2,7 @@ import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
 import level.LevelCreate;
-import io.KBInput;
+import io.kbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
@@ -11,7 +11,7 @@ public class Engine implements Runnable{
     Coordinate leftTop = new Coordinate(0,0);
     Camera camera = new Camera(leftTop);
 
-    KBInput kb = new KBInput();
+    kbInput kb = new kbInput();
     Thread gameLifecycle;
     Player player = new Player();
     LevelCreate level = new LevelCreate();
@@ -41,9 +41,9 @@ public class Engine implements Runnable{
 
             //Update game information
             if(delta >=1) {
-                camera.posUpdate(player.pos);
-                player.playerPosUpdate(kb);
-                if(kb.debug) camera.printPlayerAndCameraInfo(player.pos);
+                boolean cameraPanned;
+                cameraPanned = camera.cameraUpdate(player.pos, kb);
+                if(!cameraPanned)player.playerPosUpdate(kb);
 
                 delta--;
                 //Update UI

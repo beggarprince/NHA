@@ -10,6 +10,7 @@ public class ScreenSettings {
     public static final int Y = 24;
     public static final int SCREEN_WIDTH = X * TILE_SIZE;
     public static final int SCREEN_HEIGHT = Y * TILE_SIZE;
+
     public static final int WIDTH_OFFSET = ScreenSettings.SCREEN_WIDTH / ScreenSettings.TILE_SIZE;
     public static final int HEIGHT_OFFSET = ScreenSettings.SCREEN_HEIGHT / ScreenSettings.TILE_SIZE;
 
