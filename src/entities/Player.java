@@ -28,7 +28,7 @@ public class Player {
         if (kb.upPressed) {
             if(pos.y - Player.playerSpeed >= 0)pos.y -= Player.playerSpeed;
         } else if (kb.downPressed) {
-            if(pos.y + Player.playerSpeed < LevelCreate.levely) pos.y += Player.playerSpeed;
+            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levely) pos.y += Player.playerSpeed;
         } else if (kb.rightPressed) {
             if(pos.x + Player.playerSpeed < LevelCreate.levelx)pos.x += Player.playerSpeed;
         } else if (kb.leftPressed) {

@@ -21,7 +21,6 @@ public class Camera {
         boolean cameraPanned = false;
         //Nasty if else
 
-        //TODO down leftTop changes when it shouldn't
         if(kb.downPressed){
 
             cameraPanned = verifyValidCoordinate(topLeft, 0, ScreenSettings.TILE_SIZE);
@@ -32,9 +31,8 @@ public class Camera {
         else if(kb.leftPressed){
             cameraPanned = verifyValidCoordinate(topLeft, -ScreenSettings.TILE_SIZE , 0);
         }
-        //TODO right changes leftTop when it shouldn't
         else if(kb.rightPressed){
-            cameraPanned = verifyValidCoordinate(topLeft, ScreenSettings.TILE_SIZE, 0);
+            cameraPanned = verifyValidCoordinate(topLeft , ScreenSettings.TILE_SIZE, 0);
         }
         else{
             //No change to camera, no need to get the player sprite moving
@@ -44,8 +42,8 @@ public class Camera {
         //Pan it
         if(cameraPanned){
             panCamera(kb);
-            System.out.println("Player " + player.x / ScreenSettings.TILE_SIZE+ " " + player.y / ScreenSettings.TILE_SIZE);
-            System.out.println(topLeft.x / ScreenSettings.TILE_SIZE+ " " + topLeft.y / ScreenSettings.TILE_SIZE+ "\n");
+        //    System.out.println("Player " + player.x / ScreenSettings.TILE_SIZE+ " " + player.y / ScreenSettings.TILE_SIZE);
+          //  System.out.println(topLeft.x / ScreenSettings.TILE_SIZE+ " " + topLeft.y / ScreenSettings.TILE_SIZE+ "\n");
             return true;
         }
 
@@ -84,11 +82,11 @@ public class Camera {
 
 
     //FUNCTIONAL
-    private boolean verifyValidCoordinate(Coordinate player, int x, int y) {
-        boolean xWithinLeftBound = (player.x + x) >= 0;
-        boolean xWithinRightBound = (player.x + x) < LevelCreate.levelx * ScreenSettings.TILE_SIZE;
-        boolean yWithinUpperBound = (player.y + y) >= 0;
-        boolean yWithinLowerBound = (player.y + y) < LevelCreate.levely * ScreenSettings.TILE_SIZE;
+    private boolean verifyValidCoordinate(Coordinate edge, int x, int y) {
+        boolean xWithinLeftBound = (edge.x + x) >= 0;
+        boolean xWithinRightBound = (edge.x + x + ScreenSettings.SCREEN_WIDTH) < LevelCreate.levelx * ScreenSettings.TILE_SIZE;
+        boolean yWithinUpperBound = (edge.y + y) >= 0;
+        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.SCREEN_HEIGHT) < LevelCreate.levely * ScreenSettings.TILE_SIZE;
 
 //        if (!xWithinLeftBound) {
 //            System.out.println("Failed: x is out of left bound");
