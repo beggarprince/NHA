@@ -11,9 +11,6 @@ public class ScreenSettings {
     public static final int SCREEN_WIDTH = X * TILE_SIZE;
     public static final int SCREEN_HEIGHT = Y * TILE_SIZE;
 
-    public static final int WIDTH_OFFSET = ScreenSettings.SCREEN_WIDTH / ScreenSettings.TILE_SIZE;
-    public static final int HEIGHT_OFFSET = ScreenSettings.SCREEN_HEIGHT / ScreenSettings.TILE_SIZE;
-
 
     public static final int FPS = 60;
     public static final double INTERVAL = 1_000_000_000 / FPS;

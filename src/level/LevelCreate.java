@@ -14,8 +14,8 @@ public class LevelCreate {
         //y level.size()
         //x level.get(0).size()
         levelData = LevelLoader.getLevelData( "res/levelTest.csv");
-        levely = levelData.size();
-        levelx = levelData.get(0).size();
+        levely = levelData.size(); //Size of column
+        levelx = levelData.get(0).size(); // Size of row
         System.out.println(levelx + " " + levely);
     }
 

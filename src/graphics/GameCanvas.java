@@ -6,7 +6,6 @@ import io.kbInput;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 //Game Panel is the main game loop
@@ -43,9 +42,6 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintTileBackground(Graphics2D g){
-      //  System.out.println(camera.topLeft.x);
-//        System.out.println(camera.topLeft.x + " " + camera.topLeft.y);
-//        System.out.println(camera.topLeft.y / ScreenSettings.TILE_SIZE + " " + camera.topLeft.y / ScreenSettings.TILE_SIZE);
         for (int row = camera.topLeft.y / ScreenSettings.TILE_SIZE; row < camera.topLeft.y / ScreenSettings.TILE_SIZE + (ScreenSettings.Y * ScreenSettings.TILE_SIZE); row++) {
 
 

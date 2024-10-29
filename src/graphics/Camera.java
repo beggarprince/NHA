@@ -88,21 +88,8 @@ public class Camera {
         boolean yWithinUpperBound = (edge.y + y) >= 0;
         boolean yWithinLowerBound = (edge.y + y + ScreenSettings.SCREEN_HEIGHT) < LevelCreate.levely * ScreenSettings.TILE_SIZE;
 
-//        if (!xWithinLeftBound) {
-//            System.out.println("Failed: x is out of left bound");
-//        }
-//        if (!xWithinRightBound) {
-//            System.out.println("Failed: x is out of right bound");
-//        }
-//        if (!yWithinUpperBound) {
-//            System.out.println("Failed: y is out of upper bound");
-//        }
-//        if (!yWithinLowerBound) {
-//            System.out.println("Failed: y is out of lower bound");
-//        }
 
         if (xWithinLeftBound && xWithinRightBound && yWithinUpperBound && yWithinLowerBound) {
-           // System.out.println("All cases passed: valid coordinate");
             return true;
         }
         return false;

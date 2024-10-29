@@ -6,6 +6,8 @@ import io.kbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
+import java.util.logging.Level;
+
 public class Engine implements Runnable{
     //Setup
     Coordinate leftTop = new Coordinate(0,0);
@@ -20,8 +22,10 @@ public class Engine implements Runnable{
     //Ideally this should be fed into the engine when creating so i can alternate starting pos, but fuck it
 
     public void startGameThread(){
+
         gameLifecycle = new Thread(this);
         gameLifecycle.start();
+
     }
 
 

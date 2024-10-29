@@ -11,33 +11,33 @@ import java.io.IOException;
 
 public class Player {
     public BufferedImage PlayerImage = null;
-    static final public  int playerSpeed = ScreenSettings.TILE_SIZE;
+    static final private  int playerSpeed = ScreenSettings.TILE_SIZE ;
 
 
-    public Coordinate pos = new Coordinate(64,64);
+    public Coordinate pos = new Coordinate(ScreenSettings.X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
 
     public Player(){
+        System.out.println( pos.x / ScreenSettings.TILE_SIZE+ " " + pos.y / ScreenSettings.TILE_SIZE);
         setPlayerImage();
-        //pos = coordinate;
     }
 
+    //JANK, there is an off by one error fixed by +1 on y axis and -1 on x axis, otherwise y axis doesn't go to corner and x axis goes off by 1
+    //Player speed introduces jank if i use it to check bounds and it does not equal a tile
     public void playerPosUpdate(kbInput kb) {
         System.out.println("Moving player");
-//TODO Player can go out of bounds, 1 to the right and 3 downwards. I'm not sure why
         //At least for now this keeps the player in the screen but camera does not pan
         if (kb.upPressed) {
             if(pos.y - Player.playerSpeed >= 0)pos.y -= Player.playerSpeed;
         } else if (kb.downPressed) {
-            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levely) pos.y += Player.playerSpeed;
+            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levely +1) pos.y += Player.playerSpeed;
         } else if (kb.rightPressed) {
-            if(pos.x + Player.playerSpeed < LevelCreate.levelx)pos.x += Player.playerSpeed;
+            if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < LevelCreate.levelx -1 )pos.x += Player.playerSpeed;
+            System.out.println(pos.x /ScreenSettings.TILE_SIZE);
+
         } else if (kb.leftPressed) {
             if(pos.x - Player.playerSpeed >= 0)pos.x -= Player.playerSpeed;
         }
     }
-
-
-
 
     //BC the player is just a cursor in this game it needs to pan to whatever direction the player is headed towards
 
