@@ -10,12 +10,13 @@ public class Camera {
     public int offsetX = 0;
     public int offsetY = 0;
 
+    //This would be the starting stage, tbh could just start based off the player pos
     public Camera(Coordinate tl) {
         this.topLeft = tl;
     }
 
     //Will attempt to pan and notify the engine if it panned or whether we have to displace the player
-    public boolean cameraUpdate(Coordinate player, kbInput kb) {
+    public boolean cameraUpdate( kbInput kb) {
         //code to decide if camera pans
         //ATM it will only pan at the edge
         boolean cameraPanned = false;
@@ -42,14 +43,8 @@ public class Camera {
         //Pan it
         if(cameraPanned){
             panCamera(kb);
-        //    System.out.println("Player " + player.x / ScreenSettings.TILE_SIZE+ " " + player.y / ScreenSettings.TILE_SIZE);
-          //  System.out.println(topLeft.x / ScreenSettings.TILE_SIZE+ " " + topLeft.y / ScreenSettings.TILE_SIZE+ "\n");
             return true;
         }
-
-        //At this point the camera is at the edge and cannot move, so we must move the player sprite instead
-        //Or we simply don't want to move teh camera
-     //   System.out.println("Camera did not pan");
         return false;
     }
 
@@ -60,40 +55,41 @@ public class Camera {
         if (kb.downPressed) {
             topLeft.y += movementAmount;
             offsetY++;
-         //   System.out.println("Camera panned down by " + movementAmount + " units.");
+
         } else if (kb.upPressed) {
             topLeft.y -= movementAmount;
             offsetY--;
-         //   System.out.println("Camera panned up by " + movementAmount + " units.");
         } else if (kb.leftPressed) {
             topLeft.x -= movementAmount;
             offsetX--;
-           // System.out.println("Camera panned left by " + movementAmount + " units.");
 
         } else if (kb.rightPressed) {
             topLeft.x += movementAmount;
             offsetX++;
-          //  System.out.println("Camera panned right by " + movementAmount + " units.");
         } else {
             System.out.println("No movement detected.");
         }
     }
 
-
-
     //FUNCTIONAL
     private boolean verifyValidCoordinate(Coordinate edge, int x, int y) {
         boolean xWithinLeftBound = (edge.x + x) >= 0;
-        boolean xWithinRightBound = (edge.x + x + ScreenSettings.SCREEN_WIDTH) < LevelCreate.levelx * ScreenSettings.TILE_SIZE;
+        boolean xWithinRightBound = (edge.x + x + ScreenSettings.SCREEN_WIDTH) < LevelCreate.levelColumns * ScreenSettings.TILE_SIZE;
         boolean yWithinUpperBound = (edge.y + y) >= 0;
-        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.SCREEN_HEIGHT) < LevelCreate.levely * ScreenSettings.TILE_SIZE;
+        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.SCREEN_HEIGHT) < LevelCreate.levelRows * ScreenSettings.TILE_SIZE;
 
 
-        if (xWithinLeftBound && xWithinRightBound && yWithinUpperBound && yWithinLowerBound) {
+        if (xWithinLeftBound &&
+                xWithinRightBound &&
+                yWithinUpperBound &&
+                yWithinLowerBound) {
             return true;
         }
         return false;
     }
 
+    //TODO
+    public void centerCameraOnPlayer(){
 
+    }
 }

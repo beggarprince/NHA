@@ -39,14 +39,6 @@ public class LevelLoader {
             e.printStackTrace();
         }
 
-        //WORKS
-        // Print the stored 2D array
-//        for (ArrayList<Integer> row : data) {
-//            for (Integer value : row) {
-//                System.out.print(value + " ");
-//            }
-//            System.out.println();  // Newline after each row
-//        }
         return data;
     }
 }

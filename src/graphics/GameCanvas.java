@@ -23,6 +23,8 @@ public class GameCanvas extends JPanel {
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.SCREEN_WIDTH, ScreenSettings.SCREEN_HEIGHT)));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
+        //TODO
+        //The key listener can be added to the engine instead
         this.addKeyListener(kb);
         this.setFocusable(true);
         player = p;
@@ -84,6 +86,6 @@ public class GameCanvas extends JPanel {
         //get player state
 
         //paint by image
-        g2.drawImage(player.PlayerImage, player.pos.x, player.pos.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+        g2.drawImage(player.playerImage, player.pos.x, player.pos.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
     }
 }

@@ -15,13 +15,9 @@ public enum TileType {
 
     // Enum constructor, loading the image
     TileType(String imagePath) {
-        try {
-            this.image = ImageIO.read(getClass()
-                    .getClassLoader()
-                    .getResourceAsStream(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            this.image = imgLoader.getImage(imagePath);
+
     }
 
     // Method to get the image associated with the tile type

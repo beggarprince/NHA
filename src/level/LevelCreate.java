@@ -8,15 +8,13 @@ import java.util.ArrayList;
 //Maybe some logic in determining what to call, other than that this seems redundant
 public class LevelCreate {
     public ArrayList<ArrayList<Integer>> levelData;
-    public static int levelx;
-    public static int levely;
-    public LevelCreate(){
-        //y level.size()
-        //x level.get(0).size()
-        levelData = LevelLoader.getLevelData( "res/levelTest.csv");
-        levely = levelData.size(); //Size of column
-        levelx = levelData.get(0).size(); // Size of row
-        System.out.println(levelx + " " + levely);
+    public static int levelColumns;
+    public static int levelRows;
+    public LevelCreate(String levelFilePath){
+        levelData = LevelLoader.getLevelData( levelFilePath);
+        levelRows = levelData.size(); //Size of column
+        levelColumns = levelData.get(0).size(); // Size of row
+        System.out.println(levelColumns + " " + levelRows);
     }
 
 

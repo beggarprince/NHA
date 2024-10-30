@@ -6,6 +6,7 @@ import io.kbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
+import javax.swing.*;
 import java.util.logging.Level;
 
 public class Engine implements Runnable{
@@ -16,7 +17,7 @@ public class Engine implements Runnable{
     kbInput kb = new kbInput();
     Thread gameLifecycle;
     Player player = new Player();
-    LevelCreate level = new LevelCreate();
+    LevelCreate level = new LevelCreate("res/levelTest.csv");
     GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera);
 
     //Ideally this should be fed into the engine when creating so i can alternate starting pos, but fuck it
@@ -46,9 +47,9 @@ public class Engine implements Runnable{
             //Update game information
             if(delta >=1) {
                 boolean cameraPanned;
-                cameraPanned = camera.cameraUpdate(player.pos, kb);
+                cameraPanned = camera.cameraUpdate(kb);
                 if(!cameraPanned)player.playerPosUpdate(kb);
-
+                if(kb.debug) player.playerHurt();
                 delta--;
                 //Update UI
                 gamePanel.repaint();

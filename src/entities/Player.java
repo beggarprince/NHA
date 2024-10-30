@@ -1,37 +1,50 @@
 package entities;
 
 import graphics.ScreenSettings;
+import graphics.imgLoader;
 import io.kbInput;
 import level.LevelCreate;
 import util.Coordinate;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player {
-    public BufferedImage PlayerImage = null;
-    static final private  int playerSpeed = ScreenSettings.TILE_SIZE ;
+    public BufferedImage playerImage = null;
+    static final private int playerSpeed = ScreenSettings.TILE_SIZE ;
+
+    private enum PlayerSprite {
+        PLAYER(imgLoader.getImage("knight.png")),
+        ENEMY(imgLoader.getImage("hurtknight.png"));
+
+        private final BufferedImage image;
+
+        PlayerSprite(BufferedImage image) {
+            this.image = image;
+        }
+        public BufferedImage getImage() {
+            return image;
+        }
+    }
 
 
     public Coordinate pos = new Coordinate(ScreenSettings.X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
 
     public Player(){
-        System.out.println( pos.x / ScreenSettings.TILE_SIZE+ " " + pos.y / ScreenSettings.TILE_SIZE);
         setPlayerImage();
     }
 
+    //TODO
     //JANK, there is an off by one error fixed by +1 on y axis and -1 on x axis, otherwise y axis doesn't go to corner and x axis goes off by 1
     //Player speed introduces jank if i use it to check bounds and it does not equal a tile
     public void playerPosUpdate(kbInput kb) {
-        System.out.println("Moving player");
+
         //At least for now this keeps the player in the screen but camera does not pan
         if (kb.upPressed) {
             if(pos.y - Player.playerSpeed >= 0)pos.y -= Player.playerSpeed;
         } else if (kb.downPressed) {
-            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levely +1) pos.y += Player.playerSpeed;
+            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levelRows +1) pos.y += Player.playerSpeed;
         } else if (kb.rightPressed) {
-            if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < LevelCreate.levelx -1 )pos.x += Player.playerSpeed;
+            if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < LevelCreate.levelColumns -1 )pos.x += Player.playerSpeed;
             System.out.println(pos.x /ScreenSettings.TILE_SIZE);
 
         } else if (kb.leftPressed) {
@@ -41,11 +54,12 @@ public class Player {
 
     //BC the player is just a cursor in this game it needs to pan to whatever direction the player is headed towards
 
-    private void setPlayerImage(){
-        try{
-            PlayerImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("dumbaahknight.png"));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+    private void setPlayerImage() {
+        playerImage = PlayerSprite.PLAYER.getImage();
+    }
+
+
+    public void playerHurt() {
+        playerImage = PlayerSprite.ENEMY.getImage();
     }
 }

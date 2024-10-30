@@ -1,11 +1,12 @@
 package entities;
 
-import javax.imageio.ImageIO;
+import graphics.imgLoader;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Slime {
-    BufferedImage SlimeImage;
+    BufferedImage slimeImage;
 
     public Slime(){
         setSlimeImage();
@@ -13,12 +14,7 @@ public class Slime {
 
 
 
-
-    private void setSlimeImage(){
-        try{
-            SlimeImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("slime.png"));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+    private void setSlimeImage() {
+        slimeImage = imgLoader.getImage("slime.png");
     }
 }
