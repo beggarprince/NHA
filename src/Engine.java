@@ -1,3 +1,4 @@
+import entities.Enemy.EnemyFactory;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
@@ -19,6 +20,7 @@ public class Engine implements Runnable{
     Player player = new Player();
     LevelCreate level = new LevelCreate("res/levelTest.csv");
     GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera);
+    EnemyFactory enemyFactory = new EnemyFactory();
 
     //Ideally this should be fed into the engine when creating so i can alternate starting pos, but fuck it
 
@@ -47,9 +49,12 @@ public class Engine implements Runnable{
             //Update game information
             if(delta >=1) {
                 boolean cameraPanned;
-                cameraPanned = camera.cameraUpdate(kb);
+                cameraPanned = camera.updateCameraPosition(kb);
                 if(!cameraPanned)player.playerPosUpdate(kb);
-                if(kb.debug) player.playerHurt();
+                if(kb.debug) {
+                    player.playerHurt();
+                    enemyFactory.createEnemy("Slime", new Coordinate(64, 64 ));
+                }
                 delta--;
                 //Update UI
                 gamePanel.repaint();

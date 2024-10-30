@@ -15,38 +15,32 @@ public class Camera {
         this.topLeft = tl;
     }
 
-    //Will attempt to pan and notify the engine if it panned or whether we have to displace the player
-    public boolean cameraUpdate( kbInput kb) {
-        //code to decide if camera pans
-        //ATM it will only pan at the edge
-        boolean cameraPanned = false;
-        //Nasty if else
+    public boolean updateCameraPosition(kbInput kb) {
+        // Determine if the camera should pan based on edge movement
+        boolean isCameraPanned = false;
 
-        if(kb.downPressed){
-
-            cameraPanned = verifyValidCoordinate(topLeft, 0, ScreenSettings.TILE_SIZE);
-        }
-        else if(kb.upPressed){
-            cameraPanned = verifyValidCoordinate(topLeft, 0, -ScreenSettings.TILE_SIZE);
-        }
-        else if(kb.leftPressed){
-            cameraPanned = verifyValidCoordinate(topLeft, -ScreenSettings.TILE_SIZE , 0);
-        }
-        else if(kb.rightPressed){
-            cameraPanned = verifyValidCoordinate(topLeft , ScreenSettings.TILE_SIZE, 0);
-        }
-        else{
-            //No change to camera, no need to get the player sprite moving
+        // Check input and update camera coordinates
+        if (kb.downPressed) {
+            isCameraPanned = verifyValidCoordinate(topLeft, 0, ScreenSettings.TILE_SIZE);
+            if(!isCameraPanned) return false;
+        } else if (kb.upPressed) {
+            isCameraPanned = verifyValidCoordinate(topLeft, 0, -ScreenSettings.TILE_SIZE);
+            if(!isCameraPanned) return false;
+        } else if (kb.leftPressed) {
+            isCameraPanned = verifyValidCoordinate(topLeft, -ScreenSettings.TILE_SIZE, 0);
+            if(!isCameraPanned) return false;
+        } else if (kb.rightPressed) {
+            isCameraPanned = verifyValidCoordinate(topLeft, ScreenSettings.TILE_SIZE, 0);
+            if(!isCameraPanned) return false;
+        } else {
+            // No movement input, camera does not need updating
             return true;
         }
 
-        //Pan it
-        if(cameraPanned){
             panCamera(kb);
-            return true;
-        }
-        return false;
+            return  isCameraPanned;
     }
+
 
     // Movement of the camera, nothing else
     private void panCamera(kbInput kb) {

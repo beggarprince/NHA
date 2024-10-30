@@ -39,6 +39,7 @@ public class GameCanvas extends JPanel {
         g2.setColor(Color.white);
         paintTileBackground(g2);
         paintPlayer(g2);
+        paintEnemies(g2);
         g2.dispose();
 
     }
@@ -82,10 +83,14 @@ public class GameCanvas extends JPanel {
         }
     }
 
-    private void paintPlayer(Graphics2D g2){
+    private void paintPlayer(Graphics2D g){
         //get player state
 
         //paint by image
-        g2.drawImage(player.playerImage, player.pos.x, player.pos.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+        g.drawImage(player.playerImage, player.pos.x, player.pos.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+    }
+
+    private void paintEnemies(Graphics2D g){
+
     }
 }

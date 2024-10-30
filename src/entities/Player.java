@@ -45,7 +45,6 @@ public class Player {
             if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levelRows +1) pos.y += Player.playerSpeed;
         } else if (kb.rightPressed) {
             if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < LevelCreate.levelColumns -1 )pos.x += Player.playerSpeed;
-            System.out.println(pos.x /ScreenSettings.TILE_SIZE);
 
         } else if (kb.leftPressed) {
             if(pos.x - Player.playerSpeed >= 0)pos.x -= Player.playerSpeed;
