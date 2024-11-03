@@ -3,7 +3,7 @@ package entities;
 import graphics.ScreenSettings;
 import graphics.imgLoader;
 import io.kbInput;
-import level.LevelCreate;
+import level.Level;
 import util.Coordinate;
 
 import java.awt.image.BufferedImage;
@@ -31,6 +31,7 @@ public class Player {
 
     public Player(){
         setPlayerImage();
+        System.out.println(pos.x + " " + pos.y);
     }
 
     //TODO
@@ -42,13 +43,14 @@ public class Player {
         if (kb.upPressed) {
             if(pos.y - Player.playerSpeed >= 0)pos.y -= Player.playerSpeed;
         } else if (kb.downPressed) {
-            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < LevelCreate.levelRows +1) pos.y += Player.playerSpeed;
+            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < Level.levelRows +1) pos.y += Player.playerSpeed;
         } else if (kb.rightPressed) {
-            if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < LevelCreate.levelColumns -1 )pos.x += Player.playerSpeed;
+            if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < Level.levelColumns -1 )pos.x += Player.playerSpeed;
 
         } else if (kb.leftPressed) {
             if(pos.x - Player.playerSpeed >= 0)pos.x -= Player.playerSpeed;
         }
+
     }
 
     //BC the player is just a cursor in this game it needs to pan to whatever direction the player is headed towards

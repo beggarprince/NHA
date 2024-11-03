@@ -2,13 +2,10 @@ import entities.Enemy.EnemyFactory;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
-import level.LevelCreate;
+import level.Level;
 import io.kbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
-
-import javax.swing.*;
-import java.util.logging.Level;
 
 public class Engine  implements Runnable{
     //Setup
@@ -18,7 +15,8 @@ public class Engine  implements Runnable{
     kbInput kb = new kbInput();
     Thread gameLifecycle;
     Player player = new Player();
-    LevelCreate level = new LevelCreate("res/levelTest.csv");
+    Level level = new Level("res/levelTest.csv");
+
     GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera);
     EnemyFactory enemyFactory = new EnemyFactory();
 
@@ -55,6 +53,11 @@ public class Engine  implements Runnable{
                     player.playerHurt();
                     enemyFactory.createEnemy("Slime", new Coordinate(64, 64 ));
                 }
+                if(kb.dig){
+                    //get cursor pos then change that type to gravel aka type 3
+                    level.dig(player.pos);
+                }
+
                 frameRateDelta--;
 
                 //Update UI

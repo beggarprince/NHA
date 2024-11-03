@@ -2,9 +2,6 @@ package graphics;
 
 import entities.Player;
 import io.kbInput;
-import util.Coordinate;
-
-import javax.script.ScriptEngine;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -45,50 +42,51 @@ public class GameCanvas extends JPanel {
 
     }
 
-    private void paintTileBackground(Graphics2D g){
-       Coordinate tl = camera.topLeftCrn;
-       int count = 0;
-     //  System.out.println((tl.y / ScreenSettings.TILE_SIZE));
-        //Det subset in array
-        int ly = tl.y / ScreenSettings.TILE_SIZE;
-        int l1 = ly; // Placeholders for camera.topLefrCrn.y to avoid the constant division
+    private void paintTileBackground(Graphics2D g) {
 
-        //Now that the bounds are in the tile system
+        int count = 0;
 
-        //While within bounds of the camera AND screen
-        while(ly < (ScreenSettings.TS_Y + l1) && ly < level.size()){
+        // Calculate starting tile indices based on the camera's top-left corner
+        int startTileY = camera.topLeftCrn.y / ScreenSettings.TILE_SIZE;
+        int startTileX = camera.topLeftCrn.x / ScreenSettings.TILE_SIZE;
 
-            int lx = tl.x / ScreenSettings.TILE_SIZE;
-            int l2 = lx;
+        // Calculate the ending tile indices to cover the visible screen area
+        int endTileY = startTileY + ScreenSettings.TS_Y;
+        int endTileX = startTileX + ScreenSettings.TS_X;
 
-            //Ditto but for the x bounds
-            while (lx < (ScreenSettings.TS_X + l2) && lx < level.get(ly).size()) {
-                count++;
-                //ATP we paint the row
-                if (ly < 0 || ly >= level.size() || lx < 0 || lx >= level.get(ly).size()) {
-                    lx++; // Increment lx to avoid infinite loop
-                    continue;
-                }
-                int tileValue = level.get(ly).get(lx);
+        // Loop over the vertical tiles
+        for (int tileY = startTileY; tileY < endTileY && tileY < level.size(); tileY++) {
 
-                // Calculate the position where the tile should be drawn
-                int x = lx * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE);
-                int y = ly * ScreenSettings.TILE_SIZE - (camera.offsetY * ScreenSettings.TILE_SIZE);
-
-
-                // Draw the image
-                g.drawImage(selectImage(tileValue), x, y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
-
-                //increment x pos
-                lx++;
+            // Skip out-of-bounds rows
+            if (tileY < 0 ) {
+                continue;
             }
 
-            //increment y pos
-            ly++;
-        }
-        System.out.println(count);
+            // Loop over the horizontal tiles
+            for (int tileX = startTileX; tileX < endTileX && tileX < level.get(tileY).size(); tileX++) {
 
+                // Skip out-of-bounds columns
+                if (tileX < 0 || tileX >= level.get(tileY).size()) {
+                    continue;
+                }
+
+                count++;
+
+                // Get the tile value at the current position
+                int tileValue = level.get(tileY).get(tileX);
+
+                // Calculate the drawing position
+                int x = tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE);
+                int y = tileY * ScreenSettings.TILE_SIZE - (camera.offsetY * ScreenSettings.TILE_SIZE);
+
+                // Draw the tile image
+                g.drawImage(selectImage(tileValue), x, y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+            }
+        }
+
+       //  System.out.println(count); // Uncomment to see the count of painted tiles
     }
+
 
     private BufferedImage selectImage(int tileValue){
         switch (tileValue) {
@@ -96,6 +94,10 @@ public class GameCanvas extends JPanel {
                 return TileType.GRASS.getImage();
             case 2:
                 return TileType.BRICK.getImage();
+            case 3:
+                return  TileType.PATH.getImage();
+            case 4:
+                return TileType.MANA.getImage();
             default:
                 return TileType.DIRT.getImage();
         }

@@ -1,7 +1,7 @@
 package graphics;
 
 import io.kbInput;
-import level.LevelCreate;
+import level.Level;
 import util.Coordinate;
 
 // Updated Camera class with Coordinate pairs for each corner
@@ -68,9 +68,9 @@ public class Camera {
     //FUNCTIONAL
     private boolean verifyValidCoordinate(Coordinate edge, int x, int y) {
         boolean xWithinLeftBound = (edge.x + x) >= 0;
-        boolean xWithinRightBound = (edge.x + x + ScreenSettings.PX_SCREEN_WIDTH) < LevelCreate.levelColumns * ScreenSettings.TILE_SIZE;
+        boolean xWithinRightBound = (edge.x + x + ScreenSettings.PX_SCREEN_WIDTH) < Level.levelColumns * ScreenSettings.TILE_SIZE;
         boolean yWithinUpperBound = (edge.y + y) >= 0;
-        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.PX_SCREEN_HEIGHT) < LevelCreate.levelRows * ScreenSettings.TILE_SIZE;
+        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.PX_SCREEN_HEIGHT) < Level.levelRows * ScreenSettings.TILE_SIZE;
 
 
         if (xWithinLeftBound &&

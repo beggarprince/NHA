@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 public class kbInput implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     public boolean debug = false;
+    public boolean dig = false;
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -30,6 +31,9 @@ public class kbInput implements KeyListener {
         if(code == KeyEvent.VK_P){
             debug = true;
         }
+        if(code == KeyEvent.VK_F){
+            dig = true;
+        }
     }
 
     @Override
@@ -50,6 +54,9 @@ public class kbInput implements KeyListener {
         }
         if(code == KeyEvent.VK_P){
             debug = false;
+        }
+        if(code == KeyEvent.VK_F){
+            dig = false;
         }
     }
 }
