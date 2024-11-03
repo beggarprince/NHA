@@ -13,8 +13,7 @@ public class LevelCreate {
     public LevelCreate(String levelFilePath){
         levelData = LevelLoader.getLevelData( levelFilePath);
         levelRows = levelData.size(); //Size of column
-        levelColumns = levelData.get(0).size(); // Size of row
-        System.out.println(levelColumns + " " + levelRows);
+        levelColumns = levelData.get(0).size(); // Size of rowa
     }
 
 

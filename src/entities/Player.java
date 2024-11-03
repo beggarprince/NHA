@@ -27,7 +27,7 @@ public class Player {
     }
 
 
-    public Coordinate pos = new Coordinate(ScreenSettings.X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
+    public Coordinate pos = new Coordinate(ScreenSettings.TS_X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.TS_Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
 
     public Player(){
         setPlayerImage();

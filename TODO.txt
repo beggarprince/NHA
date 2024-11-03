@@ -5,4 +5,3 @@ Collisions
 Slime
     The first enemy type. It simply needs to walk forward until it hits a wall and choose a random direction except the one it came from
         The direction it came from will only be used if it's a dead end and the slime needs to backtrack
-        

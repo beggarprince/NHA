@@ -10,7 +10,7 @@ import util.Coordinate;
 import javax.swing.*;
 import java.util.logging.Level;
 
-public class Engine implements Runnable{
+public class Engine  implements Runnable{
     //Setup
     Coordinate leftTop = new Coordinate(0,0);
     Camera camera = new Camera(leftTop);
@@ -22,11 +22,10 @@ public class Engine implements Runnable{
     GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera);
     EnemyFactory enemyFactory = new EnemyFactory();
 
-    //Ideally this should be fed into the engine when creating so i can alternate starting pos, but fuck it
-
     public void startGameThread(){
 
         gameLifecycle = new Thread(this);
+
         gameLifecycle.start();
 
     }
@@ -36,26 +35,28 @@ public class Engine implements Runnable{
 
     @Override
     public void run() {
-        double delta = 0 ; //The change in time must be at least 1 second for it to update
-        long prevTime = System.nanoTime();
-        long currTime;
+        double frameRateDelta = 0 ;
+        long frameRatePrevTime = System.nanoTime();
+        long frameRateCurrentTime;
 
         while(gameLifecycle != null){
 
-            currTime = System.nanoTime();
-            delta += (currTime - prevTime) / ScreenSettings.INTERVAL;
-            prevTime = currTime;
+            frameRateCurrentTime = System.nanoTime();
+            frameRateDelta += (frameRateCurrentTime - frameRatePrevTime) / ScreenSettings.INTERVAL;
+            frameRatePrevTime = frameRateCurrentTime;
 
-            //Update game information
-            if(delta >=1) {
+            //Update GUI information
+            if(frameRateDelta >=1) {
                 boolean cameraPanned;
                 cameraPanned = camera.updateCameraPosition(kb);
                 if(!cameraPanned)player.playerPosUpdate(kb);
+
                 if(kb.debug) {
                     player.playerHurt();
                     enemyFactory.createEnemy("Slime", new Coordinate(64, 64 ));
                 }
-                delta--;
+                frameRateDelta--;
+
                 //Update UI
                 gamePanel.repaint();
             }

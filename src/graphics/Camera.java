@@ -6,13 +6,13 @@ import util.Coordinate;
 
 // Updated Camera class with Coordinate pairs for each corner
 public class Camera {
-    public Coordinate topLeft;
+    public Coordinate topLeftCrn;
     public int offsetX = 0;
     public int offsetY = 0;
 
     //This would be the starting stage, tbh could just start based off the player pos
     public Camera(Coordinate tl) {
-        this.topLeft = tl;
+        this.topLeftCrn = tl;
     }
 
     public boolean updateCameraPosition(kbInput kb) {
@@ -21,16 +21,16 @@ public class Camera {
 
         // Check input and update camera coordinates
         if (kb.downPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeft, 0, ScreenSettings.TILE_SIZE);
+            isCameraPanned = verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE);
             if(!isCameraPanned) return false;
         } else if (kb.upPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeft, 0, -ScreenSettings.TILE_SIZE);
+            isCameraPanned = verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE);
             if(!isCameraPanned) return false;
         } else if (kb.leftPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeft, -ScreenSettings.TILE_SIZE, 0);
+            isCameraPanned = verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0);
             if(!isCameraPanned) return false;
         } else if (kb.rightPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeft, ScreenSettings.TILE_SIZE, 0);
+            isCameraPanned = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
             if(!isCameraPanned) return false;
         } else {
             // No movement input, camera does not need updating
@@ -47,18 +47,18 @@ public class Camera {
         int movementAmount = ScreenSettings.TILE_SIZE;
 
         if (kb.downPressed) {
-            topLeft.y += movementAmount;
+            topLeftCrn.y += movementAmount;
             offsetY++;
 
         } else if (kb.upPressed) {
-            topLeft.y -= movementAmount;
+            topLeftCrn.y -= movementAmount;
             offsetY--;
         } else if (kb.leftPressed) {
-            topLeft.x -= movementAmount;
+            topLeftCrn.x -= movementAmount;
             offsetX--;
 
         } else if (kb.rightPressed) {
-            topLeft.x += movementAmount;
+            topLeftCrn.x += movementAmount;
             offsetX++;
         } else {
             System.out.println("No movement detected.");
@@ -68,9 +68,9 @@ public class Camera {
     //FUNCTIONAL
     private boolean verifyValidCoordinate(Coordinate edge, int x, int y) {
         boolean xWithinLeftBound = (edge.x + x) >= 0;
-        boolean xWithinRightBound = (edge.x + x + ScreenSettings.SCREEN_WIDTH) < LevelCreate.levelColumns * ScreenSettings.TILE_SIZE;
+        boolean xWithinRightBound = (edge.x + x + ScreenSettings.PX_SCREEN_WIDTH) < LevelCreate.levelColumns * ScreenSettings.TILE_SIZE;
         boolean yWithinUpperBound = (edge.y + y) >= 0;
-        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.SCREEN_HEIGHT) < LevelCreate.levelRows * ScreenSettings.TILE_SIZE;
+        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.PX_SCREEN_HEIGHT) < LevelCreate.levelRows * ScreenSettings.TILE_SIZE;
 
 
         if (xWithinLeftBound &&

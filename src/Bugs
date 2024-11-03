@@ -1,0 +1,5 @@
+1. Scale flicker when moving camera and updating screen
+SUMMARY
+    It seems that lower end hardware cannot keep up with the repainting of screen when the player moves quickly, resulting in black tiles.
+FILES
+    GameCanvas
