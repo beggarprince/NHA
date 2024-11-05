@@ -10,7 +10,6 @@ public class Camera {
     public int offsetX = 0;
     public int offsetY = 0;
 
-    //This would be the starting stage, tbh could just start based off the player pos
     public Camera(Coordinate tl) {
         this.topLeftCrn = tl;
     }
@@ -64,7 +63,6 @@ public class Camera {
         }
     }
 
-    //FUNCTIONAL
     private boolean verifyValidCoordinate(Coordinate edge, int x, int y) {
         boolean xWithinLeftBound = (edge.x + x) >= 0;
         boolean xWithinRightBound = (edge.x + x + ScreenSettings.PX_SCREEN_WIDTH) < Level.levelColumns * ScreenSettings.TILE_SIZE;

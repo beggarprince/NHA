@@ -21,7 +21,7 @@ public class Level {
     }
 
     public void dig(int x, int y) {
-
+        if(levelData.get(y).get(x) == 3) return;
         try {
             levelData.get(y).set(x, 3);  // Set to 3
 

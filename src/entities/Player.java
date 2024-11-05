@@ -92,7 +92,6 @@ public class Player {
         else if(kb.rightPressed){
             playerXPos++;
         }
-        System.out.println(playerXPos + " " + playerYPos);
 
     }
 

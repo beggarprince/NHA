@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-//Game Panel is the main game loop
+//Engine is the main game loop
 //Updates Screen and handles input
 
 public class GameCanvas extends JPanel {
@@ -44,7 +44,7 @@ public class GameCanvas extends JPanel {
 
     private void paintTileBackground(Graphics2D g) {
 
-        int count = 0;
+        //int count = 0;
 
         // Calculate starting tile indices based on the camera's top-left corner
         int startTileY = camera.topLeftCrn.y / ScreenSettings.TILE_SIZE;
@@ -70,7 +70,7 @@ public class GameCanvas extends JPanel {
                     continue;
                 }
 
-                count++;
+                //count++;
 
                 // Get the tile value at the current position
                 int tileValue = level.get(tileY).get(tileX);
