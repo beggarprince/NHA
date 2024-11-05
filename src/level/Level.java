@@ -20,14 +20,13 @@ public class Level {
         levelColumns = levelData.get(0).size(); // Size of rowa
     }
 
-    public void dig(Coordinate pos) {
-        int y = pos.y / ScreenSettings.TILE_SIZE;
-        int x = pos.x / ScreenSettings.TILE_SIZE;
+    public void dig(int x, int y) {
+
         try {
             levelData.get(y).set(x, 3);  // Set to 3
 
         } catch (IndexOutOfBoundsException e) {
-            System.err.println("Error: Position (" + pos.x + ", " + pos.y + ") is out of bounds.");
+            System.err.println("Error: Position (" + x + ", " + y + ") is out of bounds.");
         } catch (NullPointerException e) {
             System.err.println("Error: levelData or a nested ArrayList is null.");
         }

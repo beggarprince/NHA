@@ -17,7 +17,7 @@ public class Camera {
 
     public boolean updateCameraPosition(kbInput kb) {
         // Determine if the camera should pan based on edge movement
-        boolean isCameraPanned = false;
+        boolean isCameraPanned = true;
 
         // Check input and update camera coordinates
         if (kb.downPressed) {
@@ -33,8 +33,7 @@ public class Camera {
             isCameraPanned = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
             if(!isCameraPanned) return false;
         } else {
-            // No movement input, camera does not need updating
-            return true;
+            return false;
         }
 
             panCamera(kb);

@@ -45,9 +45,9 @@ public class Engine  implements Runnable{
 
             //Update GUI information
             if(frameRateDelta >=1) {
-                boolean cameraPanned;
+                boolean cameraPanned = false;
                 cameraPanned = camera.updateCameraPosition(kb);
-                if(!cameraPanned)player.playerPosUpdate(kb);
+                player.playerPosUpdate(kb, cameraPanned);
 
                 if(kb.debug) {
                     player.playerHurt();
@@ -55,7 +55,7 @@ public class Engine  implements Runnable{
                 }
                 if(kb.dig){
                     //get cursor pos then change that type to gravel aka type 3
-                    level.dig(player.pos);
+                    level.dig(player.playerXPos, player.playerYPos);
                 }
 
                 frameRateDelta--;
