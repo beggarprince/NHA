@@ -12,11 +12,15 @@ public class Player {
     public BufferedImage playerImage = null;
     static final private int playerSpeed = ScreenSettings.TILE_SIZE ;
 
+    //World position of player
     public int playerXPos = 0;
     public int playerYPos = 0;
+
+    private int playerXOffset = 0; // Offset from center
+    private int playerYOffset = 0;
     private enum PlayerSprite {
         PLAYER(imgLoader.getImage("knight.png")),
-        ENEMY(imgLoader.getImage("hurtknight.png"));
+        DAMAGEDPLAYER(imgLoader.getImage("hurtknight.png"));
 
         private final BufferedImage image;
 
@@ -53,28 +57,33 @@ public class Player {
             if(pos.y - Player.playerSpeed >= 0){
                 pos.y -= Player.playerSpeed;
                 playerMoved = true;
+                playerYOffset++;
             }
 
         } else if (kb.downPressed) {
             if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < Level.levelRows +1) {
                 playerMoved = true;
                 pos.y += Player.playerSpeed;
+                playerYOffset--;
             }
         } else if (kb.rightPressed) {
             if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < Level.levelColumns -1 ){
                 playerMoved = true;
                 pos.x += Player.playerSpeed;
+                playerXOffset++;
             }
 
         } else if (kb.leftPressed) {
 
             if(pos.x - Player.playerSpeed >= 0){pos.x -= Player.playerSpeed;
             playerMoved = true;
+            playerXOffset--;
             }
         }
 
         }
         if(playerMoved || cameraPanned)updatePlayerWorldPosition(kb);
+
     }
 
     private void updatePlayerWorldPosition(kbInput kb){
@@ -101,6 +110,15 @@ public class Player {
 
 
     public void playerHurt() {
-        playerImage = PlayerSprite.ENEMY.getImage();
+        playerImage = PlayerSprite.DAMAGEDPLAYER.getImage();
     }
+
+    public int getXOffset(){
+        return playerXOffset;
+    }
+    public int getYOffset(){
+        return playerYOffset;
+    }
+
+
 }

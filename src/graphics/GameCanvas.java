@@ -1,5 +1,7 @@
 package graphics;
 
+import entities.Enemy.Enemy;
+import entities.Enemy.EnemyList;
 import entities.Player;
 import io.kbInput;
 import javax.swing.*;
@@ -16,9 +18,10 @@ public class GameCanvas extends JPanel {
     Camera camera;
     Player player;
     ArrayList<ArrayList<Integer>> level;
+    EnemyList enemyList;
 
 
-    public GameCanvas(kbInput kb, Player p, ArrayList<ArrayList<Integer>> levelData, Camera c){
+    public GameCanvas(kbInput kb, Player p, ArrayList<ArrayList<Integer>> levelData, Camera c, EnemyList e){
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT)));
         this.setBackground(Color.black);
@@ -28,6 +31,7 @@ public class GameCanvas extends JPanel {
         player = p;
         level = levelData;
         camera = c;
+        enemyList = e;
     }
 
     public void paintComponent(Graphics g){
@@ -111,6 +115,9 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintEnemies(Graphics2D g){
-
+        ArrayList<Enemy> list = enemyList.getEnemies();
+        for(Enemy e : list){
+            g.drawImage(e.getImage(), e.getPosition().x, e.getPosition().y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+        }
     }
 }

@@ -1,5 +1,4 @@
 package entities.Enemy;
-
 import graphics.imgLoader;
 import util.Coordinate;
 
@@ -24,4 +23,5 @@ public class Slime extends Enemy {
     }
 
     // Slime-specific methods can be added here
+
 }

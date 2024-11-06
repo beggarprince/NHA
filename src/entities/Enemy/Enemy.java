@@ -2,6 +2,10 @@ package entities.Enemy;
 
 import util.Coordinate;
 
+import java.awt.image.BufferedImage;
+
+import static graphics.imgLoader.getImage;
+
 public abstract class Enemy {
     protected int health;
     protected Coordinate position;
@@ -30,6 +34,9 @@ public abstract class Enemy {
 
     // Abstract method for setting the image, to be implemented by subclasses
     protected abstract void setImage();
+
+    public abstract BufferedImage getImage();
+
 
     // Other common methods can be added here
 }

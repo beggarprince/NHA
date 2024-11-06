@@ -1,4 +1,4 @@
-import entities.Enemy.EnemyFactory;
+import entities.Enemy.*;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
@@ -16,9 +16,11 @@ public class Engine  implements Runnable{
     Thread gameLifecycle;
     Player player = new Player();
     Level level = new Level("res/levelTest.csv");
-
-    GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera);
     EnemyFactory enemyFactory = new EnemyFactory();
+    EnemyList enemyList = EnemyFactory.enemyList;
+
+    GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera, enemyList);
+
 
     public void startGameThread(){
 
@@ -45,13 +47,11 @@ public class Engine  implements Runnable{
 
             //Update GUI information
             if(frameRateDelta >=1) {
-                boolean cameraPanned = false;
-                cameraPanned = camera.updateCameraPosition(kb);
-                player.playerPosUpdate(kb, cameraPanned);
+
+                movePlayer(player, camera, kb);
 
                 if(kb.debug) {
-                    player.playerHurt();
-                    enemyFactory.createEnemy("Slime", new Coordinate(64, 64 ));
+                    enemyFactory.createEnemy("Slime", new Coordinate(0, 0 ));
                 }
                 if(kb.dig){
                     //get cursor pos then change that type to gravel aka type 3
@@ -68,6 +68,15 @@ public class Engine  implements Runnable{
         }
 
     }
+
+    private void movePlayer(Player player, Camera camera, kbInput kb){
+        boolean cameraMoved = false;
+        if(player.getXOffset() == 0 && (kb.leftPressed || kb.rightPressed))cameraMoved = camera.updateCameraPosition(kb);
+        else if (player.getYOffset() == 0 && (kb.upPressed || kb.downPressed)) cameraMoved = camera.updateCameraPosition(kb);
+        player.playerPosUpdate(kb, cameraMoved);
+
+    }
+
 
 
 }

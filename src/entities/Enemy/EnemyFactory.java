@@ -3,7 +3,8 @@ package entities.Enemy;
 import util.Coordinate;
 
 public class EnemyFactory {
-    static EnemyList enemyList;
+    public static EnemyList enemyList;
+
     public EnemyFactory(){
         enemyList = new EnemyList();
     }

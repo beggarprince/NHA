@@ -1,8 +1,8 @@
 package entities.Enemy;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import java.util.ArrayList;
 
 public class EnemyList {
     private static EnemyList instance;     // Singleton instance
@@ -35,5 +35,7 @@ public class EnemyList {
     public void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
+
+
 }
 

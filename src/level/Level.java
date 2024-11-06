@@ -38,14 +38,5 @@ public class Level {
         }
     }
 
-    private void print() {
-        for (ArrayList<Integer> row : levelData) {
-            System.out.println(row);  // Prints each row on a new line
-        }
-    }
-
-
-
-
 
 }
