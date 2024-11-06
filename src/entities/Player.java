@@ -37,9 +37,6 @@ public class Player {
 
     public Player(){
         setPlayerImage();
-        System.out.println(pos.x + " " + pos.y);
-
-        System.out.println(pos.x  / ScreenSettings.TILE_SIZE+ " " + pos.y / ScreenSettings.TILE_SIZE);
         playerXPos = pos.x / ScreenSettings.TILE_SIZE;
         playerYPos = pos.y / ScreenSettings.TILE_SIZE;
     }

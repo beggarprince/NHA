@@ -9,6 +9,8 @@ import static graphics.imgLoader.getImage;
 public abstract class Enemy {
     protected int health;
     protected Coordinate position;
+    public int worldPosX;
+    public int worldPosY;
 
     public Enemy(int health, Coordinate position) {
         this.health = health;
@@ -27,6 +29,12 @@ public abstract class Enemy {
     public Coordinate getPosition() {
         return position;
     }
+    public int getWorldPosX(){
+        return worldPosX;
+    }
+    public int getWorldPosY(){
+        return worldPosY;
+    }
 
     public void setPosition(Coordinate position) {
         this.position = position;
@@ -37,6 +45,6 @@ public abstract class Enemy {
 
     public abstract BufferedImage getImage();
 
-
+    public abstract void behavior();
     // Other common methods can be added here
 }

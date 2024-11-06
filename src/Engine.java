@@ -49,7 +49,7 @@ public class Engine  implements Runnable{
             if(frameRateDelta >=1) {
 
                 movePlayer(player, camera, kb);
-
+                runEnemyBehavior();
                 if(kb.debug) {
                     enemyFactory.createEnemy("Slime", new Coordinate(0, 0 ));
                 }
@@ -77,6 +77,10 @@ public class Engine  implements Runnable{
 
     }
 
-
+    private void runEnemyBehavior(){
+        for( Enemy e  : enemyList.getEnemies()){
+            e.behavior();
+        }
+    }
 
 }

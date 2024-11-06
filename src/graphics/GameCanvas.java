@@ -117,7 +117,7 @@ public class GameCanvas extends JPanel {
     private void paintEnemies(Graphics2D g){
         ArrayList<Enemy> list = enemyList.getEnemies();
         for(Enemy e : list){
-            g.drawImage(e.getImage(), e.getPosition().x, e.getPosition().y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+            g.drawImage(e.getImage(), e.getWorldPosX(), e.getWorldPosY(), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
         }
     }
 }

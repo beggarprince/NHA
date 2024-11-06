@@ -1,4 +1,5 @@
 package entities.Enemy;
+import graphics.ScreenSettings;
 import graphics.imgLoader;
 import util.Coordinate;
 
@@ -9,6 +10,8 @@ public class Slime extends Enemy {
 
     public Slime(Coordinate position) {
         super(1, position); // Slime has a default health of 1
+        this.worldPosX = position.x / ScreenSettings.TILE_SIZE;
+        this.worldPosY = position.y / ScreenSettings.TILE_SIZE;
         setImage();
     }
 
@@ -22,6 +25,8 @@ public class Slime extends Enemy {
         return slimeImage;
     }
 
-    // Slime-specific methods can be added here
+    public void behavior(){
+        worldPosX += ScreenSettings.TILE_SIZE;
+    }
 
 }
