@@ -4,6 +4,8 @@ import entities.Enemy.Enemy;
 import entities.Enemy.EnemyList;
 import entities.Player;
 import io.kbInput;
+import level.Tile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,11 +19,11 @@ public class GameCanvas extends JPanel {
     GameCanvas gameCanvas;
     Camera camera;
     Player player;
-    ArrayList<ArrayList<Integer>> level;
+    ArrayList<ArrayList<Tile>> level;
     EnemyList enemyList;
 
 
-    public GameCanvas(kbInput kb, Player p, ArrayList<ArrayList<Integer>> levelData, Camera c, EnemyList e){
+    public GameCanvas(kbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, EnemyList e){
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT)));
         this.setBackground(Color.black);
@@ -77,14 +79,14 @@ public class GameCanvas extends JPanel {
                 //count++;
 
                 // Get the tile value at the current position
-                int tileValue = level.get(tileY).get(tileX);
+                //int tileValue = level.get(tileY).get(tileX);
 
                 // Calculate the drawing position
                 int x = tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE);
                 int y = tileY * ScreenSettings.TILE_SIZE - (camera.offsetY * ScreenSettings.TILE_SIZE);
 
                 // Draw the tile image
-                g.drawImage(selectImage(tileValue), x, y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(level.get(tileY).get(tileX).type.getImage(), x, y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
             }
         }
 
@@ -106,6 +108,8 @@ public class GameCanvas extends JPanel {
                 return TileType.DIRT.getImage();
         }
     }
+
+
 
     private void paintPlayer(Graphics2D g){
         //get player state

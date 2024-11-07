@@ -19,7 +19,7 @@ public class Engine  implements Runnable{
     EnemyFactory enemyFactory = new EnemyFactory();
     EnemyList enemyList = EnemyFactory.enemyList;
 
-    GameCanvas gamePanel = new GameCanvas(kb, player, level.levelData, camera, enemyList);
+    GameCanvas gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
 
 
     public void startGameThread(){
@@ -50,12 +50,14 @@ public class Engine  implements Runnable{
 
                 movePlayer(player, camera, kb);
                 runEnemyBehavior();
+
                 if(kb.debug) {
                     enemyFactory.createEnemy("Slime", new Coordinate(0, 0 ));
                 }
+
                 if(kb.dig){
                     //get cursor pos then change that type to gravel aka type 3
-                    level.dig(player.playerXPos, player.playerYPos);
+                    level.dig(level.tileData, player.playerXPos, player.playerYPos);
                 }
 
                 frameRateDelta--;

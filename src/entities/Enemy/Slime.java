@@ -26,6 +26,9 @@ public class Slime extends Enemy {
     }
 
     public void behavior(){
+        //Determine if the position exists
+        //if(worldPosX + ScreenSettings.TILE_SIZE < )
+        //Determine if we can walk over it
         worldPosX += ScreenSettings.TILE_SIZE;
     }
 

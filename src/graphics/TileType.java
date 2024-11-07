@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 
-//TODO atm the csv system and the enum are not 1:1 in terms of naming convention, needs to be reorganized
 public enum TileType {
     DIRT("dirt.png"),
     GRASS("grass.png"),
@@ -17,7 +16,6 @@ public enum TileType {
 
     // Enum constructor, loading the image
     TileType(String imagePath) {
-
             this.image = imgLoader.getImage(imagePath);
 
     }
