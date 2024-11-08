@@ -118,6 +118,7 @@ public class GameCanvas extends JPanel {
         g.drawImage(player.playerImage, player.pos.x, player.pos.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
     }
 
+    //TODO likely bug here
     private void paintEnemies(Graphics2D g){
         ArrayList<Enemy> list = enemyList.getEnemies();
         for(Enemy e : list){

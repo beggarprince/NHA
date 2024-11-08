@@ -1,7 +1,9 @@
 package graphics
 
+import entities.Enemy.Direction
 import level.Tile
-//V underwhelming
+
 fun detectCollision(t : Tile) : Boolean{
     return t.walkable;
 }
+

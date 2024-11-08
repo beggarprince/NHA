@@ -1,16 +1,30 @@
 package entities.Enemy;
 
+import graphics.ScreenSettings;
+import level.Level;
+import level.Tile;
 import util.Coordinate;
-
+import java.util.Random;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
-import static graphics.imgLoader.getImage;
+import static graphics.CollisionKt.detectCollision;
 
 public abstract class Enemy {
     protected int health;
+    protected int lifespan;
+    protected int hunger;
+    protected Direction dir;
     protected Coordinate position;
+    public boolean dead;
     public int worldPosX;
     public int worldPosY;
+    Level level = Level.getInstance("res/levelTest.csv");
+
+
+    private Random random = new Random();
+
 
     public Enemy(int health, Coordinate position) {
         this.health = health;
@@ -36,6 +50,18 @@ public abstract class Enemy {
         return worldPosY;
     }
 
+    protected void decreaseHunger(){
+        hunger--;
+    }
+
+    protected void damage(int damage){
+        health -= damage;
+    }
+
+    protected void age(){
+        lifespan--;
+    }
+
     public void setPosition(Coordinate position) {
         this.position = position;
     }
@@ -46,5 +72,70 @@ public abstract class Enemy {
     public abstract BufferedImage getImage();
 
     public abstract void behavior();
-    // Other common methods can be added here
+
+    protected Direction getRandomValidDirection(int x, int y) {
+        // List of possible directions
+        List<Direction> possibleDirections = new ArrayList<>();
+
+        possibleDirections.add(Direction.UP);
+        possibleDirections.add(Direction.DOWN);
+        possibleDirections.add(Direction.LEFT);
+        possibleDirections.add(Direction.RIGHT);
+
+        // Remove invalid directions
+        possibleDirections.removeIf(direction -> !validateDirection(direction, x, y)); // whatever is not valid won't be used in the random function
+
+        // If no valid directions, return NOT_MOVING
+        if (possibleDirections.isEmpty()) {
+            return Direction.NOT_MOVING;
+        }
+
+        // Randomly select a valid direction
+        int index = random.nextInt(possibleDirections.size());
+
+        return possibleDirections.get(index);
+    }
+
+    public boolean validateDirection(Direction dir, int x, int y){
+        boolean valid = false;
+
+        if(dir == Direction.UP){
+            if(y > 0 ) {
+                return detectCollision(level.tileData.get(y-1).get(x));
+            }
+        } else if (dir == Direction.DOWN) {
+            if(y < Level.levelRows) {
+                return detectCollision(level.tileData.get(y+1).get(x));
+            }
+        }
+        else if(dir == Direction.LEFT){
+            if(x > 0) {
+                return detectCollision(level.tileData.get(y).get(x-1));
+            }
+        }
+        else if (dir == Direction.RIGHT){
+            //TODO error here
+            if(x / ScreenSettings.TILE_SIZE < Level.levelColumns) {
+                return detectCollision(level.tileData.get(y).get(x+1));
+            }
+        }
+        return valid; //ATP there was an error so we just won't walk at all
+    }
+
+    protected void move(){
+        if(dir == Direction.UP){
+            worldPosY-= ScreenSettings.TILE_SIZE;
+        }
+        else if (dir == Direction.DOWN) {
+            worldPosY+= ScreenSettings.TILE_SIZE;
+        }
+        else if(dir == Direction.LEFT){
+            worldPosX-= ScreenSettings.TILE_SIZE;
+        }
+        else if (dir == Direction.RIGHT){
+           worldPosX+= ScreenSettings.TILE_SIZE;
+        }
+
+    }
+
 }

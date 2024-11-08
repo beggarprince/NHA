@@ -15,7 +15,8 @@ public class Engine  implements Runnable{
     kbInput kb = new kbInput();
     Thread gameLifecycle;
     Player player = new Player();
-    Level level = new Level("res/levelTest.csv");
+    Level level = Level.getInstance("res/levelTest.csv");
+
     EnemyFactory enemyFactory = new EnemyFactory();
     EnemyList enemyList = EnemyFactory.enemyList;
 
