@@ -4,6 +4,7 @@ import entities.Enemy.Enemy;
 import entities.Enemy.EnemyList;
 import entities.Player;
 import io.kbInput;
+import level.Level;
 import level.Tile;
 
 import javax.swing.*;
@@ -21,6 +22,11 @@ public class GameCanvas extends JPanel {
     Player player;
     ArrayList<ArrayList<Tile>> level;
     EnemyList enemyList;
+
+    private int startTileY =0;
+    private int startTileX = 0;
+    private int endTileY = 0;
+    private int endTileX = 0;
 
 
     public GameCanvas(kbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, EnemyList e){
@@ -48,19 +54,27 @@ public class GameCanvas extends JPanel {
 
     }
 
-    private void paintTileBackground(Graphics2D g) {
-
-        //int count = 0;
+    //Takes in a logical tile location and moves it to fit camera
+    private void setCornerTiles(){
 
         // Calculate starting tile indices based on the camera's top-left corner
-        int startTileY = camera.topLeftCrn.y / ScreenSettings.TILE_SIZE;
-        int startTileX = camera.topLeftCrn.x / ScreenSettings.TILE_SIZE;
-
+         startTileY = camera.topLeftCrn.y / ScreenSettings.TILE_SIZE;
+         startTileX = camera.topLeftCrn.x / ScreenSettings.TILE_SIZE;
         // Calculate the ending tile indices to cover the visible screen area
-        int endTileY = startTileY + ScreenSettings.TS_Y;
-        int endTileX = startTileX + ScreenSettings.TS_X;
+         endTileY = startTileY + ScreenSettings.TS_Y;
+         endTileX = startTileX + ScreenSettings.TS_X;
+    }
 
-        // Loop over the vertical tiles
+    private int offsetTileX(int tileX){
+        return  tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE);
+    }
+    private int offsetTileY(int tileY){
+        return tileY * ScreenSettings.TILE_SIZE - (camera.offsetY * ScreenSettings.TILE_SIZE);
+    }
+
+    private void paintTileBackground(Graphics2D g) {
+       setCornerTiles();
+
         for (int tileY = startTileY; tileY < endTileY && tileY < level.size(); tileY++) {
 
             // Skip out-of-bounds rows
@@ -71,26 +85,10 @@ public class GameCanvas extends JPanel {
             // Loop over the horizontal tiles
             for (int tileX = startTileX; tileX < endTileX && tileX < level.get(tileY).size(); tileX++) {
 
-                // Skip out-of-bounds columns
-                if (tileX < 0 || tileX >= level.get(tileY).size()) {
-                    continue;
-                }
-
-                //count++;
-
-                // Get the tile value at the current position
-                //int tileValue = level.get(tileY).get(tileX);
-
-                // Calculate the drawing position
-                int x = tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE);
-                int y = tileY * ScreenSettings.TILE_SIZE - (camera.offsetY * ScreenSettings.TILE_SIZE);
-
-                // Draw the tile image
-                g.drawImage(level.get(tileY).get(tileX).type.getImage(), x, y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(level.get(tileY).get(tileX).type.getImage(), offsetTileX(tileX), offsetTileY(tileY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
             }
         }
 
-       //  System.out.println(count); // Uncomment to see the count of painted tiles
     }
 
 
@@ -118,11 +116,16 @@ public class GameCanvas extends JPanel {
         g.drawImage(player.playerImage, player.pos.x, player.pos.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
     }
 
-    //TODO likely bug here
+    //Needs screen position
     private void paintEnemies(Graphics2D g){
         ArrayList<Enemy> list = enemyList.getEnemies();
         for(Enemy e : list){
-            g.drawImage(e.getImage(), e.getWorldPosX(), e.getWorldPosY(), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+            //If in camera view
+            if((e.worldPosX >= startTileX && e.worldPosX < endTileX) && (e.worldPosY >= startTileY && e.worldPosY < endTileY)) {
+                //Draw according to offset
+                g.drawImage(e.getImage(), offsetTileX(e.worldPosX), offsetTileY(e.worldPosY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+
+            }
         }
     }
 }

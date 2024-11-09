@@ -11,7 +11,7 @@ public class Tile {
     private int mana = 0;
 
     public Tile(TileType t, int posx , int posy){
-        if(type == TileType.PATH) walkable = true;
+        if(t == TileType.PATH) walkable = true;
         this.type = t;
         this.x = posx;
         this.y = posy;

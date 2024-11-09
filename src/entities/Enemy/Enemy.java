@@ -20,6 +20,10 @@ public abstract class Enemy {
     public boolean dead;
     public int worldPosX;
     public int worldPosY;
+    public int screenPosX;
+    public int screenPosY;
+    protected int movementSpeed;
+
     Level level = Level.getInstance("res/levelTest.csv");
 
 
@@ -96,46 +100,41 @@ public abstract class Enemy {
         return possibleDirections.get(index);
     }
 
-    public boolean validateDirection(Direction dir, int x, int y){
-        boolean valid = false;
-
-        if(dir == Direction.UP){
-            if(y > 0 ) {
-                return detectCollision(level.tileData.get(y-1).get(x));
+    public boolean validateDirection(Direction dir, int x, int y) {
+        if (dir == Direction.UP) {
+            if (y > 0) {
+                return detectCollision(level.tileData.get(y - 1).get(x));
             }
         } else if (dir == Direction.DOWN) {
-            if(y < Level.levelRows) {
-                return detectCollision(level.tileData.get(y+1).get(x));
+            if (y < Level.levelRows - 1) {
+                return detectCollision(level.tileData.get(y + 1).get(x));
+            }
+        } else if (dir == Direction.LEFT) {
+            if (x > 0) {
+                return detectCollision(level.tileData.get(y).get(x - 1));
+            }
+        } else if (dir == Direction.RIGHT) {
+            if (x < Level.levelColumns - 1) {
+                return detectCollision(level.tileData.get(y).get(x + 1));
             }
         }
-        else if(dir == Direction.LEFT){
-            if(x > 0) {
-                return detectCollision(level.tileData.get(y).get(x-1));
-            }
-        }
-        else if (dir == Direction.RIGHT){
-            //TODO error here
-            if(x / ScreenSettings.TILE_SIZE < Level.levelColumns) {
-                return detectCollision(level.tileData.get(y).get(x+1));
-            }
-        }
-        return valid; //ATP there was an error so we just won't walk at all
+        return false; // If all checks fail, the move is invalid.
     }
 
-    protected void move(){
-        if(dir == Direction.UP){
-            worldPosY-= ScreenSettings.TILE_SIZE;
+    protected void move(int movementSpeed) {
+        if (dir == Direction.UP) {
+            screenPosY -= movementSpeed;
+        } else if (dir == Direction.DOWN) {
+            screenPosY += movementSpeed;
+        } else if (dir == Direction.LEFT) {
+            screenPosX -= movementSpeed;
+        } else if (dir == Direction.RIGHT) {
+            screenPosX += movementSpeed;
         }
-        else if (dir == Direction.DOWN) {
-            worldPosY+= ScreenSettings.TILE_SIZE;
-        }
-        else if(dir == Direction.LEFT){
-            worldPosX-= ScreenSettings.TILE_SIZE;
-        }
-        else if (dir == Direction.RIGHT){
-           worldPosX+= ScreenSettings.TILE_SIZE;
-        }
-
     }
 
+    protected void updateWorldPosition() {
+        worldPosX = screenPosX / ScreenSettings.TILE_SIZE;
+        worldPosY = screenPosY / ScreenSettings.TILE_SIZE;
+    }
 }
