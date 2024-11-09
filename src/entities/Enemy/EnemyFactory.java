@@ -1,6 +1,5 @@
 package entities.Enemy;
 
-import util.Coordinate;
 
 public class EnemyFactory {
     public static EnemyList enemyList;
@@ -10,10 +9,10 @@ public class EnemyFactory {
     }
 
 
-    public void createEnemy(String type, Coordinate position) {
+    public void createEnemy(String type, int posx, int posy) {
 
         if (type.equals("Slime")) {
-            Slime slime = new Slime(position);
+            Slime slime = new Slime(posx, posy);
             enemyList.addEnemy(slime);
             System.out.println(enemyList.getEnemies().size());
         }

@@ -2,21 +2,19 @@ package entities.Enemy;
 
 import graphics.ScreenSettings;
 import level.Level;
-import level.Tile;
-import util.Coordinate;
 import java.util.Random;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static graphics.CollisionKt.detectCollision;
+import static util.CollisionKt.detectCollision;
 
 public abstract class Enemy {
     protected int health;
     protected int lifespan;
     protected int hunger;
     protected Direction dir;
-    protected Coordinate position;
+
     public boolean dead;
     public int worldPosX;
     public int worldPosY;
@@ -30,9 +28,8 @@ public abstract class Enemy {
     private Random random = new Random();
 
 
-    public Enemy(int health, Coordinate position) {
+    public Enemy(int health, int x, int y) {
         this.health = health;
-        this.position = position;
     }
 
     // Getter and setter methods
@@ -44,31 +41,29 @@ public abstract class Enemy {
         this.health = health;
     }
 
-    public Coordinate getPosition() {
-        return position;
-    }
-    public int getWorldPosX(){
+
+
+    public int getWorldPosX() {
         return worldPosX;
     }
-    public int getWorldPosY(){
+
+    public int getWorldPosY() {
         return worldPosY;
     }
 
-    protected void decreaseHunger(){
+    protected void decreaseHunger() {
         hunger--;
     }
 
-    protected void damage(int damage){
+    protected void damage(int damage) {
         health -= damage;
     }
 
-    protected void age(){
+    protected void age() {
         lifespan--;
     }
 
-    public void setPosition(Coordinate position) {
-        this.position = position;
-    }
+
 
     // Abstract method for setting the image, to be implemented by subclasses
     protected abstract void setImage();

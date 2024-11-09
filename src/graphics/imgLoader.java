@@ -6,11 +6,11 @@ import java.io.IOException;
 
 public class imgLoader {
 
-    public static BufferedImage getImage(String imgPath){
+    public static BufferedImage getImage(String imgPath) {
         BufferedImage temp = null;
-        try{
-              temp = loadImage(imgPath);
-        }catch(IOException e){
+        try {
+            temp = loadImage(imgPath);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return temp;

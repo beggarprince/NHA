@@ -39,21 +39,9 @@ public class Level {
         return instance;
     }
 
-    public void dig(ArrayList<ArrayList<Tile>> levelData, int x, int y) {
-        if (levelData.get(y).get(x).type == TileType.PATH) return;
-        try {
-            levelData.get(y).get(x).digDestruct();
-        } catch (IndexOutOfBoundsException e) {
-            System.err.println("Error: Position (" + x + ", " + y + ") is out of bounds.");
-        } catch (NullPointerException e) {
-            System.err.println("Error: levelData or a nested ArrayList is null.");
-        }
-        if (levelData.get(y).get(x).type != TileType.PATH) {
-            System.out.println("Dig did not change value");
-        } else {
-            System.out.println(x + " " + y + " changed to " + levelData.get(y).get(x).type);
-        }
-    }
+
+
+
 
     private void createTileData() {
         // Initialize tileData

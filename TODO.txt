@@ -1,7 +1,29 @@
-Player
-    I need to add actions, a simple button click to change tileType will be good for now
-Collisions
-    Besides the edges of the map, nonexistent atm. Need to be implemented
+New features
 Slime
-    The first enemy type. It simply needs to walk forward until it hits a wall and choose a random direction except the one it came from
-        The direction it came from will only be used if it's a dead end and the slime needs to backtrack
+    Needs to eat, reproduce, and die of old age
+
+Audio
+    Needs to exist
+
+Sprite System
+    Need sprites
+    Need sprite handler
+
+Limit contols and reactions
+    I can't press a button for 1/60th of a second and it causes multiple instances of said button. ATP you're going to cull the enemies accidentally
+
+Refactors
+GameCanvas
+    GameCanvas should only be painting, it should not be deciding what gets painted. Needs the logic taken outside of it
+Level
+    Now that it is singleton class some minor refactoring is necessary
+Dig
+    Needs to be taken out of level. Since we have direct access to level.levelData and tileData we don't need it here
+Enemy
+    Has some very useful movement code inside of it that would be best moved outside of it so non enemy npcs an utilize it
+Camera
+    Needs to be changed to a singleton class
+kbInput
+    Should be a singleton class
+Remove Coordinate class
+    It just turned out to be a massive headache

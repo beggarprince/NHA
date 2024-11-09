@@ -13,11 +13,12 @@ public class Player {
     static final private int playerSpeed = ScreenSettings.TILE_SIZE ;
 
     //World position of player
-    public int playerXPos = 0;
-    public int playerYPos = 0;
+    public int playerTilePositionX = 0;
+    public int playerTilePositionY = 0;
 
     private int playerXOffset = 0; // Offset from center
     private int playerYOffset = 0;
+
     private enum PlayerSprite {
         PLAYER(imgLoader.getImage("knight.png")),
         DAMAGEDPLAYER(imgLoader.getImage("hurtknight.png"));
@@ -32,13 +33,13 @@ public class Player {
         }
     }
 
+    public Coordinate playerScreenPosition = new Coordinate(ScreenSettings.TS_X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.TS_Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
 
-    public Coordinate pos = new Coordinate(ScreenSettings.TS_X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.TS_Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
 
     public Player(){
         setPlayerImage();
-        playerXPos = pos.x / ScreenSettings.TILE_SIZE;
-        playerYPos = pos.y / ScreenSettings.TILE_SIZE;
+        playerTilePositionX = playerScreenPosition.x / ScreenSettings.TILE_SIZE;
+        playerTilePositionY = playerScreenPosition.y / ScreenSettings.TILE_SIZE;
     }
 
     //TODO
@@ -51,28 +52,29 @@ public class Player {
         if(!cameraPanned){
 
         if (kb.upPressed) {
-            if(pos.y - Player.playerSpeed >= 0){
-                pos.y -= Player.playerSpeed;
+            if(playerScreenPosition.y - Player.playerSpeed >= 0){
+                playerScreenPosition.y -= Player.playerSpeed;
                 playerMoved = true;
                 playerYOffset++;
             }
 
         } else if (kb.downPressed) {
-            if(pos.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < Level.levelRows +1) {
+            if(playerScreenPosition.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < Level.levelRows +1) {
                 playerMoved = true;
-                pos.y += Player.playerSpeed;
+                playerScreenPosition.y += Player.playerSpeed;
                 playerYOffset--;
             }
         } else if (kb.rightPressed) {
-            if((pos.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < Level.levelColumns -1 ){
+            if((playerScreenPosition.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < Level.levelColumns -1 ){
                 playerMoved = true;
-                pos.x += Player.playerSpeed;
+                playerScreenPosition.x += Player.playerSpeed;
                 playerXOffset++;
             }
 
         } else if (kb.leftPressed) {
 
-            if(pos.x - Player.playerSpeed >= 0){pos.x -= Player.playerSpeed;
+            if(playerScreenPosition.x - Player.playerSpeed >= 0){
+                playerScreenPosition.x -= Player.playerSpeed;
             playerMoved = true;
             playerXOffset--;
             }
@@ -86,17 +88,17 @@ public class Player {
     private void updatePlayerWorldPosition(kbInput kb){
 
         if(kb.upPressed){
-            playerYPos--;
+            playerTilePositionY--;
         }
         else if(kb.downPressed){
-            playerYPos++;
+            playerTilePositionY++;
         }
 
         else if(kb.leftPressed){
-            playerXPos--;
+            playerTilePositionX--;
         }
         else if(kb.rightPressed){
-            playerXPos++;
+            playerTilePositionX++;
         }
 
     }

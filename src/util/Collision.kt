@@ -1,6 +1,5 @@
-package graphics
+package util
 
-import entities.Enemy.Direction
 import level.Tile
 
 fun detectCollision(t : Tile) : Boolean{

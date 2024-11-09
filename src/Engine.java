@@ -1,3 +1,4 @@
+import PlayerActions.Spawn;
 import entities.Enemy.*;
 import entities.Player;
 import graphics.Camera;
@@ -7,9 +8,11 @@ import io.kbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
-public class Engine  implements Runnable{
+import static PlayerActions.Dig.dig;
+
+public class Engine implements Runnable {
     //Setup
-    Coordinate leftTop = new Coordinate(0,0);
+    Coordinate leftTop = new Coordinate(0, 0);
     Camera camera = new Camera(leftTop);
 
     kbInput kb = new kbInput();
@@ -23,7 +26,7 @@ public class Engine  implements Runnable{
     GameCanvas gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
 
 
-    public void startGameThread(){
+    public void startGameThread() {
 
         gameLifecycle = new Thread(this);
 
@@ -32,33 +35,35 @@ public class Engine  implements Runnable{
     }
 
 
-
-
     @Override
     public void run() {
-        double frameRateDelta = 0 ;
+        double frameRateDelta = 0;
         long frameRatePrevTime = System.nanoTime();
         long frameRateCurrentTime;
 
-        while(gameLifecycle != null){
+        while (gameLifecycle != null) {
 
             frameRateCurrentTime = System.nanoTime();
             frameRateDelta += (frameRateCurrentTime - frameRatePrevTime) / ScreenSettings.INTERVAL;
             frameRatePrevTime = frameRateCurrentTime;
 
             //Update GUI information
-            if(frameRateDelta >=1) {
+            if (frameRateDelta >= 1) {
 
                 movePlayer(player, camera, kb);
                 runEnemyBehavior();
 
-                if(kb.debug) {
-                    enemyFactory.createEnemy("Slime", new Coordinate(0, 0 ));
+                if (kb.debug) {
+                    enemyFactory.createEnemy("Slime", 0,0);
                 }
 
-                if(kb.dig){
-                    //get cursor pos then change that type to gravel aka type 3
-                    level.dig(level.tileData, player.playerXPos, player.playerYPos);
+                if (kb.dig) {
+                  //  System.out.println(player.playerScreenPosition.x  + " " + player.playerScreenPosition.y);
+
+
+                    Spawn.spawnEnemyAtPlayer(enemyFactory,  level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
+
+                    dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
                 }
 
                 frameRateDelta--;
@@ -72,16 +77,18 @@ public class Engine  implements Runnable{
 
     }
 
-    private void movePlayer(Player player, Camera camera, kbInput kb){
+    private void movePlayer(Player player, Camera camera, kbInput kb) {
         boolean cameraMoved = false;
-        if(player.getXOffset() == 0 && (kb.leftPressed || kb.rightPressed))cameraMoved = camera.updateCameraPosition(kb);
-        else if (player.getYOffset() == 0 && (kb.upPressed || kb.downPressed)) cameraMoved = camera.updateCameraPosition(kb);
+        if (player.getXOffset() == 0 && (kb.leftPressed || kb.rightPressed))
+            cameraMoved = camera.updateCameraPosition(kb);
+        else if (player.getYOffset() == 0 && (kb.upPressed || kb.downPressed))
+            cameraMoved = camera.updateCameraPosition(kb);
         player.playerPosUpdate(kb, cameraMoved);
 
     }
 
-    private void runEnemyBehavior(){
-        for( Enemy e  : enemyList.getEnemies()){
+    private void runEnemyBehavior() {
+        for (Enemy e : enemyList.getEnemies()) {
             e.behavior();
         }
     }

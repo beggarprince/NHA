@@ -12,12 +12,12 @@ public class Slime extends Enemy {
     private int lifespan = 30; // Slime will reach maturity at 30 seconds in which it either reproduces or dies
     private final int movementSpeed = 4;
 
-    public Slime(Coordinate position) {
-        super(1, position); // Slime has a default health of 1
-        this.worldPosX = position.x / ScreenSettings.TILE_SIZE;
-        this.worldPosY = position.y / ScreenSettings.TILE_SIZE;
-        this.screenPosX = position.x;
-        this.screenPosY = position.y;
+    public Slime(int x, int y) {
+        super(1, x, y); // Slime has a default health of 1
+        this.worldPosX = x / ScreenSettings.TILE_SIZE;
+        this.worldPosY =y / ScreenSettings.TILE_SIZE;
+        this.screenPosX = x;
+        this.screenPosY = y;
         this.dir =Direction.RIGHT;// getRandomValidDirection(worldPosX, worldPosY);//This will give it a random starting dir that is valid
 
     }

@@ -21,22 +21,22 @@ public class Camera {
         // Check input and update camera coordinates
         if (kb.downPressed) {
             isCameraPanned = verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE);
-            if(!isCameraPanned) return false;
+            if (!isCameraPanned) return false;
         } else if (kb.upPressed) {
             isCameraPanned = verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE);
-            if(!isCameraPanned) return false;
+            if (!isCameraPanned) return false;
         } else if (kb.leftPressed) {
             isCameraPanned = verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0);
-            if(!isCameraPanned) return false;
+            if (!isCameraPanned) return false;
         } else if (kb.rightPressed) {
             isCameraPanned = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
-            if(!isCameraPanned) return false;
+            if (!isCameraPanned) return false;
         } else {
             return false;
         }
 
-            panCamera(kb);
-            return  isCameraPanned;
+        panCamera(kb);
+        return isCameraPanned;
     }
 
 
@@ -80,7 +80,7 @@ public class Camera {
     }
 
     //TODO
-    public void centerCameraOnPlayer(){
+    public void centerCameraOnPlayer() {
 
     }
 }
