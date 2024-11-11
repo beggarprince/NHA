@@ -4,7 +4,7 @@ import graphics.imgLoader;
 import java.awt.image.BufferedImage;
 
 public class Spirit extends Enemy {
-    private BufferedImage slimeImage = imgLoader.getImage("spirit.png"); //Default slime preloaded
+    private BufferedImage slimeImage = imgLoader.getImageResource("spirit.png"); //Default slime preloaded
     private int lifespan = 3; // Slime will reach maturity at 30 seconds in which it either reproduces or dies
     private final int movementSpeed = 4;
 
@@ -21,7 +21,7 @@ public class Spirit extends Enemy {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        slimeImage = imgLoader.getImage("spirit.png");
+        slimeImage = imgLoader.getImageResource("spirit.png");
     }
 
     // Getter for the image if needed

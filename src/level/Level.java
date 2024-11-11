@@ -1,10 +1,7 @@
 package level;
 
-import graphics.ScreenSettings;
 import graphics.TileType;
-import util.Coordinate;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 // Level will take in the information gathered from level loader and translate it to
@@ -17,6 +14,12 @@ public class Level {
     public ArrayList<ArrayList<Integer>> levelData;
 
     public ArrayList<ArrayList<Tile>> tileData;
+
+    //These are part of the tile init for initial resources as the max
+    //Higher scale will mean that the map will have more of the nutrient per block
+    public static int manaScale = 3;
+    public static int nutrientL2Distribution = 70;
+    public static int nutrientL3Distribution = 95;
 
     public static int levelColumns;
     public static int levelRows;
@@ -57,7 +60,7 @@ public class Level {
     private Tile createTile(int x, int y, int val) {
         Tile tile = new Tile(intToType(val), x, y);
 
-        if ((tile.type == TileType.GRASS)) {
+        if ((tile.type == TileType.NUTRIENT)) {
             tile.depositNutrients();
         } else if(tile.type == TileType.MANA){
             tile.depositMana();
@@ -68,7 +71,7 @@ public class Level {
     private TileType intToType(int val) {
         switch (val) {
             case 1:
-                return TileType.GRASS;
+                return TileType.NUTRIENT;
             case 2:
                 return TileType.BRICK;
             case 3:

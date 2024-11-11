@@ -84,8 +84,10 @@ public class GameCanvas extends JPanel {
 
             // Loop over the horizontal tiles
             for (int tileX = startTileX; tileX < endTileX && tileX < level.get(tileY).size(); tileX++) {
-
-                g.drawImage(level.get(tileY).get(tileX).type.getImage(), offsetTileX(tileX), offsetTileY(tileY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(level.get(tileY).get(tileX).type.getImage(level.get(tileY).get(tileX)),
+                        offsetTileX(tileX), offsetTileY(tileY),
+                        ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE,
+                        null);
             }
         }
 
@@ -95,7 +97,7 @@ public class GameCanvas extends JPanel {
     private BufferedImage selectImage(int tileValue) {
         switch (tileValue) {
             case 1:
-                return TileType.GRASS.getImage();
+                return TileType.NUTRIENT.getImage();
             case 2:
                 return TileType.BRICK.getImage();
             case 3:

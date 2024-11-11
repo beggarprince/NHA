@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class imgLoader {
 
-    public static BufferedImage getImage(String imgPath) {
+    public static BufferedImage getImageResource(String imgPath) {
         BufferedImage temp = null;
         try {
             temp = loadImage(imgPath);

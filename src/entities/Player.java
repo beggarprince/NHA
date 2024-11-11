@@ -20,8 +20,8 @@ public class Player {
     private int playerYOffset = 0;
 
     private enum PlayerSprite {
-        PLAYER(imgLoader.getImage("knight.png")),
-        DAMAGEDPLAYER(imgLoader.getImage("hurtknight.png"));
+        PLAYER(imgLoader.getImageResource("knight.png")),
+        DAMAGEDPLAYER(imgLoader.getImageResource("hurtknight.png"));
 
         private final BufferedImage image;
 

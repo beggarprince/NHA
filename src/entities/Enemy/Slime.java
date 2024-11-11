@@ -5,7 +5,7 @@ import graphics.imgLoader;
 import java.awt.image.BufferedImage;
 
 public class Slime extends Enemy {
-    private BufferedImage slimeImage = imgLoader.getImage("slime.png"); //Default slime preloaded
+    private BufferedImage slimeImage = imgLoader.getImageResource("slime.png"); //Default slime preloaded
     private int lifespan = 3; // Slime will reach maturity at 30 seconds in which it either reproduces or dies
     private final int movementSpeed = 4;
     private final int maxHunger  = 1;
@@ -23,7 +23,7 @@ public class Slime extends Enemy {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        slimeImage = imgLoader.getImage("slime.png");
+        slimeImage = imgLoader.getImageResource("slime.png");
     }
 
     // Getter for the image if needed
@@ -50,12 +50,13 @@ public class Slime extends Enemy {
     }
 
     protected void eat(){
-       if(eatSurroundingTile(TileType.GRASS)) hunger++;
+       if(eatSurroundingTile(TileType.NUTRIENT)) hunger++;
     }
     protected void poop(){
-        if(depositSurroundingTile(TileType.GRASS)) hunger--;
+        if(depositSurroundingTile(TileType.NUTRIENT)) hunger--;
     }
 
+    //To be implemented
     protected void reproductionCycle(){
 
     }
