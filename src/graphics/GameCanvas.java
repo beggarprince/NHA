@@ -119,6 +119,7 @@ public class GameCanvas extends JPanel {
     private void paintEnemies(Graphics2D g) {
         ArrayList<Enemy> list = enemyList.getEnemies();
         for (Enemy e : list) {
+
             //If in camera view
             if ((e.worldPosX >= startTileX && e.worldPosX < endTileX) && (e.worldPosY >= startTileY && e.worldPosY < endTileY)) {
                 //Draw according to offset

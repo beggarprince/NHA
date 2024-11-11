@@ -3,12 +3,12 @@ import graphics.ScreenSettings;
 import graphics.imgLoader;
 import java.awt.image.BufferedImage;
 
-public class Slime extends Enemy {
-    private BufferedImage slimeImage = imgLoader.getImage("slime.png"); //Default slime preloaded
+public class Spirit extends Enemy {
+    private BufferedImage slimeImage = imgLoader.getImage("spirit.png"); //Default slime preloaded
     private int lifespan = 3; // Slime will reach maturity at 30 seconds in which it either reproduces or dies
     private final int movementSpeed = 4;
 
-    public Slime(int x, int y) {
+    public Spirit(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
         this.worldPosX = x / ScreenSettings.TILE_SIZE;
         this.worldPosY =y / ScreenSettings.TILE_SIZE;
@@ -21,7 +21,7 @@ public class Slime extends Enemy {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        slimeImage = imgLoader.getImage("slime.png");
+        slimeImage = imgLoader.getImage("spirit.png");
     }
 
     // Getter for the image if needed

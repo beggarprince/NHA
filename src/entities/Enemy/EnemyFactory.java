@@ -14,7 +14,11 @@ public class EnemyFactory {
         if (type.equals("Slime")) {
             Slime slime = new Slime(posx, posy);
             enemyList.addEnemy(slime);
-            System.out.println(enemyList.getEnemies().size());
+        }
+
+        else if(type.equals("Spirit")){
+            Spirit spirit = new Spirit(posx, posy);
+            enemyList.addEnemy(spirit);
         }
     }
 }

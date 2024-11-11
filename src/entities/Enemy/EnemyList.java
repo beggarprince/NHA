@@ -31,11 +31,13 @@ public class EnemyList {
         return enemies;
     }
 
-    // Optional: Method to remove an enemy
     public void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
-
-
+    public void updateList(){
+        for(Enemy e : enemies){
+            if( e.dead) removeEnemy(e);
+        }
+    }
 }
 

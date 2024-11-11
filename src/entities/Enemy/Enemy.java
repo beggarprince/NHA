@@ -15,7 +15,7 @@ public abstract class Enemy {
     protected int hunger;
     protected Direction dir;
 
-    public boolean dead;
+    public boolean dead = false;
     public int worldPosX;
     public int worldPosY;
     public int screenPosX;
@@ -63,14 +63,25 @@ public abstract class Enemy {
         lifespan--;
     }
 
-
-
-    // Abstract method for setting the image, to be implemented by subclasses
     protected abstract void setImage();
 
     public abstract BufferedImage getImage();
 
     public abstract void behavior();
+
+    protected abstract void eat();
+
+    protected  void agingCycle(){
+        lifespan--;
+        if(lifespan <= 0) death();
+    }
+
+    protected abstract void reproductionCycle();
+
+    protected void death(){
+        dead = true;
+        //Add nutrients back to the ecosystem
+    }
 
     protected Direction getRandomValidDirection(int x, int y) {
         // List of possible directions

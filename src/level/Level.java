@@ -16,7 +16,6 @@ public class Level {
 
     public ArrayList<ArrayList<Integer>> levelData;
 
-    // TODO get this to be initialized like this from the start instead of having 2 arrays
     public ArrayList<ArrayList<Tile>> tileData;
 
     public static int levelColumns;

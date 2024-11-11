@@ -17,12 +17,33 @@ public class Tile {
         this.y = posy;
     }
 
+    //When creatures die or poop on tile
     public void depositMana(){
         mana++;
     }
     public void depositNutrients(){
         nutrients++;
     }
+
+    public void eatMana(){
+        mana--;
+        if(mana == 0) determineTileType();
+    }
+
+    private void determineTileType() {
+        if (nutrients == 0 && mana == 0) {
+            type = TileType.DIRT;
+        } else {
+            type = nutrients > mana ? TileType.GRASS : TileType.MANA;
+        }
+    }
+
+
+    public void eatNutrients(){
+        nutrients++;
+        if(nutrients == 0) determineTileType();
+    }
+
     public int getNutrients(){
         return nutrients;
     }

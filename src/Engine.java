@@ -51,6 +51,7 @@ public class Engine implements Runnable {
             if (frameRateDelta >= 1) {
 
                 movePlayer(player, camera, kb);
+
                 runEnemyBehavior();
 
                 if (kb.debug) {
@@ -58,15 +59,12 @@ public class Engine implements Runnable {
                 }
 
                 if (kb.dig) {
-                  //  System.out.println(player.playerScreenPosition.x  + " " + player.playerScreenPosition.y);
-
-
                     Spawn.spawnEnemyAtPlayer(enemyFactory,  level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
-
                     dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
                 }
 
                 frameRateDelta--;
+
 
                 //Update UI
                 gamePanel.repaint();
