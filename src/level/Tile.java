@@ -40,7 +40,7 @@ public class Tile {
 
 
     public void eatNutrients(){
-        nutrients++;
+        nutrients--;
         if(nutrients == 0) determineTileType();
     }
 

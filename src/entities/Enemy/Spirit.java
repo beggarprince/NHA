@@ -32,7 +32,7 @@ public class Spirit extends Enemy {
     public void behavior(){
 
         //We see if we can move this direction
-        if(validateDirection(dir, worldPosX, worldPosY)){
+        if(validateWalkableDirection(dir, worldPosX, worldPosY)){
             move(movementSpeed);
             updateWorldPosition();
         }

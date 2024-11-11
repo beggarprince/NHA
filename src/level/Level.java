@@ -55,7 +55,14 @@ public class Level {
     }
 
     private Tile createTile(int x, int y, int val) {
-        return new Tile(intToType(val), x, y);
+        Tile tile = new Tile(intToType(val), x, y);
+
+        if ((tile.type == TileType.GRASS)) {
+            tile.depositNutrients();
+        } else if(tile.type == TileType.MANA){
+            tile.depositMana();
+        }
+        return tile;
     }
 
     private TileType intToType(int val) {
