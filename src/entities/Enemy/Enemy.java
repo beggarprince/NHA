@@ -3,7 +3,6 @@ package entities.Enemy;
 import graphics.ScreenSettings;
 import graphics.TileType;
 import level.Level;
-import level.Tile;
 
 import java.util.Random;
 import java.awt.image.BufferedImage;
@@ -13,19 +12,22 @@ import java.util.List;
 import static util.CollisionKt.detectCollision;
 
 public abstract class Enemy {
-    protected int health;
-    protected int lifespan;
-    protected int hunger;
-    protected boolean stomachFull = false;
-    protected int maxHunger;
-    protected Direction dir;
-
-    public boolean dead = false;
-    public int worldPosX;
-    public int worldPosY;
-    public int screenPosX;
-    public int screenPosY;
-    protected int movementSpeed;
+    protected BufferedImage image;
+    protected int enemyHealth;
+    protected int enemyLifespan;
+    protected int enemyHunger;
+    protected boolean enemyHasFullStomach = false;
+    protected boolean enemyEatingCycleReady = true;
+    protected int enemyMaxHunger;
+    protected Direction enemyCurrentDirection;
+    public boolean enemyIsDead = false;
+    public int enemyWorldPositionX;
+    public int enemyWorldPositionY;
+    //Where the enemy is drawn on the screen, out of bounds enemies from the camera are not rendered
+    public int enemyScreenPositionX;
+    public int enemyScreenPositionY;
+    protected int enemyMovementSpeed; // How many pixels an enemy offsets per frame
+    protected int enemyMovementCycle; // How long it takes before we logically know we are at a new tile without math
 
     Level level = Level.getInstance("res/levelTest.csv");
 
@@ -34,38 +36,38 @@ public abstract class Enemy {
 
 
     public Enemy(int health, int x, int y) {
-        this.health = health;
+        this.enemyHealth = health;
     }
 
     // Getter and setter methods
-    public int getHealth() {
-        return health;
+    public int getEnemyHealth() {
+        return enemyHealth;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setEnemyHealth(int enemyHealth) {
+        this.enemyHealth = enemyHealth;
     }
 
 
 
-    public int getWorldPosX() {
-        return worldPosX;
+    public int getEnemyWorldPositionX() {
+        return enemyWorldPositionX;
     }
 
-    public int getWorldPosY() {
-        return worldPosY;
+    public int getEnemyWorldPositionY() {
+        return enemyWorldPositionY;
     }
 
     protected void decreaseHunger() {
-        hunger--;
+        enemyHunger--;
     }
 
     protected void damage(int damage) {
-        health -= damage;
+        enemyHealth -= damage;
     }
 
     protected void age() {
-        lifespan--;
+        enemyLifespan--;
     }
 
     protected abstract void setImage();
@@ -77,18 +79,19 @@ public abstract class Enemy {
     protected abstract void eat();
 
     protected  void agingCycle(){
-        lifespan--;
-        if(lifespan <= 0) death();
+        enemyLifespan--;
+        if(enemyLifespan <= 0) death();
     }
 
     protected abstract void reproductionCycle();
 
     protected void death(){
-        dead = true;
+        enemyIsDead = true;
         //Add nutrients back to the ecosystem
     }
 
-    protected Direction getRandomValidDirection(int x, int y) {
+    //Movement
+    private List<Direction> getPossibleDirections(Boolean collisionCheck){
         // List of possible directions
         List<Direction> possibleDirections = new ArrayList<>();
 
@@ -97,8 +100,21 @@ public abstract class Enemy {
         possibleDirections.add(Direction.LEFT);
         possibleDirections.add(Direction.RIGHT);
 
-        // Remove invalid directions
-        possibleDirections.removeIf(direction -> !validateWalkableDirection(direction, x, y)); // whatever is not valid won't be used in the random function
+        //Will remove if the tiles are walkable, this one is used to EAT as you can't eat PATH
+        if(!collisionCheck)  possibleDirections.removeIf(direction -> validateWalkableDirection(direction, enemyWorldPositionX, enemyWorldPositionY));
+        else {
+            //If not walkable it is a candidate for movement, handles out of bounds as well
+            possibleDirections.removeIf(direction -> !validateWalkableDirection(direction, enemyWorldPositionX, enemyWorldPositionY));
+        }
+        return possibleDirections;
+    }
+
+
+    protected Direction enemyGetRandomDirection(int x, int y) {
+        // List of possible directions
+        List<Direction> possibleDirections = getPossibleDirections(true);
+
+        for(Direction d : possibleDirections) if(d == enemyCurrentDirection) possibleDirections.remove(d);
 
         // If no valid directions, return NOT_MOVING
         if (possibleDirections.isEmpty()) {
@@ -108,7 +124,23 @@ public abstract class Enemy {
         // Randomly select a valid direction
         int index = random.nextInt(possibleDirections.size());
 
+        if(possibleDirections.isEmpty()) return getOppositeDirection(enemyCurrentDirection);
         return possibleDirections.get(index);
+    }
+
+    public static Direction getOppositeDirection(Direction dir) {
+        switch (dir) {
+            case UP:
+                return Direction.DOWN;
+            case DOWN:
+                return Direction.UP;
+            case LEFT:
+                return Direction.RIGHT;
+            case RIGHT:
+                return Direction.LEFT;
+            default:
+                throw new IllegalArgumentException("Unknown direction: " + dir);
+        }
     }
 
 
@@ -137,21 +169,26 @@ public abstract class Enemy {
 
 
 
+    //If we are here we are good to move in our direction of choice
     protected void move(int movementSpeed) {
-        if (dir == Direction.UP) {
-            screenPosY -= movementSpeed;
-        } else if (dir == Direction.DOWN) {
-            screenPosY += movementSpeed;
-        } else if (dir == Direction.LEFT) {
-            screenPosX -= movementSpeed;
-        } else if (dir == Direction.RIGHT) {
-            screenPosX += movementSpeed;
+
+        if (enemyCurrentDirection == Direction.UP) {
+            enemyScreenPositionY -= movementSpeed;
+        } else if (enemyCurrentDirection == Direction.DOWN) {
+            enemyScreenPositionY += movementSpeed;
+        } else if (enemyCurrentDirection == Direction.LEFT) {
+            enemyScreenPositionX -= movementSpeed;
+        } else if (enemyCurrentDirection == Direction.RIGHT) {
+            enemyScreenPositionX += movementSpeed;
         }
+        enemyMovementCycle += movementSpeed;
+
     }
 
+
     protected void updateWorldPosition() {
-        worldPosX = screenPosX / ScreenSettings.TILE_SIZE;
-        worldPosY = screenPosY / ScreenSettings.TILE_SIZE;
+        enemyWorldPositionX = enemyScreenPositionX / ScreenSettings.TILE_SIZE;
+        enemyWorldPositionY = enemyScreenPositionY / ScreenSettings.TILE_SIZE;
     }
 
 
@@ -160,43 +197,33 @@ public abstract class Enemy {
     protected boolean eatSurroundingTile(TileType t){
         //t is target food
 
-        // List of possible directions
-        List<Direction> possibleDirections = new ArrayList<>();
-
-        possibleDirections.add(Direction.UP);
-        possibleDirections.add(Direction.DOWN);
-        possibleDirections.add(Direction.LEFT);
-        possibleDirections.add(Direction.RIGHT);
-
-        // Since we can only eat non walkable directions we remove if validateWalkableDirection returns true
-        possibleDirections.removeIf(direction -> validateWalkableDirection(direction, worldPosX, worldPosY));
-        // whatever is not valid won't be used in the random function
+        List<Direction> possibleDirections = getPossibleDirections( false);
 
         for(Direction d : possibleDirections){
-            if (d == Direction.UP && worldPosY > 0) {
-                if(level.tileData.get(worldPosY - 1).get(worldPosX).type == t) {
-                    level.tileData.get(worldPosY - 1).get(worldPosX).eatNutrients();
+            if (d == Direction.UP && enemyWorldPositionY > 0) {
+                if(level.tileData.get(enemyWorldPositionY - 1).get(enemyWorldPositionX).type == t) {
+                    level.tileData.get(enemyWorldPositionY - 1).get(enemyWorldPositionX).eatNutrients();
 
                     return true;
                 }
             }
-            else if (d == Direction.DOWN && worldPosY < Level.levelRows -1) {
-                if(level.tileData.get(worldPosY + 1).get(worldPosX).type == t) {
-                    level.tileData.get(worldPosY + 1).get(worldPosX).eatNutrients();
+            else if (d == Direction.DOWN && enemyWorldPositionY < Level.levelRows -1) {
+                if(level.tileData.get(enemyWorldPositionY + 1).get(enemyWorldPositionX).type == t) {
+                    level.tileData.get(enemyWorldPositionY + 1).get(enemyWorldPositionX).eatNutrients();
 
                     return true;
                 }
             }
-            else if (d == Direction.LEFT && worldPosX > 0) {
-                if (level.tileData.get(worldPosY).get(worldPosX - 1).type == t) {
+            else if (d == Direction.LEFT && enemyWorldPositionX > 0) {
+                if (level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX - 1).type == t) {
 
-                    level.tileData.get(worldPosY).get(worldPosX - 1).eatNutrients();
+                    level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX - 1).eatNutrients();
                     return true;
                 }
             }
-            else if (d == Direction.RIGHT && worldPosX < Level.levelColumns -1 ) {
-                if(level.tileData.get(worldPosY).get(worldPosX + 1).type == t) {
-                    level.tileData.get(worldPosY).get(worldPosX + 1).eatNutrients();
+            else if (d == Direction.RIGHT && enemyWorldPositionX < Level.levelColumns -1 ) {
+                if(level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX + 1).type == t) {
+                    level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX + 1).eatNutrients();
                     return true;
                 }
             }
@@ -208,47 +235,48 @@ public abstract class Enemy {
         //t is target food
 
         // List of possible directions
-        List<Direction> possibleDirections = new ArrayList<>();
-
-        possibleDirections.add(Direction.UP);
-        possibleDirections.add(Direction.DOWN);
-        possibleDirections.add(Direction.LEFT);
-        possibleDirections.add(Direction.RIGHT);
-
+        List<Direction> possibleDirections = getPossibleDirections(false);
         // Since we can only eat non walkable directions we remove if validateWalkableDirection returns true
-        possibleDirections.removeIf(direction -> validateWalkableDirection(direction, worldPosX, worldPosY));
+       // possibleDirections.removeIf(direction -> validateWalkableDirection(direction, worldPosX, worldPosY));
         // whatever is not valid won't be used in the random function
 
         for(Direction d : possibleDirections){
-            if (d == Direction.UP && worldPosY > 0) {
-                if(level.tileData.get(worldPosY - 1).get(worldPosX).type == t) {
-                    level.tileData.get(worldPosY - 1).get(worldPosX).depositNutrients();
+            if (d == Direction.UP && enemyWorldPositionY > 0) {
+                if(level.tileData.get(enemyWorldPositionY - 1).get(enemyWorldPositionX).type == t) {
+                    level.tileData.get(enemyWorldPositionY - 1).get(enemyWorldPositionX).depositNutrients();
 
                     return true;
                 }
             }
-            else if (d == Direction.DOWN && worldPosY < Level.levelRows -1) {
-                if(level.tileData.get(worldPosY + 1).get(worldPosX).type == t) {
-                    level.tileData.get(worldPosY + 1).get(worldPosX).depositNutrients();
+            else if (d == Direction.DOWN && enemyWorldPositionY < Level.levelRows -1) {
+                if(level.tileData.get(enemyWorldPositionY + 1).get(enemyWorldPositionX).type == t) {
+                    level.tileData.get(enemyWorldPositionY + 1).get(enemyWorldPositionX).depositNutrients();
 
                     return true;
                 }
             }
-            else if (d == Direction.LEFT && worldPosX > 0) {
-                if (level.tileData.get(worldPosY).get(worldPosX - 1).type == t) {
+            else if (d == Direction.LEFT && enemyWorldPositionX > 0) {
+                if (level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX - 1).type == t) {
 
-                    level.tileData.get(worldPosY).get(worldPosX - 1).depositNutrients();
+                    level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX - 1).depositNutrients();
                     return true;
                 }
             }
-            else if (d == Direction.RIGHT && worldPosX < Level.levelColumns -1 ) {
-                if(level.tileData.get(worldPosY).get(worldPosX + 1).type == t) {
-                    level.tileData.get(worldPosY).get(worldPosX + 1).depositNutrients();
+            else if (d == Direction.RIGHT && enemyWorldPositionX < Level.levelColumns -1 ) {
+                if(level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX + 1).type == t) {
+                    level.tileData.get(enemyWorldPositionY).get(enemyWorldPositionX + 1).depositNutrients();
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    protected void resetMovementCycle(){
+        if(enemyMovementCycle == ScreenSettings.TILE_SIZE){
+            enemyEatingCycleReady = true; // we are at a new tile
+            enemyMovementCycle = 0;
+        }
     }
 
 }

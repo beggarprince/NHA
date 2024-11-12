@@ -1,6 +1,5 @@
 package entities.Enemy;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
@@ -36,7 +35,7 @@ public class EnemyList {
     }
     public void updateList(){
         for(Enemy e : enemies){
-            if( e.dead) removeEnemy(e);
+            if( e.enemyIsDead) removeEnemy(e);
         }
     }
 }

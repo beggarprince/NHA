@@ -5,56 +5,71 @@ import graphics.imgLoader;
 import java.awt.image.BufferedImage;
 
 public class Slime extends Enemy {
-    private BufferedImage slimeImage = imgLoader.getImageResource("slime.png"); //Default slime preloaded
-    private int lifespan = 3; // Slime will reach maturity at 30 seconds in which it either reproduces or dies
-    private final int movementSpeed = 4;
-    private final int maxHunger  = 1;
-
 
     public Slime(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
-        this.worldPosX = x / ScreenSettings.TILE_SIZE;
-        this.worldPosY =y / ScreenSettings.TILE_SIZE;
-        this.screenPosX = x;
-        this.screenPosY = y;
-        this.dir = getRandomValidDirection(worldPosX, worldPosY);//This will give it a random starting dir that is valid
-        this.hunger = 0;
+        this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
+        this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.enemyScreenPositionX = x;
+        this.enemyScreenPositionY = y;
+        this.enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);//This will give it a random starting dir that is valid
+        this.enemyHunger = 0;
+        this.enemyMovementSpeed = 1;
+        this.image = imgLoader.getImageResource("slime.png"); //Default slime preloaded
+        this.enemyLifespan = 3;
+        this.enemyHasFullStomach = false;
+        this.enemyMaxHunger =1;
     }
 
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        slimeImage = imgLoader.getImageResource("slime.png");
+        image = imgLoader.getImageResource("slime.png");
     }
 
     // Getter for the image if needed
     public BufferedImage getImage() {
-        return slimeImage;
+        return image;
     }
 
     public void behavior(){
 
         //We see if we can move this direction
-        if(validateWalkableDirection(dir, worldPosX, worldPosY)){
-            move(movementSpeed);
+        if(validateWalkableDirection(enemyCurrentDirection, enemyWorldPositionX, enemyWorldPositionY)){
+            move(enemyMovementSpeed);
+
             updateWorldPosition();
+            resetMovementCycle();
         }
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            dir = getRandomValidDirection(worldPosX, worldPosY);
+            enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);
         }
         //Eat
-        if(hunger != maxHunger)eat();
-        else poop();
+        if(enemyEatingCycleReady) {
+            if (enemyHunger < enemyMaxHunger) eat();
+            else poop();
+        }
         agingCycle();
     }
 
     protected void eat(){
-       if(eatSurroundingTile(TileType.NUTRIENT)) hunger++;
+       if(eatSurroundingTile(TileType.NUTRIENT)) {
+           //System.out.println("ate");
+
+           enemyHunger++;
+        //   if(enemyHunger == enemyMaxHunger) System.out.println("Ready to poop");
+           enemyEatingCycleReady = false; //This can only be set true by moving to a new tile
+       }
     }
     protected void poop(){
-        if(depositSurroundingTile(TileType.NUTRIENT)) hunger--;
+        if(depositSurroundingTile(TileType.NUTRIENT)) {
+            //System.out.println("shat");
+            enemyHunger--;
+          //  if(enemyHunger == 0) System.out.println("Ready to eat");
+            enemyEatingCycleReady = false;
+        }
     }
 
     //To be implemented

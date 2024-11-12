@@ -13,16 +13,29 @@ import static PlayerActions.Dig.dig;
 public class Engine implements Runnable {
     //Instantiation
     //TODO Move the initialization in the engine constructor
-    Coordinate leftTop = new Coordinate(0, 0);
-    Camera camera = new Camera(leftTop);
-    KbInput kb = new KbInput();
-    Thread gameLifecycle;
-    Player player = new Player();
-    Level level = Level.getInstance("res/levelTest.csv");
-    EnemyFactory enemyFactory = new EnemyFactory();
-    EnemyList enemyList = EnemyFactory.enemyList;
-    GameCanvas gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
+    // Declare instance variables
+    private Coordinate leftTop;
+    private Camera camera;
+    private KbInput kb;
+    private Thread gameLifecycle;
+    private Player player;
+    private Level level;
+    private EnemyFactory enemyFactory;
+    private EnemyList enemyList;
+    public GameCanvas gamePanel;
 
+    // Constructor
+    public Engine() {
+        // Setup and initialize all instance variables
+        this.leftTop = new Coordinate(0, 0);
+        this.camera = new Camera(leftTop);
+        this.kb = new KbInput();
+        this.player = new Player();
+        this.level = Level.getInstance("res/levelTest.csv");
+        this.enemyFactory = new EnemyFactory();
+        this.enemyList = EnemyFactory.enemyList;
+        this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
+    }
 
     public void startGameThread() {
         gameLifecycle = new Thread(this);
@@ -45,6 +58,7 @@ public class Engine implements Runnable {
 
             //Update GUI information
             if (elapsedTime >= ScreenSettings.INTERVAL) {
+               // System.out.println("New frame");
                 frameRatePrevTime = frameRateCurrentTime;
                 movePlayer(player, camera, kb);
                 runEnemyBehavior();

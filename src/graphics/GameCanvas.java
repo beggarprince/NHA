@@ -123,9 +123,9 @@ public class GameCanvas extends JPanel {
         for (Enemy e : list) {
 
             //If in camera view
-            if ((e.worldPosX >= startTileX && e.worldPosX < endTileX) && (e.worldPosY >= startTileY && e.worldPosY < endTileY)) {
+            if ((e.enemyWorldPositionX >= startTileX && e.enemyWorldPositionX < endTileX) && (e.enemyWorldPositionY >= startTileY && e.enemyWorldPositionY < endTileY)) {
                 //Draw according to offset
-                g.drawImage(e.getImage(), offsetTileX(e.worldPosX), offsetTileY(e.worldPosY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(e.getImage(), offsetTileX(e.enemyWorldPositionX), offsetTileY(e.enemyWorldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 
             }
         }
