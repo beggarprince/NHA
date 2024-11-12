@@ -33,6 +33,7 @@ public class EnemyList {
     public void removeEnemy(Enemy enemy) {
         enemies.remove(enemy);
     }
+
     public void updateList(){
         for(Enemy e : enemies){
             if( e.enemyIsDead) removeEnemy(e);

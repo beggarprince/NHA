@@ -1,1 +1,3 @@
-1. Scale flicker when moving camera and updating screen
+Enemy
+    Enemies Direction goes back where they came from when there is another path available
+        Going back is last resort for movement, given any other option it shouldn't be taken
