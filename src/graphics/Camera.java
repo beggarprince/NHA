@@ -1,6 +1,6 @@
 package graphics;
 
-import io.kbInput;
+import io.KbInput;
 import level.Level;
 import util.Coordinate;
 
@@ -14,7 +14,7 @@ public class Camera {
         this.topLeftCrn = tl;
     }
 
-    public boolean updateCameraPosition(kbInput kb) {
+    public boolean updateCameraPosition(KbInput kb) {
         // Determine if the camera should pan based on edge movement
         boolean isCameraPanned = true;
 
@@ -41,7 +41,7 @@ public class Camera {
 
 
     // Movement of the camera, nothing else
-    private void panCamera(kbInput kb) {
+    private void panCamera(KbInput kb) {
         int movementAmount = ScreenSettings.TILE_SIZE;
 
         if (kb.downPressed) {

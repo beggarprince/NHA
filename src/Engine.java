@@ -4,32 +4,28 @@ import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
 import level.Level;
-import io.kbInput;
+import io.KbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
 import static PlayerActions.Dig.dig;
 
 public class Engine implements Runnable {
-    //Setup
+    //Instantiation
+    //TODO Move the initialization in the engine constructor
     Coordinate leftTop = new Coordinate(0, 0);
     Camera camera = new Camera(leftTop);
-
-    kbInput kb = new kbInput();
+    KbInput kb = new KbInput();
     Thread gameLifecycle;
     Player player = new Player();
     Level level = Level.getInstance("res/levelTest.csv");
-
     EnemyFactory enemyFactory = new EnemyFactory();
     EnemyList enemyList = EnemyFactory.enemyList;
-
     GameCanvas gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
 
 
     public void startGameThread() {
-
         gameLifecycle = new Thread(this);
-
         gameLifecycle.start();
 
     }
@@ -37,46 +33,50 @@ public class Engine implements Runnable {
 
     @Override
     public void run() {
-        double frameRateDelta = 0;
+
         long frameRatePrevTime = System.nanoTime();
-        long frameRateCurrentTime;
 
         while (gameLifecycle != null) {
 
-            frameRateCurrentTime = System.nanoTime();
-            frameRateDelta += (frameRateCurrentTime - frameRatePrevTime) / ScreenSettings.INTERVAL;
-            frameRatePrevTime = frameRateCurrentTime;
+            long frameRateCurrentTime = System.nanoTime();
+            long elapsedTime = frameRateCurrentTime - frameRatePrevTime;
+
+
 
             //Update GUI information
-            if (frameRateDelta >= 1) {
-
+            if (elapsedTime >= ScreenSettings.INTERVAL) {
+                frameRatePrevTime = frameRateCurrentTime;
                 movePlayer(player, camera, kb);
-
                 runEnemyBehavior();
-
                 if (kb.debug) {
                     enemyFactory.createEnemy("Slime", 0,0);
                 }
-
                 if (kb.dig) {
                     Spawn.spawnEnemyAtPlayer(enemyFactory,  level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
                     dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
                 }
-
-                frameRateDelta--;
-
-
                 //Update UI
                 gamePanel.repaint();
             }
-
+            //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
+            else{
+                try {
+                    Thread.sleep(2); // Sleep for 2 milliseconds
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break; // Exit loop if thread is interrupted
+                }
+            }
 
         }
 
     }
 
-    private void movePlayer(Player player, Camera camera, kbInput kb) {
+    private void movePlayer(Player player, Camera camera, KbInput kb) {
         boolean cameraMoved = false;
+
+        if(kb.conflictingVerticalInput() || kb.conflictingHorizontalInput()) return;
+
         if (player.getXOffset() == 0 && (kb.leftPressed || kb.rightPressed))
             cameraMoved = camera.updateCameraPosition(kb);
         else if (player.getYOffset() == 0 && (kb.upPressed || kb.downPressed))
@@ -86,9 +86,12 @@ public class Engine implements Runnable {
     }
 
     private void runEnemyBehavior() {
-        for (Enemy e : enemyList.getEnemies()) {
-            e.behavior();
+        synchronized (enemyList) {
+            for (Enemy e : enemyList.getEnemies()) {
+                e.behavior();
+            }
         }
     }
+
 
 }

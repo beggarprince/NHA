@@ -3,7 +3,7 @@ package graphics;
 import entities.Enemy.Enemy;
 import entities.Enemy.EnemyList;
 import entities.Player;
-import io.kbInput;
+import io.KbInput;
 import level.Tile;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
 
 
-    public GameCanvas(kbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, EnemyList e) {
+    public GameCanvas(KbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, EnemyList e) {
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT)));
         this.setBackground(Color.black);

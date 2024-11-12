@@ -2,7 +2,7 @@ package entities;
 
 import graphics.ScreenSettings;
 import graphics.imgLoader;
-import io.kbInput;
+import io.KbInput;
 import level.Level;
 import util.Coordinate;
 
@@ -45,7 +45,7 @@ public class Player {
     //TODO
     //JANK, there is an off by one error fixed by +1 on y axis and -1 on x axis, otherwise y axis doesn't go to corner and x axis goes off by 1
     //Player speed introduces jank if i use it to check bounds and it does not equal a tile
-    public void playerPosUpdate(kbInput kb, boolean cameraPanned) {
+    public void playerPosUpdate(KbInput kb, boolean cameraPanned) {
         boolean playerMoved = false;
 
         //The only time the player should move is if the camera is unable to
@@ -85,7 +85,7 @@ public class Player {
 
     }
 
-    private void updatePlayerWorldPosition(kbInput kb){
+    private void updatePlayerWorldPosition(KbInput kb){
 
         if(kb.upPressed){
             playerTilePositionY--;

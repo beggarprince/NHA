@@ -10,6 +10,7 @@ public class Slime extends Enemy {
     private final int movementSpeed = 4;
     private final int maxHunger  = 1;
 
+
     public Slime(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
         this.worldPosX = x / ScreenSettings.TILE_SIZE;
