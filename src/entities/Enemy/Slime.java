@@ -1,7 +1,7 @@
 package entities.Enemy;
 import graphics.ScreenSettings;
 import graphics.TileType;
-import graphics.imgLoader;
+import graphics.ImgLoader;
 import java.awt.image.BufferedImage;
 
 public class Slime extends Enemy {
@@ -15,7 +15,7 @@ public class Slime extends Enemy {
         this.enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);//This will give it a random starting dir that is valid
         this.enemyHunger = 0;
         this.enemyMovementSpeed = 1;
-        this.image = imgLoader.getImageResource("slime.png"); //Default slime preloaded
+        this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.enemyLifespan = 3;
         this.enemyHasFullStomach = false;
         this.enemyMaxHunger =1;
@@ -24,7 +24,7 @@ public class Slime extends Enemy {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        image = imgLoader.getImageResource("slime.png");
+        image = ImgLoader.getImageResource("slime.png");
     }
 
     // Getter for the image if needed

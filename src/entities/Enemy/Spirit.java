@@ -1,13 +1,13 @@
 package entities.Enemy;
 import graphics.ScreenSettings;
-import graphics.imgLoader;
+import graphics.ImgLoader;
 import java.awt.image.BufferedImage;
 
 public class Spirit extends Enemy {
 
     public Spirit(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
-        this.image = imgLoader.getImageResource("spirit.png");
+        this.image = ImgLoader.getImageResource("spirit.png");
         this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
         this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
         this.enemyScreenPositionX = x;
@@ -21,7 +21,7 @@ public class Spirit extends Enemy {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        image = imgLoader.getImageResource("spirit.png");
+        image = ImgLoader.getImageResource("spirit.png");
     }
 
     // Getter for the image if needed

@@ -2,7 +2,10 @@ package entities.Enemy;
 
 import java.util.ArrayList;
 
-
+/*
+* This class simply holds an array of enemies
+* Needs to be reimplemented as a singleton class
+* */
 public class EnemyList {
     private static EnemyList instance;     // Singleton instance
     private ArrayList<Enemy> enemies;      // Instance variable for the list

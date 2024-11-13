@@ -5,6 +5,13 @@ import level.Level;
 import util.Coordinate;
 
 // Updated Camera class with Coordinate pairs for each corner
+/*
+* This class represents the corners of the camera in the window, with topLeft being the topLeft corner of the screen
+* It is able to increment/decrement it's corner values to move the camera
+* It tracks offsets so the GameCanvas will shift tiles around to create different view perspective
+* It checks boundaries and prevents camera from going out of bounds
+* Returns a boolean to signal the Engine that the topLeft corner is unchanged and the player will instead have to move away from the center position of the screen
+* */
 public class Camera {
     public Coordinate topLeftCrn;
     public int offsetX = 0;
@@ -70,13 +77,10 @@ public class Camera {
         boolean yWithinLowerBound = (edge.y + y + ScreenSettings.PX_SCREEN_HEIGHT) < Level.levelRows * ScreenSettings.TILE_SIZE;
 
 
-        if (xWithinLeftBound &&
+        return xWithinLeftBound &&
                 xWithinRightBound &&
                 yWithinUpperBound &&
-                yWithinLowerBound) {
-            return true;
-        }
-        return false;
+                yWithinLowerBound;
     }
 
     //TODO

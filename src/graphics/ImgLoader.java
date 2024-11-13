@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class imgLoader {
+public class ImgLoader {
 
     public static BufferedImage getImageResource(String imgPath) {
         BufferedImage temp = null;
@@ -18,7 +18,7 @@ public class imgLoader {
 
 
     private static BufferedImage loadImage(String imgPath) throws IOException {
-        return ImageIO.read(imgLoader.class.getClassLoader().getResourceAsStream(imgPath));
+        return ImageIO.read(ImgLoader.class.getClassLoader().getResourceAsStream(imgPath));
     }
 
 }

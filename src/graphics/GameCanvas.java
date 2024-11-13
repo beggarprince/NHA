@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 //Engine is the main game loop
 //Updates Screen and handles input
+//Solely paints what is passed to it, no logic other than dealing with offsets and deciding not to render out of bounds stuff
+//Alt i could pass a subset of the array that illustrates the proper view, but it works as is
+//Key input handler should not be in here
 
 public class GameCanvas extends JPanel {
 

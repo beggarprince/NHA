@@ -33,7 +33,7 @@ public class Engine implements Runnable {
         this.player = new Player();
         this.level = Level.getInstance("res/levelTest.csv");
         this.enemyFactory = new EnemyFactory();
-        this.enemyList = EnemyFactory.enemyList;
+        this.enemyList = new EnemyList();
         this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
     }
 
@@ -62,11 +62,9 @@ public class Engine implements Runnable {
                 frameRatePrevTime = frameRateCurrentTime;
                 movePlayer(player, camera, kb);
                 runEnemyBehavior();
-                if (kb.debug) {
-                    enemyFactory.createEnemy("Slime", 0,0);
-                }
                 if (kb.dig) {
-                    Spawn.spawnEnemyAtPlayer(enemyFactory,  level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
+                    Spawn.spawnEnemyAtPlayer(enemyFactory,  level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), enemyList);
+
                     dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
                 }
                 //Update UI

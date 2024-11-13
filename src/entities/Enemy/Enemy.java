@@ -10,6 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static util.CollisionKt.detectCollision;
+/*
+* A clusterfck of functions every enemy will inherit
+*
+* ATM handles
+*   movement
+*   eating
+*   eatingCycles
+*   knowledge check when the creature is in a new tile
+*   pooping back into tiles
+* */
 
 public abstract class Enemy {
     protected BufferedImage image;
@@ -32,7 +42,7 @@ public abstract class Enemy {
     Level level = Level.getInstance("res/levelTest.csv");
 
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
 
     public Enemy(int health, int x, int y) {

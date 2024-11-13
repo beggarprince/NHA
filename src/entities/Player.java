@@ -1,7 +1,7 @@
 package entities;
 
 import graphics.ScreenSettings;
-import graphics.imgLoader;
+import graphics.ImgLoader;
 import io.KbInput;
 import level.Level;
 import util.Coordinate;
@@ -20,8 +20,8 @@ public class Player {
     private int playerYOffset = 0;
 
     private enum PlayerSprite {
-        PLAYER(imgLoader.getImageResource("knight.png")),
-        DAMAGEDPLAYER(imgLoader.getImageResource("hurtknight.png"));
+        PLAYER(ImgLoader.getImageResource("knight.png")),
+        DAMAGEDPLAYER(ImgLoader.getImageResource("hurtknight.png"));
 
         private final BufferedImage image;
 

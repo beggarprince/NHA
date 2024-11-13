@@ -2,23 +2,27 @@ package entities.Enemy;
 
 
 public class EnemyFactory {
-    public static EnemyList enemyList;
 
-    public EnemyFactory(){
-        enemyList = new EnemyList();
-    }
+/*
+* Handles the creation of enemies and returns them
+* Does not handle EnemyList anymore
+* */
 
-
-    public void createEnemy(String type, int posx, int posy) {
+    public Enemy createEnemy(String type, int posx, int posy) {
 
         if (type.equals("Slime")) {
             Slime slime = new Slime(posx, posy);
-            enemyList.addEnemy(slime);
+            return slime;
         }
 
         else if(type.equals("Spirit")){
             Spirit spirit = new Spirit(posx, posy);
-            enemyList.addEnemy(spirit);
+            return spirit;
         }
+        else{//This should not be here but there ought to be a return for nothing
+            System.out.println("FACTORY ERROR");
+            return  new Slime(0, 0);
+        }
+
     }
 }

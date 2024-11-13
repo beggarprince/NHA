@@ -1,5 +1,5 @@
 package graphics;
-
+//Screen settings that will be used across the game
 public class ScreenSettings {
     // Screen settings
     public static final int ORIGINAL_TILE_SIZE = 16; // 16x16

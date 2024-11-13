@@ -18,7 +18,7 @@ public enum TileType {
 
     // Enum constructor, loading the image
     TileType(String imagePath) {
-            this.image = imgLoader.getImageResource(imagePath);
+            this.image = ImgLoader.getImageResource(imagePath);
 
     }
 
