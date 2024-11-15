@@ -117,12 +117,21 @@ public class Engine implements Runnable {
 
 
     public void checkSetMetamorphosis(){
+        int test = EnemyList.getInstance().getEnemies().size();
         ArrayList<Enemy> list = EnemyList.getInstance().getEnemies();
         for(int i = 0; i < list.size(); i++){
             Enemy e = list.get(i);
             if(e.enemyMetamorphosisIsReady){
-                metamorphosis(i, e.enemyMetamorphosis, e.enemyWorldPositionX, e.enemyWorldPositionY);
+                System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
+                metamorphosis(i, e.enemyMetamorphosis, e.enemyScreenPositionX, e.enemyScreenPositionY);
+                System.out.println("metamorphosis");
+                 e = list.get(i);
+                System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
+
             }
+        }
+        if(test != EnemyList.getInstance().getEnemies().size()){
+            System.out.println("Size of list changed");
         }
     }
 

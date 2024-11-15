@@ -47,7 +47,7 @@ public class EnemyList {
     public void metamorphosizeEnemy(Enemy e, int index){
         enemies.set(index, e);
         if(enemies.get(index) != e){
-            System.out.println("oof af");
+            System.out.println("Enemy was not properly set by metamorphosis function");
         }
     }
 

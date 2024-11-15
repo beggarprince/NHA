@@ -12,6 +12,7 @@ public class Slime extends Enemy {
         this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
         this.enemyScreenPositionX = x;
         this.enemyScreenPositionY = y;
+
         this.enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);//This will give it a random starting dir that is valid
         this.enemyHunger = 0;
         this.enemyMovementSpeed = 1;

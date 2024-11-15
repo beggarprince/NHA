@@ -1,6 +1,7 @@
 package entities.Enemy;
 
 import graphics.ImgLoader;
+import graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
 
@@ -10,11 +11,18 @@ public class Slime_Flower extends Enemy{
     public Slime_Flower( int x, int y) {
         super(1, x, y);
         enemyListInstance = EnemyList.getInstance();
+        this.enemyScreenPositionX = x;
+        this.enemyScreenPositionY = y;
+        this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
+        this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
+
+        this.image = ImgLoader.getImageResource("slime_flower.png");
+
     }
 
     @Override
     protected void setImage() {
-        image = ImgLoader.getImageResource("slime_flower");
+        image = ImgLoader.getImageResource("slime_flower.png");
     }
 
     @Override
