@@ -8,7 +8,11 @@ import io.KbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static PlayerActions.Dig.dig;
+import static entities.Enemy.Metamorphosis.metamorphosis;
 
 public class Engine implements Runnable {
     //Instantiation
@@ -21,8 +25,9 @@ public class Engine implements Runnable {
     private Player player;
     private Level level;
     private EnemyFactory enemyFactory;
-    private EnemyList enemyList;
+    private final EnemyList enemyList;
     public GameCanvas gamePanel;
+    Thread enemyThread;
 
     // Constructor
     public Engine() {
@@ -33,14 +38,13 @@ public class Engine implements Runnable {
         this.player = new Player();
         this.level = Level.getInstance("res/levelTest.csv");
         this.enemyFactory = new EnemyFactory();
-        this.enemyList = new EnemyList();
+        this.enemyList = EnemyList.getInstance();
         this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
     }
 
     public void startGameThread() {
         gameLifecycle = new Thread(this);
         gameLifecycle.start();
-
     }
 
 
@@ -54,21 +58,25 @@ public class Engine implements Runnable {
             long frameRateCurrentTime = System.nanoTime();
             long elapsedTime = frameRateCurrentTime - frameRatePrevTime;
 
-
-
-            //Update GUI information
+            ///Run one game cycle
             if (elapsedTime >= ScreenSettings.INTERVAL) {
                // System.out.println("New frame");
-                frameRatePrevTime = frameRateCurrentTime;
-                movePlayer(player, camera, kb);
-                runEnemyBehavior();
-                if (kb.dig) {
-                    Spawn.spawnEnemyAtPlayer(enemyFactory,  level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), enemyList);
 
-                    dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
-                }
-                //Update UI
-                gamePanel.repaint();
+                    frameRatePrevTime = frameRateCurrentTime;
+                    movePlayer(player, camera, kb);
+
+                    runEnemyBehavior();
+                    checkSetMetamorphosis();
+
+                    if (kb.dig) {
+                        Spawn.spawnEnemyAtPlayer(enemyFactory, level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), enemyList);
+
+                        dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
+                    }
+
+                    //Update UI
+                    gamePanel.repaint();
+
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
             else{
@@ -99,11 +107,23 @@ public class Engine implements Runnable {
 
     private void runEnemyBehavior() {
         synchronized (enemyList) {
-            for (Enemy e : enemyList.getEnemies()) {
+            List<Enemy> enemies = enemyList.getEnemies();
+            for (int i = 0; i < enemies.size(); i++) {
+                Enemy e = enemies.get(i);
                 e.behavior();
             }
         }
     }
 
+
+    public void checkSetMetamorphosis(){
+        ArrayList<Enemy> list = EnemyList.getInstance().getEnemies();
+        for(int i = 0; i < list.size(); i++){
+            Enemy e = list.get(i);
+            if(e.enemyMetamorphosisIsReady){
+                metamorphosis(i, e.enemyMetamorphosis, e.enemyWorldPositionX, e.enemyWorldPositionY);
+            }
+        }
+    }
 
 }

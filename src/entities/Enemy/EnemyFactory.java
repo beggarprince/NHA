@@ -8,7 +8,7 @@ public class EnemyFactory {
 * Does not handle EnemyList anymore
 * */
 
-    public Enemy createEnemy(String type, int posx, int posy) {
+    public static Enemy createEnemy(String type, int posx, int posy) {
 
         if (type.equals("Slime")) {
             Slime slime = new Slime(posx, posy);
@@ -18,6 +18,10 @@ public class EnemyFactory {
         else if(type.equals("Spirit")){
             Spirit spirit = new Spirit(posx, posy);
             return spirit;
+        }
+        else if(type.equals("Slime_Flower")){
+            Slime_Flower slimeFlower = new Slime_Flower(posx, posy);
+            return slimeFlower;
         }
         else{//This should not be here but there ought to be a return for nothing
             System.out.println("FACTORY ERROR");

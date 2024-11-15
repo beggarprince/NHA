@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static entities.Enemy.Metamorphosis.metamorphosis;
 import static util.CollisionKt.detectCollision;
 /*
 * A clusterfck of functions every enemy will inherit
@@ -38,15 +39,17 @@ public abstract class Enemy {
     public int enemyScreenPositionY;
     protected int enemyMovementSpeed; // How many pixels an enemy offsets per frame
     protected int enemyMovementCycle; // How long it takes before we logically know we are at a new tile without math
+    public String enemyMetamorphosis;
+    public boolean enemyMetamorphosisIsReady = false;
 
     Level level = Level.getInstance("res/levelTest.csv");
-
 
     private final Random random = new Random();
 
 
     public Enemy(int health, int x, int y) {
         this.enemyHealth = health;
+
     }
 
     // Getter and setter methods
@@ -88,10 +91,7 @@ public abstract class Enemy {
 
     protected abstract void eat();
 
-    protected  void agingCycle(){
-        enemyLifespan--;
-        if(enemyLifespan <= 0) death();
-    }
+    protected  abstract void agingCycle();
 
     protected abstract void reproductionCycle();
 
@@ -288,5 +288,7 @@ public abstract class Enemy {
             enemyMovementCycle = 0;
         }
     }
+
+
 
 }

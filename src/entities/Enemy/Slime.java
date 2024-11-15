@@ -16,9 +16,11 @@ public class Slime extends Enemy {
         this.enemyHunger = 0;
         this.enemyMovementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
-        this.enemyLifespan = 3;
+        this.enemyLifespan = 10;
         this.enemyHasFullStomach = false;
         this.enemyMaxHunger =1;
+
+        this.enemyMetamorphosis = "Slime_Flower";
     }
 
     @Override
@@ -51,6 +53,7 @@ public class Slime extends Enemy {
             if (enemyHunger < enemyMaxHunger) eat();
             else poop();
         }
+        //TODO make this abstract
         agingCycle();
     }
 
@@ -63,6 +66,16 @@ public class Slime extends Enemy {
            enemyEatingCycleReady = false; //This can only be set true by moving to a new tile
        }
     }
+
+    @Override
+    protected void agingCycle() {
+        enemyLifespan--;
+        if(enemyLifespan == 0){
+         //There needs to be code  here to determine whether the slime reproduces or just dies
+            enemyMetamorphosisIsReady = true;
+        }
+    }
+
     protected void poop(){
         if(depositSurroundingTile(TileType.NUTRIENT)) {
             //System.out.println("shat");

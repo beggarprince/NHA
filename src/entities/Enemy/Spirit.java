@@ -15,7 +15,6 @@ public class Spirit extends Enemy {
         this.enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);//This will give it a random starting dir that is valid
         this.enemyLifespan = 3;
         this.enemyMovementSpeed = 1;
-
     }
 
     @Override
@@ -45,6 +44,11 @@ public class Spirit extends Enemy {
     }
 
     protected void eat(){
+
+    }
+
+    @Override
+    protected void agingCycle() {
 
     }
 
