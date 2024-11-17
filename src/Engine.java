@@ -81,6 +81,7 @@ public class Engine implements Runnable {
 
                     //Update UI
                     gamePanel.repaint();
+                    enemyList.destroyEnemies();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
@@ -126,11 +127,11 @@ public class Engine implements Runnable {
         for(int i = 0; i < EnemyList.getInstance().getEnemies().size(); i++){
             Enemy e = EnemyList.getInstance().getEnemies().get(i);
             if(e.enemyMetamorphosisIsReady){
-                System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
+                //System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
                 metamorphosis(i, e.enemyMetamorphosis, e.enemyScreenPositionX, e.enemyScreenPositionY);
-                System.out.println("metamorphosis");
-                 e = EnemyList.getInstance().getEnemies().get(i);
-                System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
+                //System.out.println("metamorphosis");
+               //  e = EnemyList.getInstance().getEnemies().get(i);
+               // System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
 
             }
         }

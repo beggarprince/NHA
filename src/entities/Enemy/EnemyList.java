@@ -48,10 +48,23 @@ public class EnemyList {
         }
     }
 
+    //TODO implement a metamorphosis list that just holds the indexes so we can iterate that instead of the array
     public void metamorphosizeEnemy(Enemy e, int index){
         enemies.set(index, e);
         if(enemies.get(index) != e){
             System.out.println("Enemy was not properly set by metamorphosis function");
+        }
+    }
+
+
+    public void destroyEnemies(){
+        for(int i = 0 ; i < EnemyList.getInstance().getEnemies().size(); i++){
+            if(EnemyList.getInstance().getEnemies().get(i).enemyIsDead){
+                Enemy e = EnemyList.getInstance().getEnemies().get(i);
+                EnemyList.getInstance().getEnemies().get(i).destroy();
+                EnemyList.getInstance().removeEnemy(e);
+
+            }
         }
     }
 

@@ -15,7 +15,7 @@ public class Slime_Flower extends Enemy{
         this.enemyScreenPositionY = y;
         this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
         this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
-
+        this.enemyLifespan = 30;
         this.image = ImgLoader.getImageResource("slime_flower.png");
 
     }
@@ -33,6 +33,7 @@ public class Slime_Flower extends Enemy{
     @Override
     public void behavior() {
         //Since it does move at all we simply never call move function
+        agingCycle();
     }
 
     @Override
@@ -42,7 +43,11 @@ public class Slime_Flower extends Enemy{
 
     @Override
     protected void agingCycle() {
-
+        enemyLifespan--;
+        if(enemyLifespan <= 0){
+            this.enemyIsDead = true;
+          //  System.out.println("mf died");
+        }
     }
 
     //TODO The reproduction cycle doesn't have to be an abstract fn as Slime will never be able to reproduce but Flower will
@@ -52,5 +57,8 @@ public class Slime_Flower extends Enemy{
             //Spawn 4 slimes
 
         }
+    }
+    public void destroy(){
+        this.image = null;
     }
 }

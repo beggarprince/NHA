@@ -88,6 +88,10 @@ public abstract class Enemy {
 
     protected abstract void setImage();
 
+
+    protected abstract void destroy();
+
+
     public abstract BufferedImage getImage();
 
     public abstract void behavior();
@@ -291,7 +295,6 @@ public abstract class Enemy {
             enemyMovementCycle = 0;
         }
     }
-
 
 
 }

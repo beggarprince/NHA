@@ -23,6 +23,11 @@ public class Spirit extends Enemy {
         image = ImgLoader.getImageResource("spirit.png");
     }
 
+    @Override
+    protected void destroy() {
+
+    }
+
     // Getter for the image if needed
     public BufferedImage getImage() {
         return image;

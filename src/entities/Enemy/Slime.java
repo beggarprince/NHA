@@ -17,7 +17,7 @@ public class Slime extends Enemy {
         this.enemyHunger = 0;
         this.enemyMovementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
-        this.enemyLifespan = 300;
+        this.enemyLifespan = 30;
         this.enemyHasFullStomach = false;
         this.enemyMaxHunger =1;
 
@@ -28,6 +28,11 @@ public class Slime extends Enemy {
     protected void setImage() {
         //Will be used to change sprite
         image = ImgLoader.getImageResource("slime.png");
+    }
+
+    @Override
+    protected void destroy() {
+
     }
 
     // Getter for the image if needed
@@ -54,7 +59,7 @@ public class Slime extends Enemy {
             if (enemyHunger < enemyMaxHunger) eat();
             else poop();
         }
-        //TODO make this abstract
+
         agingCycle();
     }
 
