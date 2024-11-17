@@ -13,8 +13,8 @@ public class Tile {
     private int mana = 0;
     private static final Random random = new Random(); // Initialized once
 
-    public final int nutrientL2Min = 4;
-    public final int nutrientL3Min = 9;
+    public final static int nutrientL2Min = 4;
+    public final static int nutrientL3Min = 9;
 
 
     public Tile(TileType t, int posx , int posy){

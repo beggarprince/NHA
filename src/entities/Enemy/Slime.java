@@ -17,9 +17,9 @@ public class Slime extends Enemy {
         this.enemyHunger = 0;
         this.enemyMovementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
-        this.enemyLifespan = 30;
+        this.enemyLifespan = 300;
         this.enemyHasFullStomach = false;
-        this.enemyMaxHunger =1;
+        this.enemyMaxHunger = 1;
 
         this.enemyMetamorphosis = "Slime_Flower";
     }
@@ -32,7 +32,7 @@ public class Slime extends Enemy {
 
     @Override
     protected void destroy() {
-
+        this.image = null;
     }
 
     // Getter for the image if needed

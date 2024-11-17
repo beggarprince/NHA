@@ -1,6 +1,8 @@
 New features
+
+
 Slime
-    Needs to eat, reproduce, and die of old age
+    Needs Reproduce
     Needs to walk slower
 
 Audio

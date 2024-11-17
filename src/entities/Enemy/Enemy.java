@@ -89,8 +89,8 @@ public abstract class Enemy {
     protected abstract void setImage();
 
 
+    //Removes final references of the object so it can be removed, allows unique deaths based on type bc it's abstract
     protected abstract void destroy();
-
 
     public abstract BufferedImage getImage();
 

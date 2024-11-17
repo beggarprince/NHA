@@ -25,7 +25,7 @@ public class Spirit extends Enemy {
 
     @Override
     protected void destroy() {
-
+        this.image = null;
     }
 
     // Getter for the image if needed

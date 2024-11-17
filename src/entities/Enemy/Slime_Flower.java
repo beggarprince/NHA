@@ -15,7 +15,7 @@ public class Slime_Flower extends Enemy{
         this.enemyScreenPositionY = y;
         this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
         this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
-        this.enemyLifespan = 30;
+        this.enemyLifespan = 300;
         this.image = ImgLoader.getImageResource("slime_flower.png");
 
     }

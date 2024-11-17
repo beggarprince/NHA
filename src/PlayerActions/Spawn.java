@@ -9,9 +9,12 @@ import level.Tile;
 public class Spawn {
 
     public static void spawnEnemyAtPlayer(EnemyFactory e, Tile tile, EnemyList eList){
+        String reqMonster = "";
 
         if(tile.type == TileType.NUTRIENT){
-            eList.addEnemy( e.createEnemy("Slime", tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE ));
+            if(tile.getNutrients() > Tile.nutrientL2Min) reqMonster = "Slime_Flower";
+            else reqMonster = "Slime";
+            eList.addEnemy( e.createEnemy(reqMonster, tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE ));
         }
         else if(tile.type == TileType.MANA){
             eList.addEnemy( e.createEnemy("Spirit", tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE));
