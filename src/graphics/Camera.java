@@ -71,10 +71,10 @@ public class Camera {
     }
 
     private boolean verifyValidCoordinate(Coordinate edge, int x, int y) {
-        boolean xWithinLeftBound = (edge.x + x) >= 0;
-        boolean xWithinRightBound = (edge.x + x + ScreenSettings.PX_SCREEN_WIDTH) < Level.levelColumns * ScreenSettings.TILE_SIZE;
-        boolean yWithinUpperBound = (edge.y + y) >= 0;
-        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.PX_SCREEN_HEIGHT) < Level.levelRows * ScreenSettings.TILE_SIZE;
+        boolean xWithinLeftBound = (edge.x + x + ScreenSettings.STYLE_OFFSET) >= 0;
+        boolean xWithinRightBound = (edge.x + x + ScreenSettings.PX_SCREEN_WIDTH - ScreenSettings.STYLE_OFFSET) <= Level.levelColumns * ScreenSettings.TILE_SIZE;
+        boolean yWithinUpperBound = (edge.y + y + ScreenSettings.STYLE_OFFSET) >= 0;
+        boolean yWithinLowerBound = (edge.y + y + ScreenSettings.PX_SCREEN_HEIGHT - ScreenSettings.STYLE_OFFSET) <= Level.levelRows * ScreenSettings.TILE_SIZE;
 
 
         return xWithinLeftBound &&

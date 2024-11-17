@@ -6,8 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//Just fetches a csv and puts it's data into a vector like structure
-//Solely a utility function
+//Just fetches a csv and returns an array of arrays of ints
 public class LevelLoader {
 
     public static ArrayList<ArrayList<Integer>> getLevelData(String filePath) {

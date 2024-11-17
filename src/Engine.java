@@ -63,7 +63,7 @@ public class Engine implements Runnable {
                // System.out.println("New frame");
 
                     frameRatePrevTime = frameRateCurrentTime;
-                    movePlayer(player, camera, kb);
+                    if(kb.playerMoving())movePlayer(player, camera, kb);
 
                     runEnemyBehavior();
                     checkSetMetamorphosis();
@@ -72,6 +72,11 @@ public class Engine implements Runnable {
                         Spawn.spawnEnemyAtPlayer(enemyFactory, level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), enemyList);
 
                         dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
+                    }
+
+                    else if(kb.debug){
+                        System.gc();
+                        //enemyList.removeAll();
                     }
 
                     //Update UI
@@ -117,22 +122,19 @@ public class Engine implements Runnable {
 
 
     public void checkSetMetamorphosis(){
-        int test = EnemyList.getInstance().getEnemies().size();
-        ArrayList<Enemy> list = EnemyList.getInstance().getEnemies();
-        for(int i = 0; i < list.size(); i++){
-            Enemy e = list.get(i);
+
+        for(int i = 0; i < EnemyList.getInstance().getEnemies().size(); i++){
+            Enemy e = EnemyList.getInstance().getEnemies().get(i);
             if(e.enemyMetamorphosisIsReady){
                 System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
                 metamorphosis(i, e.enemyMetamorphosis, e.enemyScreenPositionX, e.enemyScreenPositionY);
                 System.out.println("metamorphosis");
-                 e = list.get(i);
+                 e = EnemyList.getInstance().getEnemies().get(i);
                 System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
 
             }
         }
-        if(test != EnemyList.getInstance().getEnemies().size()){
-            System.out.println("Size of list changed");
-        }
+
     }
 
 }

@@ -17,7 +17,7 @@ public class Slime extends Enemy {
         this.enemyHunger = 0;
         this.enemyMovementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
-        this.enemyLifespan = 10;
+        this.enemyLifespan = 300;
         this.enemyHasFullStomach = false;
         this.enemyMaxHunger =1;
 

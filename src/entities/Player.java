@@ -52,28 +52,27 @@ public class Player {
         if(!cameraPanned){
 
         if (kb.upPressed) {
-            if(playerScreenPosition.y - Player.playerSpeed >= 0){
+            if(playerTilePositionY -1 >= 0){
                 playerScreenPosition.y -= Player.playerSpeed;
                 playerMoved = true;
                 playerYOffset++;
             }
 
         } else if (kb.downPressed) {
-            if(playerScreenPosition.y / ScreenSettings.TILE_SIZE + Player.playerSpeed < Level.levelRows +1) {
+            if(playerTilePositionY + 1 < Level.levelRows ) {
                 playerMoved = true;
                 playerScreenPosition.y += Player.playerSpeed;
-                playerYOffset--;
+                playerYOffset--;;
             }
         } else if (kb.rightPressed) {
-            if((playerScreenPosition.x / ScreenSettings.TILE_SIZE + Player.playerSpeed)  < Level.levelColumns -1 ){
+            if(playerTilePositionX +1 < Level.levelColumns  ){
                 playerMoved = true;
                 playerScreenPosition.x += Player.playerSpeed;
                 playerXOffset++;
             }
 
         } else if (kb.leftPressed) {
-
-            if(playerScreenPosition.x - Player.playerSpeed >= 0){
+            if(playerTilePositionX -1 >= 0){
                 playerScreenPosition.x -= Player.playerSpeed;
             playerMoved = true;
             playerXOffset--;
@@ -81,10 +80,16 @@ public class Player {
         }
 
         }
-        if(playerMoved || cameraPanned)updatePlayerWorldPosition(kb);
+        if(playerMoved || cameraPanned){
+            updatePlayerWorldPosition(kb);
+            //System.out.println(playerTilePositionX + " < " + Level.levelColumns);
+            //System.out.println((playerTilePositionY+ " " + playerScreenPosition.y / ScreenSettings.TILE_SIZE)+ " < " + Level.levelRows);
+
+        }
 
     }
 
+    //Player or camera moved, need to update player logical pos
     private void updatePlayerWorldPosition(KbInput kb){
 
         if(kb.upPressed){

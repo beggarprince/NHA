@@ -87,6 +87,7 @@ public class GameCanvas extends JPanel {
 
             // Loop over the horizontal tiles
             for (int tileX = startTileX; tileX < endTileX && tileX < level.get(tileY).size(); tileX++) {
+                if(tileX <0) continue;
                 g.drawImage(level.get(tileY).get(tileX).type.getImage(level.get(tileY).get(tileX)),
                         offsetTileX(tileX), offsetTileY(tileY),
                         ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE,

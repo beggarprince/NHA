@@ -40,6 +40,7 @@ public class Tile {
         else return;
     }
 
+    //TODO extract this function
     private static int getRandomNumberInRange(int min, int max) {
         if (min >= max) {
             throw new IllegalArgumentException("Max must be greater than min");

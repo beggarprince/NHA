@@ -9,8 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static entities.Enemy.Metamorphosis.metamorphosis;
-import static util.CollisionKt.detectCollision;
+import static util.CollisionKt.detectNPCCollision;
 /*
 * A clusterfck of functions every enemy will inherit
 *
@@ -32,11 +31,15 @@ public abstract class Enemy {
     protected int enemyMaxHunger;
     protected Direction enemyCurrentDirection;
     public boolean enemyIsDead = false;
+
+    //Logical position on array
     public int enemyWorldPositionX;
     public int enemyWorldPositionY;
     //Where the enemy is drawn on the screen, out of bounds enemies from the camera are not rendered
+    //World position
     public int enemyScreenPositionX;
     public int enemyScreenPositionY;
+
     protected int enemyMovementSpeed; // How many pixels an enemy offsets per frame
     protected int enemyMovementCycle; // How long it takes before we logically know we are at a new tile without math
     public String enemyMetamorphosis;
@@ -159,19 +162,19 @@ public abstract class Enemy {
         //Returns true if walkable, false if not
         if (dir == Direction.UP) {
             if (y > 0) {
-                return detectCollision(level.tileData.get(y - 1).get(x));
+                return detectNPCCollision(level.tileData.get(y - 1).get(x));
             }
         } else if (dir == Direction.DOWN) {
             if (y < Level.levelRows - 1) {
-                return detectCollision(level.tileData.get(y + 1).get(x));
+                return detectNPCCollision(level.tileData.get(y + 1).get(x));
             }
         } else if (dir == Direction.LEFT) {
             if (x > 0) {
-                return detectCollision(level.tileData.get(y).get(x - 1));
+                return detectNPCCollision(level.tileData.get(y).get(x - 1));
             }
         } else if (dir == Direction.RIGHT) {
             if (x < Level.levelColumns - 1) {
-                return detectCollision(level.tileData.get(y).get(x + 1));
+                return detectNPCCollision(level.tileData.get(y).get(x + 1));
             }
         }
         return false; // If all checks fail, the move is invalid.

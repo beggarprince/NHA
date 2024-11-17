@@ -81,4 +81,8 @@ public class KbInput implements KeyListener {
     public boolean conflictingVerticalInput(){
         return downPressed && upPressed;
     }
+
+    public boolean playerMoving(){
+        return (leftPressed || rightPressed || upPressed || downPressed);
+    }
 }

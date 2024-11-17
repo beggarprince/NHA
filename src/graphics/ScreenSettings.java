@@ -5,10 +5,16 @@ public class ScreenSettings {
     public static final int ORIGINAL_TILE_SIZE = 16; // 16x16
     public static final int SCALE = 2;
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
+    public static final int STYLE_OFFSET = TILE_SIZE * 2; // Mainly for testing but keeping this allows us to draw a background
 
     //Tiles system
+    //Amount of tiles rendered on window
     public static final int TS_X = 32;
     public static final int TS_Y = 24;
+
+    //Amount of tiles in world
+    public static final int TS_World_X = TS_X * 3;
+    public static final int TS_World_Y = TS_Y * 5;
 
     //Pixel
     public static final int PX_SCREEN_WIDTH = TS_X * TILE_SIZE;

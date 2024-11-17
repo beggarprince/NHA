@@ -8,7 +8,7 @@ import java.util.ArrayList;
 * */
 public class EnemyList {
     private static EnemyList instance;     // Singleton instance
-    private final ArrayList<Enemy> enemies;      // Instance variable for the list
+    private  ArrayList<Enemy> enemies;      // Instance variable for the list
 
     // Private constructor for singleton
     private EnemyList() {
@@ -21,6 +21,10 @@ public class EnemyList {
             instance = new EnemyList();
         }
         return instance;
+    }
+
+    public void removeAll(){
+        enemies = new ArrayList<>();
     }
 
     // Method to add an enemy

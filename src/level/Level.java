@@ -1,5 +1,6 @@
 package level;
 
+import graphics.ScreenSettings;
 import graphics.TileType;
 
 import java.util.ArrayList;
@@ -23,13 +24,20 @@ public class Level {
 
     public static int levelColumns;
     public static int levelRows;
+    private LevelGenerator levelGenerator;
 
     // Private constructor prevents instantiation from other classes
     private Level(String levelFilePath) {
-        levelData = LevelLoader.getLevelData(levelFilePath);
+        //levelData = LevelLoader.getLevelData(levelFilePath);
+
+        levelGenerator = new LevelGenerator(60, 90);
+        levelData = levelGenerator.returnLevel();
 
         levelRows = levelData.size(); // Size of column
         levelColumns = levelData.get(0).size(); // Size of row
+        System.out.println(levelColumns + " " + levelRows);
+        if(levelColumns != ScreenSettings.TS_World_X) System.out.println("Not enough columns made");
+        if(levelRows != ScreenSettings.TS_World_Y) System.out.println("Not enough rows made");
         createTileData();
     }
 
@@ -68,6 +76,7 @@ public class Level {
         return tile;
     }
 
+    //TODO reorganize this
     private TileType intToType(int val) {
         switch (val) {
             case 1:
