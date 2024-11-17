@@ -1,5 +1,13 @@
-New features
+Gameplay fixes
+Player moves too fast
+Player camera moves too often, needs a deadzone in the center that will allow the player small movements before the entire camera moves
 
+New features
+Water
+    Blocks need to be added to handle spawning of water.
+    Water needs to head down as to mimic gravity
+    Water needs to contain a value like nutrients/mana so if there is not enough room to spread we can stack it and move it as the player digs
+    Water creatures
 
 Slime
     Needs Reproduce
@@ -33,3 +41,6 @@ kbInput
     Should be a singleton class
 Remove Coordinate class
     It just turned out to be a massive headache
+
+Architecture
+    Create State within Engine to be able to interrupt the game loop with menus
