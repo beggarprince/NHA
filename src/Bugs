@@ -1,3 +1,1 @@
-Enemy
-    Enemies Direction goes back where they came from when there is another path available
-        Going back is last resort for movement, given any other option it shouldn't be taken
+Extremely high RAM usage that just keeps incrementing, memory leak somewhere

@@ -13,13 +13,16 @@ Sprite System
 Limit contols and reactions
     I can't press a button for 1/60th of a second and it causes multiple instances of said button. ATP you're going to cull the enemies accidentally
 
+Camera
+    Very hard to look at the entire map moving constantly
+    Need to implement a system where the player moves by X/Y values until they are far away enough from the offset that the camera will move
+    This will allow the player to move up/down/left/right a bit without moving the camera for precision
+
 Refactors
 GameCanvas
     GameCanvas should only be painting, it should not be deciding what gets painted. Needs the logic taken outside of it
 Level
     Now that it is singleton class some minor refactoring is necessary
-Dig
-    Needs to be taken out of level. Since we have direct access to level.levelData and tileData we don't need it here
 Enemy
     Has some very useful movement code inside of it that would be best moved outside of it so non enemy npcs an utilize it
 Camera
