@@ -12,6 +12,7 @@ import util.Coordinate;
 * It checks boundaries and prevents camera from going out of bounds
 * Returns a boolean to signal the Engine that the topLeft corner is unchanged and the player will instead have to move away from the center position of the screen
 * */
+//TODO make this a singleton, when are we ever going to have two cameras?
 public class Camera {
     public Coordinate topLeftCrn;
     public int offsetX = 0;

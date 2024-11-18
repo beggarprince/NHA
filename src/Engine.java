@@ -1,5 +1,5 @@
 import PlayerActions.Spawn;
-import entities.Enemy.*;
+import entities.Monsters.*;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
@@ -8,24 +8,23 @@ import io.KbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static PlayerActions.Dig.dig;
-import static entities.Enemy.Metamorphosis.metamorphosis;
+import static entities.Monsters.Metamorphosis.metamorphosis;
 
 public class Engine implements Runnable {
     //Instantiation
     //TODO Move the initialization in the engine constructor
     // Declare instance variables
-    private Coordinate leftTop;
-    private Camera camera;
-    private KbInput kb;
+    private final Coordinate leftTop;
+    private final Camera camera;
+    private final KbInput kb;
     private Thread gameLifecycle;
     private Player player;
     private Level level;
-    private EnemyFactory enemyFactory;
-    private final EnemyList enemyList;
+    private MonsterFactory monsterFactory;
+    private final MonsterList monsterList;
     public GameCanvas gamePanel;
     Thread enemyThread;
 
@@ -37,9 +36,9 @@ public class Engine implements Runnable {
         this.kb = new KbInput();
         this.player = new Player();
         this.level = Level.getInstance("res/levelTest.csv");
-        this.enemyFactory = new EnemyFactory();
-        this.enemyList = EnemyList.getInstance();
-        this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, enemyList);
+        this.monsterFactory = new MonsterFactory();
+        this.monsterList = MonsterList.getInstance();
+        this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, monsterList);
     }
 
     public void startGameThread() {
@@ -69,7 +68,7 @@ public class Engine implements Runnable {
                     checkSetMetamorphosis();
 
                     if (kb.dig) {
-                        Spawn.spawnEnemyAtPlayer(enemyFactory, level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), enemyList);
+                        Spawn.spawnEnemyAtPlayer( level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), monsterList);
 
                         dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
                     }
@@ -81,7 +80,7 @@ public class Engine implements Runnable {
 
                     //Update UI
                     gamePanel.repaint();
-                    enemyList.destroyEnemies();
+                    monsterList.destroyEnemies();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
@@ -112,10 +111,10 @@ public class Engine implements Runnable {
     }
 
     private void runEnemyBehavior() {
-        synchronized (enemyList) {
-            List<Enemy> enemies = enemyList.getEnemies();
+        synchronized (monsterList) {
+            List<Monster> enemies = monsterList.getMonsters();
             for (int i = 0; i < enemies.size(); i++) {
-                Enemy e = enemies.get(i);
+                Monster e = enemies.get(i);
                 e.behavior();
             }
         }
@@ -124,11 +123,11 @@ public class Engine implements Runnable {
 
     public void checkSetMetamorphosis(){
 
-        for(int i = 0; i < EnemyList.getInstance().getEnemies().size(); i++){
-            Enemy e = EnemyList.getInstance().getEnemies().get(i);
-            if(e.enemyMetamorphosisIsReady){
+        for(int i = 0; i < MonsterList.getInstance().getMonsters().size(); i++){
+            Monster e = MonsterList.getInstance().getMonsters().get(i);
+            if(e.metamorphosisReady){
                 //System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
-                metamorphosis(i, e.enemyMetamorphosis, e.enemyScreenPositionX, e.enemyScreenPositionY);
+                metamorphosis(i, e.metamorphosisValue, e.screenPositionX, e.screenPositionY);
                 //System.out.println("metamorphosis");
                //  e = EnemyList.getInstance().getEnemies().get(i);
                // System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);

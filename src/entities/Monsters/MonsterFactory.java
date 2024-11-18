@@ -1,14 +1,14 @@
-package entities.Enemy;
+package entities.Monsters;
 
 
-public class EnemyFactory {
+public class MonsterFactory {
 
 /*
 * Handles the creation of enemies and returns them
 * Does not handle EnemyList anymore
 * */
-
-    public static Enemy createEnemy(String type, int posx, int posy) {
+//Made as static instead of singleton
+    public static Monster createMonster(String type, int posx, int posy) {
 
         if (type.equals("Slime")) {
             return new Slime(posx, posy);

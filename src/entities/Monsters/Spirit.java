@@ -1,20 +1,20 @@
-package entities.Enemy;
+package entities.Monsters;
 import graphics.ScreenSettings;
 import graphics.ImgLoader;
 import java.awt.image.BufferedImage;
 
-public class Spirit extends Enemy {
+public class Spirit extends Monster {
 
     public Spirit(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
         this.image = ImgLoader.getImageResource("spirit.png");
-        this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
-        this.enemyScreenPositionX = x;
-        this.enemyScreenPositionY = y;
-        this.enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);//This will give it a random starting dir that is valid
-        this.enemyLifespan = 3;
-        this.enemyMovementSpeed = 1;
+        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
+        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.screenPositionX = x;
+        this.screenPositionY = y;
+        this.currDirection = enemyGetRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
+        this.lifespan = 3;
+        this.movementSpeed = 1;
     }
 
     @Override
@@ -36,14 +36,14 @@ public class Spirit extends Enemy {
     public void behavior(){
 
         //We see if we can move this direction
-        if(validateWalkableDirection(enemyCurrentDirection, enemyWorldPositionX, enemyWorldPositionY)){
-            move(enemyMovementSpeed);
+        if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
+            move(movementSpeed);
             updateWorldPosition();
         }
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);
+            currDirection = enemyGetRandomDirection(worldPositionX, worldPositionY);
         }
         agingCycle();
     }

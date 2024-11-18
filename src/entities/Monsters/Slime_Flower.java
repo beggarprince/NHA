@@ -1,21 +1,21 @@
-package entities.Enemy;
+package entities.Monsters;
 
 import graphics.ImgLoader;
 import graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
 
-public class Slime_Flower extends Enemy{
-    EnemyList enemyListInstance;
+public class Slime_Flower extends Monster {
+    MonsterList monsterListInstance;
 
     public Slime_Flower( int x, int y) {
         super(1, x, y);
-        enemyListInstance = EnemyList.getInstance();
-        this.enemyScreenPositionX = x;
-        this.enemyScreenPositionY = y;
-        this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
-        this.enemyLifespan = 300;
+        monsterListInstance = MonsterList.getInstance();
+        this.screenPositionX = x;
+        this.screenPositionY = y;
+        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
+        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.lifespan = 300;
         this.image = ImgLoader.getImageResource("slime_flower.png");
 
     }
@@ -43,9 +43,9 @@ public class Slime_Flower extends Enemy{
 
     @Override
     protected void agingCycle() {
-        enemyLifespan--;
-        if(enemyLifespan <= 0){
-            this.enemyIsDead = true;
+        lifespan--;
+        if(lifespan <= 0){
+            this.isDead = true;
           //  System.out.println("mf died");
         }
     }
@@ -53,7 +53,7 @@ public class Slime_Flower extends Enemy{
     //TODO The reproduction cycle doesn't have to be an abstract fn as Slime will never be able to reproduce but Flower will
     @Override
     protected void reproductionCycle() {
-        if(enemyLifespan == 0){
+        if(lifespan == 0){
             //Spawn 4 slimes
 
         }

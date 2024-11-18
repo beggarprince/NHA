@@ -3,6 +3,7 @@ package io;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+//TODO make this a Singleton
 public class KbInput implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     public boolean debug = false;
@@ -12,9 +13,6 @@ public class KbInput implements KeyListener {
 
     }
 
-    //TODO more than one keypressed can be true which causes conflict and since keyPressed happens only once it causes cases where when two opposites are held and one is released the other still needs to be re pressed
-    //Could handle at engine level as player_Moving being set to true causing things not to be checked, but gameCanvas has the key listener
-    //To prevent this atm we just used a lock of sorts. It prevents crashing but adds a delay when two are held and one is released, 1-2 seconds before the other one moves
     @Override
     public void keyPressed(KeyEvent e) {
 

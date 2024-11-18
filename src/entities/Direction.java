@@ -1,4 +1,4 @@
-package entities.Enemy;
+package entities;
 
 public enum Direction {
     LEFT,

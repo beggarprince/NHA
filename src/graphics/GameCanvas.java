@@ -1,7 +1,7 @@
 package graphics;
 
-import entities.Enemy.Enemy;
-import entities.Enemy.EnemyList;
+import entities.Monsters.Monster;
+import entities.Monsters.MonsterList;
 import entities.Player;
 import io.KbInput;
 import level.Tile;
@@ -23,7 +23,7 @@ public class GameCanvas extends JPanel {
     Camera camera;
     Player player;
     ArrayList<ArrayList<Tile>> level;
-    EnemyList enemyList;
+    MonsterList monsterList;
 
     private int startTileY = 0;
     private int startTileX = 0;
@@ -31,7 +31,7 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
 
 
-    public GameCanvas(KbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, EnemyList e) {
+    public GameCanvas(KbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, MonsterList e) {
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT)));
         this.setBackground(Color.black);
@@ -41,7 +41,7 @@ public class GameCanvas extends JPanel {
         player = p;
         level = levelData;
         camera = c;
-        enemyList = e;
+        monsterList = e;
     }
 
     public void paintComponent(Graphics g) {
@@ -123,13 +123,13 @@ public class GameCanvas extends JPanel {
 
     //Needs screen position
     private void paintEnemies(Graphics2D g) {
-        ArrayList<Enemy> list = enemyList.getEnemies();
+        ArrayList<Monster> list = monsterList.getMonsters();
         for (int i = 0; i < list.size(); i++) {
-            Enemy e = list.get(i);
+            Monster e = list.get(i);
             //If in camera view
-            if ((e.enemyWorldPositionX >= startTileX && e.enemyWorldPositionX < endTileX) && (e.enemyWorldPositionY >= startTileY && e.enemyWorldPositionY < endTileY)) {
+            if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX) && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
                 //Draw according to offset
-                g.drawImage(e.getImage(), offsetTileX(e.enemyWorldPositionX), offsetTileY(e.enemyWorldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(e.getImage(), offsetTileX(e.worldPositionX), offsetTileY(e.worldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 
             }
         }

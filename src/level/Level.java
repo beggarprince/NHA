@@ -42,6 +42,7 @@ public class Level {
     }
 
     // Public static method to provide access to the single instance
+    //TODO override it so we don't always need a string
     public static Level getInstance(String levelFilePath) {
         if (instance == null) {
             instance = new Level(levelFilePath);

@@ -1,27 +1,27 @@
-package entities.Enemy;
+package entities.Monsters;
 import graphics.ScreenSettings;
 import graphics.TileType;
 import graphics.ImgLoader;
 import java.awt.image.BufferedImage;
 
-public class Slime extends Enemy {
+public class Slime extends Monster {
 
     public Slime(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
-        this.enemyWorldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.enemyWorldPositionY =y / ScreenSettings.TILE_SIZE;
-        this.enemyScreenPositionX = x;
-        this.enemyScreenPositionY = y;
+        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
+        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.screenPositionX = x;
+        this.screenPositionY = y;
 
-        this.enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);//This will give it a random starting dir that is valid
-        this.enemyHunger = 0;
-        this.enemyMovementSpeed = 1;
+        this.currDirection = enemyGetRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
+        this.hunger = 0;
+        this.movementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
-        this.enemyLifespan = ScreenSettings.FPS * 45;
-        this.enemyHasFullStomach = false;
-        this.enemyMaxHunger = 1;
+        this.lifespan = ScreenSettings.FPS * 45;
+        this.hasFullStomach = false;
+        this.maxHunger = 1;
 
-        this.enemyMetamorphosis = "Slime_Flower";
+        this.metamorphosisValue = "Slime_Flower";
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Slime extends Enemy {
     public void behavior(){
 
         //We see if we can move this direction
-        if(validateWalkableDirection(enemyCurrentDirection, enemyWorldPositionX, enemyWorldPositionY)){
-            move(enemyMovementSpeed);
+        if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
+            move(movementSpeed);
 
             updateWorldPosition();
             resetMovementCycle();
@@ -52,11 +52,11 @@ public class Slime extends Enemy {
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            enemyCurrentDirection = enemyGetRandomDirection(enemyWorldPositionX, enemyWorldPositionY);
+            currDirection = enemyGetRandomDirection(worldPositionX, worldPositionY);
         }
         //Eat
-        if(enemyEatingCycleReady) {
-            if (enemyHunger < enemyMaxHunger) eat();
+        if(eatingCycleReady) {
+            if (hunger < maxHunger) eat();
             else poop();
         }
 
@@ -67,25 +67,25 @@ public class Slime extends Enemy {
        if(eatSurroundingTile(TileType.NUTRIENT)) {
            //System.out.println("ate");
 
-           enemyHunger++;
+           hunger++;
         //   if(enemyHunger == enemyMaxHunger) System.out.println("Ready to poop");
-           enemyEatingCycleReady = false; //This can only be set true by moving to a new tile
+           eatingCycleReady = false; //This can only be set true by moving to a new tile
        }
     }
 
     @Override
     protected void agingCycle() {
-        enemyLifespan--;
-        if(enemyLifespan == 0){
+        lifespan--;
+        if(lifespan == 0){
          //There needs to be code  here to determine whether the slime reproduces or just dies
-            enemyMetamorphosisIsReady = true;
+            metamorphosisReady = true;
         }
     }
 
     protected void poop(){
         if(depositSurroundingTile(TileType.NUTRIENT)) {
-            enemyHunger--;
-            enemyEatingCycleReady = false;
+            hunger--;
+            eatingCycleReady = false;
         }
     }
 
