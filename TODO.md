@@ -7,12 +7,35 @@
 # Heroes
 - Need to be implemented.
 - Need their pathfinding algorithm.
-
+- Upon death drop a skeleton which the player can spawn
+  - Skeleton levels up as it absorbs passing spirits. Spirits are lost their mana will not be reintroduced to the ecosystem
 
 # New Enemy Features
+## Enemy types
+### List of unintroduced enemies
+- Lizardmen
+- Lizardman Egg
+- Bug
+- Flying Bug, Bugs metamorphosis
+- Lilith
+- Dragon
+- Dragon Egg
+
+## Mercenaries/Villains
+- Can be purchased and aid the player's dungeon
+- Does not reproduce
+- Subclass of hero
 
 ## Runes
-- Special enemy summons when meeting certain criteria.
+- Special enemy Demon summons when meeting certain criteria.
+  - Criteria are
+    - x+-1 and y+-1 tiles must be PATH type
+    - All 8 tiles, not just the for adjacent but the ones diagonal from it
+    - Spirits will walk into the rune and die, after a set amount the Demon will become a more powerful variant
+      - Variant, not type. Stat inflation
+    - Demons buff stats mapwide and are stronger than regular enemies, but should still lose a 1v1 to a hero
+    - Eat, unique ability to sleep which restores it's health
+    - Disrupts Ecosystem's balance, doesn't need to be hungry to kill enemies. Enemies just need to be in front of it
 
 ## Dungeon IQ
 - Will give enemies special attacks as the entire dungeon's IQ increases.
@@ -41,16 +64,31 @@
   - **Examples:**
     - Slime → Slime on roller skates (to avoid predation).
     - Slime → Fat Slime (to store higher food reserves to prevent starvation).
+    - 
+## Slime
+- Needs to reproduce.
+- Needs to walk slower.
+
+# World/Game Additions
+
+## GUI
+- Needs to be implemented to display useful information such as creature count or dig power
+- Menus will also be used to manage gamestate like a pause and quit feature
+
+## End of Round shop
+- At the end of a round the player can spend unused dig power
+  - Buy upgrades for their creatures to instantly evolve but not adapt
+  - Buy temporary creatures/mercenaries to introduce into their dungeon that cannot reproduce
+    - Temporary creatures would include things such as a zombie or pet drake, which are inferior to the skeleton and dragon except require no investment to spawn other than dig power
+    - Mercenaries are just hero class with their targeting set to heroes instead of enemies
+  - Buy a fairy to show up and die, leaving behind nutrients or mana depending on the type of fairy it was to reintroduce energy into the dungeon
+    - The fairy flies around and the player can dig on top of it to kill it adding some skill and timing as to when to kill it
 
 ## Water
 - Blocks need to be added to handle spawning of water.
 - Water needs to flow downward to mimic gravity.
 - Water should contain a value like nutrients/mana, allowing stacking and movement when space is limited as the player digs.
 - **Water Creatures** need to be implemented.
-
-## Slime
-- Needs to reproduce.
-- Needs to walk slower.
 
 ## Audio
 - Needs to exist.
