@@ -3,7 +3,7 @@ package graphics;
 public class ScreenSettings {
     // Screen settings
     public static final int ORIGINAL_TILE_SIZE = 16; // 16x16
-    public static final int SCALE = 2;
+    public static final int SCALE = 3;
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
     public static final int STYLE_OFFSET = TILE_SIZE * 2; // Mainly for testing but keeping this allows us to draw a background
 
