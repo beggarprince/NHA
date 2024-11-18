@@ -84,9 +84,7 @@ public class Slime extends Enemy {
 
     protected void poop(){
         if(depositSurroundingTile(TileType.NUTRIENT)) {
-            //System.out.println("shat");
             enemyHunger--;
-          //  if(enemyHunger == 0) System.out.println("Ready to eat");
             enemyEatingCycleReady = false;
         }
     }

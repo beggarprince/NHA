@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 //Just fetches a csv and returns an array of arrays of ints
+//ATP i could use it for tutorial or challenges or testing levels, since i like generating the levels more than i like making them
 public class LevelLoader {
 
     public static ArrayList<ArrayList<Integer>> getLevelData(String filePath) {

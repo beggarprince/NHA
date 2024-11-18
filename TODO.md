@@ -4,18 +4,33 @@
   - Needs a deadzone in the center that will allow the player small movements before the entire camera moves.
 
 # New Features
-## Heroes
+# Heroes
 - Need to be implemented.
 - Need their pathfinding algorithm.
+
+
+# New Enemy Features
 
 ## Runes
 - Special enemy summons when meeting certain criteria.
 
 ## Dungeon IQ
 - Will give enemies special attacks as the entire dungeon's IQ increases.
+  - Examples
+    - Lizardmen will begin to use their shields to have an X% chance to prevent all damage
+    - Bugs will begin to create structures akin to a termite mound to prevent Lizardmen/heroes from coming inside whilst they freely traverse it
+    - Slimes will not behave differently at the first stage but after their metamorphosis the Slime Flower will shoot projectiles to slow heroes and bugs
 
 ## Enemy Buffs
 - Will give enemies buffs across the entire roster.
+
+## Enemy stress, starvation, predation
+- Will allow enemies to change their form depending on stress, starvation, and predation levels
+- Whenever an enemy dies we keep in consideration why it died
+  - Stress means it got killed by a hero - Evolution to become stronger to fight off heroes
+  - Starvation means it could not find food - Adaptation to fend of predators at the cost of higher energy expenditure 
+  - Predation means it was eaten - Adaptation to store more food at the cost of being easier to hunt
+- Each will change all new types of the enemy such as Slime to a new variant, in which newly spawned Slime's will be the new type
 
 ## Evolution
 - Will upgrade enemies into a more powerful variant.
