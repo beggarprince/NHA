@@ -1,9 +1,7 @@
 package PlayerActions;
 
-import graphics.TileType;
+import level.TileType;
 import level.Tile;
-
-import java.util.ArrayList;
 
 public class Dig {
 

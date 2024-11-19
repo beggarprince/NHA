@@ -34,7 +34,9 @@ public class Player {
         }
     }
 
-    public Coordinate playerScreenPosition = new Coordinate(ScreenSettings.TS_X /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.TS_Y /2 * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
+    public Coordinate playerScreenPosition = new Coordinate(ScreenSettings.TS_X /2
+            * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE,ScreenSettings.TS_Y /2
+            * ScreenSettings.TILE_SIZE - ScreenSettings.TILE_SIZE);
 
 
     public Player(){

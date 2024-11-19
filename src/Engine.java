@@ -55,7 +55,8 @@ public class Engine implements Runnable {
         this.heroList = HeroList.getInstance();
 
         //UI
-        this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, monsterList, heroList);
+        this.gamePanel = new GameCanvas(kb, player,
+                level.tileData, camera, monsterList, heroList);
     }
 
     public void startGameThread() {
@@ -85,14 +86,19 @@ public class Engine implements Runnable {
                     checkSetMetamorphosis();
 
                     if (kb.dig) {
-                        Spawn.spawnEnemyAtPlayer( level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX), monsterList);
+                        Spawn.spawnEnemyAtPlayer( level.tileData
+                                .get(player.playerTilePositionY)
+                                .get(player.playerTilePositionX),
+                                monsterList);
 
-                        dig(level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX));
+                        dig(level.tileData.get(player.playerTilePositionY)
+                                .get(player.playerTilePositionX));
                     }
 
                     else if(kb.debug){
-                        System.out.println(player.playerTilePositionX + " " + player.playerTilePositionY);
-                        heroList.addHero(heroFactory.createHero("knight", player.playerTilePositionX, player.playerTilePositionY));
+                        heroList.addHero(heroFactory.createHero("knight",
+                                player.playerTilePositionX,
+                                player.playerTilePositionY));
                     }
 
                     //Update UI
@@ -119,9 +125,11 @@ public class Engine implements Runnable {
 
         if(kb.conflictingVerticalInput() || kb.conflictingHorizontalInput()) return;
 
-        if (player.getXOffset() == 0 && (kb.leftPressed || kb.rightPressed))
+        if (player.getXOffset() == 0 && (kb.leftPressed
+                || kb.rightPressed))
             cameraMoved = camera.updateCameraPosition(kb);
-        else if (player.getYOffset() == 0 && (kb.upPressed || kb.downPressed))
+        else if (player.getYOffset() == 0 && (kb.upPressed
+                || kb.downPressed))
             cameraMoved = camera.updateCameraPosition(kb);
         player.playerPosUpdate(kb, cameraMoved);
 
@@ -143,11 +151,7 @@ public class Engine implements Runnable {
         for(int i = 0; i < MonsterList.getInstance().getMonsters().size(); i++){
             Monster e = MonsterList.getInstance().getMonsters().get(i);
             if(e.metamorphosisReady){
-                //System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
-                metamorphosis(i, e.metamorphosisValue, e.screenPositionX, e.screenPositionY);
-                //System.out.println("metamorphosis");
-               //  e = EnemyList.getInstance().getEnemies().get(i);
-               // System.out.println(e.enemyScreenPositionX + " " + e.enemyScreenPositionY + " WORLD = " + e.enemyWorldPositionX + " " + e.enemyWorldPositionY);
+               metamorphosis(i, e.metamorphosisValue, e.screenPositionX, e.screenPositionY);
 
             }
         }

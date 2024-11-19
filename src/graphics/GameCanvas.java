@@ -7,6 +7,7 @@ import entities.Monsters.MonsterList;
 import entities.Player;
 import io.KbInput;
 import level.Tile;
+import level.TileType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,9 +35,15 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
 
 
-    public GameCanvas(KbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, MonsterList e, HeroList h) {
+    public GameCanvas(KbInput kb,
+                      Player p,
+                      ArrayList<ArrayList<Tile>> levelData,
+                      Camera c,
+                      MonsterList e,
+                      HeroList h) {
         gameCanvas = this;
-        gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT)));
+        gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH,
+                ScreenSettings.PX_SCREEN_HEIGHT)));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(kb);
@@ -131,7 +138,8 @@ public class GameCanvas extends JPanel {
         for (int i = 0; i < list.size(); i++) {
             Monster e = list.get(i);
             //If in camera view
-            if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX) && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
+            if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX)
+                    && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
                 //Draw according to offset
                 g.drawImage(e.getImage(), offsetTileX(e.worldPositionX), offsetTileY(e.worldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 

@@ -2,7 +2,7 @@ package entities.Monsters;
 
 import entities.Direction;
 import graphics.ScreenSettings;
-import graphics.TileType;
+import level.TileType;
 import level.Level;
 
 import java.util.Random;

@@ -1,7 +1,5 @@
 package level;
 
-import graphics.TileType;
-
 import java.util.Random;
 
 public class Tile {

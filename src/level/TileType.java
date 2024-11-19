@@ -1,6 +1,6 @@
-package graphics;
+package level;
 
-import level.Tile;
+import graphics.ImgLoader;
 
 import java.awt.image.BufferedImage;
 
@@ -11,8 +11,8 @@ public enum TileType {
     BRICK("brick.png"),
     PATH("gravel.png"),
     MANA("mana.png"),
-    NUTRIENTL2("nutrientsL2.png"),
-    NUTRIENTL3("nutrientsL3.png");
+    NUTRIENT2("nutrientsL2.png"),
+    NUTRIENT3("nutrientsL3.png");
 
     private BufferedImage image;
 
@@ -31,9 +31,9 @@ public enum TileType {
             }
             else if (t.getNutrients() > t.nutrientL2Min && t.getNutrients() < t.nutrientL3Min){
                // System.out.println("Level 2 nutrients");
-                return getAltImage(TileType.NUTRIENTL2);
+                return getAltImage(TileType.NUTRIENT2);
             }
-            return getAltImage(TileType.NUTRIENTL3);
+            return getAltImage(TileType.NUTRIENT3);
         }
 
         //ATP all tiles without alts simply get returned

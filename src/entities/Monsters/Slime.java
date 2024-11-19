@@ -1,6 +1,6 @@
 package entities.Monsters;
 import graphics.ScreenSettings;
-import graphics.TileType;
+import level.TileType;
 import graphics.ImgLoader;
 import java.awt.image.BufferedImage;
 

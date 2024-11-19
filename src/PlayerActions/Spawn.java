@@ -3,7 +3,7 @@ package PlayerActions;
 import entities.Monsters.MonsterFactory;
 import entities.Monsters.MonsterList;
 import graphics.ScreenSettings;
-import graphics.TileType;
+import level.TileType;
 import level.Tile;
 
 public class Spawn {

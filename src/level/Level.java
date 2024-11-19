@@ -1,7 +1,6 @@
 package level;
 
 import graphics.ScreenSettings;
-import graphics.TileType;
 
 import java.util.ArrayList;
 
