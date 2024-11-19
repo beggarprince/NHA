@@ -56,13 +56,13 @@ public class MonsterList {
         }
     }
 
-
+//I just changed it from MonsterList.getInstance().getMonsters.get to monsters bc it's a class member
     public void destroyEnemies(){
-        for(int i = 0; i < MonsterList.getInstance().getMonsters().size(); i++){
-            if(MonsterList.getInstance().getMonsters().get(i).isDead){
-                Monster e = MonsterList.getInstance().getMonsters().get(i);
-                MonsterList.getInstance().getMonsters().get(i).destroy();
-                MonsterList.getInstance().removeEnemy(e);
+        for(int i = 0; i < monsters.size(); i++){
+            if(monsters.get(i).isDead){
+                Monster e = monsters.get(i);
+                monsters.get(i).destroy();
+                removeEnemy(e);
 
             }
         }

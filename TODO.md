@@ -2,16 +2,13 @@
 - **Player moves too fast**
 - **Player camera moves too often**
   - Needs a deadzone in the center that will allow the player small movements before the entire camera moves.
-
 # New Features
-# Heroes
+## Heroes
 - Need to be implemented.
 - Need their pathfinding algorithm.
 - Upon death drop a skeleton which the player can spawn
   - Skeleton levels up as it absorbs passing spirits. Spirits are lost their mana will not be reintroduced to the ecosystem
-
 # New Enemy Features
-## Enemy types
 ### List of unintroduced enemies
 - Lizardmen
 - Lizardman Egg
@@ -128,3 +125,8 @@
 
 # Architecture
 - Create a state within the engine to interrupt the game loop with menus.
+  - There needs to be an NPC class that both the heroes and the enemies inherit from and contains basic info like
+    - World/screen position
+    - Movement
+    - Boundary checking
+    - Health

@@ -1,5 +1,7 @@
 package graphics;
 
+import entities.Heroes.Hero;
+import entities.Heroes.HeroList;
 import entities.Monsters.Monster;
 import entities.Monsters.MonsterList;
 import entities.Player;
@@ -24,6 +26,7 @@ public class GameCanvas extends JPanel {
     Player player;
     ArrayList<ArrayList<Tile>> level;
     MonsterList monsterList;
+    HeroList heroList;
 
     private int startTileY = 0;
     private int startTileX = 0;
@@ -31,7 +34,7 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
 
 
-    public GameCanvas(KbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, MonsterList e) {
+    public GameCanvas(KbInput kb, Player p, ArrayList<ArrayList<Tile>> levelData, Camera c, MonsterList e, HeroList h) {
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT)));
         this.setBackground(Color.black);
@@ -42,6 +45,7 @@ public class GameCanvas extends JPanel {
         level = levelData;
         camera = c;
         monsterList = e;
+        heroList = h;
     }
 
     public void paintComponent(Graphics g) {
@@ -52,6 +56,7 @@ public class GameCanvas extends JPanel {
         paintTileBackground(g2);
         paintPlayer(g2);
         paintEnemies(g2);
+        paintHeroes(g2);
         g2.dispose();
 
     }
@@ -121,7 +126,6 @@ public class GameCanvas extends JPanel {
         g.drawImage(player.playerImage, player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
     }
 
-    //Needs screen position
     private void paintEnemies(Graphics2D g) {
         ArrayList<Monster> list = monsterList.getMonsters();
         for (int i = 0; i < list.size(); i++) {
@@ -130,6 +134,19 @@ public class GameCanvas extends JPanel {
             if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX) && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
                 //Draw according to offset
                 g.drawImage(e.getImage(), offsetTileX(e.worldPositionX), offsetTileY(e.worldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+
+            }
+        }
+    }
+
+    private void paintHeroes(Graphics2D g) {
+        ArrayList<Hero> list = heroList.getHeroes();
+        for (int i = 0; i < list.size(); i++) {
+            Hero h = list.get(i);
+            //If in camera view
+            if ((h.worldPositionX >= startTileX && h.worldPositionX < endTileX) && (h.worldPositionY >= startTileY && h.worldPositionY < endTileY)) {
+                //Draw according to offset
+                g.drawImage(h.getImage(), offsetTileX(h.worldPositionX), offsetTileY(h.worldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 
             }
         }

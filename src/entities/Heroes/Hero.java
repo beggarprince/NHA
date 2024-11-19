@@ -1,12 +1,14 @@
 package entities.Heroes;
 
 import entities.Direction;
+import graphics.ScreenSettings;
 import level.Level;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Hero {
+public abstract class Hero {
     protected BufferedImage image;
     protected int health;
     protected int lifespan;
@@ -25,7 +27,22 @@ public class Hero {
     protected int movementCycle; // How long it takes before we logically know we are at a new tile without math
     Level level = Level.getInstance("res/levelTest.csv");
 
+    public Hero(int health, int x, int y){
+        this.health = health;
+        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
+        this.worldPositionY = y/ScreenSettings.TILE_SIZE;
+        this.screenPositionX = x;
+        this.screenPositionY = y;
+
+    }
+
     private final static Random random = new Random();
 
+    public abstract void behavior();
 
+    public abstract void destroy();
+
+    public Image getImage() {
+        return image;
+    }
 }

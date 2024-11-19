@@ -1,4 +1,7 @@
 import PlayerActions.Spawn;
+import entities.Heroes.Hero;
+import entities.Heroes.HeroFactory;
+import entities.Heroes.HeroList;
 import entities.Monsters.*;
 import entities.Player;
 import graphics.Camera;
@@ -26,19 +29,33 @@ public class Engine implements Runnable {
     private MonsterFactory monsterFactory;
     private final MonsterList monsterList;
     public GameCanvas gamePanel;
+    private HeroFactory heroFactory;
+    private final HeroList  heroList;
     Thread enemyThread;
 
     // Constructor
     public Engine() {
-        // Setup and initialize all instance variables
+        // Camera and screen setup
         this.leftTop = new Coordinate(0, 0);
         this.camera = new Camera(leftTop);
+
+        //Player and player inputs
         this.kb = new KbInput();
         this.player = new Player();
+
+        //World creation
         this.level = Level.getInstance("res/levelTest.csv");
+
+        //Monster creation and spawning
         this.monsterFactory = new MonsterFactory();
         this.monsterList = MonsterList.getInstance();
-        this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, monsterList);
+
+        //Hero Creation and spawning
+        this.heroFactory = HeroFactory.getInstance();
+        this.heroList = HeroList.getInstance();
+
+        //UI
+        this.gamePanel = new GameCanvas(kb, player, level.tileData, camera, monsterList, heroList);
     }
 
     public void startGameThread() {
@@ -74,8 +91,8 @@ public class Engine implements Runnable {
                     }
 
                     else if(kb.debug){
-                        System.gc();
-                        //enemyList.removeAll();
+                        System.out.println(player.playerTilePositionX + " " + player.playerTilePositionY);
+                        heroList.addHero(heroFactory.createHero("knight", player.playerTilePositionX, player.playerTilePositionY));
                     }
 
                     //Update UI

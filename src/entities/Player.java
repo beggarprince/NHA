@@ -19,8 +19,9 @@ public class Player {
     private int playerXOffset = 0; // Offset from center
     private int playerYOffset = 0;
 
+    //Not really utilized
     private enum PlayerSprite {
-        PLAYER(ImgLoader.getImageResource("knight.png")),
+        PLAYER(ImgLoader.getImageResource("player.png")),
         DAMAGEDPLAYER(ImgLoader.getImageResource("hurtknight.png"));
 
         private final BufferedImage image;

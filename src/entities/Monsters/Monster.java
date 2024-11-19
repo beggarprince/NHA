@@ -127,7 +127,7 @@ public abstract class Monster {
     }
 
 
-    protected Direction enemyGetRandomDirection(int x, int y) {
+    protected Direction getRandomDirection(int x, int y) {
         // List of possible directions
         List<Direction> possibleDirections = getPossibleDirections(true);
 

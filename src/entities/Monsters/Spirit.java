@@ -12,7 +12,7 @@ public class Spirit extends Monster {
         this.worldPositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
-        this.currDirection = enemyGetRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
+        this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
         this.lifespan = 3;
         this.movementSpeed = 1;
     }
@@ -43,7 +43,7 @@ public class Spirit extends Monster {
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            currDirection = enemyGetRandomDirection(worldPositionX, worldPositionY);
+            currDirection = getRandomDirection(worldPositionX, worldPositionY);
         }
         agingCycle();
     }
