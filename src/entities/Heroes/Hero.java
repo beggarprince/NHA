@@ -1,6 +1,7 @@
 package entities.Heroes;
 
 import entities.Direction;
+import entities.NPC;
 import graphics.ScreenSettings;
 import level.Level;
 
@@ -8,24 +9,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public abstract class Hero {
-    protected BufferedImage image;
-    protected int health;
-    protected int lifespan;
-    protected Direction currDirection;
-    public boolean isDead = false;
-
-    //Logical position on array
-    public int worldPositionX;
-    public int worldPositionY;
-    //Where the hero is drawn on the screen, out of bounds enemies from the camera are not rendered
-    //World position
-    public int screenPositionX;
-    public int screenPositionY;
+public abstract class Hero extends NPC {
 
     protected int movementSpeed; // How many pixels an enemy offsets per frame
     protected int movementCycle; // How long it takes before we logically know we are at a new tile without math
-    Level level = Level.getInstance("res/levelTest.csv");
 
     public Hero(int health, int x, int y){
         this.health = health;
@@ -44,5 +31,11 @@ public abstract class Hero {
 
     public Image getImage() {
         return image;
+    }
+
+    protected void resetMovementCycle(){
+        if(movementCycle == ScreenSettings.TILE_SIZE){
+            movementCycle = 0;
+        }
     }
 }

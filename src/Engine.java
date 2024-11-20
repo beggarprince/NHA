@@ -83,6 +83,7 @@ public class Engine implements Runnable {
                     if(kb.playerMoving())movePlayer(player, camera, kb);
 
                     runEnemyBehavior();
+                    runHeroBehavior();
                     checkSetMetamorphosis();
 
                     if (kb.dig) {
@@ -103,6 +104,7 @@ public class Engine implements Runnable {
 
                     //Update UI
                     gamePanel.repaint();
+
                     monsterList.destroyEnemies();
 
             }
@@ -141,6 +143,15 @@ public class Engine implements Runnable {
             for (int i = 0; i < enemies.size(); i++) {
                 Monster e = enemies.get(i);
                 e.behavior();
+            }
+        }
+    }
+
+    private void runHeroBehavior() {
+        synchronized (heroList) {
+            List<Hero> heroes = heroList.getHeroes();
+            for (int i = 0; i < heroes.size(); i++) {
+                heroes.get(i).behavior();
             }
         }
     }
