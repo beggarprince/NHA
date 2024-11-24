@@ -6,6 +6,7 @@ import entities.Monsters.*;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
+import io.Audio.Sound;
 import level.Level;
 import io.KbInput;
 import graphics.GameCanvas;
@@ -31,6 +32,7 @@ public class Engine implements Runnable {
     public GameCanvas gamePanel;
     private HeroFactory heroFactory;
     private final HeroList  heroList;
+    Sound sound;
     Thread enemyThread;
 
     // Constructor
@@ -42,6 +44,11 @@ public class Engine implements Runnable {
         //Player and player inputs
         this.kb = new KbInput();
         this.player = new Player();
+
+        //Audio
+        sound = new Sound();
+        sound.setMusic(0);
+        sound.loop();
 
         //World creation
         this.level = Level.getInstance("res/levelTest.csv");
