@@ -1,6 +1,6 @@
 package entities.Heroes;
 
-import graphics.ImgLoader;
+import util.ImgLoader;
 import graphics.ScreenSettings;
 
 public class Soldier extends Hero{
@@ -26,7 +26,7 @@ public class Soldier extends Hero{
             move(movementSpeed);
             updateWorldPosition();
 
-            //resetMovementCycle();
+            resetMovementCycle();
         }
         else{
             System.out.println("Hero cannot move");

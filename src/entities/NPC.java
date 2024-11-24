@@ -32,7 +32,7 @@ public abstract class NPC {
     private final static Random random = new Random();
 
     //Movement
-    protected List<Direction> getPossibleDirections(Boolean collisionCheck){
+    public List<Direction> getPossibleDirections(Boolean collisionCheck){
         // List of possible directions
         List<Direction> possibleDirections = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public abstract class NPC {
     }
 
 
-    protected Direction getRandomDirection(int x, int y) {
+    public Direction getRandomDirection(int x, int y) {
         // List of possible directions
         List<Direction> possibleDirections = getPossibleDirections(true);
 

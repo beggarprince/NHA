@@ -9,9 +9,11 @@ public class Sound {
     Clip clip;
 
     URL[] music ;
+    URL[] fx;
 
     public Sound(){
         music = new URL[30];
+        fx = new URL[100];
 
         music[0] = getClass().getResource("/Music/dungeonIdleTrack2.wav");
     }

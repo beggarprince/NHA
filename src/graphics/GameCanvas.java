@@ -16,9 +16,6 @@ import java.util.ArrayList;
 
 //Engine is the main game loop
 //Updates Screen and handles input
-//Solely paints what is passed to it, no logic other than dealing with offsets and deciding not to render out of bounds stuff
-//Alt i could pass a subset of the array that illustrates the proper view, but it works as is
-//Key input handler should not be in here
 
 public class GameCanvas extends JPanel {
 
@@ -108,23 +105,6 @@ public class GameCanvas extends JPanel {
         }
 
     }
-
-
-    private BufferedImage selectImage(int tileValue) {
-        switch (tileValue) {
-            case 1:
-                return TileType.NUTRIENT.getImage();
-            case 2:
-                return TileType.BRICK.getImage();
-            case 3:
-                return TileType.PATH.getImage();
-            case 4:
-                return TileType.MANA.getImage();
-            default:
-                return TileType.DIRT.getImage();
-        }
-    }
-
 
     private void paintPlayer(Graphics2D g) {
         //get player state

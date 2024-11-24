@@ -1,6 +1,6 @@
 package level;
 
-import graphics.ImgLoader;
+import util.ImgLoader;
 
 import java.awt.image.BufferedImage;
 

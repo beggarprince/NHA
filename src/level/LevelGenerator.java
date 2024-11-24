@@ -35,7 +35,6 @@ public class LevelGenerator {
             initialLevel.add(row);
         }
 
-        System.out.println("Level created");
     }
 
     public ArrayList<ArrayList<Integer>> returnLevel(){

@@ -1,6 +1,6 @@
 package entities.Monsters;
 import graphics.ScreenSettings;
-import graphics.ImgLoader;
+import util.ImgLoader;
 import java.awt.image.BufferedImage;
 
 public class Spirit extends Monster {

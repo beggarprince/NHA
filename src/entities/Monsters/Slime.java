@@ -1,24 +1,24 @@
 package entities.Monsters;
+import entities.Direction;
 import graphics.ScreenSettings;
 import level.TileType;
-import graphics.ImgLoader;
+import util.ImgLoader;
 import java.awt.image.BufferedImage;
+import java.util.List;
+
+import static entities.Monsters.Logic.EatingSystem.*;
 
 public class Slime extends Monster {
 
     public Slime(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
-        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
-        this.screenPositionX = x;
-        this.screenPositionY = y;
 
         this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
         this.hunger = 0;
         this.movementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = ScreenSettings.FPS * 45;
-        this.hasFullStomach = false;
+
         this.maxHunger = 1;
 
         this.metamorphosisValue = "Slime_Flower";
@@ -42,6 +42,7 @@ public class Slime extends Monster {
 
     public void behavior(){
 
+        //TODO extract this so i don't have to copy paste it
         //We see if we can move this direction
         if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
             move(movementSpeed);
@@ -63,8 +64,10 @@ public class Slime extends Monster {
         agingCycle();
     }
 
+    //Extract all the logic, it should only know if it ate and increment itself
     protected void eat(){
-       if(eatSurroundingTile(TileType.NUTRIENT)) {
+        List<Direction> list = getPossibleDirections(false);
+       if(eatSurroundingTile(TileType.NUTRIENT, list, worldPositionX,  worldPositionY)) {
            //System.out.println("ate");
 
            hunger++;
@@ -83,7 +86,10 @@ public class Slime extends Monster {
     }
 
     protected void poop(){
-        if(depositSurroundingTile(TileType.NUTRIENT)) {
+
+        List<Direction> list = getPossibleDirections(false);
+
+        if(depositSurroundingTile(TileType.NUTRIENT, list, worldPositionX, worldPositionY)) {
             hunger--;
             eatingCycleReady = false;
         }

@@ -34,7 +34,7 @@ public class Level {
 
         levelRows = levelData.size(); // Size of column
         levelColumns = levelData.get(0).size(); // Size of row
-        System.out.println(levelColumns + " " + levelRows);
+
         if(levelColumns != ScreenSettings.TS_World_X) System.out.println("Not enough columns made");
         if(levelRows != ScreenSettings.TS_World_Y) System.out.println("Not enough rows made");
         createTileData();

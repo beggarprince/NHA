@@ -1,7 +1,8 @@
 package entities;
 
+import graphics.Camera;
 import graphics.ScreenSettings;
-import graphics.ImgLoader;
+import util.ImgLoader;
 import io.KbInput;
 import level.Level;
 import util.Coordinate;
@@ -127,5 +128,19 @@ public class Player {
         return playerYOffset;
     }
 
+    public void movePlayer(Player player, Camera camera, KbInput kb) {
+        boolean cameraMoved = false;
+
+        if(kb.conflictingVerticalInput() || kb.conflictingHorizontalInput()) return;
+
+        if (player.getXOffset() == 0 && (kb.leftPressed
+                || kb.rightPressed))
+            cameraMoved = camera.updateCameraPosition(kb);
+        else if (player.getYOffset() == 0 && (kb.upPressed
+                || kb.downPressed))
+            cameraMoved = camera.updateCameraPosition(kb);
+        player.playerPosUpdate(kb, cameraMoved);
+
+    }
 
 }

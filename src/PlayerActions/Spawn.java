@@ -12,8 +12,9 @@ public class Spawn {
         String reqMonster = "";
 
         if(tile.type == TileType.NUTRIENT){
-            if(tile.getNutrients() > Tile.nutrientL2Min) reqMonster = "Slime_Flower";
+            if(tile.getNutrients() > Tile.nutrientL2Min) reqMonster = "Bug";
             else reqMonster = "Slime";
+
             eList.addEnemy( MonsterFactory.createMonster(reqMonster, tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE ));
         }
         else if(tile.type == TileType.MANA){

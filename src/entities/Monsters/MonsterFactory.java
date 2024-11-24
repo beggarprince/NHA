@@ -13,6 +13,9 @@ public class MonsterFactory {
         if (type.equals("Slime")) {
             return new Slime(posx, posy);
         }
+        else if(type.equals("Bug")){
+            return new Bug(posx, posy);
+        }
 
         else if(type.equals("Spirit")){
             return new Spirit(posx, posy);
