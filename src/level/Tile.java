@@ -9,6 +9,7 @@ public class Tile {
     public boolean walkable = false;
     private int nutrients = 0;
     private int mana = 0;
+
     private static final Random random = new Random(); // Initialized once
 
     public final static int nutrientL2Min = 4;
