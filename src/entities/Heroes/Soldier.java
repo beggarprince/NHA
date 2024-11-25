@@ -22,14 +22,14 @@ public class Soldier extends Hero{
     public void behavior() {
         //Ideally something
         //We see if we can move this direction
+
         if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
             move(movementSpeed);
             updateWorldPosition();
 
-            resetMovementCycle();
         }
         else{
-            System.out.println("Hero cannot move");
+            getRandomDirection(worldPositionX,worldPositionY);
         }
 
     }

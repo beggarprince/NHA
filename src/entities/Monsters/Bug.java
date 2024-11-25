@@ -40,11 +40,14 @@ public class Bug extends Monster {
 
     @Override
     public void behavior() {
-        if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
-            move(movementSpeed);
 
+        boolean canMove = true;
+        if(movementCycle == 0)  canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+
+        if(canMove){
+            move(movementSpeed);
             updateWorldPosition();
-            resetMovementCycle();
+            signalNewTile();
         }
 
         else{

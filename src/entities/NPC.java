@@ -16,6 +16,7 @@ public abstract class NPC {
     protected Direction currDirection;
     public boolean isDead = false;
 
+
     //Logical position on array
     public int worldPositionX;
     public int worldPositionY;
@@ -25,7 +26,9 @@ public abstract class NPC {
     public int screenPositionY;
 
     protected int movementSpeed; // How many pixels an enemy offsets per frame
-    protected int movementCycle; // How long it takes before we logically know we are at a new tile without math
+    protected int movementCycle = 0; // How long it takes before we logically know we are at a new tile without math
+    public int tileXOffset = 0;
+    public int tileYOffset = 0;
 
     Level level = Level.getInstance("res/levelTest.csv");
 
@@ -66,6 +69,7 @@ public abstract class NPC {
         int index = random.nextInt(possibleDirections.size());
 
         if(possibleDirections.isEmpty()) return getOppositeDirection(currDirection);
+
         return possibleDirections.get(index);
     }
 
@@ -115,12 +119,16 @@ public abstract class NPC {
 
         if (currDirection == Direction.UP) {
             screenPositionY -= movementSpeed;
+            tileYOffset--;
         } else if (currDirection == Direction.DOWN) {
             screenPositionY += movementSpeed;
+            tileYOffset++;
         } else if (currDirection == Direction.LEFT) {
             screenPositionX -= movementSpeed;
+            tileXOffset--;
         } else if (currDirection == Direction.RIGHT) {
             screenPositionX += movementSpeed;
+            tileXOffset++;
         }
 
         movementCycle += movementSpeed;
@@ -129,8 +137,12 @@ public abstract class NPC {
 
 
     protected void updateWorldPosition() {
-        worldPositionX = screenPositionX / ScreenSettings.TILE_SIZE;
-        worldPositionY = screenPositionY / ScreenSettings.TILE_SIZE;
+        if (screenPositionX % 16 == 0) {
+            worldPositionX = screenPositionX / ScreenSettings.TILE_SIZE;
+        }
+        if (screenPositionY % 16 == 0) {
+            worldPositionY = screenPositionY / ScreenSettings.TILE_SIZE;
+        }
     }
 
 

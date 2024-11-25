@@ -76,8 +76,9 @@ public class GameCanvas extends JPanel {
         endTileX = startTileX + ScreenSettings.TS_X;
     }
 
+    //Changes the world position to a screen position consistent with the camera location
     private int offsetTileX(int tileX) {
-        return tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE);
+        return tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE)  ;
     }
 
     private int offsetTileY(int tileY) {
@@ -121,7 +122,12 @@ public class GameCanvas extends JPanel {
             if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX)
                     && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
                 //Draw according to offset
-                g.drawImage(e.getImage(), offsetTileX(e.worldPositionX), offsetTileY(e.worldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(e.getImage(),
+                        e.screenPositionX - camera.topLeftCrn.x ,
+                        e.screenPositionY - camera.topLeftCrn.y ,
+                        ScreenSettings.TILE_SIZE,
+                        ScreenSettings.TILE_SIZE,
+                        null);
 
             }
         }

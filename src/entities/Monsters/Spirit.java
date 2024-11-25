@@ -15,6 +15,7 @@ public class Spirit extends Monster {
         this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
         this.lifespan = 3;
         this.movementSpeed = 1;
+        this.movementCycle = 0;
     }
 
     @Override
@@ -34,11 +35,14 @@ public class Spirit extends Monster {
     }
 
     public void behavior(){
+        boolean canMove = true;
 
-        //We see if we can move this direction
-        if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
+        if(movementCycle == 0) canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+
+        if(canMove){
             move(movementSpeed);
             updateWorldPosition();
+            signalNewTile();
         }
 
         else{

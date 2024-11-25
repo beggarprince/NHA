@@ -47,36 +47,13 @@ public class EatingSystem {
         return false;
     }
 
-//    public static boolean eatSurroundingMonster(Monster m, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){
-//        Level level = Level.getInstance("");
-//
-//        for(Direction d : possibleDirections){
-//            if (d == Direction.UP && worldPositionY > 0) {
-//
-//            }
-//            else if (d == Direction.DOWN && worldPositionY < Level.levelRows -1) {
-//                if(level.tileData.get(worldPositionY + 1).get(worldPositionX).type == t) {
-//                    level.tileData.get(worldPositionY + 1).get(worldPositionX).eatNutrients();
-//
-//                    return true;
-//                }
-//            }
-//            else if (d == Direction.LEFT && worldPositionX > 0) {
-//                if (level.tileData.get(worldPositionY).get(worldPositionX - 1).type == t) {
-//
-//                    level.tileData.get(worldPositionY).get(worldPositionX - 1).eatNutrients();
-//                    return true;
-//                }
-//            }
-//            else if (d == Direction.RIGHT && worldPositionX < Level.levelColumns -1 ) {
-//                if(level.tileData.get(worldPositionY).get(worldPositionX + 1).type == t) {
-//                    level.tileData.get(worldPositionY).get(worldPositionX + 1).eatNutrients();
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    public static boolean eatSurroundingMonster(Monster m, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){
+        Level level = Level.getInstance("");
+
+
+
+        return false;
+    }
 
 
     public static boolean depositSurroundingTile(TileType t, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){

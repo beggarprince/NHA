@@ -18,9 +18,8 @@ public class Slime extends Monster {
         this.movementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = ScreenSettings.FPS * 45;
-
         this.maxHunger = 1;
-
+        this.movementCycle = 0;
         this.metamorphosisValue = "Slime_Flower";
     }
 
@@ -41,20 +40,37 @@ public class Slime extends Monster {
     }
 
     public void behavior(){
+//        int test = worldPositionX;
+//        int test2 = worldPositionY;
 
         //TODO extract this so i don't have to copy paste it
         //We see if we can move this direction
-        if(validateWalkableDirection(currDirection, worldPositionX, worldPositionY)){
-            move(movementSpeed);
+        boolean canMove = true;
+        if(movementCycle == 0)  canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
 
+        if(canMove){
+            move(movementSpeed);
+            //System.out.println(screenPositionX);
             updateWorldPosition();
-            resetMovementCycle();
+            signalNewTile();
         }
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
             currDirection = getRandomDirection(worldPositionX, worldPositionY);
         }
+
+//
+//        if(worldPositionX - test > 1 || worldPositionX - test < -1){
+//            System.out.println("Moved X too many times");
+//        }
+//        if(worldPositionY - test2 > 1 || worldPositionY - test2 < -1){
+//            System.out.println("Moved Y too many times");
+//        }
+//        if(canMove == false && test != worldPositionX && test2 != worldPositionY){
+//            System.out.println("Moved when it should not have");
+//        }
+
         //Eat
         if(eatingCycleReady) {
             if (hunger < maxHunger) eat();

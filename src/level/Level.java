@@ -29,7 +29,7 @@ public class Level {
     private Level(String levelFilePath) {
         //levelData = LevelLoader.getLevelData(levelFilePath);
 
-        levelGenerator = new LevelGenerator(60, 90);
+        levelGenerator = new LevelGenerator(80, 95);
         levelData = levelGenerator.returnLevel();
 
         levelRows = levelData.size(); // Size of column

@@ -82,10 +82,12 @@ public abstract class Monster extends NPC {
         //Add nutrients back to the ecosystem
     }
 
-    protected void resetMovementCycle(){
+    protected void signalNewTile(){
         if(movementCycle == ScreenSettings.TILE_SIZE){
             eatingCycleReady = true; // we are at a new tile
             movementCycle = 0;
+            tileXOffset = 0;
+            tileYOffset = 0;
         }
     }
 

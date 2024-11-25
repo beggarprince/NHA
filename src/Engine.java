@@ -26,7 +26,7 @@ public class Engine implements Runnable {
     private final MonsterList monsterList;
     public GameCanvas gamePanel;
     private HeroFactory heroFactory;
-    private final HeroList  heroList;
+    private final HeroList heroList;
     private final NPCLogic logic;
     Sound sound;
 
@@ -83,41 +83,37 @@ public class Engine implements Runnable {
 
             ///Run one game cycle
             if (elapsedTime >= ScreenSettings.INTERVAL) {
-               // System.out.println("New frame");
+                // System.out.println("New frame");
 
-                    frameRatePrevTime = frameRateCurrentTime;
-                    if(kb.playerMoving()) player.movePlayer(player, camera, kb);
+                frameRatePrevTime = frameRateCurrentTime;
+                if (kb.playerMoving()) player.movePlayer(player, camera, kb);
 
-                    logic.runEnemyBehavior();
-                    logic.runHeroBehavior();
-                    logic.checkSetMetamorphosis();
+                logic.run();
 
-                    if (kb.dig) {
-                        Spawn.spawnEnemyAtPlayer( level.tileData
-                                .get(player.playerTilePositionY)
-                                .get(player.playerTilePositionX),
-                                monsterList);
+                if (kb.dig) {
+                    Spawn.spawnEnemyAtPlayer(level.tileData
+                                    .get(player.playerTilePositionY)
+                                    .get(player.playerTilePositionX),
+                            monsterList);
 
-                        dig(level.tileData.get(player.playerTilePositionY)
-                                .get(player.playerTilePositionX));
-                    }
+                    dig(level.tileData.get(player.playerTilePositionY)
+                            .get(player.playerTilePositionX));
+                } else if (kb.debug) {
+                    heroList.addHero(heroFactory.createHero("knight",
+                            player.playerTilePositionX,
+                            player.playerTilePositionY));
+                }
 
-                    else if(kb.debug){
-                        heroList.addHero(heroFactory.createHero("knight",
-                                player.playerTilePositionX,
-                                player.playerTilePositionY));
-                    }
+                //Update UI
+                gamePanel.repaint();
 
-                    //Update UI
-                    gamePanel.repaint();
-
-                    //Remove references to res so the garbage collector can remove
-                    monsterList.destroyEnemies();
-                    heroList.destroyHeroes();
+                //Remove references to res so the garbage collector can remove
+                monsterList.destroyEnemies();
+                heroList.destroyHeroes();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
-            else{
+            else {
                 try {
                     Thread.sleep(2); // Sleep for 2 milliseconds
                 } catch (InterruptedException e) {

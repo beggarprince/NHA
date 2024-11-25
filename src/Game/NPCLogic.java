@@ -20,22 +20,22 @@ public class NPCLogic {
     }
 
     public void runEnemyBehavior() {
-        synchronized (monsterList) {
+
             List<Monster> enemies = monsterList.getMonsters();
             for (int i = 0; i < enemies.size(); i++) {
                 Monster e = enemies.get(i);
                 e.behavior();
             }
-        }
+
     }
 
     public void runHeroBehavior() {
-        synchronized (heroList) {
+
             List<Hero> heroes = heroList.getHeroes();
             for (int i = 0; i < heroes.size(); i++) {
                 heroes.get(i).behavior();
             }
-        }
+
     }
 
 
@@ -49,5 +49,11 @@ public class NPCLogic {
             }
         }
 
+    }
+
+    public void run() {
+        runEnemyBehavior();
+        runHeroBehavior();
+        checkSetMetamorphosis();
     }
 }
