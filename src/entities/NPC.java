@@ -2,7 +2,6 @@ package entities;
 
 import graphics.ScreenSettings;
 import level.Level;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,8 @@ public abstract class NPC {
     protected int health;
     protected Direction currDirection;
     public boolean isDead = false;
-
-
+    public NPCType npc;
+    public int zone;
     //Logical position on array
     public int worldPositionX;
     public int worldPositionY;

@@ -14,8 +14,10 @@ public class ScreenSettings {
     public static final int TS_Y = 24;
 
     //Amount of tiles in world
-    public static final int TS_World_X = TS_X * 3;
-    public static final int TS_World_Y = TS_Y * 5;
+    public static final int TS_WorldScale_X = 3;
+    public static final int TS_World_Scale_Y = 5;
+    public static final int TS_World_X = TS_X * TS_WorldScale_X;
+    public static final int TS_World_Y = TS_Y * TS_World_Scale_Y;
 
     //Pixel
     public static final int PX_SCREEN_WIDTH = TS_X * TILE_SIZE;

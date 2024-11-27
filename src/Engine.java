@@ -1,4 +1,5 @@
 import Game.NPCLogic;
+import Game.SpatialHash;
 import PlayerActions.Spawn;
 import entities.Heroes.HeroFactory;
 import entities.Heroes.HeroList;
@@ -28,6 +29,7 @@ public class Engine implements Runnable {
     private HeroFactory heroFactory;
     private final HeroList heroList;
     private final NPCLogic logic;
+    private final SpatialHash spatialHash;
     Sound sound;
 
     // Constructor
@@ -49,6 +51,7 @@ public class Engine implements Runnable {
 
         //World creation
         this.level = Level.getInstance();
+        this.spatialHash = SpatialHash.getInstance();
 
         //Helper Classes
         logic = new NPCLogic();

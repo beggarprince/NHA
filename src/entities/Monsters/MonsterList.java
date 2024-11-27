@@ -1,5 +1,7 @@
 package entities.Monsters;
 
+import Game.SpatialHash;
+
 import java.util.ArrayList;
 
 /*
@@ -9,10 +11,12 @@ import java.util.ArrayList;
 public class MonsterList {
     private static MonsterList instance;     // Singleton instance
     private  ArrayList<Monster> monsters;      // Instance variable for the list
-
+    private SpatialHash init;
     // Private constructor for singleton
     private MonsterList() {
+
         monsters = new ArrayList<>();
+        init = SpatialHash.getInstance();
     }
 
     // Singleton getInstance method
@@ -30,6 +34,7 @@ public class MonsterList {
     // Method to add an enemy
     public void addEnemy(Monster enemy) {
         monsters.add(enemy);
+        init.hash(enemy);
     }
 
     // Method to get the list of enemies

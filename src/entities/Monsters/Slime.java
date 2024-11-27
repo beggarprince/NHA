@@ -1,10 +1,12 @@
 package entities.Monsters;
 import entities.Direction;
+import entities.NPCType;
 import graphics.ScreenSettings;
 import level.TileType;
 import util.ImgLoader;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 
 import static entities.Monsters.Logic.EatingSystem.*;
 
@@ -20,6 +22,7 @@ public class Slime extends Monster {
         this.maxHunger = 1;
         this.movementCycle = 0;
         this.metamorphosisValue = "Slime_Flower";
+        this.npc = NPCType.Slime;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class Slime extends Monster {
         //We see if we can move this direction
         if(npcMoved()) eatingCycleReady = true; // we are at a new tile;
 
-
+        System.out.println(zone);
         //Eat
         if(eatingCycleReady) {
             if (hunger < maxHunger) eat();

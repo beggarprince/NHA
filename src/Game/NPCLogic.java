@@ -13,10 +13,12 @@ public class NPCLogic {
 
     MonsterList monsterList;
     HeroList heroList;
+    SpatialHash spatialHash;
 
     public NPCLogic(){
         heroList = HeroList.getInstance();
         monsterList =  MonsterList.getInstance();
+        spatialHash = SpatialHash.getInstance();
     }
 
     public void runEnemyBehavior() {
@@ -24,6 +26,7 @@ public class NPCLogic {
             List<Monster> enemies = monsterList.getMonsters();
             for (int i = 0; i < enemies.size(); i++) {
                 Monster e = enemies.get(i);
+                spatialHash.updateNPCZone(e);
                 e.behavior();
             }
 
