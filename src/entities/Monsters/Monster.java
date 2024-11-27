@@ -28,6 +28,8 @@ public abstract class Monster extends NPC {
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.hasFullStomach = false;
+
+        this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
     }
 
     // Getter and setter methods
@@ -82,14 +84,7 @@ public abstract class Monster extends NPC {
         //Add nutrients back to the ecosystem
     }
 
-    protected void signalNewTile(){
-        if(movementCycle == ScreenSettings.TILE_SIZE){
-            eatingCycleReady = true; // we are at a new tile
-            movementCycle = 0;
-            tileXOffset = 0;
-            tileYOffset = 0;
-        }
-    }
+
 
 
 }

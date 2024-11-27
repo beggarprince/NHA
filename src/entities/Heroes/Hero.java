@@ -20,7 +20,9 @@ public abstract class Hero extends NPC {
         this.worldPositionY = y/ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
-
+        this.movementCycle = 0;
+        this.movementSpeed = 1;
+        this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
     }
 
     private final static Random random = new Random();
@@ -33,9 +35,4 @@ public abstract class Hero extends NPC {
         return image;
     }
 
-    protected void resetMovementCycle(){
-        if(movementCycle == ScreenSettings.TILE_SIZE){
-            movementCycle = 0;
-        }
-    }
 }

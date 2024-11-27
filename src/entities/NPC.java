@@ -25,10 +25,9 @@ public abstract class NPC {
     public int screenPositionX;
     public int screenPositionY;
 
-    protected int movementSpeed; // How many pixels an enemy offsets per frame
+    protected int movementSpeed = 1; // How many pixels an enemy offsets per frame
     protected int movementCycle = 0; // How long it takes before we logically know we are at a new tile without math
-    public int tileXOffset = 0;
-    public int tileYOffset = 0;
+
 
     Level level = Level.getInstance("res/levelTest.csv");
 
@@ -68,7 +67,6 @@ public abstract class NPC {
         // Randomly select a valid direction
         int index = random.nextInt(possibleDirections.size());
 
-        if(possibleDirections.isEmpty()) return getOppositeDirection(currDirection);
 
         return possibleDirections.get(index);
     }
@@ -115,23 +113,20 @@ public abstract class NPC {
 
 
     //If we are here we are good to move in our direction of choice
-    protected void move(int movementSpeed) {
+    public void move() {
 
         if (currDirection == Direction.UP) {
             screenPositionY -= movementSpeed;
-            tileYOffset--;
         } else if (currDirection == Direction.DOWN) {
             screenPositionY += movementSpeed;
-            tileYOffset++;
         } else if (currDirection == Direction.LEFT) {
             screenPositionX -= movementSpeed;
-            tileXOffset--;
         } else if (currDirection == Direction.RIGHT) {
             screenPositionX += movementSpeed;
-            tileXOffset++;
         }
 
         movementCycle += movementSpeed;
+
 
     }
 
@@ -145,7 +140,32 @@ public abstract class NPC {
         }
     }
 
+    protected void signalNewTile(){
+        if(movementCycle == ScreenSettings.TILE_SIZE){
+            movementCycle = 0;
+        }
+    }
 
+    protected boolean npcMoved(){
+
+        boolean canMove = true;
+        if(movementCycle == 0)  canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+
+        if(canMove){
+            move();
+            updateWorldPosition();
+            signalNewTile();
+            //only at new tile do we signal that they moved
+            return true;
+        }
+
+        else{
+            //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
+            currDirection = getRandomDirection(worldPositionX, worldPositionY);
+
+        }
+        return false;
+    }
 
 
 }

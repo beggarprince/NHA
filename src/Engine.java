@@ -43,10 +43,12 @@ public class Engine implements Runnable {
         //Audio
         sound = new Sound();
         sound.setMusic(0);
-        sound.loop();
+
+        //Annoying as fuck
+        //sound.loop();
 
         //World creation
-        this.level = Level.getInstance("res/levelTest.csv");
+        this.level = Level.getInstance();
 
         //Helper Classes
         logic = new NPCLogic();

@@ -12,7 +12,6 @@ public class Spirit extends Monster {
         this.worldPositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
-        this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
         this.lifespan = 3;
         this.movementSpeed = 1;
         this.movementCycle = 0;
@@ -35,20 +34,9 @@ public class Spirit extends Monster {
     }
 
     public void behavior(){
-        boolean canMove = true;
 
-        if(movementCycle == 0) canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+        if(npcMoved()) eatingCycleReady = true; // we are at a new tile
 
-        if(canMove){
-            move(movementSpeed);
-            updateWorldPosition();
-            signalNewTile();
-        }
-
-        else{
-            //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            currDirection = getRandomDirection(worldPositionX, worldPositionY);
-        }
         agingCycle();
     }
 

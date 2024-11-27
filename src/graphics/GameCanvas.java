@@ -140,7 +140,7 @@ public class GameCanvas extends JPanel {
             //If in camera view
             if ((h.worldPositionX >= startTileX && h.worldPositionX < endTileX) && (h.worldPositionY >= startTileY && h.worldPositionY < endTileY)) {
                 //Draw according to offset
-                g.drawImage(h.getImage(), offsetTileX(h.worldPositionX), offsetTileY(h.worldPositionY), ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(h.getImage(), h.screenPositionX - camera.topLeftCrn.x , h.screenPositionY - camera.topLeftCrn.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 
             }
         }

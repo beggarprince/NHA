@@ -13,7 +13,6 @@ public class Slime extends Monster {
     public Slime(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
 
-        this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
         this.hunger = 0;
         this.movementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
@@ -40,36 +39,10 @@ public class Slime extends Monster {
     }
 
     public void behavior(){
-//        int test = worldPositionX;
-//        int test2 = worldPositionY;
 
-        //TODO extract this so i don't have to copy paste it
         //We see if we can move this direction
-        boolean canMove = true;
-        if(movementCycle == 0)  canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+        if(npcMoved()) eatingCycleReady = true; // we are at a new tile;
 
-        if(canMove){
-            move(movementSpeed);
-            //System.out.println(screenPositionX);
-            updateWorldPosition();
-            signalNewTile();
-        }
-
-        else{
-            //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            currDirection = getRandomDirection(worldPositionX, worldPositionY);
-        }
-
-//
-//        if(worldPositionX - test > 1 || worldPositionX - test < -1){
-//            System.out.println("Moved X too many times");
-//        }
-//        if(worldPositionY - test2 > 1 || worldPositionY - test2 < -1){
-//            System.out.println("Moved Y too many times");
-//        }
-//        if(canMove == false && test != worldPositionX && test2 != worldPositionY){
-//            System.out.println("Moved when it should not have");
-//        }
 
         //Eat
         if(eatingCycleReady) {

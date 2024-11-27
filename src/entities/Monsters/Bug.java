@@ -11,7 +11,6 @@ public class Bug extends Monster {
         super(12, x, y);
 
             setImage();
-            this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
             this.hunger = 0;
 
             this.image = ImgLoader.getImageResource("bug.png"); //Default slime preloaded
@@ -41,19 +40,8 @@ public class Bug extends Monster {
     @Override
     public void behavior() {
 
-        boolean canMove = true;
-        if(movementCycle == 0)  canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+        if(npcMoved()) eatingCycleReady = true; // we are at a new tile
 
-        if(canMove){
-            move(movementSpeed);
-            updateWorldPosition();
-            signalNewTile();
-        }
-
-        else{
-            //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            currDirection = getRandomDirection(worldPositionX, worldPositionY);
-        }
     }
 
     @Override

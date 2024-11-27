@@ -27,7 +27,17 @@ public class Level {
 
     // Private constructor prevents instantiation from other classes
     private Level(String levelFilePath) {
-        //levelData = LevelLoader.getLevelData(levelFilePath);
+        levelData = LevelLoader.getLevelData(levelFilePath);
+
+        levelRows = levelData.size(); // Size of column
+        levelColumns = levelData.get(0).size(); // Size of row
+
+        if(levelColumns != ScreenSettings.TS_World_X) System.out.println("Not enough columns made");
+        if(levelRows != ScreenSettings.TS_World_Y) System.out.println("Not enough rows made");
+        createTileData();
+    }
+
+    private Level() {
 
         levelGenerator = new LevelGenerator(80, 95);
         levelData = levelGenerator.returnLevel();
@@ -40,6 +50,7 @@ public class Level {
         createTileData();
     }
 
+
     // Public static method to provide access to the single instance
     //TODO override it so we don't always need a string
     public static Level getInstance(String levelFilePath) {
@@ -48,6 +59,14 @@ public class Level {
         }
         return instance;
     }
+
+    public static Level getInstance() {
+        if (instance == null) {
+            instance = new Level();
+        }
+        return instance;
+    }
+
 
 
 
