@@ -50,8 +50,6 @@ public class EatingSystem {
     public static boolean eatSurroundingMonster(Monster m, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){
         Level level = Level.getInstance("");
 
-
-
         return false;
     }
 

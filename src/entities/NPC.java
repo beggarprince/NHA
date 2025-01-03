@@ -13,6 +13,7 @@ public abstract class NPC {
     protected BufferedImage image;
     protected int health;
     protected Direction currDirection;
+    public boolean inCombat = false;
     public boolean isDead = false;
     public NPCType npc;
     public int zone;

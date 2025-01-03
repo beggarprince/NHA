@@ -88,9 +88,9 @@ public class Engine implements Runnable {
 
             ///Run one game cycle
             if (elapsedTime >= ScreenSettings.INTERVAL) {
-                // System.out.println("New frame");
 
                 frameRatePrevTime = frameRateCurrentTime;
+
                 if (kb.playerMoving()) player.movePlayer(player, camera, kb);
 
                 logic.run();

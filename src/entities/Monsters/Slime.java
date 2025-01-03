@@ -46,7 +46,7 @@ public class Slime extends Monster {
         //We see if we can move this direction
         if(npcMoved()) eatingCycleReady = true; // we are at a new tile;
 
-        System.out.println(zone);
+        //System.out.println(zone);
         //Eat
         if(eatingCycleReady) {
             if (hunger < maxHunger) eat();
