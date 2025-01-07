@@ -46,7 +46,6 @@ public class Slime_Flower extends Monster {
         lifespan--;
         if(lifespan <= 0){
             this.isDead = true;
-          //  System.out.println("mf died");
         }
     }
 

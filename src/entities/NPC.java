@@ -3,15 +3,15 @@ package entities;
 import graphics.ScreenSettings;
 import level.Level;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static util.CollisionKt.detectNPCCollision;
 
 public abstract class NPC {
     protected BufferedImage image;
-    protected int health;
+
+    //Dumbass java, protected does not allow access to different subclasses just the superclass and itself
+    public int health;
     protected Direction currDirection;
     public boolean inCombat = false;
     public boolean isDead = false;
@@ -27,6 +27,21 @@ public abstract class NPC {
 
     protected int movementSpeed = 1; // How many pixels an enemy offsets per frame
     protected int movementCycle = 0; // How long it takes before we logically know we are at a new tile without math
+
+    //Queue to holds all the combat targets so when we kill one we can go to the next
+    protected Queue<NPC> combatTarget;
+
+    public NPC(){
+        combatTarget = new LinkedList<>();
+    }
+
+    public void addToCombatQueue(NPC npc){
+        combatTarget.add(npc);
+    }
+
+    public void removeFromCombatQueue(NPC npc){
+        combatTarget.poll();
+    }
 
 
     Level level = Level.getInstance("res/levelTest.csv");
@@ -146,6 +161,7 @@ public abstract class NPC {
         }
     }
 
+    //TODO RENAME
     protected boolean npcMoved(){
 
         boolean canMove = true;
@@ -165,6 +181,21 @@ public abstract class NPC {
 
         }
         return false;
+    }
+
+    public void combat(){
+
+        //Hit
+        combatTarget.peek().health -= 1;
+
+        //Check if dead
+        if(combatTarget.peek().health <= 0){
+            combatTarget.poll();
+
+            //Cycle ot next or move
+            if(combatTarget.isEmpty()) inCombat = false;
+        }
+
     }
 
 

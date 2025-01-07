@@ -14,10 +14,8 @@ public abstract class Monster extends NPC {
     protected boolean hasFullStomach = false;
     protected boolean eatingCycleReady = true;
     protected int maxHunger;
-
     public String metamorphosisValue;
     public boolean metamorphosisReady = false;
-
     private final static Random random = new Random();
 
 
@@ -71,6 +69,8 @@ public abstract class Monster extends NPC {
 
     public abstract BufferedImage getImage();
 
+
+    //TODO each npc will need to determine a behavior type based on their current circumstances, atm it'll be a nasty if/else
     public abstract void behavior();
 
     protected abstract void eat();
@@ -83,6 +83,8 @@ public abstract class Monster extends NPC {
         isDead = true;
         //Add nutrients back to the ecosystem
     }
+
+    //public abstract void attack();
 
 
 

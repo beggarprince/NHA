@@ -43,18 +43,35 @@ public class Slime extends Monster {
 
     public void behavior(){
 
-        //We see if we can move this direction
-        if(npcMoved()) eatingCycleReady = true; // we are at a new tile;
+        //TODO change it so it selects a function based on current circumstance, behavior should not be abstract and call abstract function MOVE/REPRODUCE/FIGHT
 
-        //System.out.println(zone);
-        //Eat
-        if(eatingCycleReady) {
-            if (hunger < maxHunger) eat();
-            else poop();
+
+        if(this.inCombat){
+            //Now that it's separated from the previous movement function, we don't even need to handle it's movement by ourselves.
+            combat();
+        }
+        else {
+            //We see if we can move this direction
+            if (npcMoved()) eatingCycleReady = true; // we are at a new tile;
+
+            //System.out.println(zone);
+            //Eat
+            if (eatingCycleReady) {
+                if (hunger < maxHunger) eat();
+                else poop();
+            }
+        }
+        //They're dying before they can do anything to the heroes
+        if(health <= 0) {
+            isDead = true;
+            return;
         }
 
         agingCycle();
+
     }
+
+
 
     //Extract all the logic, it should only know if it ate and increment itself
     protected void eat(){

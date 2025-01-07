@@ -67,15 +67,31 @@ public class NPCLogic {
 
         for(int i = 0; i < monsters.size(); i++){
             if(checkAdjacent(monsters.get(i), hero)){
-                monsters.get(i).isDead = true;
+//                System.out.println("HERO: " + hero.worldPositionX +" " + hero.worldPositionY);
+//                System.out.println("MNST: " + monsters.get(i).worldPositionX +" " + monsters.get(i).worldPositionY);
+//
+                monsters.get(i).inCombat = true;
+                hero.inCombat = true;
+                monsters.get(i).addToCombatQueue(hero);
+                hero.addToCombatQueue(monsters.get(i));
             }
 
         }
     }
 
     private boolean checkAdjacent(NPC npc, NPC target){
-        if(npc.worldPositionY -1 == target.worldPositionY || npc.worldPositionY +1 == target.worldPositionY) return true;
-        if (npc.worldPositionX -1 == target.worldPositionX || npc.worldPositionX +1 == target.worldPositionX) return true;
+
+        //If on the same axis
+        if (npc.worldPositionX == target.worldPositionX) {
+            if (npc.worldPositionY == target.worldPositionY + 1 || npc.worldPositionY == target.worldPositionY - 1) {
+                return true;
+            }
+        }
+        if (npc.worldPositionY == target.worldPositionY) {
+            if (npc.worldPositionX == target.worldPositionX + 1 || npc.worldPositionX == target.worldPositionX - 1) {
+                return true;
+            }
+        }
         return false;
     }
 
