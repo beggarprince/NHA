@@ -12,9 +12,9 @@ import static entities.Monsters.Logic.EatingSystem.*;
 
 public class Slime extends Monster {
 
+
     public Slime(int x, int y) {
         super(1, x, y); // Slime has a default health of 1
-
         this.hunger = 0;
         this.movementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
@@ -23,6 +23,7 @@ public class Slime extends Monster {
         this.movementCycle = 0;
         this.metamorphosisValue = "Slime_Flower";
         this.npc = NPCType.Slime;
+        this.basicAttackStrength = 1;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Slime extends Monster {
     }
 
     @Override
-    protected void destroy() {
+    public void destroy() {
         this.image = null;
     }
 
@@ -46,11 +47,6 @@ public class Slime extends Monster {
         //TODO change it so it selects a function based on current circumstance, behavior should not be abstract and call abstract function MOVE/REPRODUCE/FIGHT
 
 
-        if(this.inCombat){
-            //Now that it's separated from the previous movement function, we don't even need to handle it's movement by ourselves.
-            combat();
-        }
-        else {
             //We see if we can move this direction
             if (npcMoved()) eatingCycleReady = true; // we are at a new tile;
 
@@ -60,12 +56,6 @@ public class Slime extends Monster {
                 if (hunger < maxHunger) eat();
                 else poop();
             }
-        }
-        //They're dying before they can do anything to the heroes
-        if(health <= 0) {
-            isDead = true;
-            return;
-        }
 
         agingCycle();
 
@@ -109,6 +99,9 @@ public class Slime extends Monster {
 
     }
 
+    public String returnNpcType(){
+        return "Slime";
+    }
 
 
 }

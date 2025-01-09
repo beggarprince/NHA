@@ -65,13 +65,12 @@ public abstract class Monster extends NPC {
 
 
     //Removes final references of the object so it can be removed, allows unique deaths based on type bc it's abstract
-    protected abstract void destroy();
+    //TODO call this indirectly in concrete function to avoid having to manage cooldowns/logic across all enemy types
 
     public abstract BufferedImage getImage();
 
 
     //TODO each npc will need to determine a behavior type based on their current circumstances, atm it'll be a nasty if/else
-    public abstract void behavior();
 
     protected abstract void eat();
 

@@ -20,6 +20,7 @@ public class Engine implements Runnable {
     private final Coordinate leftTop;
     private final Camera camera;
     private final KbInput kb;
+    private  int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
     private Player player;
     private Level level;
@@ -103,11 +104,13 @@ public class Engine implements Runnable {
 
                     dig(level.tileData.get(player.playerTilePositionY)
                             .get(player.playerTilePositionX));
-                } else if (kb.debug) {
+                } else if (kb.debug & kbInputDebugJankTimer == 60) {
+                    kbInputDebugJankTimer = 0;
                     heroList.addHero(heroFactory.createHero("knight",
                             player.playerTilePositionX,
                             player.playerTilePositionY));
                 }
+                if(kbInputDebugJankTimer != 60)kbInputDebugJankTimer++;
 
                 //Update UI
                 gamePanel.repaint();

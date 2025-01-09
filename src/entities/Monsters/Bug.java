@@ -18,7 +18,7 @@ public class Bug extends Monster {
             this.lifespan = ScreenSettings.FPS * 45;
             this.hasFullStomach = false;
             this.maxHunger = 1;
-
+            this.basicAttackStrength = 4;
 
     }
 
@@ -28,7 +28,7 @@ public class Bug extends Monster {
     }
 
     @Override
-    protected void destroy() {
+    public void destroy() {
         this.image = null;
     }
 
@@ -57,5 +57,9 @@ public class Bug extends Monster {
     @Override
     protected void reproductionCycle() {
 
+    }
+
+    public String returnNpcType(){
+        return "Bug";
     }
 }

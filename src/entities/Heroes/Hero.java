@@ -14,6 +14,7 @@ public abstract class Hero extends NPC {
     protected int movementSpeed; // How many pixels an enemy offsets per frame
     protected int movementCycle; // How long it takes before we logically know we are at a new tile without math
 
+    //TODO remove health from this pos
     public Hero(int health, int x, int y){
         this.health = health;
         this.worldPositionX = x / ScreenSettings.TILE_SIZE;
@@ -26,10 +27,6 @@ public abstract class Hero extends NPC {
     }
 
     private final static Random random = new Random();
-
-    public abstract void behavior();
-
-    public abstract void destroy();
 
     public Image getImage() {
         return image;

@@ -15,6 +15,7 @@ public class Spirit extends Monster {
         this.lifespan = 3;
         this.movementSpeed = 1;
         this.movementCycle = 0;
+        this.basicAttackStrength = 1;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class Spirit extends Monster {
     }
 
     @Override
-    protected void destroy() {
+    public void destroy() {
         this.image = null;
     }
 
@@ -53,6 +54,9 @@ public class Spirit extends Monster {
 
     }
 
+    public String returnNpcType(){
+        return "Spirit";
+    }
 
 
 }

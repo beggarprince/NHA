@@ -22,6 +22,7 @@ public class KbInput implements KeyListener {
         if(code == KeyEvent.VK_P){
             debug = true;
         }
+
         if(code == KeyEvent.VK_F){
             dig = true;
         }

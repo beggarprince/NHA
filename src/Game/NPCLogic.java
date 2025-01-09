@@ -27,7 +27,7 @@ public class NPCLogic {
             for (int i = 0; i < enemies.size(); i++) {
                 Monster e = enemies.get(i);
                 spatialHash.updateNPCZone(e);
-                e.behavior();
+                e.genericBehavior();
             }
 
     }
@@ -36,7 +36,7 @@ public class NPCLogic {
 
             for (int i = 0; i < heroes.size(); i++) {
                 checkCollisionsMonsters(heroes.get(i), monsters);
-                heroes.get(i).behavior();
+                heroes.get(i).genericBehavior();
             }
 
     }

@@ -17,6 +17,17 @@ public abstract class NPC {
     public boolean isDead = false;
     public NPCType npc;
     public int zone;
+    protected int cooldown = 0;
+    protected int basicAttackCooldown = 60; // Change this, default 60 i guess
+    protected int basicAttackStrength;
+    public abstract void behavior();
+
+    public abstract void destroy();
+
+
+    //Jank because i can't do abstract String
+    public abstract String returnNpcType();
+
     //Logical position on array
     public int worldPositionX;
     public int worldPositionY;
@@ -183,18 +194,53 @@ public abstract class NPC {
         return false;
     }
 
-    public void combat(){
 
-        //Hit
-        combatTarget.peek().health -= 1;
+    //TODO make sure there is no possibility of null calls to combatTarget
+    public void basicAttack(){
+        while(!combatTarget.isEmpty() && combatTarget.peek() == null) combatTarget.poll();
+        //Check if on cooldown
+        if(cooldown <=0 ) {
+            //Hit
+            combatTarget.peek().health -= basicAttackStrength;
+            cooldown += basicAttackCooldown; //Assuming basic attack
+            System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
 
-        //Check if dead
-        if(combatTarget.peek().health <= 0){
-            combatTarget.poll();
-
-            //Cycle ot next or move
-            if(combatTarget.isEmpty()) inCombat = false;
+            //Check if dead
+            if (combatTarget.peek().health <= 0) {
+                combatTarget.poll();
+            }
         }
+        //Cycle ot next or move, outside of cooldown just in case something else kills it
+        if (combatTarget.isEmpty()){
+            inCombat = false;
+            //System.out.println(inCombat + " ");
+        }
+
+
+    }
+
+    public void genericBehavior(){
+        //combat
+        if(this.inCombat){
+            //basic attack handles cooldown
+            System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
+
+            basicAttack();
+        }
+        //behavior - Movement, reproduction, etc
+        else{
+            //System.out.println("Moving " + returnNpcType());
+            behavior();
+        }
+
+        //System.out.println(returnNpcType() + " health is " + health);
+        //death
+        if(health <= 0){
+            isDead = true;
+            destroy();
+        }
+
+        if(cooldown <= 0)cooldown--;
 
     }
 

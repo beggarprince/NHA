@@ -10,7 +10,6 @@ public class Soldier extends Hero{
         super(health, x, y);
         //TODO I really need to fix the constructor to handle health
         this.health = 4;
-
         this.worldPositionX = x / ScreenSettings.TILE_SIZE;
         this.worldPositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
@@ -18,27 +17,24 @@ public class Soldier extends Hero{
         this.movementSpeed = 1;
         this.movementCycle = 0;
         this.image = ImgLoader.getImageResource("knight.png");
+        this.basicAttackStrength = 4;
     }
 
     @Override
     public void behavior() {
         //Ideally something
-        if(health <=0) {
-            isDead = true;
-            return;
-        }
-        //We see if we can move this direction
-        if(inCombat){
-            combat();
-        }
-        else {
             npcMoved();
-        }
+
+       // if(cooldown != 0 )cooldown--;
 
     }
 
     @Override
     public void destroy() {
         image = null;
+    }
+
+    public String returnNpcType(){
+        return "Soldier";
     }
 }

@@ -17,7 +17,7 @@ public class Slime_Flower extends Monster {
         this.worldPositionY =y / ScreenSettings.TILE_SIZE;
         this.lifespan = 300;
         this.image = ImgLoader.getImageResource("slime_flower.png");
-
+        this.basicAttackStrength = 2;
     }
 
     @Override
@@ -59,5 +59,8 @@ public class Slime_Flower extends Monster {
     }
     public void destroy(){
         this.image = null;
+    }
+    public String returnNpcType(){
+        return "Slime Flower";
     }
 }
