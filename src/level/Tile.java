@@ -12,8 +12,11 @@ public class Tile {
 
     private static final Random random = new Random(); // Initialized once
 
+    //Min values to level up the tile
     public final static int nutrientL2Min = 4;
     public final static int nutrientL3Min = 9;
+    public final static int manaL2Min = 4;
+    public final static int manaL3Min = 9;
 
 
     public Tile(TileType t, int posx , int posy){
@@ -34,7 +37,10 @@ public class Tile {
             else nutrients = 9;
         }
         else if (type == TileType.MANA){
-            mana = getRandomNumberInRange(1, Level.manaScale);
+            mana = getRandomNumberInRange(1, 100);
+            if(mana < Level.manaL2Distribution) mana = 1;
+            else if (mana > Level.manaL2Distribution && mana < Level.manaL3Distribution) mana = 4;
+            else mana = 4;
         }
         else return;
     }

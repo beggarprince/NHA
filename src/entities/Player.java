@@ -44,6 +44,7 @@ public class Player {
         setPlayerImage();
         playerTilePositionX = playerScreenPosition.x / ScreenSettings.TILE_SIZE;
         playerTilePositionY = playerScreenPosition.y / ScreenSettings.TILE_SIZE;
+
     }
 
     //TODO

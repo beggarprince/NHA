@@ -35,13 +35,6 @@ public class Engine implements Runnable {
 
     // Constructor
     public Engine() {
-        // Camera and screen setup
-        this.leftTop = new Coordinate(0, 0);
-        this.camera = new Camera(leftTop);
-
-        //Player and player inputs
-        this.kb = new KbInput();
-        this.player = new Player();
 
         //Audio
         sound = new Sound();
@@ -54,8 +47,23 @@ public class Engine implements Runnable {
         this.level = Level.getInstance();
         this.spatialHash = SpatialHash.getInstance();
 
-        //Helper Classes
-        //logic = new NPCLogic();
+
+
+        //Player and player inputs
+        this.kb = new KbInput();
+        this.player = new Player();
+        // Camera and screen setup
+        //Level.levelColumns /2 - (ScreenSettings.TS_X /2)
+        this.leftTop = new Coordinate(0, 0);
+        this.camera = new Camera(leftTop);
+
+        //TODO jank until i fix the center function, there was 1 instance where the camera did not move up and the player went out of bounds but i can't replicate it
+        //We can replace level.levelColumns with prefered X position or something that we can pass in and then move
+        while(player.playerTilePositionX  < Level.levelColumns /2){
+            kb.rightPressed = true;
+            player.movePlayer(player, camera, kb);
+            kb.rightPressed = false;
+        }
 
         //Monster creation and spawning
         this.monsterFactory = new MonsterFactory();

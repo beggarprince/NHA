@@ -17,7 +17,8 @@ public class Level {
 
     //These are part of the tile init for initial resources as the max
     //Higher scale will mean that the map will have more of the nutrient per block
-    public static int manaScale = 3;
+    public static int manaL2Distribution = 90;
+    public static int manaL3Distribution = 98;
     public static int nutrientL2Distribution = 70;
     public static int nutrientL3Distribution = 95;
 
@@ -42,8 +43,11 @@ public class Level {
         levelGenerator = new LevelGenerator(80, 95);
         levelData = levelGenerator.returnLevel();
 
+
         levelRows = levelData.size(); // Size of column
         levelColumns = levelData.get(0).size(); // Size of row
+        createInitialPath();
+
 
         if(levelColumns != ScreenSettings.TS_World_X) System.out.println("Not enough columns made");
         if(levelRows != ScreenSettings.TS_World_Y) System.out.println("Not enough rows made");
@@ -67,8 +71,18 @@ public class Level {
         return instance;
     }
 
+    private void createInitialPath(){
+        int y = 0;
+        int x = Level.levelColumns /2;
+        levelData.get(y).set(x,3); // leveldata goes from int to enum to tile smh
+        levelData.get(y++).set(x,3);
+        levelData.get(y++).set(x,3);
+        levelData.get(y++).set(x,3);
+        levelData.get(y++).set(x,3);
+        levelData.get(y).set(x,3);
+        levelData.get(y).set(x+1,3);
 
-
+    }
 
 
 
