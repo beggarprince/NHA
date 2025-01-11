@@ -1,9 +1,12 @@
 package entities.Monsters;
 
+import entities.NPCType;
 import graphics.ScreenSettings;
 import util.ImgLoader;
 
 import java.awt.image.BufferedImage;
+
+import static Game.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Bug extends Monster {
 
@@ -40,9 +43,14 @@ public class Bug extends Monster {
     @Override
     public void behavior() {
 
-
-        if(npcMoved()) eatingCycleReady = true; // we are at a new tile
-
+        //check if they can eat
+        if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)){
+            //if then it ate idk what i want to do here
+            System.out.println("bug ate");
+        }
+        else {
+            if (npcMoved()) eatingCycleReady = true; // we are at a new tile
+        }
     }
 
     @Override

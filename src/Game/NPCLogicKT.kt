@@ -6,6 +6,7 @@ import entities.Monsters.Logic.Metamorphosis
 import entities.Monsters.Monster
 import entities.Monsters.MonsterList
 import entities.NPC
+import entities.NPCType
 
 //    var monsterList: MonsterList = MonsterList.getInstance()
 //    var heroList: HeroList = HeroList.getInstance()
@@ -39,7 +40,21 @@ import entities.NPC
     private fun checkCollisions(npc: NPC) {
     }
 
-    private fun checkCollisionsEAT(monster: Monster) {
+
+//These need to be edited so we use the 2d array of linkedlists instead of iterating over the entire list
+    public fun checkCollisionsEAT(monster: Monster, monsters: List<Monster>, prey: NPCType) : Boolean{
+    for (i in monsters.indices) {
+        if (checkAdjacent(monsters[i], monster)) {
+            ///Instead of combat they will attack once and that's it
+            if(monsters[i].type == prey){
+                monster.targetedAttack(monsters[i])
+                //TODO should probably heal them
+                return true
+            }
+        }
+
+    }
+    return false
     }
 
     //Heroes initiate combat

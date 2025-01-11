@@ -15,7 +15,7 @@ public abstract class NPC {
     protected Direction currDirection;
     public boolean inCombat = false;
     public boolean isDead = false;
-    public NPCType npc;
+    public NPCType type;
     public int zone;
     protected int cooldown = 0;
     protected int basicAttackCooldown = 60; // Change this, default 60 i guess
@@ -203,7 +203,7 @@ public abstract class NPC {
             //Hit
             combatTarget.peek().health -= basicAttackStrength;
             cooldown += basicAttackCooldown; //Assuming basic attack
-            System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
+            //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
 
             //Check if dead
             if (combatTarget.peek().health <= 0) {
@@ -215,8 +215,11 @@ public abstract class NPC {
             inCombat = false;
             //System.out.println(inCombat + " ");
         }
+    }
 
-
+    public void targetedAttack(NPC target){
+        target.health -= basicAttackStrength;
+        if(target.health <= 0 ) target.isDead = true; //this might not belong here, i might have set it to dead twice idk
     }
 
     public void genericBehavior(){
