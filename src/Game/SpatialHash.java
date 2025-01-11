@@ -5,6 +5,8 @@ import graphics.ScreenSettings;
 
 import java.util.ArrayList;
 
+//This may not even be used, but meant for multithreading
+
 public class SpatialHash {
     private static SpatialHash instance;
     private final int scale;

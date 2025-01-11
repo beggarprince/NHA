@@ -2,12 +2,14 @@
 - **Player moves too fast**
 - **Player camera moves too often**
   - Needs a deadzone in the center that will allow the player small movements before the entire camera moves.
+
 # New Features
 ## Heroes
 - Need to be implemented.
 - Need their pathfinding algorithm.
 - Upon death drop a skeleton which the player can spawn
   - Skeleton levels up as it absorbs passing spirits. Spirits are lost their mana will not be reintroduced to the ecosystem
+
 # New Enemy Features
 ### List of unintroduced enemies
 - Lizardmen
@@ -130,3 +132,8 @@
     - Movement
     - Boundary checking
     - Health
+# MonsterList
+  - Hero list is fine as a listof as there are max of 3 heroes
+    - Monsterlist is NOT fine as there are tons of monsters
+      - ATM to check adjacency i need to loop across the entire list
+        - A 2d list of linkedlist will allow me to access 4 tiles max per iteration and go through a subset of the list instead of the entire list

@@ -67,9 +67,7 @@ public class NPCLogic {
 
         for(int i = 0; i < monsters.size(); i++){
             if(checkAdjacent(monsters.get(i), hero)){
-//                System.out.println("HERO: " + hero.worldPositionX +" " + hero.worldPositionY);
-//                System.out.println("MNST: " + monsters.get(i).worldPositionX +" " + monsters.get(i).worldPositionY);
-//
+
                 monsters.get(i).inCombat = true;
                 hero.inCombat = true;
                 monsters.get(i).addToCombatQueue(hero);

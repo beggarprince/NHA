@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class HeroList {
     private static HeroList instance;
+
+
     private ArrayList<Hero> heroes;
 
     private HeroList(){

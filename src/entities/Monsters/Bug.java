@@ -40,6 +40,7 @@ public class Bug extends Monster {
     @Override
     public void behavior() {
 
+
         if(npcMoved()) eatingCycleReady = true; // we are at a new tile
 
     }

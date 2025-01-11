@@ -223,17 +223,18 @@ public abstract class NPC {
         //combat
         if(this.inCombat){
             //basic attack handles cooldown
-            System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
+           /// System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
 
             basicAttack();
         }
         //behavior - Movement, reproduction, etc
         else{
-            //System.out.println("Moving " + returnNpcType());
+            ///System.out.println("Moving " + returnNpcType());
             behavior();
         }
 
-        //System.out.println(returnNpcType() + " health is " + health);
+        ///System.out.println(returnNpcType() + " health is " + health);
+
         //death
         if(health <= 0){
             isDead = true;

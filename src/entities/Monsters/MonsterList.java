@@ -10,6 +10,9 @@ import java.util.ArrayList;
 * */
 public class MonsterList {
     private static MonsterList instance;     // Singleton instance
+
+
+    //TODO change this into a 2d array with linkedlist so we can just check tile XY instead of iterating throughout the entire list
     private  ArrayList<Monster> monsters;      // Instance variable for the list
     private SpatialHash init;
     // Private constructor for singleton

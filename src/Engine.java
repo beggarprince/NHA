@@ -1,4 +1,4 @@
-import Game.NPCLogic;
+import Game.NPCLogicKTKt;
 import Game.SpatialHash;
 import PlayerActions.Spawn;
 import entities.Heroes.HeroFactory;
@@ -29,7 +29,7 @@ public class Engine implements Runnable {
     public GameCanvas gamePanel;
     private HeroFactory heroFactory;
     private final HeroList heroList;
-    private final NPCLogic logic;
+    //private final NPCLogic logic;
     private final SpatialHash spatialHash;
     Sound sound;
 
@@ -55,7 +55,7 @@ public class Engine implements Runnable {
         this.spatialHash = SpatialHash.getInstance();
 
         //Helper Classes
-        logic = new NPCLogic();
+        //logic = new NPCLogic();
 
         //Monster creation and spawning
         this.monsterFactory = new MonsterFactory();
@@ -94,7 +94,7 @@ public class Engine implements Runnable {
 
                 if (kb.playerMoving()) player.movePlayer(player, camera, kb);
 
-                logic.run();
+                NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
 
                 if (kb.dig) {
                     Spawn.spawnEnemyAtPlayer(level.tileData
