@@ -46,7 +46,7 @@ public class Bug extends Monster {
         //check if they can eat
         if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)){
             //if then it ate idk what i want to do here
-            System.out.println("bug ate");
+            return;
         }
         else {
             if (npcMoved()) eatingCycleReady = true; // we are at a new tile

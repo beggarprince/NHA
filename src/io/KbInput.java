@@ -13,6 +13,10 @@ public class KbInput implements KeyListener {
 
     }
 
+    private boolean singleWASD(){
+        return !upPressed && !downPressed && !leftPressed && !rightPressed;
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
 
@@ -28,16 +32,17 @@ public class KbInput implements KeyListener {
         }
 
 
-        if(code == KeyEvent.VK_W){
+        //TODO while this does work there is a bit of delay on changing, i believe it was like this originally
+        if(code == KeyEvent.VK_W && singleWASD()){
                 upPressed = true;
         }
-        if(code == KeyEvent.VK_A){
+        if(code == KeyEvent.VK_A && singleWASD()){
                 leftPressed = true;
         }
-        if(code == KeyEvent.VK_S){
+        if(code == KeyEvent.VK_S && singleWASD()) {
               downPressed = true;
         }
-        if(code == KeyEvent.VK_D){
+        if(code == KeyEvent.VK_D && singleWASD()){
             rightPressed = true;
 
         }

@@ -87,9 +87,6 @@ public class Player {
         }
         if(playerMoved || cameraPanned){
             updatePlayerWorldPosition(kb);
-            //System.out.println(playerTilePositionX + " < " + Level.levelColumns);
-            //System.out.println((playerTilePositionY+ " " + playerScreenPosition.y / ScreenSettings.TILE_SIZE)+ " < " + Level.levelRows);
-
         }
 
     }
@@ -130,16 +127,25 @@ public class Player {
     }
 
     public void movePlayer(Player player, Camera camera, KbInput kb) {
+
         boolean cameraMoved = false;
 
+        //Pressing up/down or left/right just halts the player
         if(kb.conflictingVerticalInput() || kb.conflictingHorizontalInput()) return;
 
-        if (player.getXOffset() == 0 && (kb.leftPressed
-                || kb.rightPressed))
-            cameraMoved = camera.updateCameraPosition(kb);
-        else if (player.getYOffset() == 0 && (kb.upPressed
-                || kb.downPressed))
-            cameraMoved = camera.updateCameraPosition(kb);
+        //If the offset is not 0, then the player is not centered. If the player is not centered, then the player must move before the camera pans on that axis
+        if (player.getXOffset() == 0 &&
+                (kb.leftPressed || kb.rightPressed)) {
+            cameraMoved = camera.attemptCameraPan(kb);
+
+        }
+
+        else if (player.getYOffset() == 0
+                && (kb.upPressed || kb.downPressed)) {
+            cameraMoved = camera.attemptCameraPan(kb);
+        }
+
+
         player.playerPosUpdate(kb, cameraMoved);
 
     }

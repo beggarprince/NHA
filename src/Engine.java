@@ -48,7 +48,6 @@ public class Engine implements Runnable {
         this.spatialHash = SpatialHash.getInstance();
 
 
-
         //Player and player inputs
         this.kb = new KbInput();
         this.player = new Player();
@@ -114,9 +113,13 @@ public class Engine implements Runnable {
                             .get(player.playerTilePositionX));
                 } else if (kb.debug & kbInputDebugJankTimer == 60) {
                     kbInputDebugJankTimer = 0;
-                    heroList.addHero(heroFactory.createHero("knight",
-                            player.playerTilePositionX,
-                            player.playerTilePositionY));
+//                    heroList.addHero(heroFactory.createHero("knight",
+//                            player.playerTilePositionX,
+//                            player.playerTilePositionY));
+                    //TODO camera.offsetY is not working
+                    System.out.println("Player screen position xy:" + player.playerScreenPosition.x + " " + player.playerScreenPosition.y);
+                    System.out.println("Camera top left xy: " + camera.topLeftCrn.x + ":" + camera.topLeftCrn.y + " \noffset y is " + camera.offsetY);
+                    System.out.println("Player tiler position "+player.playerTilePositionX + " x " + player.playerTilePositionY);
                 }
                 if(kbInputDebugJankTimer != 60)kbInputDebugJankTimer++;
 
@@ -142,4 +145,8 @@ public class Engine implements Runnable {
 
     }
 
+    //TODO implement this function
+    private void checkPlayerBounds(Player player, Camera camera){
+        //if(player.playerScreenPosition)
+    }
 }

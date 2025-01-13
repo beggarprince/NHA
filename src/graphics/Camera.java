@@ -23,29 +23,29 @@ public class Camera {
         this.topLeftCrn = tl;
     }
 
-    public boolean updateCameraPosition(KbInput kb) {
+    public boolean attemptCameraPan(KbInput kb) {
         // Determine if the camera should pan based on edge movement
-        boolean isCameraPanned = true;
+        boolean cameraPanEligible = true;
 
         // Check input and update camera coordinates
         if (kb.downPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE);
-            if (!isCameraPanned) return false;
+            cameraPanEligible = verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE);
+            if (!cameraPanEligible) return false;
         } else if (kb.upPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE);
-            if (!isCameraPanned) return false;
+            cameraPanEligible = verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE);
+            if (!cameraPanEligible) return false;
         } else if (kb.leftPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0);
-            if (!isCameraPanned) return false;
+            cameraPanEligible = verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0);
+            if (!cameraPanEligible) return false;
         } else if (kb.rightPressed) {
-            isCameraPanned = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
-            if (!isCameraPanned) return false;
+            cameraPanEligible = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
+            if (!cameraPanEligible) return false;
         } else {
             return false;
         }
 
         panCamera(kb);
-        return isCameraPanned;
+        return cameraPanEligible; //this is always true
     }
 
 
