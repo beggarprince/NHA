@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 //TODO make this a Singleton
 public class KbInput implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean up, down, left, right = false;
     public boolean debug = false;
     public boolean dig = false;
     @Override
@@ -13,8 +14,25 @@ public class KbInput implements KeyListener {
 
     }
 
+    public void resetKBmovement(){
+        System.out.println("Resetting kb wwwww");
+        up = false;
+        down = false;
+        right = false;
+        left = false;
+
+    }
+
+    public boolean checkKBMovement(){
+        return up || down || right || left;
+    }
+
     private boolean singleWASD(){
-        return !upPressed && !downPressed && !leftPressed && !rightPressed;
+
+        //temporary
+        return true;
+
+        //return !upPressed && !downPressed && !leftPressed && !rightPressed;
     }
 
     @Override

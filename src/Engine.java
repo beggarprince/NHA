@@ -130,6 +130,7 @@ public class Engine implements Runnable {
                 monsterList.destroyEnemies();
                 heroList.destroyHeroes();
 
+                //kb.resetKBmovement();
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
             else {

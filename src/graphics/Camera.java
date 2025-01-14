@@ -19,57 +19,71 @@ public class Camera {
     public int offsetX = 0;
     public int offsetY = 0;
 
+
+
     public Camera(Coordinate tl) {
         this.topLeftCrn = tl;
     }
 
+    private void resetDirection(KbInput kb){
+    kb.up = false;
+    kb.down = false;
+    kb.left = false;
+    kb.right = false;
+
+}
+
     public boolean attemptCameraPan(KbInput kb) {
         // Determine if the camera should pan based on edge movement
-        boolean cameraPanEligible = true;
+        boolean moved = false;
+        resetDirection(kb);
 
         // Check input and update camera coordinates
         if (kb.downPressed) {
-            cameraPanEligible = verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE);
-            if (!cameraPanEligible) return false;
+            if(verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE)) kb.down = true;
+
         } else if (kb.upPressed) {
-            cameraPanEligible = verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE);
-            if (!cameraPanEligible) return false;
-        } else if (kb.leftPressed) {
-            cameraPanEligible = verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0);
-            if (!cameraPanEligible) return false;
-        } else if (kb.rightPressed) {
-            cameraPanEligible = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
-            if (!cameraPanEligible) return false;
-        } else {
-            return false;
+            if(verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE)) kb.up = true;
         }
 
-        panCamera(kb);
-        return cameraPanEligible; //this is always true
+        if (kb.leftPressed) {
+            if(verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0) )kb.left  = true;
+        } else if (kb.rightPressed) {
+            if( verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0)) kb.right = true;
+        }
+
+       // System.out.println(up + " " + down +" " + left +" " + right);
+
+        if( kb.up ||  kb.down ||  kb.left ||  kb.right) moved = panCamera(kb);
+
+
+        return moved;
     }
 
 
     // Movement of the camera, nothing else
-    private void panCamera(KbInput kb) {
+        //Handle player being offset?
+    private boolean panCamera(KbInput kb ) {
         int movementAmount = ScreenSettings.TILE_SIZE;
 
-        if (kb.downPressed) {
+        if ( kb.down) {
             topLeftCrn.y += movementAmount;
             offsetY++;
 
-        } else if (kb.upPressed) {
+        } else if (kb.up) {
             topLeftCrn.y -= movementAmount;
             offsetY--;
-        } else if (kb.leftPressed) {
+        }
+
+        if ( kb.left) {
             topLeftCrn.x -= movementAmount;
             offsetX--;
 
-        } else if (kb.rightPressed) {
+        } else if ( kb.right) {
             topLeftCrn.x += movementAmount;
             offsetX++;
-        } else {
-            System.out.println("No movement detected.");
         }
+        return true;
     }
 
 
