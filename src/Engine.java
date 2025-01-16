@@ -20,7 +20,7 @@ public class Engine implements Runnable {
     private final Coordinate leftTop;
     private final Camera camera;
     private final KbInput kb;
-    private  int kbInputDebugJankTimer = 60;
+    private int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
     private Player player;
     private Level level;
@@ -58,7 +58,7 @@ public class Engine implements Runnable {
 
         //TODO jank until i fix the center function, there was 1 instance where the camera did not move up and the player went out of bounds but i can't replicate it
         //We can replace level.levelColumns with prefered X position or something that we can pass in and then move
-        while(player.playerTilePositionX  < Level.levelColumns /2){
+        while (player.playerTilePositionX < Level.levelColumns / 2) {
             kb.rightPressed = true;
             player.movePlayer(player, camera, kb);
             kb.rightPressed = false;
@@ -104,13 +104,22 @@ public class Engine implements Runnable {
                 NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
 
                 if (kb.dig) {
-                    Spawn.spawnEnemyAtPlayer(level.tileData
-                                    .get(player.playerTilePositionY)
-                                    .get(player.playerTilePositionX),
-                            monsterList);
 
-                    dig(level.tileData.get(player.playerTilePositionY)
-                            .get(player.playerTilePositionX));
+
+                    if (dig(level.tileData,
+                            level.tileData.get(player.playerTilePositionY)
+                                    .get(player.playerTilePositionX),
+                            player.playerTilePositionX,
+                            player.playerTilePositionY
+                    )) {
+                        Spawn.spawnEnemyAtPlayer(level.tileData
+                                        .get(player.playerTilePositionY)
+                                        .get(player.playerTilePositionX),
+                                monsterList);
+                        level.tileData.get(player.playerTilePositionY)
+                                .get(player.playerTilePositionX).digDestruct();
+                    }
+
                 } else if (kb.debug & kbInputDebugJankTimer == 60) {
                     kbInputDebugJankTimer = 0;
 //                    heroList.addHero(heroFactory.createHero("knight",
@@ -119,9 +128,9 @@ public class Engine implements Runnable {
                     //TODO camera.offsetY is not working
                     System.out.println("Player screen position xy:" + player.playerScreenPosition.x + " " + player.playerScreenPosition.y);
                     System.out.println("Camera top left xy: " + camera.topLeftCrn.x + ":" + camera.topLeftCrn.y + " \noffset y is " + camera.offsetY);
-                    System.out.println("Player tiler position "+player.playerTilePositionX + " x " + player.playerTilePositionY);
+                    System.out.println("Player tiler position " + player.playerTilePositionX + " x " + player.playerTilePositionY);
                 }
-                if(kbInputDebugJankTimer != 60)kbInputDebugJankTimer++;
+                if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;
 
                 //Update UI
                 gamePanel.repaint();
@@ -146,7 +155,7 @@ public class Engine implements Runnable {
     }
 
     //TODO implement this function
-    private void checkPlayerBounds(Player player, Camera camera){
+    private void checkPlayerBounds(Player player, Camera camera) {
         //if(player.playerScreenPosition)
     }
 }
