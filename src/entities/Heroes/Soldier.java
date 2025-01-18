@@ -16,7 +16,7 @@ public class Soldier extends Hero{
         this.screenPositionY = y;
         this.movementSpeed = 1;
         this.movementCycle = 0;
-        this.image = ImgLoader.getImageResource("knight.png");
+        this.image = ImgLoader.getImageResource("knight_mvRight.png");
         this.basicAttackStrength = 4;
     }
 

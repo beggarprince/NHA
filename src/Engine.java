@@ -91,51 +91,30 @@ public class Engine implements Runnable {
 
         while (gameLifecycle != null) {
 
+            //Check if we can move frame forward
             long frameRateCurrentTime = System.nanoTime();
-            long elapsedTime = frameRateCurrentTime - frameRatePrevTime;
 
             ///Run one game cycle
-            if (elapsedTime >= ScreenSettings.INTERVAL) {
-
+            if (checkTimer(frameRateCurrentTime, frameRatePrevTime)) {
+                //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
                 if (kb.playerMoving()) player.movePlayer(player, camera, kb);
-
                 NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
 
                 if (kb.dig) {
-
-
-                    if (dig(level.tileData,
-                            level.tileData.get(player.playerTilePositionY)
-                                    .get(player.playerTilePositionX),
-                            player.playerTilePositionX,
-                            player.playerTilePositionY
-                    )) {
-                        Spawn.spawnEnemyAtPlayer(level.tileData
-                                        .get(player.playerTilePositionY)
-                                        .get(player.playerTilePositionX),
-                                monsterList);
-                        level.tileData.get(player.playerTilePositionY)
-                                .get(player.playerTilePositionX).digDestruct();
-                    }
-
-                } else if (kb.debug & kbInputDebugJankTimer == 60) {
-                    kbInputDebugJankTimer = 0;
-//                    heroList.addHero(heroFactory.createHero("knight",
-//                            player.playerTilePositionX,
-//                            player.playerTilePositionY));
-                    //TODO camera.offsetY is not working
-                    System.out.println("Player screen position xy:" + player.playerScreenPosition.x + " " + player.playerScreenPosition.y);
-                    System.out.println("Camera top left xy: " + camera.topLeftCrn.x + ":" + camera.topLeftCrn.y + " \noffset y is " + camera.offsetY);
-                    System.out.println("Player tiler position " + player.playerTilePositionX + " x " + player.playerTilePositionY);
+                  attemptDig();
                 }
+                else if (kb.debug ) {
+                  debugAddHero();
+                }
+
                 if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;
 
                 //Update UI
                 gamePanel.repaint();
 
-                //Remove references to res so the garbage collector can remove
+                //Remove references to res so the garbage collector can remove, must be done after UI update
                 monsterList.destroyEnemies();
                 heroList.destroyHeroes();
 
@@ -154,8 +133,38 @@ public class Engine implements Runnable {
 
     }
 
-    //TODO implement this function
-    private void checkPlayerBounds(Player player, Camera camera) {
-        //if(player.playerScreenPosition)
+
+    private boolean checkTimer(long currentTime, long previousTime){
+        return ((currentTime - previousTime) >= ScreenSettings.INTERVAL);
+    }
+
+    private void attemptDig(){
+        if (dig(level.tileData,
+                level.tileData.get(player.playerTilePositionY)
+                        .get(player.playerTilePositionX),
+                player.playerTilePositionX,
+                player.playerTilePositionY
+        )) {
+            Spawn.spawnEnemyAtPlayer(level.tileData
+                            .get(player.playerTilePositionY)
+                            .get(player.playerTilePositionX),
+                    monsterList);
+            level.tileData.get(player.playerTilePositionY)
+                    .get(player.playerTilePositionX).digDestruct();
+        }
+
+    }
+
+    private void debugAddHero(){
+        if( kbInputDebugJankTimer != 60){
+            System.out.println("Debug timer on cooldown");
+            return;
+        }
+
+        kbInputDebugJankTimer = 0;
+        heroList.addHero(heroFactory.createHero("knight",
+                player.playerTilePositionX,
+                player.playerTilePositionY));
+
     }
 }

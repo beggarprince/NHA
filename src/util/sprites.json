@@ -1,0 +1,61 @@
+{
+  "sprites": [
+    {
+      "name": "knight_mvRight",
+      "path": "knight_mvRight.png"
+    },
+    {
+      "name": "knight_mvLeft",
+      "path": "knight_mvLeft.png"
+    },
+    {
+      "name": "bug",
+      "path": "bug.png"
+    },
+    {
+      "name": "dirt",
+      "path": "dirt.png"
+    },
+    {
+      "name": "gravel",
+      "path": "gravel.png"
+    },
+    {
+      "name": "mana",
+      "path": "mana.png"
+    },
+    {
+      "name": "nutrientsL1",
+      "path": "nutrientsL1.png"
+    },
+    {
+      "name": "nutrientsL2",
+      "path": "nutrientsL2.png"
+    },
+    {
+      "name": "nutrientsL3",
+      "path": "nutrientsL3.png"
+    },
+    {
+      "name": "player",
+      "path": "player.png"
+    },
+    {
+      "name": "slime",
+      "path": "slime.png"
+    },
+    {
+      "name": "spirit",
+      "path": "spirit.png"
+    }
+  ,
+    {
+      "name": "brick",
+      "path": "brick.png"
+    },
+    {
+      "name": "path",
+      "path": "gravel.png"
+    }
+  ]
+}
