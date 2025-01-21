@@ -22,16 +22,20 @@ public class Engine implements Runnable {
     private final KbInput kb;
     private int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
-    private Player player;
-    private Level level;
-    private MonsterFactory monsterFactory;
+    private final Player player;
+    private Level level; // Not set as final for now even though there is  only one level
+    private final MonsterFactory monsterFactory;
     private final MonsterList monsterList;
     public GameCanvas gamePanel;
-    private HeroFactory heroFactory;
+    private final HeroFactory heroFactory;
     private final HeroList heroList;
     //private final NPCLogic logic;
     private final SpatialHash spatialHash;
     Sound sound;
+    private boolean heroActive = false;
+    private int heroSpawnTimer = 600; // Ten seconds for now
+    private int heroFrameCount = 0;
+    private boolean mvpPlaced = false;
 
     // Constructor
     public Engine() {
@@ -57,7 +61,7 @@ public class Engine implements Runnable {
         this.camera = new Camera(leftTop);
 
         //TODO jank until i fix the center function, there was 1 instance where the camera did not move up and the player went out of bounds but i can't replicate it
-        //We can replace level.levelColumns with prefered X position or something that we can pass in and then move
+        //We can replace level.levelColumns with preferred X position or something that we can pass in and then move
         while (player.playerTilePositionX < Level.levelColumns / 2) {
             kb.rightPressed = true;
             player.movePlayer(player, camera, kb);
@@ -94,12 +98,33 @@ public class Engine implements Runnable {
             //Check if we can move frame forward
             long frameRateCurrentTime = System.nanoTime();
 
-            ///Run one game cycle
+            ///Run one game cycle, 1 frame
             if (checkTimer(frameRateCurrentTime, frameRatePrevTime)) {
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
+
+
                 if (kb.playerMoving()) player.movePlayer(player, camera, kb);
+
+                //Check for hero spawn if the timer is set to equal the spawn timer
+                    //We still need to advance frames but i don't want the player to be able to do anything but pan
+                    //No npc logic either
+
+                if(!mvpPlaced && heroSpawn()){
+                    //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
+                    System.out.println("Halting dungeon logic");
+                    if(kb.dig){ //I'm just going to rename this to ACTION button or something
+                        mvpPlaced = true;
+                        heroActive = true;
+                        heroFrameCount = 0;
+                        System.out.println("Hero Active");
+                    }
+
+                    gamePanel.repaint();
+                    continue;
+                }
+
                 NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
 
                 if (kb.dig) {
@@ -117,6 +142,11 @@ public class Engine implements Runnable {
                 //Remove references to res so the garbage collector can remove, must be done after UI update
                 monsterList.destroyEnemies();
                 heroList.destroyHeroes();
+
+
+                //System.out.println(heroFrameCount);
+                if(!heroActive)heroFrameCount++;
+
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
@@ -167,4 +197,14 @@ public class Engine implements Runnable {
                 player.playerTilePositionY));
 
     }
+
+    private boolean heroSpawn(){
+        if(heroSpawnTimer <= heroFrameCount){
+            heroActive = true;
+            return true;
+        }
+        return false;
+    }
 }
+
+

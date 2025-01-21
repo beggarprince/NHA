@@ -5,6 +5,9 @@
 //
 //data class Sprite(val name: String, val path: String)
 //
+
+// TODO implement later, Gradle is not in project and this adds no added functionality just increases modularity
+
 //fun spriteLoader(filePath: String) {
 //    try {
 //        val path = Paths.get(filePath)

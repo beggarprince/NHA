@@ -11,6 +11,7 @@ public class KbInput implements KeyListener {
     public boolean debug = false;
     public boolean dig = false;
 
+
     @Override
     public void keyTyped(KeyEvent e) {
 
