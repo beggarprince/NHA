@@ -36,7 +36,7 @@ public class Engine implements Runnable {
     private int heroSpawnTimer = 600; // Ten seconds for now
     private int heroFrameCount = 0;
     private boolean mvpPlaced = false;
-
+    private int xEntry = 0;
     // Constructor
     public Engine() {
 
@@ -55,6 +55,7 @@ public class Engine implements Runnable {
         //Player and player inputs
         this.kb = new KbInput();
         this.player = new Player();
+        xEntry = player.playerTilePositionX;
         // Camera and screen setup
         //Level.levelColumns /2 - (ScreenSettings.TS_X /2)
         this.leftTop = new Coordinate(0, 0);
@@ -66,6 +67,7 @@ public class Engine implements Runnable {
             kb.rightPressed = true;
             player.movePlayer(player, camera, kb);
             kb.rightPressed = false;
+            xEntry++;
         }
 
         //Monster creation and spawning
@@ -111,7 +113,7 @@ public class Engine implements Runnable {
                     //We still need to advance frames but i don't want the player to be able to do anything but pan
                     //No npc logic either
 
-                if(!mvpPlaced && heroSpawn()){
+                if(!mvpPlaced && heroSpawnTimer()){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
                     System.out.println("Halting dungeon logic");
                     if(kb.dig){ //I'm just going to rename this to ACTION button or something
@@ -119,6 +121,7 @@ public class Engine implements Runnable {
                         heroActive = true;
                         heroFrameCount = 0;
                         System.out.println("Hero Active");
+                        spawnHeroAtEntry();
                     }
 
                     gamePanel.repaint();
@@ -198,13 +201,22 @@ public class Engine implements Runnable {
 
     }
 
-    private boolean heroSpawn(){
+    private boolean heroSpawnTimer(){
         if(heroSpawnTimer <= heroFrameCount){
             heroActive = true;
             return true;
         }
         return false;
     }
-}
 
+    private void spawnHeroAtEntry(){
+        try {
+            heroList.addHero(heroFactory.createHero("knight",
+                    xEntry,
+                    0));
+        }catch (Exception e){
+            System.out.println("Could not spawn hero");
+        }
+    }
+}
 

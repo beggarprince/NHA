@@ -1,5 +1,6 @@
 package entities.Heroes;
 
+import entities.Direction;
 import util.ImgLoader;
 import graphics.ScreenSettings;
 
@@ -22,11 +23,18 @@ public class Soldier extends Hero{
 
     @Override
     public void behavior() {
+
         //Ideally something
             npcMoved();
+            setSprite(); // Move this to the movement function or something idek anymore
 
        // if(cooldown != 0 )cooldown--;
 
+    }
+    //TODO make this an abstract function
+    private void setSprite(){
+        if(this.currDirection == Direction.RIGHT) this.image = ImgLoader.getImageResource("knight_mvRight.png");
+        else if(this.currDirection == Direction.LEFT) this.image = ImgLoader.getImageResource("knight_mvLeft.png");
     }
 
     @Override

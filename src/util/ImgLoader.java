@@ -6,6 +6,10 @@ import java.io.IOException;
 
 public class ImgLoader {
 
+    //These need to be stored by kvp of
+        // StringPath, Buffered image
+    //To avoid loading resources
+    //But in a separate file
     public static BufferedImage getImageResource(String imgPath) {
         BufferedImage temp = null;
         try {
