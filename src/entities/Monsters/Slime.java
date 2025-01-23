@@ -14,7 +14,7 @@ public class Slime extends Monster {
 
 
     public Slime(int x, int y) {
-        super(1, x, y); // Slime has a default health of 1
+        super(12, x, y); // Slime has a default health of 1
         this.hunger = 0;
         this.movementSpeed = 1;
         this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded

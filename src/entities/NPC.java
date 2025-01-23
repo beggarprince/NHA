@@ -226,7 +226,8 @@ public abstract class NPC {
         //combat
         if(this.inCombat){
             //basic attack handles cooldown
-           /// System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
+            System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
+            System.out.println(returnNpcType() + " has "+ this.health + " current health");
 
             basicAttack();
         }

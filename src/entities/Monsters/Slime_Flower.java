@@ -9,7 +9,7 @@ public class Slime_Flower extends Monster {
     MonsterList monsterListInstance;
 
     public Slime_Flower( int x, int y) {
-        super(1, x, y);
+        super(18, x, y);
         monsterListInstance = MonsterList.getInstance();
         this.screenPositionX = x;
         this.screenPositionY = y;

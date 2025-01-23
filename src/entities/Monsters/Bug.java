@@ -11,11 +11,10 @@ import static Game.NPCLogicKTKt.checkCollisionsEAT;
 public class Bug extends Monster {
 
     public Bug( int x, int y) {
-        super(12, x, y);
+        super(32, x, y);
 
             setImage();
             this.hunger = 0;
-
             this.image = ImgLoader.getImageResource("bug.png"); //Default slime preloaded
             this.movementSpeed = 1;
             this.lifespan = ScreenSettings.FPS * 45;
@@ -60,7 +59,11 @@ public class Bug extends Monster {
 
     @Override
     protected void agingCycle() {
-
+        lifespan--;
+        if(lifespan == 0){
+            //There needs to be code  here to determine whether the slime reproduces or just dies
+            metamorphosisReady = false;
+        }
     }
 
     @Override
