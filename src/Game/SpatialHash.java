@@ -1,6 +1,6 @@
 package Game;
 
-import entities.NPC;
+import entities.NPC.NPC;
 import graphics.ScreenSettings;
 
 import java.util.ArrayList;

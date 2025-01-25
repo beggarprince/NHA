@@ -1,16 +1,12 @@
 package Game
 
-import entities.Heroes.Hero
-import entities.Heroes.HeroList
-import entities.Monsters.Logic.Metamorphosis
-import entities.Monsters.Monster
-import entities.Monsters.MonsterList
-import entities.NPC
-import entities.NPCType
+import entities.NPC.Heroes.Hero
+import entities.NPC.Monsters.Logic.Metamorphosis
+import entities.NPC.Monsters.Monster
+import entities.NPC.Monsters.MonsterList
+import entities.NPC.NPC
+import entities.NPC.NPCType
 
-//    var monsterList: MonsterList = MonsterList.getInstance()
-//    var heroList: HeroList = HeroList.getInstance()
-//    var spatialHash: SpatialHash = SpatialHash.getInstance()
 
     private fun runEnemyBehavior(enemies: List<Monster>) {
         for (i in enemies.indices) {
@@ -61,10 +57,12 @@ import entities.NPCType
     private fun checkCollisionsMonsters(hero: Hero, monsters: List<Monster>) {
         for (i in monsters.indices) {
             if (checkAdjacent(monsters[i], hero)) {
-                monsters[i].inCombat = true
-                hero.inCombat = true
-                monsters[i].addToCombatQueue(hero)
-                hero.addToCombatQueue(monsters[i])
+                if(!hero.returnCombatQueue().contains(monsters[i])) {
+                    monsters[i].inCombat = true
+                    hero.inCombat = true
+                    monsters[i].addToCombatQueue(hero)
+                    hero.addToCombatQueue(monsters[i])
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package entities.Monsters;
+package entities.NPC.Monsters;
 
 import Game.SpatialHash;
 
@@ -69,6 +69,7 @@ public class MonsterList {
         for(int i = 0; i < monsters.size(); i++){
             if(monsters.get(i).isDead){
                 Monster e = monsters.get(i);
+                System.out.println("Destroying " + e.returnNpcType());
                 monsters.get(i).destroy();
                 removeEnemy(e);
 

@@ -1,4 +1,4 @@
-package entities.Heroes;
+package entities.NPC.Heroes;
 
 import entities.Direction;
 import util.ImgLoader;

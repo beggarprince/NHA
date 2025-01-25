@@ -1,4 +1,4 @@
-package entities.Monsters;
+package entities.NPC.Monsters;
 
 import util.ImgLoader;
 import graphics.ScreenSettings;
@@ -32,6 +32,10 @@ public class Slime_Flower extends Monster {
 
     @Override
     public void behavior() {
+        if(health <= 0) {
+            isDead = true;
+            return;
+        }
         //Since it does move at all we simply never call move function
         agingCycle();
     }

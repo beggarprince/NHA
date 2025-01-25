@@ -1,12 +1,9 @@
-package entities.Heroes;
+package entities.NPC.Heroes;
 
-import entities.Direction;
-import entities.NPC;
+import entities.NPC.NPC;
 import graphics.ScreenSettings;
-import level.Level;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public abstract class Hero extends NPC {

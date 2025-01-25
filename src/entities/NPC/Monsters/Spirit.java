@@ -1,4 +1,4 @@
-package entities.Monsters;
+package entities.NPC.Monsters;
 import graphics.ScreenSettings;
 import util.ImgLoader;
 import java.awt.image.BufferedImage;
@@ -35,7 +35,10 @@ public class Spirit extends Monster {
     }
 
     public void behavior(){
-
+        if(health <= 0) {
+            isDead = true;
+            return;
+        }
         if(npcMoved()) eatingCycleReady = true; // we are at a new tile
 
         agingCycle();

@@ -1,7 +1,7 @@
-package entities.Monsters.Logic;
+package entities.NPC.Monsters.Logic;
 
 import entities.Direction;
-import entities.Monsters.Monster;
+import entities.NPC.Monsters.Monster;
 import level.Level;
 import level.TileType;
 import java.util.List;

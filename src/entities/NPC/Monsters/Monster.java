@@ -1,6 +1,6 @@
-package entities.Monsters;
+package entities.NPC.Monsters;
 
-import entities.NPC;
+import entities.NPC.NPC;
 import graphics.ScreenSettings;
 import java.util.Random;
 import java.awt.image.BufferedImage;

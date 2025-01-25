@@ -1,9 +1,9 @@
 import Game.NPCLogicKTKt;
 import Game.SpatialHash;
 import PlayerActions.Spawn;
-import entities.Heroes.HeroFactory;
-import entities.Heroes.HeroList;
-import entities.Monsters.*;
+import entities.NPC.Heroes.HeroFactory;
+import entities.NPC.Heroes.HeroList;
+import entities.NPC.Monsters.*;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;

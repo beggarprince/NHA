@@ -1,5 +1,6 @@
-package entities;
+package entities.NPC;
 
+import entities.Direction;
 import graphics.ScreenSettings;
 import level.Level;
 import java.awt.image.BufferedImage;
@@ -17,8 +18,8 @@ public abstract class NPC {
     public boolean isDead = false;
     public NPCType type;
     public int zone;
-    protected int cooldown = 0;
-    protected int basicAttackCooldown = 60; // Change this, default 60 i guess
+    protected int cooldown = 0; // 0 means ready to attack
+    protected int basicAttackCooldown = 10; // Change this, default 60 i guess
     protected int basicAttackStrength;
     public abstract void behavior();
 
@@ -48,6 +49,10 @@ public abstract class NPC {
 
     public void addToCombatQueue(NPC npc){
         combatTarget.add(npc);
+    }
+
+    public Queue<NPC> returnCombatQueue(){
+        return combatTarget;
     }
 
     public void removeFromCombatQueue(NPC npc){
@@ -197,19 +202,39 @@ public abstract class NPC {
 
     //TODO make sure there is no possibility of null calls to combatTarget
     public void basicAttack(){
-        while(!combatTarget.isEmpty() && combatTarget.peek() == null) combatTarget.poll();
-        //Check if on cooldown
+        while(!combatTarget.isEmpty() && combatTarget.peek() == null) combatTarget.poll(); //remove dead targets
+
+        NPC target = combatTarget.peek();
+
+        //Check if on cooldown to initiate attack
         if(cooldown <=0 ) {
+
+            int l1 = target.health;
             //Hit
-            combatTarget.peek().health -= basicAttackStrength;
+            target.health -= this.basicAttackStrength;
+
+            if(l1 == target.health) System.out.println("Error, enemy did not take damage");
+
+            else {
+                System.out.println(target.returnNpcType()+ " has " + target.health  + " hp");
+            }
+
             cooldown += basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
 
             //Check if dead
-            if (combatTarget.peek().health <= 0) {
+            if (target.health <= 0) {
+                l1 = combatTarget.size();
                 combatTarget.poll();
+                if(combatTarget.size() == l1){
+                    System.out.println("Error, did not pol");
+                }
             }
         }
+        else {
+            System.out.println(returnNpcType() + " on cooldown by " + cooldown);
+        }
+
         //Cycle ot next or move, outside of cooldown just in case something else kills it
         if (combatTarget.isEmpty()){
             inCombat = false;
@@ -219,33 +244,34 @@ public abstract class NPC {
 
     public void targetedAttack(NPC target){
         target.health -= basicAttackStrength;
-        if(target.health <= 0 ) target.isDead = true; //this might not belong here, i might have set it to dead twice idk
+        if(target.health <= 0 ) {
+            target.isDead = true; //this might not belong here, i might have set it to dead twice idk
+        }
     }
 
     public void genericBehavior(){
+        if(cooldown > 0)cooldown--;
+
         //combat
         if(this.inCombat){
             //basic attack handles cooldown
-            System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
-            System.out.println(returnNpcType() + " has "+ this.health + " current health");
-
+//            System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
+//            System.out.println(returnNpcType() + " has "+ this.health + " current health");
+  //          System.out.println(returnNpcType() + " has " + combatTarget.size() + " targets");
             basicAttack();
         }
+
         //behavior - Movement, reproduction, etc
         else{
             ///System.out.println("Moving " + returnNpcType());
             behavior();
         }
 
+
         ///System.out.println(returnNpcType() + " health is " + health);
-
-        //death
-        if(health <= 0){
-            isDead = true;
-            destroy();
-        }
-
-        if(cooldown <= 0)cooldown--;
+   if(health <= 0){
+    isDead = true;
+   }
 
     }
 

@@ -1,4 +1,4 @@
-package entities;
+package entities.NPC;
 
 
 //Rename this stupid ass class

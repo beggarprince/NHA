@@ -1,17 +1,15 @@
 package graphics;
 
-import entities.Heroes.Hero;
-import entities.Heroes.HeroList;
-import entities.Monsters.Monster;
-import entities.Monsters.MonsterList;
+import entities.NPC.Heroes.Hero;
+import entities.NPC.Heroes.HeroList;
+import entities.NPC.Monsters.Monster;
+import entities.NPC.Monsters.MonsterList;
 import entities.Player;
 import io.KbInput;
 import level.Tile;
-import level.TileType;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 //Engine is the main game loop

@@ -1,4 +1,4 @@
-package entities.Monsters;
+package entities.NPC.Monsters;
 
 
 public class MonsterFactory {

@@ -1,6 +1,6 @@
-package entities.Monsters;
+package entities.NPC.Monsters;
 
-import entities.NPCType;
+import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import util.ImgLoader;
 
@@ -41,6 +41,10 @@ public class Bug extends Monster {
 
     @Override
     public void behavior() {
+        if(health <= 0) {
+            isDead = true;
+            return;
+        }
 
         //check if they can eat
         if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)){

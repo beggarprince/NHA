@@ -1,8 +1,8 @@
-package entities.Monsters.Logic;
+package entities.NPC.Monsters.Logic;
 
-import entities.Monsters.Monster;
-import entities.Monsters.MonsterFactory;
-import entities.Monsters.MonsterList;
+import entities.NPC.Monsters.Monster;
+import entities.NPC.Monsters.MonsterFactory;
+import entities.NPC.Monsters.MonsterList;
 
 public class Metamorphosis {
 
