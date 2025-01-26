@@ -1,12 +1,8 @@
 package entities.NPC;
 
-import entities.Direction;
-import graphics.ScreenSettings;
 import level.Level;
 import java.awt.image.BufferedImage;
 import java.util.*;
-
-import static util.CollisionKt.detectNPCCollision;
 
 public abstract class NPC extends Stats {
     protected BufferedImage image;
@@ -59,9 +55,12 @@ public abstract class NPC extends Stats {
 
 
     //TODO RENAME
-    protected boolean npcMoved(){
+    protected boolean moveNpcAndSignal(){
 
         boolean canMove = true;
+
+        //If the movement cycle is not 0 then we know we are still moving in a valid direction so we don't have to check if said direction is valid
+        //If 0 we just need to check the next tile
         if(movementCycle == 0)  canMove = Movement.validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
 
         if(canMove){
@@ -131,14 +130,12 @@ public abstract class NPC extends Stats {
     }
 
     public void genericBehavior(){
+
         if(cooldown > 0)cooldown--;
 
         //combat
-        if(this.inCombat){
+        if(this.inCombat && movementCycle == 0){
             //basic attack handles cooldown
-//            System.out.println(returnNpcType() + " in combat with " + combatTarget.peek().returnNpcType());
-//            System.out.println(returnNpcType() + " has "+ this.health + " current health");
-  //          System.out.println(returnNpcType() + " has " + combatTarget.size() + " targets");
             basicAttack();
         }
 
@@ -147,7 +144,6 @@ public abstract class NPC extends Stats {
             ///System.out.println("Moving " + returnNpcType());
             behavior();
         }
-
 
         ///System.out.println(returnNpcType() + " health is " + health);
    if(health <= 0){

@@ -1,4 +1,4 @@
-package entities.NPC.Monsters.Logic;
+package entities.NPC.Monsters.MonsterLogic;
 
 import entities.Direction;
 import entities.NPC.Monsters.Monster;

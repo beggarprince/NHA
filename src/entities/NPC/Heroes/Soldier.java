@@ -25,7 +25,7 @@ public class Soldier extends Hero{
     public void behavior() {
 
         //Ideally something
-            npcMoved();
+            moveNpcAndSignal();
             setSprite(); // Move this to the movement function or something idek anymore
 
        // if(cooldown != 0 )cooldown--;

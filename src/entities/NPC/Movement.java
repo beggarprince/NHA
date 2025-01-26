@@ -132,7 +132,7 @@ public class Movement {
 
     protected static void signalNewTile(NPC npc){
         if(npc.movementCycle == ScreenSettings.TILE_SIZE){
-            npc.movementCycle = 0;
+            npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
         }
     }
 

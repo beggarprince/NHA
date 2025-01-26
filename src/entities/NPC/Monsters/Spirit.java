@@ -39,7 +39,7 @@ public class Spirit extends Monster {
             isDead = true;
             return;
         }
-        if(npcMoved()) eatingCycleReady = true; // we are at a new tile
+        if(moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile
 
         agingCycle();
     }

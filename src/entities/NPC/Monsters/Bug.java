@@ -52,7 +52,7 @@ public class Bug extends Monster {
             return;
         }
         else {
-            if (npcMoved()) eatingCycleReady = true; // we are at a new tile
+            if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile
         }
     }
 

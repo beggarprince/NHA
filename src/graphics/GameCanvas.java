@@ -28,7 +28,7 @@ public class GameCanvas extends JPanel {
     private int startTileX = 0;
     private int endTileY = 0;
     private int endTileX = 0;
-
+    private SpriteSheetInterpreter  s;
 
     public GameCanvas(KbInput kb,
                       Player p,
@@ -43,11 +43,14 @@ public class GameCanvas extends JPanel {
         this.setDoubleBuffered(true);
         this.addKeyListener(kb);
         this.setFocusable(true);
+        s = new SpriteSheetInterpreter();
         player = p;
         level = levelData;
         camera = c;
         monsterList = e;
         heroList = h;
+
+
     }
 
     public void paintComponent(Graphics g) {
@@ -59,6 +62,7 @@ public class GameCanvas extends JPanel {
         paintPlayer(g2);
         paintEnemies(g2);
         paintHeroes(g2);
+        paintBadman(g2);
         g2.dispose();
 
     }
@@ -110,6 +114,11 @@ public class GameCanvas extends JPanel {
 
         //paint by image
         g.drawImage(player.playerImage, player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+    }
+
+    private void paintBadman(Graphics2D g){
+
+        g.drawImage(s.getSpriteFromSheet(1,1,1,1), player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE , ScreenSettings.TILE_SIZE , null  );
     }
 
     private void paintEnemies(Graphics2D g) {

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 
-import static entities.NPC.Monsters.Logic.EatingSystem.*;
+import static entities.NPC.Monsters.MonsterLogic.EatingSystem.*;
 
 public class Slime extends Monster {
 
@@ -52,7 +52,7 @@ public class Slime extends Monster {
             return;
         }
             //We see if we can move this direction
-            if (npcMoved()) eatingCycleReady = true; // we are at a new tile;
+            if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile;
 
             //System.out.println(zone);
             //Eat
