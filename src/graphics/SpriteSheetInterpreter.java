@@ -13,9 +13,11 @@ public class SpriteSheetInterpreter {
     }
     int counter = 0;
     int x = 32;
+    int y = 68;
+    int yd = 108;
     //This is going to need some metadata
     public  BufferedImage getSpriteFromSheet(int col, int row, int width, int height){
-        counter++;
+        counter+=2;
         if(counter == 30){
             x += 128;
         }
@@ -28,12 +30,31 @@ public class SpriteSheetInterpreter {
         if(counter == 120){
             x += 128;
         }
+
         if(counter == 150) {
             x = 32;
+            y += yd;
+        }
+        if(counter == 180){
+            x += 128;
+        }
+        if(counter == 210){
+            x += 128;
+        }
+        if(counter == 240){
+            x += 128;
+        }
+        if(counter == 270){
+            x += 128;
+        }
+        if(counter == 300) {
+            x = 32;
+            y -= yd;
             counter = 0;
         }
 
-        BufferedImage img = image.getSubimage(x  , 69, 68,68);
+
+        BufferedImage img = image.getSubimage(x  , y, 68,68);
                 return img;
     }
 }
