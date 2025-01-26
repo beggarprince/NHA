@@ -8,19 +8,12 @@ import java.util.*;
 
 import static util.CollisionKt.detectNPCCollision;
 
-public abstract class NPC {
+public abstract class NPC extends Stats {
     protected BufferedImage image;
 
     //Dumbass java, protected does not allow access to different subclasses just the superclass and itself
-    public int health;
-    protected Direction currDirection;
-    public boolean inCombat = false;
-    public boolean isDead = false;
-    public NPCType type;
-    public int zone;
-    protected int cooldown = 0; // 0 means ready to attack
-    protected int basicAttackCooldown = 10; // Change this, default 60 i guess
-    protected int basicAttackStrength;
+
+
     public abstract void behavior();
 
     public abstract void destroy();
@@ -64,136 +57,24 @@ public abstract class NPC {
 
     private final static Random random = new Random();
 
-    //Movement
-    public List<Direction> getPossibleDirections(Boolean collisionCheck){
-        // List of possible directions
-        List<Direction> possibleDirections = new ArrayList<>();
-
-        possibleDirections.add(Direction.UP);
-        possibleDirections.add(Direction.DOWN);
-        possibleDirections.add(Direction.LEFT);
-        possibleDirections.add(Direction.RIGHT);
-
-        //Will remove if the tiles are walkable, this one is used to EAT as you can't eat PATH
-        if(!collisionCheck)  possibleDirections.removeIf(direction -> validateWalkableDirection(direction, worldPositionX, worldPositionY));
-        else {
-            //If not walkable it is a candidate for movement, handles out of bounds as well
-            possibleDirections.removeIf(direction -> !validateWalkableDirection(direction, worldPositionX, worldPositionY));
-        }
-        return possibleDirections;
-    }
-
-
-    public Direction getRandomDirection(int x, int y) {
-        // List of possible directions
-        List<Direction> possibleDirections = getPossibleDirections(true);
-
-        for(Direction d : possibleDirections) if(d == currDirection) possibleDirections.remove(d);
-
-        // If no valid directions, return NOT_MOVING
-        if (possibleDirections.isEmpty()) {
-            return Direction.NOT_MOVING;
-        }
-
-        // Randomly select a valid direction
-        int index = random.nextInt(possibleDirections.size());
-
-
-        return possibleDirections.get(index);
-    }
-
-    public static Direction getOppositeDirection(Direction dir) {
-        switch (dir) {
-            case UP:
-                return Direction.DOWN;
-            case DOWN:
-                return Direction.UP;
-            case LEFT:
-                return Direction.RIGHT;
-            case RIGHT:
-                return Direction.LEFT;
-            default:
-                throw new IllegalArgumentException("Unknown direction: " + dir);
-        }
-    }
-
-
-    //When checking if false it can be used to check bounds
-    public boolean validateWalkableDirection(Direction dir, int x, int y) {
-        //Returns true if walkable, false if not
-        if (dir == Direction.UP) {
-            if (y > 0) {
-                return detectNPCCollision(level.tileData.get(y - 1).get(x));
-            }
-        } else if (dir == Direction.DOWN) {
-            if (y < Level.levelRows - 1) {
-                return detectNPCCollision(level.tileData.get(y + 1).get(x));
-            }
-        } else if (dir == Direction.LEFT) {
-            if (x > 0) {
-                return detectNPCCollision(level.tileData.get(y).get(x - 1));
-            }
-        } else if (dir == Direction.RIGHT) {
-            if (x < Level.levelColumns - 1) {
-                return detectNPCCollision(level.tileData.get(y).get(x + 1));
-            }
-        }
-        return false; // If all checks fail, the move is invalid.
-    }
-
-
-
-    //If we are here we are good to move in our direction of choice
-    public void move() {
-
-        if (currDirection == Direction.UP) {
-            screenPositionY -= movementSpeed;
-        } else if (currDirection == Direction.DOWN) {
-            screenPositionY += movementSpeed;
-        } else if (currDirection == Direction.LEFT) {
-            screenPositionX -= movementSpeed;
-        } else if (currDirection == Direction.RIGHT) {
-            screenPositionX += movementSpeed;
-        }
-
-        movementCycle += movementSpeed;
-
-
-    }
-
-
-    protected void updateWorldPosition() {
-        if (screenPositionX % 16 == 0) {
-            worldPositionX = screenPositionX / ScreenSettings.TILE_SIZE;
-        }
-        if (screenPositionY % 16 == 0) {
-            worldPositionY = screenPositionY / ScreenSettings.TILE_SIZE;
-        }
-    }
-
-    protected void signalNewTile(){
-        if(movementCycle == ScreenSettings.TILE_SIZE){
-            movementCycle = 0;
-        }
-    }
 
     //TODO RENAME
     protected boolean npcMoved(){
 
         boolean canMove = true;
-        if(movementCycle == 0)  canMove = validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+        if(movementCycle == 0)  canMove = Movement.validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
 
         if(canMove){
-            move();
-            updateWorldPosition();
-            signalNewTile();
+            Movement.move(this);
+            Movement.updateWorldPosition(this);
+            Movement.signalNewTile(this);
             //only at new tile do we signal that they moved
             return true;
         }
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            currDirection = getRandomDirection(worldPositionX, worldPositionY);
+            currDirection = Movement.getRandomDirection(worldPositionX, worldPositionY, this);
 
         }
         return false;

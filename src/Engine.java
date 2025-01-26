@@ -4,6 +4,7 @@ import PlayerActions.Spawn;
 import entities.NPC.Heroes.HeroFactory;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.*;
+import entities.NPC.Movement;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
@@ -50,6 +51,9 @@ public class Engine implements Runnable {
         //World creation
         this.level = Level.getInstance();
         this.spatialHash = SpatialHash.getInstance();
+
+        Movement.setLevelInstance();
+
 
 
         //Player and player inputs
@@ -115,7 +119,7 @@ public class Engine implements Runnable {
 
                 if(!mvpPlaced && heroSpawnTimer()){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
-                    System.out.println("Halting dungeon logic");
+
                     if(kb.dig){ //I'm just going to rename this to ACTION button or something
                         mvpPlaced = true;
                         heroActive = true;

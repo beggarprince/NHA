@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Movement;
 import entities.NPC.NPC;
 import graphics.ScreenSettings;
 import java.util.Random;
@@ -27,7 +28,7 @@ public abstract class Monster extends NPC {
         this.screenPositionY = y;
         this.hasFullStomach = false;
 
-        this.currDirection = getRandomDirection(worldPositionX, worldPositionY);//This will give it a random starting dir that is valid
+        this.currDirection = Movement.getRandomDirection(worldPositionX, worldPositionY,this);//This will give it a random starting dir that is valid
     }
 
     // Getter and setter methods

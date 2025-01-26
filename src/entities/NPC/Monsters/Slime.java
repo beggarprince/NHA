@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 import entities.Direction;
+import entities.NPC.Movement;
 import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import level.TileType;
@@ -68,7 +69,7 @@ public class Slime extends Monster {
 
     //Extract all the logic, it should only know if it ate and increment itself
     protected void eat(){
-        List<Direction> list = getPossibleDirections(false);
+        List<Direction> list = Movement.getPossibleDirections(false, this);
        if(eatSurroundingTile(TileType.NUTRIENT, list, worldPositionX,  worldPositionY)) {
            //System.out.println("ate");
 
@@ -89,7 +90,7 @@ public class Slime extends Monster {
 
     protected void poop(){
 
-        List<Direction> list = getPossibleDirections(false);
+        List<Direction> list = Movement.getPossibleDirections(false, this);
 
         if(depositSurroundingTile(TileType.NUTRIENT, list, worldPositionX, worldPositionY)) {
             hunger--;
