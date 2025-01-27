@@ -1,5 +1,6 @@
 package Game
 
+import entities.Combat
 import entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.MonsterLogic.Metamorphosis
 import entities.NPC.Monsters.Monster
@@ -43,8 +44,8 @@ import entities.NPC.NPCType
         if (checkAdjacent(monsters[i], monster)) {
             ///Instead of combat they will attack once and that's it
             if(monsters[i].type == prey){
-                monster.targetedAttack(monsters[i])
-                //TODO should probably heal them
+                Combat.targetedAttack(monsters[i], monster)
+                //TODO should probably heal the predator
                 return true
             }
         }

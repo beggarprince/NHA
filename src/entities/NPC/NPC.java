@@ -1,5 +1,6 @@
 package entities.NPC;
 
+import entities.Combat;
 import level.Level;
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -30,7 +31,7 @@ public abstract class NPC extends Stats {
     protected int movementCycle = 0; // How long it takes before we logically know we are at a new tile without math
 
     //Queue to holds all the combat targets so when we kill one we can go to the next
-    protected Queue<NPC> combatTarget;
+    public Queue<NPC> combatTarget;
 
     public NPC(){
         combatTarget = new LinkedList<>();
@@ -49,7 +50,7 @@ public abstract class NPC extends Stats {
     }
 
 
-    Level level = Level.getInstance("res/levelTest.csv");
+    //Level level = Level.getInstance("res/levelTest.csv");
 
     private final static Random random = new Random();
 
@@ -79,56 +80,6 @@ public abstract class NPC extends Stats {
         return false;
     }
 
-
-    //TODO make sure there is no possibility of null calls to combatTarget
-    public void basicAttack(){
-        while(!combatTarget.isEmpty() && combatTarget.peek() == null) combatTarget.poll(); //remove dead targets
-
-        NPC target = combatTarget.peek();
-
-        //Check if on cooldown to initiate attack
-        if(cooldown <=0 ) {
-
-            int l1 = target.health;
-            //Hit
-            target.health -= this.basicAttackStrength;
-
-            if(l1 == target.health) System.out.println("Error, enemy did not take damage");
-
-            else {
-                System.out.println(target.returnNpcType()+ " has " + target.health  + " hp");
-            }
-
-            cooldown += basicAttackCooldown; //Assuming basic attack
-            //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
-
-            //Check if dead
-            if (target.health <= 0) {
-                l1 = combatTarget.size();
-                combatTarget.poll();
-                if(combatTarget.size() == l1){
-                    System.out.println("Error, did not pol");
-                }
-            }
-        }
-        else {
-            System.out.println(returnNpcType() + " on cooldown by " + cooldown);
-        }
-
-        //Cycle ot next or move, outside of cooldown just in case something else kills it
-        if (combatTarget.isEmpty()){
-            inCombat = false;
-            //System.out.println(inCombat + " ");
-        }
-    }
-
-    public void targetedAttack(NPC target){
-        target.health -= basicAttackStrength;
-        if(target.health <= 0 ) {
-            target.isDead = true; //this might not belong here, i might have set it to dead twice idk
-        }
-    }
-
     public void genericBehavior(){
 
         if(cooldown > 0)cooldown--;
@@ -136,7 +87,7 @@ public abstract class NPC extends Stats {
         //combat
         if(this.inCombat && movementCycle == 0){
             //basic attack handles cooldown
-            basicAttack();
+            Combat.basicAttack(this);
         }
 
         //behavior - Movement, reproduction, etc

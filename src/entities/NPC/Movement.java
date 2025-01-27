@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static util.CollisionKt.detectNPCCollision;
+import static util.CollisionKt.detectWalkableTile;
 
 public class Movement {
     static Level levelInstance; //The static might create issues
@@ -22,7 +22,7 @@ public class Movement {
 
     //For now, i'll pass npc in every instance
     //Movement
-    public static List<Direction> getPossibleDirections(Boolean collisionCheck, NPC n){
+    public static List<Direction> getPossibleDirections(Boolean moving, NPC n){
         // List of possible directions
         List<Direction> possibleDirections = new ArrayList<>();
 
@@ -33,9 +33,11 @@ public class Movement {
 
 
         //Will remove if the tiles are walkable, this one is used to EAT as you can't eat PATH
-        if(!collisionCheck)  possibleDirections.removeIf(direction -> validateWalkableDirection(direction, n.worldPositionX, n.worldPositionY));
+        //Moving is a control variable, if we are not moving then we are eating in this function, thus we remove walkable tiles
+        if(!moving)  possibleDirections.removeIf(direction -> validateWalkableDirection(direction, n.worldPositionX, n.worldPositionY));
         else {
             //If not walkable it is a candidate for movement, handles out of bounds as well
+            //Here moving is true so we want to remove unwalkable tiles
             possibleDirections.removeIf(direction -> !validateWalkableDirection(direction, n.worldPositionX, n.worldPositionY));
         }
         return possibleDirections;
@@ -82,19 +84,19 @@ public class Movement {
         //Returns true if walkable, false if not
         if (dir == Direction.UP) {
             if (y > 0) {
-                return detectNPCCollision(levelInstance.tileData.get(y - 1).get(x));
+                return detectWalkableTile(levelInstance.tileData.get(y - 1).get(x));
             }
         } else if (dir == Direction.DOWN) {
             if (y < Level.levelRows - 1) {
-                return detectNPCCollision(levelInstance.tileData.get(y + 1).get(x));
+                return detectWalkableTile(levelInstance.tileData.get(y + 1).get(x));
             }
         } else if (dir == Direction.LEFT) {
             if (x > 0) {
-                return detectNPCCollision(levelInstance.tileData.get(y).get(x - 1));
+                return detectWalkableTile(levelInstance.tileData.get(y).get(x - 1));
             }
         } else if (dir == Direction.RIGHT) {
             if (x < Level.levelColumns - 1) {
-                return detectNPCCollision(levelInstance.tileData.get(y).get(x + 1));
+                return detectWalkableTile(levelInstance.tileData.get(y).get(x + 1));
             }
         }
         return false; // If all checks fail, the move is invalid.
@@ -131,7 +133,7 @@ public class Movement {
     }
 
     protected static void signalNewTile(NPC npc){
-        if(npc.movementCycle == ScreenSettings.TILE_SIZE){
+        if(npc.movementCycle >= ScreenSettings.TILE_SIZE){
             npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
         }
     }

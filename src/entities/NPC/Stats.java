@@ -9,7 +9,7 @@ public class Stats {
     public NPCType type;
     public int zone;
     protected Direction currDirection;
-    protected int cooldown = 0; // 0 means ready to attack
-    protected int basicAttackCooldown = 10; // Change this, default 60 i guess
-    protected int basicAttackStrength;
+    public int cooldown = 0; // 0 means ready to attack
+    public int basicAttackCooldown = 10; // Change this, default 60 i guess
+    public int basicAttackStrength;
 }

@@ -1,6 +1,7 @@
 import Game.NPCLogicKTKt;
 import Game.SpatialHash;
 import PlayerActions.Spawn;
+import entities.Combat;
 import entities.NPC.Heroes.HeroFactory;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.*;
@@ -53,6 +54,7 @@ public class Engine implements Runnable {
         this.spatialHash = SpatialHash.getInstance();
 
         Movement.setLevelInstance();
+        Combat.setLevelInstance();
 
 
 
