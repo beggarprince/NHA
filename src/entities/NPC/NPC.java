@@ -8,8 +8,6 @@ import java.util.*;
 public abstract class NPC extends Stats {
     protected BufferedImage image;
 
-    //Dumbass java, protected does not allow access to different subclasses just the superclass and itself
-
 
     public abstract void behavior();
 

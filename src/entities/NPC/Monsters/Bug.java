@@ -78,4 +78,15 @@ public class Bug extends Monster {
     public String returnNpcType(){
         return "Bug";
     }
+
+    private void setupSpriteSheetData(){
+
+    }
+
+    /*
+    *
+    *
+    * 
+    *
+    * */
 }

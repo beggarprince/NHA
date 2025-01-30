@@ -17,6 +17,7 @@ public class SpriteSheetInterpreter {
     int yd = 108;
     //This is going to need some metadata
     public  BufferedImage getSpriteFromSheet(int col, int row, int width, int height){
+
         counter+=2;
         if(counter == 30){
             x += 128;
