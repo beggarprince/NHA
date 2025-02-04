@@ -1,5 +1,6 @@
 package graphics;
 
+import entities.Direction;
 import entities.NPC.Heroes.Hero;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.Monster;
@@ -10,6 +11,7 @@ import level.Tile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 //Engine is the main game loop
@@ -118,7 +120,7 @@ public class GameCanvas extends JPanel {
 
     private void paintBadman(Graphics2D g){
 
-        g.drawImage(s.getSpriteFromSheet(1,1,1,1), player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE , ScreenSettings.TILE_SIZE , null  );
+        g.drawImage(s.getSpriteFromSheet(), player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE , ScreenSettings.TILE_SIZE , null  );
     }
 
     private void paintEnemies(Graphics2D g) {
@@ -129,13 +131,22 @@ public class GameCanvas extends JPanel {
             if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX)
                     && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
                 //Draw according to offset
-                g.drawImage(e.getImage(),
-                        e.screenPositionX - camera.topLeftCrn.x ,
-                        e.screenPositionY - camera.topLeftCrn.y ,
-                        ScreenSettings.TILE_SIZE,
-                        ScreenSettings.TILE_SIZE,
-                        null);
-
+                //if(e.currDirection != Direction.RIGHT && e.currDirection != Direction.DOWN) {
+                    g.drawImage(e.getImage(),
+                            e.screenPositionX - camera.topLeftCrn.x,
+                            e.screenPositionY - camera.topLeftCrn.y,
+                            ScreenSettings.TILE_SIZE,
+                            ScreenSettings.TILE_SIZE,
+                            null);
+//                }
+//                else {
+//                    System.out.println("Mirroring");
+//                    // Flip sprite horizontally (mirror effect)
+//                    AffineTransform transform = new AffineTransform();
+//                    transform.scale(-1, 1); // Mirror horizontally
+//                    transform.translate(e.getImage().getWidth(), 0); // Move into place
+//                    g.drawImage(e.getImage(), transform, null);
+//                }
             }
         }
     }

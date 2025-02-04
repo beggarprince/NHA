@@ -8,7 +8,7 @@ public class Stats {
     public boolean isDead = false;
     public NPCType type;
     public int zone;
-    protected Direction currDirection;
+    public Direction currDirection;
     public int cooldown = 0; // 0 means ready to attack
     public int basicAttackCooldown = 10; // Change this, default 60 i guess
     public int basicAttackStrength;

@@ -15,9 +15,5 @@ public class SpriteCoordinate
         this.height = height;
     }
 
-    //Direction, then sprite data
-    SpriteCoordinate[][] walking;
-    SpriteCoordinate[][] combat;
-    SpriteCoordinate[] death;
 
 }
