@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class Slime_Flower extends Monster {
     MonsterList monsterListInstance;
+    static BufferedImage image = ImgLoader.getImageResource("slime_flower.png");
 
     public Slime_Flower( int x, int y) {
         super(18, x, y);
@@ -16,7 +17,6 @@ public class Slime_Flower extends Monster {
         this.worldPositionX = x / ScreenSettings.TILE_SIZE;
         this.worldPositionY =y / ScreenSettings.TILE_SIZE;
         this.lifespan = 300;
-        this.image = ImgLoader.getImageResource("slime_flower.png");
         this.basicAttackStrength = 2;
     }
 
@@ -62,7 +62,8 @@ public class Slime_Flower extends Monster {
         }
     }
     public void destroy(){
-        this.image = null;
+
+        //this.image = null;
     }
     public String returnNpcType(){
         return "Slime Flower";

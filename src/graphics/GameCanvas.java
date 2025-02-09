@@ -5,6 +5,7 @@ import entities.NPC.Heroes.Hero;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.Monster;
 import entities.NPC.Monsters.MonsterList;
+import entities.NPC.NPCType;
 import entities.Player;
 import io.KbInput;
 import level.Tile;
@@ -132,12 +133,19 @@ public class GameCanvas extends JPanel {
                     && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
                 //Draw according to offset
                 //if(e.currDirection != Direction.RIGHT && e.currDirection != Direction.DOWN) {
+                try {
                     g.drawImage(e.getImage(),
                             e.screenPositionX - camera.topLeftCrn.x,
                             e.screenPositionY - camera.topLeftCrn.y,
                             ScreenSettings.TILE_SIZE,
                             ScreenSettings.TILE_SIZE,
                             null);
+                }catch (Exception l1){
+                    System.out.println("L1: Failed to paint enemy");
+                  //  System.out.println(e.worldPositionX + ":" + e.worldPositionY + "\n" + e.health + " and is " + e.inCombat + " combat");
+                    System.out.println();
+                }
+
 //                }
 //                else {
 //                    System.out.println("Mirroring");

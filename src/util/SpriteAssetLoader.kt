@@ -6,7 +6,7 @@
 //data class Sprite(val name: String, val path: String)
 //
 
-// TODO implement later, Gradle is not in project and this adds no added functionality just increases modularity
+// TODO implement later, Gradle is not in project and this adds no added functionality just increases modularity. ATM hardcoding sprite values
 
 //fun spriteLoader(filePath: String) {
 //    try {

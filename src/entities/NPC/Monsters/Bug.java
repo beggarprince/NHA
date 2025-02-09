@@ -27,7 +27,7 @@ int spriteCounter = 0;
     //21, 56 - 91, 160, 232
     //16, 108 - 90, 165, 237
 
-    private static SpriteCoordinate[][] spriteCoordinateWalking = {
+    private static final SpriteCoordinate[][] spriteCoordinateWalking = {
             {
                     new SpriteCoordinate(21,56,48,48),
                     new SpriteCoordinate(91,56,48,48),
@@ -40,31 +40,31 @@ int spriteCounter = 0;
             }
     };
 
-
+    static final BufferedImage image =  ImgLoader.getImageResource("bug.png");
 
     public Bug( int x, int y) {
         super(32, x, y);
 
-            setImage();
+           // setImage();
             this.hunger = 0;
-            this.image = ImgLoader.getImageResource("bug.png"); //Default slime preloaded
+            //this.image = ImgLoader.getImageResource("bug.png"); //Default slime preloaded
             this.movementSpeed = 1;
             this.lifespan = ScreenSettings.FPS * 45;
             this.hasFullStomach = false;
             this.maxHunger = 1;
             this.basicAttackStrength = 4;
-        System.out.println(image.getWidth() + " x " + image.getHeight());
 
     }
 
+    //To change sprite, atm not being used bc sprite sheets are now being used instead of individual sprites
     @Override
     protected void setImage() {
-        image = ImgLoader.getImageResource("bug.png");
+      //  image = ImgLoader.getImageResource("bug.png");
     }
 
     @Override
     public void destroy() {
-        this.image = null;
+      //  this.image = null;
     }
 
     @Override
@@ -74,7 +74,9 @@ int spriteCounter = 0;
 
     @Override
     public void behavior() {
+
         spriteHandler();
+
         if(health <= 0) {
             isDead = true;
             return;
@@ -88,6 +90,7 @@ int spriteCounter = 0;
         else {
             if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile
         }
+
     }
 
     @Override
@@ -114,8 +117,10 @@ int spriteCounter = 0;
     }
 
     int spriteStage = 0;
+
     private void spriteHandler(){
         spriteCounter++;
+
         if(spriteCounter == 105){
             spriteCounter = 0;
             spriteStage = 0;
@@ -127,25 +132,24 @@ int spriteCounter = 0;
 
     }
 
+
+    // bug where this returns null
+    //It has nothing to do with the image being out of bounds as a hardcoded 21,56,48,48 fails to paint
+    //It also has nothing to do with spriteStage since we weren't using it when hardcoding, or the array for the sprite data points
+    //It has nothing to do with the bug being dead since they're always at full health when i try to kill them
+    //It has nothing to do with image being null or something because i initialized it in the constructor and it still failed to paint
+    //Setting to final seems to have done the trick
     private BufferedImage returnSprite(){
         //int x = spriteCoordinateWalking[0][0].col;
         SpriteCoordinate temp =  spriteCoordinateWalking[0][spriteStage];
 
-        if (temp.col + temp.row <= image.getWidth() && temp.row  + temp.col <= image.getHeight()) {
+
             BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
-          //  System.out.println("Subimage extracted successfully.");
+        //BufferedImage subImage = image.getSubimage(21,56,48,48);
+
             return subImage;
-        } else {
-           // System.out.println("Subimage dimensions out of bounds!");
-            return image;
-        }
+
     }
 
 
-    /*
-    *
-    *
-    * 
-    *
-    * */
 }

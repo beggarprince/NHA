@@ -4,8 +4,11 @@ import entities.Direction;
 import util.ImgLoader;
 import graphics.ScreenSettings;
 
+import java.awt.image.BufferedImage;
+
 public class Soldier extends Hero{
 
+    BufferedImage image =  ImgLoader.getImageResource("knight_mvRight.png");
 
     public Soldier(int health, int x, int y){
         super(96, x, y);
@@ -17,7 +20,6 @@ public class Soldier extends Hero{
         this.screenPositionY = y;
         this.movementSpeed = 1;
         this.movementCycle = 0;
-        this.image = ImgLoader.getImageResource("knight_mvRight.png");
         this.basicAttackStrength = 4;
     }
 
@@ -31,6 +33,7 @@ public class Soldier extends Hero{
        // if(cooldown != 0 )cooldown--;
 
     }
+
     //TODO make this an abstract function
     private void setSprite(){
         if(this.currDirection == Direction.RIGHT) this.image = ImgLoader.getImageResource("knight_mvRight.png");

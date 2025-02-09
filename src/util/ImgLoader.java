@@ -11,6 +11,7 @@ public class ImgLoader {
     //To avoid loading resources
     //But in a separate file
     public static BufferedImage getImageResource(String imgPath) {
+        //System.out.println("Getting image " + imgPath);
         BufferedImage temp = null;
         try {
             temp = loadImage(imgPath);

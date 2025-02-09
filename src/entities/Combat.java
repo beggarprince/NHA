@@ -18,31 +18,31 @@ public class Combat {
         //Check if on cooldown to initiate attack
         if(npc.cooldown <=0 ) {
 
-            int l1 = target.health;
+           // int l1 = target.health;
             //Hit
             target.health -= npc.basicAttackStrength;
 
-            if(l1 == target.health) System.out.println("Error, enemy did not take damage");
-
-            else {
-                System.out.println(target.returnNpcType()+ " has " + target.health  + " hp");
-            }
+//            if(l1 == target.health) System.out.println("Error, enemy did not take damage");
+//
+//            else {
+//                System.out.println(target.returnNpcType()+ " has " + target.health  + " hp");
+//            }
 
             npc.cooldown += npc.basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
 
             //Check if dead
             if (target.health <= 0) {
-                l1 = npc.combatTarget.size();
+               int l1 = npc.combatTarget.size();
                 npc.combatTarget.poll();
                 if(npc.combatTarget.size() == l1){
                     System.out.println("Error, did not pol");
                 }
             }
         }
-        else {
-            System.out.println(npc.returnNpcType() + " on cooldown by " + npc.cooldown);
-        }
+//        else {
+//            System.out.println(npc.returnNpcType() + " on cooldown by " + npc.cooldown);
+//        }
 
         //Cycle ot next or move, outside of cooldown just in case something else kills it
         if (npc.combatTarget.isEmpty()){

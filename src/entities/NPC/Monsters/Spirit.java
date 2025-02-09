@@ -5,9 +5,10 @@ import java.awt.image.BufferedImage;
 
 public class Spirit extends Monster {
 
+    static BufferedImage image = ImgLoader.getImageResource("spirit.png");
+
     public Spirit(int x, int y) {
         super(16, x, y); // Slime has a default health of 1
-        this.image = ImgLoader.getImageResource("spirit.png");
         this.worldPositionX = x / ScreenSettings.TILE_SIZE;
         this.worldPositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
@@ -26,7 +27,8 @@ public class Spirit extends Monster {
 
     @Override
     public void destroy() {
-        this.image = null;
+
+        //this.image = null;
     }
 
     // Getter for the image if needed

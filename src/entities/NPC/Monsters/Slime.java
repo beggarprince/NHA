@@ -13,12 +13,13 @@ import static entities.NPC.Monsters.MonsterLogic.EatingSystem.*;
 
 public class Slime extends Monster {
 
+    static BufferedImage image = ImgLoader.getImageResource("slime.png");
 
     public Slime(int x, int y) {
         super(12, x, y); // Slime has a default health of 1
         this.hunger = 0;
         this.movementSpeed = 1;
-        this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
+        //this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = ScreenSettings.FPS * 45;
         this.maxHunger = 1;
         this.movementCycle = 0;
@@ -35,7 +36,8 @@ public class Slime extends Monster {
 
     @Override
     public void destroy() {
-        this.image = null;
+
+        //this.image = null;
     }
 
     // Getter for the image if needed
