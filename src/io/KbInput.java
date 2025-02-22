@@ -10,6 +10,7 @@ public class KbInput implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     public boolean debug = false;
     public boolean dig = false;
+    public boolean spawnDebug = false;
 
 
     @Override
@@ -41,6 +42,10 @@ public class KbInput implements KeyListener {
 
         if(code == KeyEvent.VK_F){
             dig = true;
+        }
+
+        if(code == KeyEvent.VK_P){
+            spawnDebug = true;
         }
 
 
@@ -90,6 +95,9 @@ public class KbInput implements KeyListener {
         }
         if(code == KeyEvent.VK_F){
             dig = false;
+        }
+        if(code == KeyEvent.VK_P){
+            spawnDebug = false;
         }
 
     }

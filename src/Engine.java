@@ -14,6 +14,7 @@ import level.Level;
 import io.KbInput;
 import graphics.GameCanvas;
 import util.Coordinate;
+import util.TimerDebug;
 
 import static PlayerActions.Dig.dig;
 
@@ -39,6 +40,7 @@ public class Engine implements Runnable {
     private int heroFrameCount = 0;
     private boolean mvpPlaced = false;
     private int xEntry = 0;
+    private TimerDebug timerDebug;
     // Constructor
     public Engine() {
 
@@ -111,14 +113,13 @@ public class Engine implements Runnable {
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
-
-
+                timerDebug.start();
+                //Player camera movement
                 if (kb.playerMoving()) player.movePlayer(player, camera, kb);
 
                 //Check for hero spawn if the timer is set to equal the spawn timer
                     //We still need to advance frames but i don't want the player to be able to do anything but pan
                     //No npc logic either
-
                 if(!mvpPlaced && heroSpawnTimer()){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
 
@@ -142,6 +143,11 @@ public class Engine implements Runnable {
                 else if (kb.debug ) {
                   debugAddHero();
                 }
+                if(kb.spawnDebug){
+                    Spawn.spawnEnemyAtPlayerDebug(monsterList, level.tileData
+                            .get(player.playerTilePositionY)
+                            .get(player.playerTilePositionX));
+                }
 
                 if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;
 
@@ -156,6 +162,8 @@ public class Engine implements Runnable {
                 //System.out.println(heroFrameCount);
                 if(!heroActive)heroFrameCount++;
 
+                //System.out.println(monsterList.getMonsters().size());
+                timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle

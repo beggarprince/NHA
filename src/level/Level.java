@@ -16,7 +16,9 @@ public class Level {
     public ArrayList<ArrayList<Tile>> tileData;
 
     //These are part of the tile init for initial resources as the max
-    //Higher scale will mean that the map will have more of the nutrient per block
+    //Higher scale will mean that the map will have less of the nutrient per block
+    //Say l3 distribution for mana is 98, then out of we get a number 0-100 and only 98/99/100 assign it that level
+    //Goes to the highest level, so if not 97 then l2 mana block. If below l1 requirement it's just a block
     public static int manaL2Distribution = 90;
     public static int manaL3Distribution = 98;
     public static int nutrientL2Distribution = 70;
