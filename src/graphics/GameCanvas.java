@@ -161,6 +161,7 @@ public class GameCanvas extends JPanel {
 
     private void paintHeroes(Graphics2D g) {
         ArrayList<Hero> list = heroList.getHeroes();
+
         for (int i = 0; i < list.size(); i++) {
             Hero h = list.get(i);
             //If in camera view

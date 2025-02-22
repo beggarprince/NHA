@@ -135,6 +135,7 @@ public class Engine implements Runnable {
                     continue;
                 }
 
+
                 NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
 
                 if (kb.dig) {
@@ -163,6 +164,7 @@ public class Engine implements Runnable {
                 if(!heroActive)heroFrameCount++;
 
                 //System.out.println(monsterList.getMonsters().size());
+                System.out.println(heroList.getHeroes().size());
                 timerDebug.stopMicros();
 
             }

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Soldier extends Hero{
 
-    BufferedImage image =  ImgLoader.getImageResource("knight_mvRight.png");
+   // BufferedImage image =  ImgLoader.getImageResource("knight_mvRight.png");
 
     public Soldier(int health, int x, int y){
         super(96, x, y);
@@ -21,6 +21,7 @@ public class Soldier extends Hero{
         this.movementSpeed = 1;
         this.movementCycle = 0;
         this.basicAttackStrength = 4;
+        this.image = ImgLoader.getImageResource("knight_mvRight.png");
     }
 
     @Override
@@ -28,7 +29,7 @@ public class Soldier extends Hero{
 
         //Ideally something
             moveNpcAndSignal();
-            setSprite(); // Move this to the movement function or something idek anymore
+            //setSprite(); // Move this to the movement function or something idek anymore
 
        // if(cooldown != 0 )cooldown--;
 
@@ -37,7 +38,7 @@ public class Soldier extends Hero{
     //TODO make this an abstract function
     private void setSprite(){
         if(this.currDirection == Direction.RIGHT) this.image = ImgLoader.getImageResource("knight_mvRight.png");
-        else if(this.currDirection == Direction.LEFT) this.image = ImgLoader.getImageResource("knight_mvLeft.png");
+       // else if(this.currDirection == Direction.LEFT) this.image = ImgLoader.getImageResource("knight_mvLeft.png");
     }
 
     @Override

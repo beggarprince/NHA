@@ -44,7 +44,7 @@ public class KbInput implements KeyListener {
             dig = true;
         }
 
-        if(code == KeyEvent.VK_P){
+        if(code == KeyEvent.VK_I){
             spawnDebug = true;
         }
 
@@ -96,7 +96,7 @@ public class KbInput implements KeyListener {
         if(code == KeyEvent.VK_F){
             dig = false;
         }
-        if(code == KeyEvent.VK_P){
+        if(code == KeyEvent.VK_I){
             spawnDebug = false;
         }
 
