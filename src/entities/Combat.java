@@ -1,6 +1,8 @@
 package entities;
 
+import entities.NPC.Monsters.Monster;
 import entities.NPC.NPC;
+import io.Audio.Sound;
 import level.Level;
 
 public class Combat {
@@ -15,8 +17,11 @@ public class Combat {
 
         NPC target = npc.combatTarget.peek();
 
-        //Check if on cooldown to initiate attack
-        if(npc.cooldown <=0 ) {
+        //Check if on cooldown
+        if(npc.cooldown > 0){
+            npc.cooldown--;
+            return;
+        }
 
            // int l1 = target.health;
             //Hit
@@ -30,6 +35,9 @@ public class Combat {
 
             npc.cooldown += npc.basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
+            if(npc.fxIndex != -1){
+                Sound.getSoundInstance().playFXClip(npc.fxIndex);
+            }
 
             //Check if dead
             if (target.health <= 0) {
@@ -39,10 +47,7 @@ public class Combat {
                     System.out.println("Error, did not pol");
                 }
             }
-        }
-//        else {
-//            System.out.println(npc.returnNpcType() + " on cooldown by " + npc.cooldown);
-//        }
+
 
         //Cycle ot next or move, outside of cooldown just in case something else kills it
         if (npc.combatTarget.isEmpty()){
@@ -53,6 +58,7 @@ public class Combat {
 
     public static void targetedAttack(NPC target, NPC npc){
         target.health -= npc.basicAttackStrength;
+
         if(target.health <= 0 ) {
             target.isDead = true; //this might not belong here, i might have set it to dead twice idk
         }

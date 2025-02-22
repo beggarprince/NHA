@@ -22,6 +22,8 @@ public class Soldier extends Hero{
         this.movementCycle = 0;
         this.basicAttackStrength = 4;
         this.image = ImgLoader.getImageResource("knight_mvRight.png");
+        this.cooldown = 60;
+        this.fxIndex = 1;
     }
 
     @Override

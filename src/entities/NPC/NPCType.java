@@ -7,5 +7,6 @@ public enum NPCType {
     Slime_Flower,
     Spirit,
     Bug,
+    LizardMan,
     Hero
 }

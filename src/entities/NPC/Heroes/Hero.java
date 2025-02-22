@@ -27,7 +27,7 @@ public abstract class Hero extends NPC {
     private final static Random random = new Random();
 
     public Image getImage() {
-        if(image == null) System.out.println("Error reading image");
+        if(image == null) System.out.println("Error null image");
         return image;
     }
 

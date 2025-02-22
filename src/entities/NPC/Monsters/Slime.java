@@ -21,11 +21,11 @@ public class Slime extends Monster {
         this.movementSpeed = 1;
         //this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = ScreenSettings.FPS * 45;
+        this.basicAttackStrength = 1;
         this.maxHunger = 1;
         this.movementCycle = 0;
         this.metamorphosisValue = "Slime_Flower";
         this.type = NPCType.Slime;
-        this.basicAttackStrength = 1;
     }
 
     @Override

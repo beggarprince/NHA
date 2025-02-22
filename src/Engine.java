@@ -10,6 +10,7 @@ import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
 import io.Audio.Sound;
+import io.KBInputAccelerator;
 import level.Level;
 import io.KbInput;
 import graphics.GameCanvas;
@@ -17,6 +18,7 @@ import util.Coordinate;
 import util.TimerDebug;
 
 import static PlayerActions.Dig.dig;
+import static io.Audio.Sound.getSoundInstance;
 
 public class Engine implements Runnable {
     //Instantiation
@@ -45,7 +47,7 @@ public class Engine implements Runnable {
     public Engine() {
 
         //Audio
-        sound = new Sound();
+        sound =  getSoundInstance();
         sound.setMusic(0);
 
         //Annoying as fuck
@@ -102,6 +104,8 @@ public class Engine implements Runnable {
     public void run() {
 
         long frameRatePrevTime = System.nanoTime();
+        KBInputAccelerator kba = KBInputAccelerator.getInstance();
+
 
         while (gameLifecycle != null) {
 
@@ -113,9 +117,23 @@ public class Engine implements Runnable {
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
-                timerDebug.start();
+               // timerDebug.start();
+
                 //Player camera movement
-                if (kb.playerMoving()) player.movePlayer(player, camera, kb);
+                if (kb.kbCheckIfPlayerMoving()) {
+                    if(kb.maxSpeed){
+                        player.movePlayer(player, camera, kb);
+                    }
+                    else {
+                        kba.accelerateInput();
+                       // System.out.println(kba.getState());
+                        if (kba.readyToMovePlayer()) {
+                            player.movePlayer(player, camera, kb);
+                        }
+                    }
+                }else{
+                    kba.resetAcceleration();
+                }
 
                 //Check for hero spawn if the timer is set to equal the spawn timer
                     //We still need to advance frames but i don't want the player to be able to do anything but pan
@@ -142,9 +160,10 @@ public class Engine implements Runnable {
                   attemptDig();
                 }
                 else if (kb.debug ) {
+                    //Sound.getSoundInstance().playFXClip(1);
                   debugAddHero();
                 }
-                if(kb.spawnDebug){
+                else if(kb.spawnDebug){
                     Spawn.spawnEnemyAtPlayerDebug(monsterList, level.tileData
                             .get(player.playerTilePositionY)
                             .get(player.playerTilePositionX));
@@ -164,8 +183,8 @@ public class Engine implements Runnable {
                 if(!heroActive)heroFrameCount++;
 
                 //System.out.println(monsterList.getMonsters().size());
-                System.out.println(heroList.getHeroes().size());
-                timerDebug.stopMicros();
+                //System.out.println(heroList.getHeroes().size());
+               // timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle

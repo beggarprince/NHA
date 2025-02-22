@@ -1,7 +1,5 @@
 package io;
 
-import entities.Direction;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,6 +9,7 @@ public class KbInput implements KeyListener {
     public boolean debug = false;
     public boolean dig = false;
     public boolean spawnDebug = false;
+    public boolean maxSpeed = false;
 
 
     @Override
@@ -46,6 +45,9 @@ public class KbInput implements KeyListener {
 
         if(code == KeyEvent.VK_I){
             spawnDebug = true;
+        }
+        if(code == KeyEvent.VK_C){
+            maxSpeed = true;
         }
 
 
@@ -99,6 +101,9 @@ public class KbInput implements KeyListener {
         if(code == KeyEvent.VK_I){
             spawnDebug = false;
         }
+        if(code == KeyEvent.VK_C){
+            maxSpeed = false;
+        }
 
     }
 
@@ -109,7 +114,7 @@ public class KbInput implements KeyListener {
         return downPressed && upPressed;
     }
 
-    public boolean playerMoving(){
+    public boolean kbCheckIfPlayerMoving(){
         return (leftPressed || rightPressed || upPressed || downPressed);
     }
 }

@@ -51,9 +51,9 @@ int spriteCounter = 0;
             this.movementSpeed = 1;
             this.lifespan = ScreenSettings.FPS * 45;
             this.hasFullStomach = false;
-            this.maxHunger = 1;
+            this.maxHunger = 32;
             this.basicAttackStrength = 4;
-
+            this.type = NPCType.Bug;
     }
 
     //To change sprite, atm not being used bc sprite sheets are now being used instead of individual sprites
@@ -77,6 +77,7 @@ int spriteCounter = 0;
 
         spriteHandler();
 
+        //TODO figure out if this snippet is necessary of if the logic loop handles this already
         if(health <= 0) {
             isDead = true;
             return;
@@ -84,7 +85,7 @@ int spriteCounter = 0;
 
         //check if they can eat
         if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)){
-            //if then it ate idk what i want to do here
+            eat();
             return;
         }
         else {
@@ -95,7 +96,8 @@ int spriteCounter = 0;
 
     @Override
     protected void eat() {
-
+        this.hunger += basicAttackStrength;
+        this.health += basicAttackStrength;
     }
 
     @Override

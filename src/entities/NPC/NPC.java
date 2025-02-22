@@ -17,6 +17,8 @@ public abstract class NPC extends Stats {
     //Jank because i can't do abstract String
     public abstract String returnNpcType();
 
+    public int fxIndex = -1;
+
     //Logical position on array
     public int worldPositionX;
     public int worldPositionY;
