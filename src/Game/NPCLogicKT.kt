@@ -4,7 +4,7 @@ import entities.Combat
 import entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.MonsterLogic.Metamorphosis
 import entities.NPC.Monsters.Monster
-import entities.NPC.Monsters.MonsterList
+import entities.NPC.Monsters.MonsterLogic.MonsterList
 import entities.NPC.NPC
 import entities.NPC.NPCType
 

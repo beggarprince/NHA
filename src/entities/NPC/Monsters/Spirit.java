@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 public class Spirit extends Monster {
 
-    static BufferedImage image = ImgLoader.getImageResource("spirit.png");
+    static BufferedImage image = ImgLoader.getImageResource("sprites/monster/spirit.png");
 
     public Spirit(int x, int y) {
         super(16, x, y); // Slime has a default health of 1
@@ -22,7 +22,7 @@ public class Spirit extends Monster {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        image = ImgLoader.getImageResource("spirit.png");
+        image = ImgLoader.getImageResource("sprites/monster/spirit.png");
     }
 
     @Override

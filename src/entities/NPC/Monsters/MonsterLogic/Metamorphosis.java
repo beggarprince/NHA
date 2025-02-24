@@ -1,8 +1,6 @@
 package entities.NPC.Monsters.MonsterLogic;
 
 import entities.NPC.Monsters.Monster;
-import entities.NPC.Monsters.MonsterFactory;
-import entities.NPC.Monsters.MonsterList;
 
 public class Metamorphosis {
 

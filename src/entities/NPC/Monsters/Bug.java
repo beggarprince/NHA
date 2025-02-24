@@ -1,12 +1,12 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.NPCType;
 import entities.SpriteCoordinate;
 import graphics.ScreenSettings;
 import util.ImgLoader;
 
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 import static Game.NPCLogicKTKt.checkCollisionsEAT;
 
@@ -40,7 +40,7 @@ int spriteCounter = 0;
             }
     };
 
-    static final BufferedImage image =  ImgLoader.getImageResource("bug.png");
+    static final BufferedImage image =  ImgLoader.getImageResource("sprites/monster/bug.png");
 
     public Bug( int x, int y) {
         super(32, x, y);

@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
 
 public class SpriteSheetInterpreter {
     //This is meant to handle custom sprite sheets or json sprite sheets
-    private  BufferedImage image = ImgLoader.getImageResource("mvp.png");
+    private  BufferedImage image = ImgLoader.getImageResource("sprites/monster/mvp.png");
 
     public  SpriteSheetInterpreter(){
-        this.image = ImgLoader.getImageResource("mvp.png");
+        this.image = ImgLoader.getImageResource("sprites/monster/mvp.png");
     }
     int counter = 0;
     int x = 32;

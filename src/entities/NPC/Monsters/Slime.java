@@ -13,7 +13,7 @@ import static entities.NPC.Monsters.MonsterLogic.EatingSystem.*;
 
 public class Slime extends Monster {
 
-    static BufferedImage image = ImgLoader.getImageResource("slime.png");
+    static BufferedImage image = ImgLoader.getImageResource("sprites/monster/slime.png");
 
     public Slime(int x, int y) {
         super(12, x, y); // Slime has a default health of 1
@@ -31,7 +31,7 @@ public class Slime extends Monster {
     @Override
     protected void setImage() {
         //Will be used to change sprite
-        image = ImgLoader.getImageResource("slime.png");
+        image = ImgLoader.getImageResource("sprites/monster/slime.png");
     }
 
     @Override

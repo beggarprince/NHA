@@ -4,7 +4,8 @@ import PlayerActions.Spawn;
 import entities.Combat;
 import entities.NPC.Heroes.HeroFactory;
 import entities.NPC.Heroes.HeroList;
-import entities.NPC.Monsters.*;
+import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.Movement;
 import entities.Player;
 import graphics.Camera;
@@ -38,7 +39,7 @@ public class Engine implements Runnable {
     private final SpatialHash spatialHash;
     Sound sound;
     private boolean heroActive = false;
-    private int heroSpawnTimer = 600; // Ten seconds for now
+    private int heroSpawnTimer = 600 * 6; // Ten seconds for now, 60 after *
     private int heroFrameCount = 0;
     private boolean mvpPlaced = false;
     private int xEntry = 0;
@@ -65,6 +66,7 @@ public class Engine implements Runnable {
         //Player and player inputs
         this.kb = new KbInput();
         this.player = new Player();
+        player.setDigPower(100);
         xEntry = player.playerTilePositionX;
         // Camera and screen setup
         //Level.levelColumns /2 - (ScreenSettings.TS_X /2)
@@ -117,7 +119,7 @@ public class Engine implements Runnable {
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
-               // timerDebug.start();
+                timerDebug.start();
 
                 //Player camera movement
                 if (kb.kbCheckIfPlayerMoving()) {
@@ -157,7 +159,9 @@ public class Engine implements Runnable {
                 NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
 
                 if (kb.dig) {
-                  attemptDig();
+                  if(player.getDigPower() >0){
+                      if(attemptDig())player.digPowerDecrement();
+                  }
                 }
                 else if (kb.debug ) {
                     //Sound.getSoundInstance().playFXClip(1);
@@ -184,7 +188,7 @@ public class Engine implements Runnable {
 
                 //System.out.println(monsterList.getMonsters().size());
                 //System.out.println(heroList.getHeroes().size());
-               // timerDebug.stopMicros();
+                timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
@@ -206,7 +210,7 @@ public class Engine implements Runnable {
         return ((currentTime - previousTime) >= ScreenSettings.INTERVAL);
     }
 
-    private void attemptDig(){
+    private boolean attemptDig(){
         if (dig(level.tileData,
                 level.tileData.get(player.playerTilePositionY)
                         .get(player.playerTilePositionX),
@@ -219,8 +223,9 @@ public class Engine implements Runnable {
                     monsterList);
             level.tileData.get(player.playerTilePositionY)
                     .get(player.playerTilePositionX).digDestruct();
+            return true;
         }
-
+        return false;
     }
 
     private void debugAddHero(){

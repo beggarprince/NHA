@@ -6,13 +6,13 @@ import java.awt.image.BufferedImage;
 
 
 public enum TileType {
-    DIRT("dirt.png"),
-    NUTRIENT("nutrientsL1.png"),
-    BRICK("brick.png"),
-    PATH("gravel.png"),
-    MANA("mana.png"),
-    NUTRIENT2("nutrientsL2.png"),
-    NUTRIENT3("nutrientsL3.png");
+    DIRT("sprites/tile/dirt.png"),
+    NUTRIENT("sprites/tile/nutrientsL1.png"),
+    BRICK("sprites/tile/brick.png"),
+    PATH("sprites/tile/gravel.png"),
+    MANA("sprites/tile/mana.png"),
+    NUTRIENT2("sprites/tile/nutrientsL2.png"),
+    NUTRIENT3("sprites/tile/nutrientsL3.png");
 
     private BufferedImage image;
 

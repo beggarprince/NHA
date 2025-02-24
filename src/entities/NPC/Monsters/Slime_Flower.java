@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import util.ImgLoader;
 import graphics.ScreenSettings;
 
@@ -7,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Slime_Flower extends Monster {
     MonsterList monsterListInstance;
-    static BufferedImage image = ImgLoader.getImageResource("slime_flower.png");
+    static BufferedImage image = ImgLoader.getImageResource("sprites/monster/slime_flower.png");
 
     public Slime_Flower( int x, int y) {
         super(18, x, y);
@@ -22,7 +23,7 @@ public class Slime_Flower extends Monster {
 
     @Override
     protected void setImage() {
-        image = ImgLoader.getImageResource("slime_flower.png");
+        image = ImgLoader.getImageResource("sprites/monster/slime_flower.png");
     }
 
     @Override

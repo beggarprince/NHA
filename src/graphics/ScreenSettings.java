@@ -10,18 +10,28 @@ public class ScreenSettings {
 
     //Tiles system
     //Amount of tiles rendered on window
-    public static final int TS_X = 32;
-    public static final int TS_Y = 24;
+    //27x15 is cute 32x24 is just a bit too much information
+    public static final int TS_X = 27;
+    public static final int TS_Y = 15;
 
     //Amount of tiles in world
+    //TS tile system
     public static final int TS_WorldScale_X = 3;
     public static final int TS_World_Scale_Y = 5;
     public static final int TS_World_X = TS_X * TS_WorldScale_X;
     public static final int TS_World_Y = TS_Y * TS_World_Scale_Y;
 
     //Pixel
+    //PX pixel system
     public static final int PX_SCREEN_WIDTH = TS_X * TILE_SIZE;
     public static final int PX_SCREEN_HEIGHT = TS_Y * TILE_SIZE;
+
+    //Down right ui should be 6x and 4y tiles
+
+    //For now, dig power will aim towards the middle. 3x from the right 2y
+    public static final int PX_UI_DIGPOWER_X = (TS_X -3) * TILE_SIZE;
+    public static final int PX_UI_DIGPOWER_Y = (TS_Y - 2) * (TILE_SIZE);
+    public static final int PX_UI_NUMBER_OFFSET = 16;
 
 
     public static final int FPS = 60;

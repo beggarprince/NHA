@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import util.ImgLoader;
@@ -11,7 +12,7 @@ import static Game.NPCLogicKTKt.checkCollisionsEAT;
 public class LizardMan extends Monster{
 
 
-    static final BufferedImage image =  ImgLoader.getImageResource("lmanSheet.png");
+    static final BufferedImage image =  ImgLoader.getImageResource("sprites/monster/lmanSheet.png");
 
     public LizardMan(int x, int y){
         super(64, x, y);

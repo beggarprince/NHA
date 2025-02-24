@@ -17,13 +17,28 @@ public class Player {
     public int playerTilePositionX = 0;
     public int playerTilePositionY = 0;
 
+    private int digPower;
+
+
     private int playerXOffset = 0; // Offset from center
     private int playerYOffset = 0;
 
+    public int getDigPower() {
+        return digPower;
+    }
+
+    public void setDigPower(int digPower) {
+        this.digPower = digPower;
+    }
+
+    public void digPowerDecrement(){
+        digPower--;
+    }
+
     //Not really utilized
     private enum PlayerSprite {
-        PLAYER(ImgLoader.getImageResource("player.png")),
-        DAMAGEDPLAYER(ImgLoader.getImageResource("hurtknight.png"));
+        PLAYER(ImgLoader.getImageResource("sprites/player.png")),
+        DAMAGEDPLAYER(ImgLoader.getImageResource("sprites/hero/hurtknight.png"));
 
         private final BufferedImage image;
 

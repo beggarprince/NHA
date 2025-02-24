@@ -1,5 +1,7 @@
-package entities.NPC.Monsters;
+package entities.NPC.Monsters.MonsterLogic;
 
+
+import entities.NPC.Monsters.*;
 
 public class MonsterFactory {
 

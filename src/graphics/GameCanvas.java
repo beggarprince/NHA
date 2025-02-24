@@ -1,18 +1,17 @@
 package graphics;
 
-import entities.Direction;
 import entities.NPC.Heroes.Hero;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.Monster;
-import entities.NPC.Monsters.MonsterList;
-import entities.NPC.NPCType;
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.Player;
+import graphics.ui.UINumber;
 import io.KbInput;
 import level.Tile;
+import util.ImgLoader;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 //Engine is the main game loop
@@ -32,6 +31,7 @@ public class GameCanvas extends JPanel {
     private int endTileY = 0;
     private int endTileX = 0;
     private SpriteSheetInterpreter  s;
+    private UINumber numberSprite;
 
     public GameCanvas(KbInput kb,
                       Player p,
@@ -52,8 +52,7 @@ public class GameCanvas extends JPanel {
         camera = c;
         monsterList = e;
         heroList = h;
-
-
+        numberSprite = new UINumber();
     }
 
     public void paintComponent(Graphics g) {
@@ -66,6 +65,7 @@ public class GameCanvas extends JPanel {
         paintEnemies(g2);
         paintHeroes(g2);
         paintBadman(g2);
+        paintUIDigPower(g2);
         g2.dispose();
 
     }
@@ -171,5 +171,15 @@ public class GameCanvas extends JPanel {
 
             }
         }
+    }
+    private void paintUIDigPower(Graphics2D g){
+        var list = numberSprite.determineUINumberDisplay(player.getDigPower());
+
+        for(int i = 0; i < list.size(); i++){
+
+            g.drawImage(list.get(i), ScreenSettings.PX_UI_DIGPOWER_X + (ScreenSettings.PX_UI_NUMBER_OFFSET * i), ScreenSettings.PX_UI_DIGPOWER_Y, null);
+
+        }
+       // g.drawImage(ImgLoader.getImageResource("sprites/ui/0.png"), ScreenSettings.PX_UI_DIGPOWER_X, ScreenSettings.PX_UI_DIGPOWER_Y, null);
     }
 }

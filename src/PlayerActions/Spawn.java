@@ -1,7 +1,7 @@
 package PlayerActions;
 
-import entities.NPC.Monsters.MonsterFactory;
-import entities.NPC.Monsters.MonsterList;
+import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import graphics.ScreenSettings;
 import level.TileType;
 import level.Tile;
