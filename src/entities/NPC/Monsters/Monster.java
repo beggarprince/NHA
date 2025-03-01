@@ -19,6 +19,15 @@ public abstract class Monster extends NPC {
     public boolean metamorphosisReady = false;
     private final static Random random = new Random();
 
+    public static int timesCheckedMonsterLoop = 0;
+
+    public static void incrementLoopCounter(){
+        timesCheckedMonsterLoop++;
+    }
+    public static void resetLoopCounter(){
+        timesCheckedMonsterLoop = 0;
+    }
+
 
     public Monster(int health, int x, int y) {
         this.health = health;

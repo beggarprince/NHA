@@ -65,33 +65,40 @@ public class Player {
     //TODO
     //JANK, there is an off by one error fixed by +1 on y axis and -1 on x axis, otherwise y axis doesn't go to corner and x axis goes off by 1
     //Player speed introduces jank if i use it to check bounds and it does not equal a tile
-    public void playerPosUpdate(KbInput kb, boolean cameraPanned) {
+    public void playerPosUpdate(int movementType, boolean cameraPanned) {
         boolean playerMoved = false;
 
         //The only time the player should move is if the camera is unable to
         if(!cameraPanned){
 
-        if (kb.upPressed) {
+            //UP
+        if (movementType == 1) {
             if(playerTilePositionY -1 >= 0){
                 playerScreenPosition.y -= Player.playerSpeed;
                 playerMoved = true;
                 playerYOffset++;
             }
 
-        } else if (kb.downPressed) {
+        }
+        //DOWN
+        else if (movementType == 3) {
             if(playerTilePositionY + 1 < Level.levelRows ) {
                 playerMoved = true;
                 playerScreenPosition.y += Player.playerSpeed;
                 playerYOffset--;;
             }
-        } else if (kb.rightPressed) {
+        }
+        //RIGHT
+        else if (movementType == 2) {
             if(playerTilePositionX +1 < Level.levelColumns  ){
                 playerMoved = true;
                 playerScreenPosition.x += Player.playerSpeed;
                 playerXOffset++;
             }
 
-        } else if (kb.leftPressed) {
+        }
+        //LEFT
+        else if (movementType == 4) {
             if(playerTilePositionX -1 >= 0){
                 playerScreenPosition.x -= Player.playerSpeed;
             playerMoved = true;
@@ -101,25 +108,28 @@ public class Player {
 
         }
         if(playerMoved || cameraPanned){
-            updatePlayerWorldPosition(kb);
+            updatePlayerWorldPosition(movementType);
         }
 
     }
 
     //Player or camera moved, need to update player logical pos
-    private void updatePlayerWorldPosition(KbInput kb){
+    private void updatePlayerWorldPosition(int movementType){
 
-        if(kb.upPressed){
+        //UP
+        if(movementType == 1){
             playerTilePositionY--;
         }
-        else if(kb.downPressed){
+        //DOWN
+        else if(movementType == 3){
             playerTilePositionY++;
         }
-
-        else if(kb.leftPressed){
+        //LEFT
+        else if(movementType == 4){
             playerTilePositionX--;
         }
-        else if(kb.rightPressed){
+        //RIGHT
+        else if(movementType == 2){
             playerTilePositionX++;
         }
 
@@ -141,27 +151,26 @@ public class Player {
         return playerYOffset;
     }
 
-    public void movePlayer(Player player, Camera camera, KbInput kb) {
+    public void movePlayer(Player player, Camera camera,  int movementType) {
 
         boolean cameraMoved = false;
 
         //Pressing up/down or left/right just halts the player
-        if(kb.conflictingVerticalInput() || kb.conflictingHorizontalInput()) return;
-
+        //The logic handling this should be moved outside of the player, the player should not know about the input
         //If the offset is not 0, then the player is not centered. If the player is not centered, then the player must move before the camera pans on that axis
         if (player.getXOffset() == 0 &&
-                (kb.leftPressed || kb.rightPressed)) {
-            cameraMoved = camera.attemptCameraPan(kb);
+                (movementType == 4 || movementType == 2)) {
+            cameraMoved = camera.attemptCameraPan(movementType);
 
         }
 
         else if (player.getYOffset() == 0
-                && (kb.upPressed || kb.downPressed)) {
-            cameraMoved = camera.attemptCameraPan(kb);
+                && (movementType == 1 || movementType == 3)) {
+            cameraMoved = camera.attemptCameraPan(movementType);
         }
 
 
-        player.playerPosUpdate(kb, cameraMoved);
+        player.playerPosUpdate(movementType, cameraMoved);
 
     }
 

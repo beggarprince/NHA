@@ -9,6 +9,7 @@ public abstract class NPC extends Stats {
     protected BufferedImage image;
 
 
+
     public abstract void behavior();
 
     public abstract void destroy();

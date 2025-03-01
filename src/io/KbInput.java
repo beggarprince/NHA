@@ -11,6 +11,8 @@ public class KbInput implements KeyListener {
     public boolean spawnDebug = false;
     public boolean maxSpeed = false;
 
+    public int currentDirection = 0;
+
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -21,11 +23,24 @@ public class KbInput implements KeyListener {
         return !upPressed && !downPressed && !leftPressed && !rightPressed;
     }
 
-    private void resetWASD(){
-        upPressed = false;
-        downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
+    private void resetWASD(int movementType){
+        currentDirection = movementType;
+    }
+    private void resetMovementType(){
+        if(upPressed){
+            currentDirection = 1;
+        }
+        else if(rightPressed){
+            currentDirection = 2;
+        }
+        else if (downPressed){
+            currentDirection = 3;
+        }
+        else if(leftPressed){
+            currentDirection = 4;
+        }
+
+        else currentDirection = 0;
     }
 
 
@@ -53,20 +68,20 @@ public class KbInput implements KeyListener {
 
         //TODO while this does work there is a bit of delay on changing, i believe it was like this originally
         if(code == KeyEvent.VK_W){
-                resetWASD();
+            resetWASD(1);
                 upPressed = true;
         }
         else if(code == KeyEvent.VK_A){
-            resetWASD();
+            resetWASD(4);
                 leftPressed = true;
         }
         else if(code == KeyEvent.VK_S ) {
-            resetWASD();
+            resetWASD(3);
               downPressed = true;
         }
 
         else if(code == KeyEvent.VK_D ){
-            resetWASD();
+            resetWASD(2);
             rightPressed = true;
         }
 
@@ -78,17 +93,21 @@ public class KbInput implements KeyListener {
 
         if(code == KeyEvent.VK_W){
             upPressed = false;
+            resetMovementType();
         }
         if(code == KeyEvent.VK_A){
             leftPressed = false;
-
+            resetMovementType();
         }
         if(code == KeyEvent.VK_S ){
             downPressed = false;
 
+            resetMovementType();
         }
         if(code == KeyEvent.VK_D ){
             rightPressed = false;
+
+            resetMovementType();
 
         }
 
@@ -114,7 +133,11 @@ public class KbInput implements KeyListener {
         return downPressed && upPressed;
     }
 
+    public int returnMovementType(){
+        return currentDirection;
+    }
+
     public boolean kbCheckIfPlayerMoving(){
-        return (leftPressed || rightPressed || upPressed || downPressed);
+        return (currentDirection != 0);
     }
 }

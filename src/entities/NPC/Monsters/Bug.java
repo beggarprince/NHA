@@ -86,7 +86,6 @@ int spriteCounter = 0;
         //check if they can eat
         if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)){
             eat();
-            return;
         }
         else {
             if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile

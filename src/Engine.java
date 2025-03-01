@@ -4,9 +4,11 @@ import PlayerActions.Spawn;
 import entities.Combat;
 import entities.NPC.Heroes.HeroFactory;
 import entities.NPC.Heroes.HeroList;
+import entities.NPC.Monsters.Monster;
 import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.Movement;
+import entities.NPC.Mvp;
 import entities.Player;
 import graphics.Camera;
 import graphics.ScreenSettings;
@@ -15,6 +17,7 @@ import io.KBInputAccelerator;
 import level.Level;
 import io.KbInput;
 import graphics.GameCanvas;
+import level.TileType;
 import util.Coordinate;
 import util.TimerDebug;
 
@@ -39,17 +42,19 @@ public class Engine implements Runnable {
     private final SpatialHash spatialHash;
     Sound sound;
     private boolean heroActive = false;
-    private int heroSpawnTimer = 600 * 6; // Ten seconds for now, 60 after *
+    private int heroSpawnTimer = 600 * 1; // Ten seconds for now, 60 after *
     private int heroFrameCount = 0;
     private boolean mvpPlaced = false;
     private int xEntry = 0;
     private TimerDebug timerDebug;
+    private Mvp mvp;
     // Constructor
     public Engine() {
 
         //Audio
         sound =  getSoundInstance();
         sound.setMusic(0);
+
 
         //Annoying as fuck
         //sound.loop();
@@ -77,7 +82,8 @@ public class Engine implements Runnable {
         //We can replace level.levelColumns with preferred X position or something that we can pass in and then move
         while (player.playerTilePositionX < Level.levelColumns / 2) {
             kb.rightPressed = true;
-            player.movePlayer(player, camera, kb);
+
+            player.movePlayer(player, camera,  2);
             kb.rightPressed = false;
             xEntry++;
         }
@@ -119,18 +125,18 @@ public class Engine implements Runnable {
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
-                timerDebug.start();
+               // timerDebug.start();
 
                 //Player camera movement
-                if (kb.kbCheckIfPlayerMoving()) {
+                if (kb.kbCheckIfPlayerMoving() && !kb.conflictingVerticalInput() && !kb.conflictingHorizontalInput()) {
                     if(kb.maxSpeed){
-                        player.movePlayer(player, camera, kb);
+                        player.movePlayer(player, camera,  kb.returnMovementType());
                     }
                     else {
                         kba.accelerateInput();
                        // System.out.println(kba.getState());
                         if (kba.readyToMovePlayer()) {
-                            player.movePlayer(player, camera, kb);
+                            player.movePlayer(player, camera, kb.returnMovementType() );
                         }
                     }
                 }else{
@@ -143,11 +149,12 @@ public class Engine implements Runnable {
                 if(!mvpPlaced && heroSpawnTimer()){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
 
-                    if(kb.dig){ //I'm just going to rename this to ACTION button or something
+                    if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
                         mvpPlaced = true;
                         heroActive = true;
                         heroFrameCount = 0;
                         System.out.println("Hero Active");
+                        Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
                         spawnHeroAtEntry();
                     }
 
@@ -182,13 +189,16 @@ public class Engine implements Runnable {
                 monsterList.destroyEnemies();
                 heroList.destroyHeroes();
 
+//                System.out.println(Monster.timesCheckedMonsterLoop);
+//
+//                Monster.resetLoopCounter();
 
                 //System.out.println(heroFrameCount);
                 if(!heroActive)heroFrameCount++;
 
                 //System.out.println(monsterList.getMonsters().size());
                 //System.out.println(heroList.getHeroes().size());
-                timerDebug.stopMicros();
+               // timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle

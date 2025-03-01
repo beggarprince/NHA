@@ -4,6 +4,7 @@ import entities.NPC.Heroes.Hero;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.Monster;
 import entities.NPC.Monsters.MonsterLogic.MonsterList;
+import entities.NPC.Mvp;
 import entities.Player;
 import graphics.ui.UINumber;
 import io.KbInput;
@@ -32,6 +33,7 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
     private SpriteSheetInterpreter  s;
     private UINumber numberSprite;
+    private Mvp mvp;
 
     public GameCanvas(KbInput kb,
                       Player p,
@@ -53,6 +55,7 @@ public class GameCanvas extends JPanel {
         monsterList = e;
         heroList = h;
         numberSprite = new UINumber();
+        mvp = Mvp.getInstance();
     }
 
     public void paintComponent(Graphics g) {
@@ -120,8 +123,13 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintBadman(Graphics2D g){
-
-        g.drawImage(s.getSpriteFromSheet(), player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE , ScreenSettings.TILE_SIZE , null  );
+        System.out.println(Mvp.getInstance().getPositionX());
+        g.drawImage(Mvp.getInstance().getSpriteFromSheet(),
+                Mvp.getInstance().returnScreenPositionX() - camera.topLeftCrn.x,
+                Mvp.getInstance().returnScreenPositionY() - camera.topLeftCrn.y,
+                ScreenSettings.TILE_SIZE ,
+                ScreenSettings.TILE_SIZE ,
+                null  );
     }
 
     private void paintEnemies(Graphics2D g) {

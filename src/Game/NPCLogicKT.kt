@@ -41,10 +41,12 @@ import entities.NPC.NPCType
 //These need to be edited so we use the 2d array of linkedlists instead of iterating over the entire list
     public fun checkCollisionsEAT(monster: Monster, monsters: List<Monster>, prey: NPCType) : Boolean{
     for (i in monsters.indices) {
+
         if (checkAdjacent(monsters[i], monster)) {
             ///Instead of combat they will attack once and that's it
             if(monsters[i].type == prey){
                 Combat.targetedAttack(monsters[i], monster)
+
                 //TODO should probably heal the predator
                 return true
             }
@@ -57,7 +59,9 @@ import entities.NPC.NPCType
     //Heroes initiate combat
     private fun checkCollisionsMonsters(hero: Hero, monsters: List<Monster>) {
         for (i in monsters.indices) {
+
             if (checkAdjacent(monsters[i], hero)) {
+
                 if(!hero.returnCombatQueue().contains(monsters[i])) {
                     monsters[i].inCombat = true
                     hero.inCombat = true

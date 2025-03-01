@@ -23,48 +23,62 @@ public class Camera {
         this.topLeftCrn = tl;
     }
 
-    public boolean attemptCameraPan(KbInput kb) {
+    public boolean attemptCameraPan( int movementType) {
         // Determine if the camera should pan based on edge movement
         boolean cameraPanEligible = true;
 
         // Check input and update camera coordinates
-        if (kb.downPressed) {
+        //DOWN
+        if (movementType == 3) {
             cameraPanEligible = verifyValidCoordinate(topLeftCrn, 0, ScreenSettings.TILE_SIZE);
             if (!cameraPanEligible) return false;
-        } else if (kb.upPressed) {
+        }
+        //UP
+        else if (movementType == 1) {
             cameraPanEligible = verifyValidCoordinate(topLeftCrn, 0, -ScreenSettings.TILE_SIZE);
             if (!cameraPanEligible) return false;
-        } else if (kb.leftPressed) {
+        }
+        //LEFT
+        else if (movementType == 4) {
             cameraPanEligible = verifyValidCoordinate(topLeftCrn, -ScreenSettings.TILE_SIZE, 0);
             if (!cameraPanEligible) return false;
-        } else if (kb.rightPressed) {
+        }
+        //RIGHT
+        else if (movementType == 2) {
             cameraPanEligible = verifyValidCoordinate(topLeftCrn, ScreenSettings.TILE_SIZE, 0);
             if (!cameraPanEligible) return false;
         } else {
             return false;
         }
 
-        panCamera(kb);
+        panCamera(movementType);
         return cameraPanEligible; //this is always true
     }
 
 
     // Movement of the camera, nothing else
-    private void panCamera(KbInput kb) {
+    private void panCamera(int movementType) {
         int movementAmount = ScreenSettings.TILE_SIZE;
 
-        if (kb.downPressed) {
+        //DOWN
+        if (movementType == 3) {
             topLeftCrn.y += movementAmount;
             offsetY++;
 
-        } else if (kb.upPressed) {
+        }
+        //UP
+        else if (movementType == 1) {
             topLeftCrn.y -= movementAmount;
             offsetY--;
-        } else if (kb.leftPressed) {
+        }
+        //LEFT
+        else if (movementType == 4) {
             topLeftCrn.x -= movementAmount;
             offsetX--;
 
-        } else if (kb.rightPressed) {
+        }
+        //RIGHT
+        else if (movementType == 2) {
             topLeftCrn.x += movementAmount;
             offsetX++;
         } else {
