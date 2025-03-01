@@ -123,7 +123,6 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintBadman(Graphics2D g){
-        System.out.println(Mvp.getInstance().getPositionX());
         g.drawImage(Mvp.getInstance().getSpriteFromSheet(),
                 Mvp.getInstance().returnScreenPositionX() - camera.topLeftCrn.x,
                 Mvp.getInstance().returnScreenPositionY() - camera.topLeftCrn.y,

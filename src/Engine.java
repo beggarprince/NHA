@@ -128,77 +128,32 @@ public class Engine implements Runnable {
                // timerDebug.start();
 
                 //Player camera movement
-                if (kb.kbCheckIfPlayerMoving() && !kb.conflictingVerticalInput() && !kb.conflictingHorizontalInput()) {
-                    if(kb.maxSpeed){
-                        player.movePlayer(player, camera,  kb.returnMovementType());
-                    }
-                    else {
-                        kba.accelerateInput();
-                       // System.out.println(kba.getState());
-                        if (kba.readyToMovePlayer()) {
-                            player.movePlayer(player, camera, kb.returnMovementType() );
-                        }
-                    }
-                }else{
-                    kba.resetAcceleration();
-                }
+                playerMovement(kba);
 
                 //Check for hero spawn if the timer is set to equal the spawn timer
                     //We still need to advance frames but i don't want the player to be able to do anything but pan
                     //No npc logic either
                 if(!mvpPlaced && heroSpawnTimer()){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
-
-                    if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
-                        mvpPlaced = true;
-                        heroActive = true;
-                        heroFrameCount = 0;
-                        System.out.println("Hero Active");
-                        Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
-                        spawnHeroAtEntry();
-                    }
-
+                    mvpPlaced = placeMVP();
+                    //this prevents the loop to run monster logic
                     gamePanel.repaint();
                     continue;
                 }
-
+                checkPlayerInputActiveStage();
 
                 NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
-
-                if (kb.dig) {
-                  if(player.getDigPower() >0){
-                      if(attemptDig())player.digPowerDecrement();
-                  }
-                }
-                else if (kb.debug ) {
-                    //Sound.getSoundInstance().playFXClip(1);
-                  debugAddHero();
-                }
-                else if(kb.spawnDebug){
-                    Spawn.spawnEnemyAtPlayerDebug(monsterList, level.tileData
-                            .get(player.playerTilePositionY)
-                            .get(player.playerTilePositionX));
-                }
-
-                if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;
 
                 //Update UI
                 gamePanel.repaint();
 
                 //Remove references to res so the garbage collector can remove, must be done after UI update
-                monsterList.destroyEnemies();
-                heroList.destroyHeroes();
+                //Deferred so we can have access the same list without worrying about null in multiple threads
+                //It does have minor effects, things going into negative hp zones and acting or not being able to move to a newly made PATH for 1 frame
+                updateNPCLists();
 
-//                System.out.println(Monster.timesCheckedMonsterLoop);
-//
-//                Monster.resetLoopCounter();
-
-                //System.out.println(heroFrameCount);
                 if(!heroActive)heroFrameCount++;
-
-                //System.out.println(monsterList.getMonsters().size());
-                //System.out.println(heroList.getHeroes().size());
-               // timerDebug.stopMicros();
+              //  timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
@@ -267,6 +222,60 @@ public class Engine implements Runnable {
         }catch (Exception e){
             System.out.println("Could not spawn hero");
         }
+    }
+
+    private void checkPlayerInputActiveStage(){
+        if (kb.dig) {
+            if(player.getDigPower() >0){
+                if(attemptDig())player.digPowerDecrement();
+            }
+        }
+        else if (kb.debug ) {
+            //Sound.getSoundInstance().playFXClip(1);
+            debugAddHero();
+        }
+        else if(kb.spawnDebug){
+            Spawn.spawnEnemyAtPlayerDebug(monsterList, level.tileData
+                    .get(player.playerTilePositionY)
+                    .get(player.playerTilePositionX));
+        }
+
+        if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;
+    }
+
+    private void playerMovement(KBInputAccelerator kba){
+        if (kb.kbCheckIfPlayerMoving() ) {
+            if(kb.maxSpeed){
+                player.movePlayer(player, camera,  kb.returnMovementType());
+            }
+            else {
+                kba.accelerateInput();
+                // System.out.println(kba.getState());
+                if (kba.readyToMovePlayer()) {
+                    player.movePlayer(player, camera, kb.returnMovementType() );
+                }
+            }
+        }else{
+            kba.resetAcceleration();
+        }
+    }
+
+    private boolean placeMVP(){
+
+        if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
+            mvpPlaced = true;
+            heroActive = true;
+            heroFrameCount = 0;
+            Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
+            spawnHeroAtEntry();
+            return true;
+        }
+        return false;
+    }
+
+    private void updateNPCLists(){
+        monsterList.destroyEnemies();
+        heroList.destroyHeroes();
     }
 }
 
