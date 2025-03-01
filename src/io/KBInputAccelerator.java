@@ -4,7 +4,6 @@ public class KBInputAccelerator {
     private int acceleration = 0;
     private int accelerationCycle = 60;
     private int currVelocity = 1;
-    private final int cycle = 6;
     private int state = 1;
 
     public int getState()
@@ -50,6 +49,7 @@ public class KBInputAccelerator {
     }
 
     public boolean readyToMovePlayer(){
+        int cycle = 6;
         if ((state * currVelocity) >= cycle){
             resetState();
             return true;

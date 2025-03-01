@@ -42,7 +42,6 @@ public class Tile {
             else if (mana > Level.manaL2Distribution && mana < Level.manaL3Distribution) mana = 4;
             else mana = 4;
         }
-        else return;
     }
 
     //TODO extract this function

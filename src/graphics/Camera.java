@@ -1,7 +1,6 @@
 package graphics;
 
 import entities.Player;
-import io.KbInput;
 import level.Level;
 import util.Coordinate;
 

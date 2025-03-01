@@ -4,8 +4,6 @@ import PlayerActions.Spawn;
 import entities.Combat;
 import entities.NPC.Heroes.HeroFactory;
 import entities.NPC.Heroes.HeroList;
-import entities.NPC.Monsters.Monster;
-import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.Movement;
 import entities.NPC.Mvp;
@@ -25,15 +23,12 @@ import static PlayerActions.Dig.dig;
 import static io.Audio.Sound.getSoundInstance;
 
 public class Engine implements Runnable {
-    //Instantiation
-    private final Coordinate leftTop;
     private final Camera camera;
     private final KbInput kb;
     private int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
     private final Player player;
     private Level level; // Not set as final for now even though there is  only one level
-    private final MonsterFactory monsterFactory;
     private final MonsterList monsterList;
     public GameCanvas gamePanel;
     private final HeroFactory heroFactory;
@@ -42,12 +37,11 @@ public class Engine implements Runnable {
     private final SpatialHash spatialHash;
     Sound sound;
     private boolean heroActive = false;
-    private int heroSpawnTimer = 600 * 1; // Ten seconds for now, 60 after *
+    private final int heroSpawnTimer = 600 * 1; // Ten seconds for now, 60 after *
     private int heroFrameCount = 0;
     private boolean mvpPlaced = false;
-    private int xEntry = 0;
+    private int xEntry;
     private TimerDebug timerDebug;
-    private Mvp mvp;
     // Constructor
     public Engine() {
 
@@ -75,7 +69,8 @@ public class Engine implements Runnable {
         xEntry = player.playerTilePositionX;
         // Camera and screen setup
         //Level.levelColumns /2 - (ScreenSettings.TS_X /2)
-        this.leftTop = new Coordinate(0, 0);
+        //Instantiation
+        Coordinate leftTop = new Coordinate(0, 0);
         this.camera = new Camera(leftTop);
 
         //TODO jank until i fix the center function, there was 1 instance where the camera did not move up and the player went out of bounds but i can't replicate it
@@ -89,7 +84,6 @@ public class Engine implements Runnable {
         }
 
         //Monster creation and spawning
-        this.monsterFactory = new MonsterFactory();
         this.monsterList = MonsterList.getInstance();
 
         //Hero Creation and spawning

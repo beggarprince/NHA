@@ -1,7 +1,7 @@
 package entities.NPC;
 
 import entities.Combat;
-import level.Level;
+
 import java.awt.image.BufferedImage;
 import java.util.*;
 
@@ -52,8 +52,6 @@ public abstract class NPC extends Stats {
 
 
     //Level level = Level.getInstance("res/levelTest.csv");
-
-    private final static Random random = new Random();
 
 
     //TODO RENAME

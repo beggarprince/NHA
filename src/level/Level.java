@@ -26,7 +26,6 @@ public class Level {
 
     public static int levelColumns;
     public static int levelRows;
-    private LevelGenerator levelGenerator;
 
     // Private constructor prevents instantiation from other classes
     private Level(String levelFilePath) {
@@ -42,7 +41,7 @@ public class Level {
 
     private Level() {
 
-        levelGenerator = new LevelGenerator(80, 95);
+        LevelGenerator levelGenerator = new LevelGenerator(80, 95);
         levelData = levelGenerator.returnLevel();
 
 

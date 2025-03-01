@@ -9,7 +9,6 @@ import entities.Player;
 import graphics.ui.UINumber;
 import io.KbInput;
 import level.Tile;
-import util.ImgLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,9 +30,7 @@ public class GameCanvas extends JPanel {
     private int startTileX = 0;
     private int endTileY = 0;
     private int endTileX = 0;
-    private SpriteSheetInterpreter  s;
-    private UINumber numberSprite;
-    private Mvp mvp;
+    private final UINumber numberSprite;
 
     public GameCanvas(KbInput kb,
                       Player p,
@@ -48,14 +45,12 @@ public class GameCanvas extends JPanel {
         this.setDoubleBuffered(true);
         this.addKeyListener(kb);
         this.setFocusable(true);
-        s = new SpriteSheetInterpreter();
         player = p;
         level = levelData;
         camera = c;
         monsterList = e;
         heroList = h;
         numberSprite = new UINumber();
-        mvp = Mvp.getInstance();
     }
 
     public void paintComponent(Graphics g) {
