@@ -19,12 +19,13 @@ import java.util.ArrayList;
 
 public class GameCanvas extends JPanel {
 
+    //Game canvas should not have access to the original lists, since it will be decoupled so logic and ui can run in separate threads
     GameCanvas gameCanvas;
     Camera camera;
     Player player;
     ArrayList<ArrayList<Tile>> level;
-    MonsterList monsterList;
-    HeroList heroList;
+    ArrayList<Monster> monsterList;
+    ArrayList<Hero> heroList;
 
     private int startTileY = 0;
     private int startTileX = 0;
@@ -35,9 +36,7 @@ public class GameCanvas extends JPanel {
     public GameCanvas(KbInput kb,
                       Player p,
                       ArrayList<ArrayList<Tile>> levelData,
-                      Camera c,
-                      MonsterList e,
-                      HeroList h) {
+                      Camera c, ArrayList<Hero> h, ArrayList<Monster> m) {
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH,
                 ScreenSettings.PX_SCREEN_HEIGHT)));
@@ -48,9 +47,13 @@ public class GameCanvas extends JPanel {
         player = p;
         level = levelData;
         camera = c;
-        monsterList = e;
-        heroList = h;
         numberSprite = new UINumber();
+    }
+
+    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
+        monsterList =frameMonsterList;
+        heroList = frameHeroList;
+        this.repaint();
     }
 
     public void paintComponent(Graphics g) {
@@ -127,9 +130,9 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintEnemies(Graphics2D g) {
-        ArrayList<Monster> list = monsterList.getMonsters();
-        for (int i = 0; i < list.size(); i++) {
-            Monster e = list.get(i);
+        if(monsterList == null) return;
+        for (int i = 0; i < monsterList.size(); i++) {
+            Monster e = monsterList.get(i);
             //If in camera view
             if ((e.tilePositionX >= startTileX && e.tilePositionX < endTileX)
                     && (e.tilePositionY >= startTileY && e.tilePositionY < endTileY)) {
@@ -162,10 +165,10 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintHeroes(Graphics2D g) {
-        ArrayList<Hero> list = heroList.getHeroes();
+        if(heroList == null) return;
 
-        for (int i = 0; i < list.size(); i++) {
-            Hero h = list.get(i);
+        for (int i = 0; i < heroList.size(); i++) {
+            Hero h = heroList.get(i);
             //If in camera view
             if ((h.tilePositionX >= startTileX && h.tilePositionX < endTileX) && (h.tilePositionY >= startTileY && h.tilePositionY < endTileY)) {
                 //Draw according to offset

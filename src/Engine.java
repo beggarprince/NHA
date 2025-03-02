@@ -23,10 +23,12 @@ import static PlayerActions.Dig.dig;
 import static io.Audio.Sound.getSoundInstance;
 
 public class Engine implements Runnable {
+    private boolean newFrame = false;
     private final Camera camera;
     private final KbInput kb;
     private int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
+    private Thread musicThread;
     private final Player player;
     private Level level; // Not set as final for now even though there is  only one level
     private final MonsterList monsterList;
@@ -47,11 +49,6 @@ public class Engine implements Runnable {
 
         //Audio
         sound =  getSoundInstance();
-        sound.setMusic(0);
-
-
-        //Annoying as fuck
-        //sound.loop();
 
         //World creation
         this.level = Level.getInstance();
@@ -59,8 +56,6 @@ public class Engine implements Runnable {
 
         Movement.setLevelInstance();
         Combat.setLevelInstance();
-
-
 
         //Player and player inputs
         this.kb = new KbInput();
@@ -93,21 +88,82 @@ public class Engine implements Runnable {
 
         //UI
         this.gamePanel = new GameCanvas(kb, player,
-                level.tileData, camera, monsterList, heroList);
+                level.tileData, camera, heroList.getHeroes(), monsterList.getMonsters());
     }
 
     public void startGameThread() {
         gameLifecycle = new Thread(this);
         gameLifecycle.start();
     }
+    public void startMainMusicThread(){
+        Runnable musicRunnable = new Runnable() {
+            @Override
+            public void run() {
+                sound.setMusic(0);
+                sound.loop();
+                System.out.println("outside while loop");
+                while(musicThread != null){
 
+                }
+            }
+        };
+        musicThread = new Thread(musicRunnable);
+        musicThread.start();
+
+    }
 
     @Override
     public void run() {
 
+         Object uiLock = new Object();
+         Object npcLogicLock = new Object();
+
         long frameRatePrevTime = System.nanoTime();
         KBInputAccelerator kba = KBInputAccelerator.getInstance();
 
+        Runnable npcLogicThread = ()->{
+                    NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
+                    updateNPCLists();
+             };
+
+        //Update UI
+        Runnable renderingThread = () -> {
+            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
+            // else System.out.println("Can't paint UI, awaiting new frame");
+        };
+
+        // Create worker threads once
+        Thread uiWorker = new Thread(() -> {
+            while (gameLifecycle != null) {
+                try {
+                    synchronized (uiLock) {
+                        uiLock.wait(); // Wait for main thread to signal
+
+                        renderingThread.run(); // Execute task when signaled
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+
+        Thread npcLogicWorker = new Thread(() -> {
+            while (gameLifecycle != null) {
+                try {
+                    synchronized (npcLogicLock) {
+                        npcLogicLock.wait(); // Wait for main thread to signal
+                        npcLogicThread.run(); // Execute task when signaled
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        });
+
+        npcLogicWorker.start();
+        uiWorker.start();
 
         while (gameLifecycle != null) {
 
@@ -116,10 +172,11 @@ public class Engine implements Runnable {
 
             ///Run one game cycle, 1 frame
             if (checkTimer(frameRateCurrentTime, frameRatePrevTime)) {
+
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
-               // timerDebug.start();
+                timerDebug.start();
 
                 //Player camera movement
                 playerMovement(kba);
@@ -131,26 +188,32 @@ public class Engine implements Runnable {
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
                     mvpPlaced = placeMVP();
                     //this prevents the loop to run monster logic
-                    gamePanel.repaint();
+                    //gamePanel.paintFrame(monsterList.getMonsters(), heroList.getHeroes());
+                    synchronized (uiLock){
+                        uiLock.notify();
+                    }
                     continue;
                 }
+
                 checkPlayerInputActiveStage();
-
-                NPCLogicKTKt.run(monsterList.getMonsters(), heroList.getHeroes());
-
-                //Update UI
-                gamePanel.repaint();
+                synchronized (uiLock){
+                    uiLock.notify();
+                }
+                synchronized (npcLogicLock) {
+                    npcLogicLock.notify();
+                }
 
                 //Remove references to res so the garbage collector can remove, must be done after UI update
                 //Deferred so we can have access the same list without worrying about null in multiple threads
                 //It does have minor effects, things going into negative hp zones and acting or not being able to move to a newly made PATH for 1 frame
-                updateNPCLists();
+
 
                 if(!heroActive)heroFrameCount++;
                 if(heroActive){
                     Mvp.getInstance().runMVPLogic();
                 }
-              //  timerDebug.stopMicros();
+
+                timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
@@ -162,6 +225,14 @@ public class Engine implements Runnable {
                     break; // Exit loop if thread is interrupted
                 }
             }
+
+//            try{
+//                System.out.println("Joining threads");
+//                renderingThread.join();
+//                npcLogicThread.join();
+//            }catch (InterruptedException e){
+//                Thread.currentThread().interrupt();
+//            }
 
         }
 

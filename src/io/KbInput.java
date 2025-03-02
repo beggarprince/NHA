@@ -1,5 +1,7 @@
 package io;
 
+import io.Audio.Sound;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,7 +12,7 @@ public class KbInput implements KeyListener {
     public boolean dig = false;
     public boolean spawnDebug = false;
     public boolean maxSpeed = false;
-
+    private boolean volumeLock;
     public int currentDirection = 0;
 
 
@@ -54,20 +56,18 @@ public class KbInput implements KeyListener {
             debug = true;
         }
 
-        if(code == KeyEvent.VK_F){
+        else if(code == KeyEvent.VK_F){
             dig = true;
         }
 
-        if(code == KeyEvent.VK_I){
+        else if(code == KeyEvent.VK_I){
             spawnDebug = true;
         }
-        if(code == KeyEvent.VK_C){
+        else if(code == KeyEvent.VK_C){
             maxSpeed = true;
         }
 
-
-        //TODO while this does work there is a bit of delay on changing, i believe it was like this originally
-        if(code == KeyEvent.VK_W){
+        else if(code == KeyEvent.VK_W){
             resetWASD(1);
                 upPressed = true;
         }
@@ -85,43 +85,63 @@ public class KbInput implements KeyListener {
             rightPressed = true;
         }
 
+        // i don't want this to SPIKE in volume because the user held
+        else if (code == KeyEvent.VK_UP && !volumeLock){
+            Sound.adjustMusicVolume(+5.0f);
+            volumeLock = true;
+        }
+        else if (code == KeyEvent.VK_DOWN && !volumeLock){
+            Sound.adjustMusicVolume(-5.0f);
+            volumeLock = true;
+        }
+        else if (code == KeyEvent.VK_M){
+            Sound.muteMusicToggle();
+        }
+
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if(code == KeyEvent.VK_W){
+         if(code == KeyEvent.VK_W){
             upPressed = false;
             resetMovementType();
         }
-        if(code == KeyEvent.VK_A){
+        else if(code == KeyEvent.VK_A){
             leftPressed = false;
             resetMovementType();
         }
-        if(code == KeyEvent.VK_S ){
+        else if(code == KeyEvent.VK_S ){
             downPressed = false;
 
             resetMovementType();
         }
-        if(code == KeyEvent.VK_D ){
+        else if(code == KeyEvent.VK_D ){
             rightPressed = false;
 
             resetMovementType();
 
         }
 
-        if(code == KeyEvent.VK_P){
+        else if(code == KeyEvent.VK_P){
             debug = false;
         }
-        if(code == KeyEvent.VK_F){
+        else if(code == KeyEvent.VK_F){
             dig = false;
         }
-        if(code == KeyEvent.VK_I){
+        else if(code == KeyEvent.VK_I){
             spawnDebug = false;
         }
-        if(code == KeyEvent.VK_C){
+        else if(code == KeyEvent.VK_C){
             maxSpeed = false;
+        }
+        else if(code == KeyEvent.VK_DOWN){
+            volumeLock = false;
+        }
+        else if(code == KeyEvent.VK_UP){
+            volumeLock = false;
         }
 
     }

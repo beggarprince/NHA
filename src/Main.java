@@ -20,5 +20,6 @@ public class Main {
         window.setVisible(true);
 
         engine.startGameThread();
+        engine.startMainMusicThread();
     }
 }
