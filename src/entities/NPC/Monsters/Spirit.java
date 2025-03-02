@@ -15,7 +15,7 @@ public class Spirit extends Monster {
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
-        this.lifespan = 3;
+        this.lifespan = ScreenSettings.FPS * 45;
         this.movementSpeed = 1;
         this.movementCycle = 0;
         this.basicAttackStrength = 1;

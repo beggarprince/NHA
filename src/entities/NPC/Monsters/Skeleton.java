@@ -1,5 +1,8 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.NPCType;
+import graphics.ScreenSettings;
+
 import java.awt.image.BufferedImage;
 
 public class Skeleton extends Monster{
@@ -7,6 +10,13 @@ public class Skeleton extends Monster{
 
     public Skeleton(int health, int x, int y) {
         super(health, x, y);
+        this.basicAttackStrength = 24;
+        this.hunger = 0;
+        this.movementSpeed = 1;
+        this.lifespan = ScreenSettings.FPS * 65;
+        this.hasFullStomach = false;
+        this.maxHunger = 32;
+        this.type = NPCType.Skeleton;
     }
 
     @Override

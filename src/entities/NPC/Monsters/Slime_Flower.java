@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import util.ImgLoader;
 import graphics.ScreenSettings;
@@ -17,8 +18,10 @@ public class Slime_Flower extends Monster {
         this.screenPositionY = y;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;
-        this.lifespan = 300;
+        this.lifespan = ScreenSettings.FPS * 30;
         this.basicAttackStrength = 2;
+        this.hunger = hunger;
+        maxHunger = 12;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class Slime_Flower extends Monster {
     protected void agingCycle() {
         lifespan--;
         if(lifespan <= 0){
+            endOfLife();
             this.isDead = true;
         }
     }
@@ -68,5 +72,14 @@ public class Slime_Flower extends Monster {
     }
     public String returnNpcType(){
         return "Slime Flower";
+    }
+
+    private void endOfLife(){
+        if(maxHunger <= hunger) {
+            MonsterList.getInstance().addEnemy(MonsterFactory.createMonster("Slime", this.tilePositionX * ScreenSettings.TILE_SIZE, this.tilePositionY * ScreenSettings.TILE_SIZE));
+        }
+        if(maxHunger /2 <= hunger) {
+            MonsterList.getInstance().addEnemy(MonsterFactory.createMonster("Slime", this.tilePositionX * ScreenSettings.TILE_SIZE, this.tilePositionY * ScreenSettings.TILE_SIZE));
+        }
     }
 }

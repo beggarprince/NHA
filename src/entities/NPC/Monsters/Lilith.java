@@ -1,9 +1,14 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.NPC;
+import entities.NPC.NPCType;
+import graphics.ScreenSettings;
 import util.ImgLoader;
 
 import java.awt.image.BufferedImage;
+
+import static Game.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Lilith extends Monster{
 
@@ -11,7 +16,14 @@ public class Lilith extends Monster{
 
     public Lilith( int x, int y) {
         super(48, x, y);
+        this.basicAttackStrength = 24;
         setImage();
+        this.hunger = 0;
+        this.movementSpeed = 1;
+        this.lifespan = ScreenSettings.FPS * 65;
+        this.hasFullStomach = false;
+        this.maxHunger = 32;
+        this.type = NPCType.Lilith;
     }
 
     @Override
@@ -26,7 +38,9 @@ public class Lilith extends Monster{
 
     @Override
     public void eat() {
-
+        this.startAnimation();
+        this.hunger += basicAttackStrength;
+        this.health += basicAttackStrength;
     }
 
     @Override
@@ -41,6 +55,10 @@ public class Lilith extends Monster{
 
     @Override
     public void behavior() {
+
+        if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Spirit)){
+            eat();
+        }
         moveNpcAndSignal();
     }
 

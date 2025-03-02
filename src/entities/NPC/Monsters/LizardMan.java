@@ -20,6 +20,9 @@ public class LizardMan extends Monster{
         this.lifespan = ScreenSettings.FPS * 65;
         this.basicAttackStrength = 16;
         this.type = NPCType.LizardMan;
+        this.movementSpeed = 1;
+        this.hasFullStomach = false;
+        this.maxHunger = 32;
     }
 
     @Override
@@ -35,7 +38,9 @@ public class LizardMan extends Monster{
 
     @Override
     public void eat() {
-
+        this.startAnimation();
+        this.hunger += basicAttackStrength;
+        this.health += basicAttackStrength;
     }
 
     @Override

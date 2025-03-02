@@ -35,6 +35,7 @@ public class EatingSystem {
         if(eatSurroundingTile(tileDiet, list, npc.tilePositionX, npc.tilePositionY)) {
             npc.incrementHunger(npc.basicAttackStrength);
             npc.signalMonsterAte(); //This can only be set true by moving to a new tile
+            npc.hunger++;
             return true;
         }
         return false;
@@ -134,5 +135,6 @@ public class EatingSystem {
         }
         return false;
     }
+
 
 }

@@ -8,5 +8,8 @@ public enum NPCType {
     Spirit,
     Bug,
     LizardMan,
-    Hero
+    Hero,
+    Dragon,
+    Lilith,
+    Skeleton
 }

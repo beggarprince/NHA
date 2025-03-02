@@ -89,6 +89,8 @@ public abstract class NPC extends Stats {
     public void genericBehavior(){
         if(animationFrameCounter < defaultAnimationTime) {
             animationFrameCounter++;
+            //This is combat cooldown
+            if(combatCooldown > 0) combatCooldown--;
             if(animationFrameCounter < defaultAnimationTime) {
                 // We are in an animation and thus can't change action
                // System.out.println("Animation locked "+ animationFrameCounter);
@@ -99,13 +101,12 @@ public abstract class NPC extends Stats {
 
 
 
-        //This is combat cooldown
-        if(combatCooldown > 0) combatCooldown--;
 
         //combat
         if(this.inCombat && movementCycle == 0){
             //basic attack handles cooldown
             Combat.basicAttack(this);
+            this.startAnimation();
         }
 
         //behavior - Movement, reproduction, etc

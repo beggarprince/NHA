@@ -47,7 +47,6 @@ int spriteCounter = 0;
 
            // setImage();
             this.hunger = 0;
-            //this.image = ImgLoader.getImageResource("bug.png"); //Default slime preloaded
             this.movementSpeed = 1;
             this.lifespan = ScreenSettings.FPS * 45;
             this.hasFullStomach = false;
@@ -95,6 +94,7 @@ int spriteCounter = 0;
 
     @Override
     public void eat() {
+        this.startAnimation();
         this.hunger += basicAttackStrength;
         this.health += basicAttackStrength;
     }

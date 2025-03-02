@@ -1,5 +1,7 @@
 package entities.NPC.Monsters;
 import entities.NPC.Monsters.MonsterLogic.EatingSystem;
+import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import level.TileType;
@@ -17,7 +19,7 @@ public class Slime extends Monster {
         //this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = ScreenSettings.FPS * 45;
         this.basicAttackStrength = 1;
-        this.maxHunger = 1;
+        this.maxHunger = 12;
         this.movementCycle = 0;
         this.metamorphosisValue = "Slime_Flower";
         this.type = NPCType.Slime;
@@ -66,12 +68,15 @@ public class Slime extends Monster {
     //Extract all the logic, it should only know if it ate and increment itself
     public void eat(){
         EatingSystem.l1EatNutrient(this, TileType.NUTRIENT);
+
     }
 
     @Override
     protected void agingCycle() {
+
         lifespan--;
-        if(lifespan == 0){
+
+        if(lifespan == 0 && hunger+4 >= maxHunger){
          //There needs to be code  here to determine whether the slime reproduces or just dies
             metamorphosisReady = true;
         }

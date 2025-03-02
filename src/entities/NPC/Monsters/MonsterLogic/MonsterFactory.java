@@ -13,6 +13,7 @@ public class MonsterFactory {
     public static Monster createMonster(String type, int posx, int posy) {
 
         if (type.equals("Slime")) {
+            System.out.println("making slime");
             return new Slime(posx, posy);
         }
         else if(type.equals("Bug")){

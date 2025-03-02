@@ -1,8 +1,13 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
+import entities.NPC.NPCType;
+import graphics.ScreenSettings;
 import util.ImgLoader;
 
 import java.awt.image.BufferedImage;
+
+import static Game.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Dragon extends Monster{
 
@@ -10,7 +15,14 @@ public class Dragon extends Monster{
 
     public Dragon( int x, int y) {
         super(300, x, y);
+        this.basicAttackStrength = 115;
         setImage();
+        this.hunger = 0;
+        this.movementSpeed = 1;
+        this.lifespan = ScreenSettings.FPS * 95;
+        this.hasFullStomach = false;
+        this.maxHunger = 32;
+        this.type = NPCType.Dragon;
     }
 
     @Override
@@ -25,7 +37,9 @@ public class Dragon extends Monster{
 
     @Override
     public void eat() {
-
+        this.startAnimation();
+        this.hunger += basicAttackStrength;
+        this.health += basicAttackStrength;
     }
 
     @Override
@@ -40,6 +54,9 @@ public class Dragon extends Monster{
 
     @Override
     public void behavior() {
+        if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.LizardMan)){
+            eat();
+        }
         moveNpcAndSignal();
     }
 

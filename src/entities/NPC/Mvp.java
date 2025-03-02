@@ -51,6 +51,7 @@ public class Mvp {
                 kidnapped = true;
             }
         }
+        if(kidnapped) System.out.println("GAAAAAAAAH I'VE BEEN HAD");
     }
 
     private void moveMvp(){
