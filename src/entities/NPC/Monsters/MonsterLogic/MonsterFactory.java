@@ -28,6 +28,17 @@ public class MonsterFactory {
         else if(type.equals("Slime_Flower")){
             return new Slime_Flower(posx, posy);
         }
+        else if (type.equals("Lilith")){
+            return new Lilith(posx, posy);
+        }
+        else if (type.equals("Dragon")){
+
+            return new Dragon(posx, posy);
+        }
+        else if (type.equals("Skeleton")){
+            return new Skeleton(200, posx, posy);
+        }
+
         else{//This should not be here but there ought to be a return for nothing
             System.out.println("FACTORY ERROR");
             return  new Slime(0, 0);

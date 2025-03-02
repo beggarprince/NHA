@@ -11,10 +11,10 @@ import java.awt.image.BufferedImage;
 public abstract class Monster extends NPC {
 
     protected int lifespan;
-    protected int hunger;
+    public int hunger;
     protected boolean hasFullStomach = false;
     protected boolean eatingCycleReady = true;
-    protected int maxHunger;
+    public int maxHunger;
     public String metamorphosisValue;
     public boolean metamorphosisReady = false;
     private final static Random random = new Random();
@@ -50,7 +50,6 @@ public abstract class Monster extends NPC {
     }
 
 
-
     public int getWorldPositionX() {
         return tilePositionX;
     }
@@ -74,6 +73,10 @@ public abstract class Monster extends NPC {
     protected abstract void setImage();
 
 
+    public void signalMonsterAte(){
+        eatingCycleReady = false;
+    }
+
     //Removes final references of the object so it can be removed, allows unique deaths based on type bc it's abstract
     //TODO call this indirectly in concrete function to avoid having to manage cooldowns/logic across all enemy types
 
@@ -82,7 +85,7 @@ public abstract class Monster extends NPC {
 
     //TODO each npc will need to determine a behavior type based on their current circumstances, atm it'll be a nasty if/else
 
-    protected abstract void eat();
+    public abstract void eat();
 
     protected  abstract void agingCycle();
 
@@ -92,6 +95,11 @@ public abstract class Monster extends NPC {
         isDead = true;
         //Add nutrients back to the ecosystem
     }
+
+    public void incrementHunger(int amount){
+        this.hunger += amount;
+    }
+
 
     //public abstract void attack();
 

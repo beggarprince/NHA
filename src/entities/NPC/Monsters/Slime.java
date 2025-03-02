@@ -1,15 +1,10 @@
 package entities.NPC.Monsters;
-import entities.Direction;
-import entities.NPC.Movement;
+import entities.NPC.Monsters.MonsterLogic.EatingSystem;
 import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import level.TileType;
 import util.ImgLoader;
 import java.awt.image.BufferedImage;
-import java.util.List;
-
-
-import static entities.NPC.Monsters.MonsterLogic.EatingSystem.*;
 
 public class Slime extends Monster {
 
@@ -48,44 +43,29 @@ public class Slime extends Monster {
     public void behavior(){
 
         //TODO change it so it selects a function based on current circumstance, behavior should not be abstract and call abstract function MOVE/REPRODUCE/FIGHT
-
         if(health == 0){
             isDead = true;
             return;
         }
-        if(eatingCooldownStage != eatingCooldown){
-            eatingCooldownStage++;
-            return;
+
+        if(eatingCycleReady) {
+            if (EatingSystem.l1EatOrPoopNutrient(this, TileType.NUTRIENT))
+                return; // we have acted and thus we need a slight cooldown before we act again
         }
-            //We see if we can move this direction
-            if (moveNpcAndSignal());
 
-
-            //System.out.println(zone);
-            //Eat
-            if (eatingCycleReady) {
-                if (hunger < maxHunger) {
-                    eat();
-                }
-                else poop();
-            }
-
+        //We see if we can move this direction
+        if (moveNpcAndSignal()) ;
+        if (detectNewTile()) eatingCycleReady = true;
         agingCycle();
 
     }
 
 
 
+
     //Extract all the logic, it should only know if it ate and increment itself
-    protected void eat(){
-        List<Direction> list = Movement.getPossibleDirections(false, this);
-       if(eatSurroundingTile(TileType.NUTRIENT, list, tilePositionX, tilePositionY)) {
-           //System.out.println("ate");
-           this.eatingCooldownStage = 0;
-           hunger++;
-        //   if(enemyHunger == enemyMaxHunger) System.out.println("Ready to poop");
-           eatingCycleReady = false; //This can only be set true by moving to a new tile
-       }
+    public void eat(){
+        EatingSystem.l1EatNutrient(this, TileType.NUTRIENT);
     }
 
     @Override
@@ -97,15 +77,6 @@ public class Slime extends Monster {
         }
     }
 
-    protected void poop(){
-
-        List<Direction> list = Movement.getPossibleDirections(false, this);
-
-        if(depositSurroundingTile(TileType.NUTRIENT, list, tilePositionX, tilePositionY)) {
-            hunger--;
-            eatingCycleReady = false;
-        }
-    }
 
     //To be implemented
     protected void reproductionCycle(){

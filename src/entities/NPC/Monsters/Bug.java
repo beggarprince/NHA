@@ -88,13 +88,13 @@ int spriteCounter = 0;
             eat();
         }
         else {
-            if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile
+            if (moveNpcAndSignal()) ;
         }
 
     }
 
     @Override
-    protected void eat() {
+    public void eat() {
         this.hunger += basicAttackStrength;
         this.health += basicAttackStrength;
     }

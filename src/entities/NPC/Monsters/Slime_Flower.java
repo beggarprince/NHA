@@ -42,7 +42,7 @@ public class Slime_Flower extends Monster {
     }
 
     @Override
-    protected void eat() {
+    public void eat() {
 
     }
 

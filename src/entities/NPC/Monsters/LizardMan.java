@@ -34,7 +34,7 @@ public class LizardMan extends Monster{
     }
 
     @Override
-    protected void eat() {
+    public void eat() {
 
     }
 
@@ -57,7 +57,7 @@ public class LizardMan extends Monster{
             return;
         }
         else {
-            if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile
+            if (moveNpcAndSignal());
         }
     }
 

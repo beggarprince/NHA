@@ -1,6 +1,7 @@
 package entities.NPC;
 
 import entities.Combat;
+import graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -21,6 +22,9 @@ public abstract class NPC extends Stats {
     //Logical position on tile array
     public int tilePositionX;
     public int tilePositionY;
+
+    public final int defaultAnimationTime = 12;
+    public int animationFrameCounter = 12;
 
     //Where the npc is drawn on the screen, out of bounds enemies from the camera are not rendered
     //World position
@@ -52,8 +56,9 @@ public abstract class NPC extends Stats {
         combatTarget.poll();
     }
 
-
-    //Level level = Level.getInstance("res/levelTest.csv");
+    public void startAnimation(){
+        animationFrameCounter = 0;
+    }
 
 
     //TODO RENAME
@@ -82,8 +87,20 @@ public abstract class NPC extends Stats {
     }
 
     public void genericBehavior(){
+        if(animationFrameCounter < defaultAnimationTime) {
+            animationFrameCounter++;
+            if(animationFrameCounter < defaultAnimationTime) {
+                // We are in an animation and thus can't change action
+               // System.out.println("Animation locked "+ animationFrameCounter);
+                return;
+            }
+          //  else System.out.println("Unlocked");
+        }
 
-        if(cooldown > 0)cooldown--;
+
+
+        //This is combat cooldown
+        if(combatCooldown > 0) combatCooldown--;
 
         //combat
         if(this.inCombat && movementCycle == 0){
@@ -100,8 +117,11 @@ public abstract class NPC extends Stats {
         ///System.out.println(returnNpcType() + " health is " + health);
    if(health <= 0){
     isDead = true;
-   }
+    }
+    }
 
+    public boolean detectNewTile(){
+        return ((tilePositionX * ScreenSettings.TILE_SIZE == screenPositionX) && (tilePositionY * ScreenSettings.TILE_SIZE == screenPositionY));
     }
 
 

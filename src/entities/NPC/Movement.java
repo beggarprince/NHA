@@ -75,7 +75,6 @@ public class Movement {
 
     public static Direction getOppositeDirection(Direction dir) {
         if(dir == null){
-            System.out.println("Null direction");
             return Direction.NOT_MOVING;
         }
         switch (dir) {

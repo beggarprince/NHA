@@ -20,9 +20,14 @@ public class Level {
     //Say l3 distribution for mana is 98, then out of we get a number 0-100 and only 98/99/100 assign it that level
     //Goes to the highest level, so if not 97 then l2 mana block. If below l1 requirement it's just a block
     public static int manaL2Distribution = 90;
-    public static int manaL3Distribution = 98;
+    public static int manaL3Distribution = 95;
     public static int nutrientL2Distribution = 70;
     public static int nutrientL3Distribution = 95;
+
+
+    //Distribution is the balance out of 100.
+    //Nutrient has to be less than mana
+    //mana priority, if above mana distribution value it's a mana, if above nutrient then nutrient, otherwise empty tile
 
     public static int levelColumns;
     public static int levelRows;
@@ -41,7 +46,7 @@ public class Level {
 
     private Level() {
 
-        LevelGenerator levelGenerator = new LevelGenerator(80, 95);
+        LevelGenerator levelGenerator = new LevelGenerator(75, 90);
         levelData = levelGenerator.returnLevel();
 
 

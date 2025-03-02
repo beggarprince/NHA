@@ -10,7 +10,9 @@ public enum TileType {
     NUTRIENT("sprites/tile/nutrientsL1.png"),
     BRICK("sprites/tile/brick.png"),
     PATH("sprites/tile/gravel.png"),
-    MANA("sprites/tile/mana.png"),
+    MANA("sprites/tile/manaL1.png"),
+    MANA2("sprites/tile/manaL2.png"),
+    MANA3("sprites/tile/manaL3.png"),
     NUTRIENT2("sprites/tile/nutrientsL2.png"),
     NUTRIENT3("sprites/tile/nutrientsL3.png");
 
@@ -34,6 +36,16 @@ public enum TileType {
                 return getAltImage(TileType.NUTRIENT2);
             }
             return getAltImage(TileType.NUTRIENT3);
+        }
+        else if (t.type == TileType.MANA){
+            if(t.getMana() <= t.manaL2Min){
+                return image;
+            }
+            else if(t.getMana() > t.manaL2Min && t.getMana() < t.manaL3Min){
+                // System.out.println("Level 2 nutrients");
+                return getAltImage(TileType.MANA2);
+            }
+            return getAltImage(TileType.MANA3);
         }
 
         //ATP all tiles without alts simply get returned

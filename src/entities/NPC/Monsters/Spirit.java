@@ -1,5 +1,7 @@
 package entities.NPC.Monsters;
+import entities.NPC.Monsters.MonsterLogic.EatingSystem;
 import graphics.ScreenSettings;
+import level.TileType;
 import util.ImgLoader;
 import java.awt.image.BufferedImage;
 
@@ -37,17 +39,25 @@ public class Spirit extends Monster {
     }
 
     public void behavior(){
-        if(health <= 0) {
+        if(health == 0){
             isDead = true;
             return;
         }
-        if(moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile
 
+        if(eatingCycleReady) {
+            if (EatingSystem.l1EatOrPoopNutrient(this, TileType.MANA))
+                return; // we have acted and thus we need a slight cooldown before we act again
+        }
+
+        //We see if we can move this direction
+        if (moveNpcAndSignal()) ;
+        if (detectNewTile()) eatingCycleReady = true;
         agingCycle();
+
     }
 
-    protected void eat(){
-
+    public void eat(){
+        EatingSystem.l1EatNutrient(this, TileType.MANA);
     }
 
     @Override

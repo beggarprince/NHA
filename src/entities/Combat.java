@@ -1,6 +1,5 @@
 package entities;
 
-import entities.NPC.Monsters.Monster;
 import entities.NPC.NPC;
 import io.Audio.Sound;
 import level.Level;
@@ -18,8 +17,8 @@ public class Combat {
         NPC target = npc.combatTarget.peek();
 
         //Check if on cooldown
-        if(npc.cooldown > 0){
-            npc.cooldown--;
+        if(npc.combatCooldown > 0){
+            npc.combatCooldown--;
             return;
         }
 
@@ -33,7 +32,7 @@ public class Combat {
 //                System.out.println(target.returnNpcType()+ " has " + target.health  + " hp");
 //            }
 
-            npc.cooldown += npc.basicAttackCooldown; //Assuming basic attack
+            npc.combatCooldown += npc.basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
             if(npc.fxIndex != -1){
                 Sound.getSoundInstance().playFXClip(npc.fxIndex);

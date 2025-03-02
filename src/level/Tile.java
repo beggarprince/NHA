@@ -40,7 +40,9 @@ public class Tile {
             mana = getRandomNumberInRange(1, 100);
             if(mana < Level.manaL2Distribution) mana = 1;
             else if (mana > Level.manaL2Distribution && mana < Level.manaL3Distribution) mana = 4;
-            else mana = 4;
+            else {
+                mana = 10;
+            }
         }
     }
 

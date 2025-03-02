@@ -65,7 +65,7 @@ public class Engine implements Runnable {
         //Player and player inputs
         this.kb = new KbInput();
         this.player = new Player();
-        player.setDigPower(100);
+        player.setDigPower(250);
         xEntry = player.playerTilePositionX;
         // Camera and screen setup
         //Level.levelColumns /2 - (ScreenSettings.TS_X /2)
