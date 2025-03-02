@@ -75,13 +75,13 @@ import entities.NPC.NPCType
     private fun checkAdjacent(npc: NPC, target: NPC): Boolean {
         //If on the same axis
 
-        if (npc.worldPositionX == target.worldPositionX) {
-            if (npc.worldPositionY == target.worldPositionY + 1 || npc.worldPositionY == target.worldPositionY - 1) {
+        if (npc.tilePositionX == target.tilePositionX) {
+            if (npc.tilePositionY == target.tilePositionY + 1 || npc.tilePositionY == target.tilePositionY - 1) {
                 return true
             }
         }
-        if (npc.worldPositionY == target.worldPositionY) {
-            if (npc.worldPositionX == target.worldPositionX + 1 || npc.worldPositionX == target.worldPositionX - 1) {
+        if (npc.tilePositionY == target.tilePositionY) {
+            if (npc.tilePositionX == target.tilePositionX + 1 || npc.tilePositionX == target.tilePositionX - 1) {
                 return true
             }
         }

@@ -33,11 +33,11 @@ public class SpatialHash {
 
     //Set to the appropriate array
     public void hash( NPC npc){
-        if(npc.worldPositionY < scale){
+        if(npc.tilePositionY < scale){
             npc.zone = 1;
             I.add(npc);
         }
-        else if(npc.worldPositionY < 2* scale){
+        else if(npc.tilePositionY < 2* scale){
 
             npc.zone = 2;
             II.add(npc);
@@ -50,15 +50,15 @@ public class SpatialHash {
 
     public void updateNPCZone(NPC npc){
         //NPC has gone lower than zone 1
-        if(npc.zone == 1 && npc.worldPositionY > scale){
+        if(npc.zone == 1 && npc.tilePositionY > scale){
             I.remove(npc);
             hash(npc);
         }
-        else if (npc.zone ==2 && (npc.worldPositionY > scale * 2 || npc.worldPositionY < scale)){
+        else if (npc.zone ==2 && (npc.tilePositionY > scale * 2 || npc.tilePositionY < scale)){
             II.remove(npc);
             hash(npc);
         }
-        else if (npc.zone == 3 && npc.worldPositionY < scale * 2){
+        else if (npc.zone == 3 && npc.tilePositionY < scale * 2){
             III.remove(npc);
             hash(npc);
         }

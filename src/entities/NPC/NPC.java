@@ -8,8 +8,6 @@ import java.util.*;
 public abstract class NPC extends Stats {
     protected BufferedImage image;
 
-
-
     public abstract void behavior();
 
     public abstract void destroy();
@@ -20,9 +18,10 @@ public abstract class NPC extends Stats {
 
     public int fxIndex = -1;
 
-    //Logical position on array
-    public int worldPositionX;
-    public int worldPositionY;
+    //Logical position on tile array
+    public int tilePositionX;
+    public int tilePositionY;
+
     //Where the npc is drawn on the screen, out of bounds enemies from the camera are not rendered
     //World position
     public int screenPositionX;
@@ -30,6 +29,9 @@ public abstract class NPC extends Stats {
 
     protected int movementSpeed = 1; // How many pixels an enemy offsets per frame
     protected int movementCycle = 0; // How long it takes before we logically know we are at a new tile without math
+
+    public final int eatingCooldown = 16;
+    public int eatingCooldownStage = eatingCooldown;
 
     //Queue to holds all the combat targets so when we kill one we can go to the next
     public Queue<NPC> combatTarget;
@@ -61,7 +63,7 @@ public abstract class NPC extends Stats {
 
         //If the movement cycle is not 0 then we know we are still moving in a valid direction so we don't have to check if said direction is valid
         //If 0 we just need to check the next tile
-        if(movementCycle == 0)  canMove = Movement.validateWalkableDirection(currDirection, worldPositionX, worldPositionY);
+        if(movementCycle == 0)  canMove = Movement.tileIsNotWalkable(currDirection, tilePositionX, tilePositionY);
 
         if(canMove){
             Movement.move(this);
@@ -73,7 +75,7 @@ public abstract class NPC extends Stats {
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            currDirection = Movement.getRandomDirection(worldPositionX, worldPositionY, this);
+            currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY, this);
 
         }
         return false;

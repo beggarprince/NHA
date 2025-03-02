@@ -12,8 +12,8 @@ public class Soldier extends Hero{
         super(96, x, y);
         //TODO I really need to fix the constructor to handle health
         this.health = 96;
-        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.tilePositionX = x / ScreenSettings.TILE_SIZE;
+        this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.movementSpeed = 1;

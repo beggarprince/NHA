@@ -15,8 +15,8 @@ public class Slime_Flower extends Monster {
         monsterListInstance = MonsterList.getInstance();
         this.screenPositionX = x;
         this.screenPositionY = y;
-        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.tilePositionX = x / ScreenSettings.TILE_SIZE;
+        this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.lifespan = 300;
         this.basicAttackStrength = 2;
     }

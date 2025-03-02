@@ -131,8 +131,8 @@ public class GameCanvas extends JPanel {
         for (int i = 0; i < list.size(); i++) {
             Monster e = list.get(i);
             //If in camera view
-            if ((e.worldPositionX >= startTileX && e.worldPositionX < endTileX)
-                    && (e.worldPositionY >= startTileY && e.worldPositionY < endTileY)) {
+            if ((e.tilePositionX >= startTileX && e.tilePositionX < endTileX)
+                    && (e.tilePositionY >= startTileY && e.tilePositionY < endTileY)) {
                 //Draw according to offset
                 //if(e.currDirection != Direction.RIGHT && e.currDirection != Direction.DOWN) {
                 try {
@@ -167,7 +167,7 @@ public class GameCanvas extends JPanel {
         for (int i = 0; i < list.size(); i++) {
             Hero h = list.get(i);
             //If in camera view
-            if ((h.worldPositionX >= startTileX && h.worldPositionX < endTileX) && (h.worldPositionY >= startTileY && h.worldPositionY < endTileY)) {
+            if ((h.tilePositionX >= startTileX && h.tilePositionX < endTileX) && (h.tilePositionY >= startTileY && h.tilePositionY < endTileY)) {
                 //Draw according to offset
                 g.drawImage(h.getImage(), h.screenPositionX - camera.topLeftCrn.x , h.screenPositionY - camera.topLeftCrn.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 

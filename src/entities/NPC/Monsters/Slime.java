@@ -53,13 +53,20 @@ public class Slime extends Monster {
             isDead = true;
             return;
         }
+        if(eatingCooldownStage != eatingCooldown){
+            eatingCooldownStage++;
+            return;
+        }
             //We see if we can move this direction
-            if (moveNpcAndSignal()) eatingCycleReady = true; // we are at a new tile;
+            if (moveNpcAndSignal());
+
 
             //System.out.println(zone);
             //Eat
             if (eatingCycleReady) {
-                if (hunger < maxHunger) eat();
+                if (hunger < maxHunger) {
+                    eat();
+                }
                 else poop();
             }
 
@@ -72,9 +79,9 @@ public class Slime extends Monster {
     //Extract all the logic, it should only know if it ate and increment itself
     protected void eat(){
         List<Direction> list = Movement.getPossibleDirections(false, this);
-       if(eatSurroundingTile(TileType.NUTRIENT, list, worldPositionX,  worldPositionY)) {
+       if(eatSurroundingTile(TileType.NUTRIENT, list, tilePositionX, tilePositionY)) {
            //System.out.println("ate");
-
+           this.eatingCooldownStage = 0;
            hunger++;
         //   if(enemyHunger == enemyMaxHunger) System.out.println("Ready to poop");
            eatingCycleReady = false; //This can only be set true by moving to a new tile
@@ -94,7 +101,7 @@ public class Slime extends Monster {
 
         List<Direction> list = Movement.getPossibleDirections(false, this);
 
-        if(depositSurroundingTile(TileType.NUTRIENT, list, worldPositionX, worldPositionY)) {
+        if(depositSurroundingTile(TileType.NUTRIENT, list, tilePositionX, tilePositionY)) {
             hunger--;
             eatingCycleReady = false;
         }

@@ -9,8 +9,8 @@ public class Spirit extends Monster {
 
     public Spirit(int x, int y) {
         super(16, x, y); // Slime has a default health of 1
-        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.tilePositionX = x / ScreenSettings.TILE_SIZE;
+        this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.lifespan = 3;

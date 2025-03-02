@@ -31,13 +31,13 @@ public abstract class Monster extends NPC {
 
     public Monster(int health, int x, int y) {
         this.health = health;
-        this.worldPositionX = x / ScreenSettings.TILE_SIZE;
-        this.worldPositionY =y / ScreenSettings.TILE_SIZE;
+        this.tilePositionX = x / ScreenSettings.TILE_SIZE;
+        this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.hasFullStomach = false;
 
-        this.currDirection = Movement.getRandomDirection(worldPositionX, worldPositionY,this);//This will give it a random starting dir that is valid
+        this.currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY,this);//This will give it a random starting dir that is valid
     }
 
     // Getter and setter methods
@@ -52,11 +52,11 @@ public abstract class Monster extends NPC {
 
 
     public int getWorldPositionX() {
-        return worldPositionX;
+        return tilePositionX;
     }
 
     public int getWorldPositionY() {
-        return worldPositionY;
+        return tilePositionY;
     }
 
     protected void decreaseHunger() {

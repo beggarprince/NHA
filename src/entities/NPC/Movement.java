@@ -32,13 +32,14 @@ public class Movement {
         possibleDirections.add(Direction.RIGHT);
 
 
-        //Will remove if the tiles are walkable, this one is used to EAT as you can't eat PATH
+        //Will remove if the tiles are not walkable, this one is used to EAT as you can't eat PATH
         //Moving is a control variable, if we are not moving then we are eating in this function, thus we remove walkable tiles
-        if(!moving)  possibleDirections.removeIf(direction -> validateWalkableDirection(direction, n.worldPositionX, n.worldPositionY));
+        //This is because we eat nutrients in tiles, so we remove any path since there is nothing to eat
+        if(!moving)  possibleDirections.removeIf(direction -> tileIsNotWalkable(direction, n.tilePositionX, n.tilePositionY));
         else {
-            //If not walkable it is a candidate for movement, handles out of bounds as well
+            //If  walkable it is a candidate for movement, handles out of bounds as well
             //Here moving is true so we want to remove unwalkable tiles
-            possibleDirections.removeIf(direction -> !validateWalkableDirection(direction, n.worldPositionX, n.worldPositionY));
+            possibleDirections.removeIf(direction -> !tileIsNotWalkable(direction, n.tilePositionX, n.tilePositionY));
         }
         return possibleDirections;
     }
@@ -47,12 +48,22 @@ public class Movement {
     public static Direction getRandomDirection(int x, int y, NPC npc) {
         // List of possible directions
         List<Direction> possibleDirections = getPossibleDirections(true, npc);
+        List<Direction> subsetOfDir = new ArrayList<Direction>();
 
-        for(Direction d : possibleDirections) if(d == npc.currDirection) possibleDirections.remove(d);
+        for(Direction d : possibleDirections){
+            if(d == npc.currDirection) possibleDirections.remove(d);
+            else if(d != getOppositeDirection(npc.currDirection)){
+                subsetOfDir.add(d);
+            }
+        }
 
         // If no valid directions, return NOT_MOVING
         if (possibleDirections.isEmpty()) {
             return Direction.NOT_MOVING;
+        }
+
+        if(!subsetOfDir.isEmpty()){
+            return subsetOfDir.get(random.nextInt(subsetOfDir.size()));
         }
 
         // Randomly select a valid direction
@@ -63,6 +74,10 @@ public class Movement {
     }
 
     public static Direction getOppositeDirection(Direction dir) {
+        if(dir == null){
+            System.out.println("Null direction");
+            return Direction.NOT_MOVING;
+        }
         switch (dir) {
             case UP:
                 return Direction.DOWN;
@@ -79,7 +94,7 @@ public class Movement {
 
 
     //When checking if false it can be used to check bounds
-    public static boolean validateWalkableDirection(Direction dir, int x, int y) {
+    public static boolean tileIsNotWalkable(Direction dir, int x, int y) {
 
         //Returns true if walkable, false if not
         if (dir == Direction.UP) {
@@ -125,10 +140,10 @@ public class Movement {
 
     protected static void updateWorldPosition(NPC npc) {
         if (npc.screenPositionX % 16 == 0) {
-            npc.worldPositionX = npc.screenPositionX / ScreenSettings.TILE_SIZE;
+            npc.tilePositionX = npc.screenPositionX / ScreenSettings.TILE_SIZE;
         }
         if (npc.screenPositionY % 16 == 0) {
-            npc.worldPositionY = npc.screenPositionY / ScreenSettings.TILE_SIZE;
+            npc.tilePositionY = npc.screenPositionY / ScreenSettings.TILE_SIZE;
         }
     }
 

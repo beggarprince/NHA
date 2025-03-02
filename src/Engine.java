@@ -147,6 +147,9 @@ public class Engine implements Runnable {
                 updateNPCLists();
 
                 if(!heroActive)heroFrameCount++;
+                if(heroActive){
+                    Mvp.getInstance().runMVPLogic();
+                }
               //  timerDebug.stopMicros();
 
             }
