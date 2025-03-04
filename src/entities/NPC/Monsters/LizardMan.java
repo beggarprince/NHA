@@ -74,4 +74,9 @@ public class LizardMan extends Monster{
     public String returnNpcType() {
         return "";
     }
+
+    @Override
+    protected void spriteHandler() {
+
+    }
 }

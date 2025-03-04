@@ -1,6 +1,6 @@
 package graphics;
 //Screen settings that will be used across the game
-public class ScreenSettings {
+public  class ScreenSettings {
     // Screen settings
     public static final int ORIGINAL_TILE_SIZE = 16; // 16x16
     //TODO implement way to get resolution and set to 3 at 4k and 2 below

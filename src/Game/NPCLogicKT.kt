@@ -1,6 +1,6 @@
 package Game
 
-import entities.Combat
+import entities.NPC.Combat
 import entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.MonsterLogic.Metamorphosis
 import entities.NPC.Monsters.Monster

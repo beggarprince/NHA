@@ -49,4 +49,9 @@ public class Soldier extends Hero{
     public String returnNpcType(){
         return "Soldier";
     }
+
+    @Override
+    protected void spriteHandler() {
+
+    }
 }

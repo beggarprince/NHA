@@ -1,6 +1,6 @@
 package entities.NPC;
 
-import entities.Combat;
+import entities.Direction;
 import graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
@@ -86,7 +86,10 @@ public abstract class NPC extends Stats {
         return false;
     }
 
+    protected abstract void spriteHandler();
+
     public void genericBehavior(){
+        spriteHandler();
         if(animationFrameCounter < defaultAnimationTime) {
             animationFrameCounter++;
             //This is combat cooldown
@@ -124,6 +127,45 @@ public abstract class NPC extends Stats {
     public boolean detectNewTile(){
         return ((tilePositionX * ScreenSettings.TILE_SIZE == screenPositionX) && (tilePositionY * ScreenSettings.TILE_SIZE == screenPositionY));
     }
+
+    public boolean spriteNeedsToBeFlipped(){
+        if(this.currDirection == Direction.DOWN || this.currDirection == Direction.RIGHT){
+            return true;
+        }
+        return false;
+    }
+
+    //Determine appropriate sprite array
+    //int[] spriteSheetCount
+    // Walk hor 0
+    // walk ver 1
+    // attack hor 2
+    // attack ver 3
+    // death 4
+    protected int determineSpriteArray(){
+        //TODO this only works because i only have one animation, this will not work in the future
+
+        //ATM this just means we are in combat
+        if(animationFrameCounter != defaultAnimationTime){
+            if(currDirection == Direction.LEFT || currDirection == Direction.RIGHT){
+                return 2;
+            }
+            else if (currDirection == Direction.UP || currDirection == Direction.DOWN){
+                return 3;
+            }
+        }
+        else if(currDirection == Direction.LEFT || currDirection == Direction.RIGHT){
+            return 0;
+        }
+        else if (currDirection == Direction.UP || currDirection == Direction.DOWN){
+            return 1;
+        }
+        else if (this.health <= 0){
+            return 4;
+        }
+        return 0; //default to walking
+    }
+
 
 
 }

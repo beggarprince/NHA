@@ -1,7 +1,5 @@
 package entities.NPC.Monsters;
 import entities.NPC.Monsters.MonsterLogic.EatingSystem;
-import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
-import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import level.TileType;
@@ -92,7 +90,10 @@ public class Slime extends Monster {
         return "Slime";
     }
 
+    @Override
+    protected void spriteHandler() {
 
+    }
 
 
 }

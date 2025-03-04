@@ -1,7 +1,6 @@
 package entities.NPC.Monsters;
 
 import entities.NPC.Monsters.MonsterLogic.MonsterList;
-import entities.NPC.NPC;
 import entities.NPC.NPCType;
 import graphics.ScreenSettings;
 import util.ImgLoader;
@@ -70,5 +69,10 @@ public class Lilith extends Monster{
     @Override
     public String returnNpcType() {
         return "";
+    }
+
+    @Override
+    protected void spriteHandler() {
+
     }
 }

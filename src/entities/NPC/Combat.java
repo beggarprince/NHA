@@ -1,6 +1,5 @@
-package entities;
+package entities.NPC;
 
-import entities.NPC.NPC;
 import io.Audio.Sound;
 import level.Level;
 

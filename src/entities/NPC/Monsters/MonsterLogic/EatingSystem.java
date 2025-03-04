@@ -4,7 +4,6 @@ import entities.Direction;
 import entities.NPC.Monsters.Monster;
 import entities.NPC.Movement;
 import level.Level;
-import level.Tile;
 import level.TileType;
 import java.util.List;
 

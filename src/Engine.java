@@ -1,7 +1,7 @@
 import Game.NPCLogicKTKt;
 import Game.SpatialHash;
 import PlayerActions.Spawn;
-import entities.Combat;
+import entities.NPC.Combat;
 import entities.NPC.Heroes.HeroFactory;
 import entities.NPC.Heroes.HeroList;
 import entities.NPC.Monsters.MonsterLogic.MonsterList;
@@ -129,7 +129,6 @@ public class Engine implements Runnable {
         //Update UI
         Runnable renderingThread = () -> {
             gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
-            // else System.out.println("Can't paint UI, awaiting new frame");
         };
 
         // Create worker threads once
@@ -176,7 +175,7 @@ public class Engine implements Runnable {
                 //Set new time
                 frameRatePrevTime = frameRateCurrentTime;
 
-                timerDebug.start();
+                //timerDebug.start();
 
                 //Player camera movement
                 playerMovement(kba);
@@ -213,7 +212,7 @@ public class Engine implements Runnable {
                     Mvp.getInstance().runMVPLogic();
                 }
 
-                timerDebug.stopMicros();
+                //timerDebug.stopMicros();
 
             }
             //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
