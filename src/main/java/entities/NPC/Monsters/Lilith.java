@@ -70,4 +70,9 @@ public class Lilith extends Monster{
     public String returnNpcType() {
         return "";
     }
+
+    @Override
+    protected void spriteHandler() {
+
+    }
 }

@@ -73,5 +73,10 @@ public class Spirit extends Monster {
         return "Spirit";
     }
 
+    @Override
+    protected void spriteHandler() {
+
+    }
+
 
 }

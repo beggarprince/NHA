@@ -90,7 +90,10 @@ public class Slime extends Monster {
         return "Slime";
     }
 
+    @Override
+    protected void spriteHandler() {
 
+    }
 
 
 }

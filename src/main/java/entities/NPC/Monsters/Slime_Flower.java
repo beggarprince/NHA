@@ -74,6 +74,11 @@ public class Slime_Flower extends Monster {
         return "Slime Flower";
     }
 
+    @Override
+    protected void spriteHandler() {
+
+    }
+
     private void endOfLife(){
         if(maxHunger <= hunger) {
             MonsterList.getInstance().addEnemy(MonsterFactory.createMonster("Slime", this.tilePositionX * ScreenSettings.TILE_SIZE, this.tilePositionY * ScreenSettings.TILE_SIZE));

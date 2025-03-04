@@ -1,6 +1,7 @@
 package main.java.entities.NPC;
 
 import main.java.entities.Combat;
+import main.java.entities.Direction;
 import main.java.graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
@@ -86,17 +87,20 @@ public abstract class NPC extends Stats {
         return false;
     }
 
+    protected abstract void spriteHandler();
+
     public void genericBehavior(){
+        spriteHandler();
         if(animationFrameCounter < defaultAnimationTime) {
             animationFrameCounter++;
             //This is combat cooldown
             if(combatCooldown > 0) combatCooldown--;
             if(animationFrameCounter < defaultAnimationTime) {
                 // We are in an animation and thus can't change action
-               // System.out.println("Animation locked "+ animationFrameCounter);
+                // System.out.println("Animation locked "+ animationFrameCounter);
                 return;
             }
-          //  else System.out.println("Unlocked");
+            //  else System.out.println("Unlocked");
         }
 
 
@@ -116,14 +120,54 @@ public abstract class NPC extends Stats {
         }
 
         ///System.out.println(returnNpcType() + " health is " + health);
-   if(health <= 0){
-    isDead = true;
-    }
+        if(health <= 0){
+            isDead = true;
+        }
     }
 
     public boolean detectNewTile(){
         return ((tilePositionX * ScreenSettings.TILE_SIZE == screenPositionX) && (tilePositionY * ScreenSettings.TILE_SIZE == screenPositionY));
     }
+
+    public boolean spriteNeedsToBeFlipped(){
+        if(this.currDirection == Direction.DOWN || this.currDirection == Direction.RIGHT){
+            return true;
+        }
+        return false;
+    }
+
+    //Determine appropriate sprite array
+    //int[] spriteSheetCount
+    // Walk hor 0
+    // walk ver 1
+    // attack hor 2
+    // attack ver 3
+    // death 4
+    protected int determineSpriteArray(){
+        //TODO this only works because i only have one animation, this will not work in the future
+
+        //ATM this just means we are in combat
+        if(animationFrameCounter != defaultAnimationTime){
+            if(currDirection == Direction.LEFT || currDirection == Direction.RIGHT){
+                return 2;
+            }
+            else if (currDirection == Direction.UP || currDirection == Direction.DOWN){
+                return 3;
+            }
+        }
+        else if(currDirection == Direction.LEFT || currDirection == Direction.RIGHT){
+            return 0;
+        }
+        else if (currDirection == Direction.UP || currDirection == Direction.DOWN){
+            return 1;
+        }
+        else if (this.health <= 0){
+            return 4;
+        }
+        return 0; //default to walking
+    }
+
+
 
 
 }
