@@ -13,11 +13,11 @@ import java.awt.image.BufferedImage;
 import static main.java.Game.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Bug extends Monster {
-    int spriteCounter = 0;
+    int spriteFrameTimeCounter = 0;
+    int spriteFrame = 0;
     private int previousSpriteArray = 0;
 
 //col row width height
-
 
     //105, 7 stages for now
     //48*48
@@ -116,16 +116,19 @@ public class Bug extends Monster {
     }
 
     //To change sprite, atm not being used bc sprite sheets are now being used instead of individual sprites
+    //Maybe for like upgrading or evoultion where we change color palette i'll just change the buffered image
     @Override
     protected void setImage() {
         //  image = ImgLoader.getImageResource("bug.png");
     }
 
+    //Also useless atm UNLESS we want npc specific death logic like blowing up
     @Override
     public void destroy() {
         //  this.image = null;
     }
 
+    //Returns for canvas
     @Override
     public BufferedImage getImage() {
         return returnSprite();
@@ -166,6 +169,8 @@ public class Bug extends Monster {
         }
     }
 
+
+    //Not yet implemented
     @Override
     protected void reproductionCycle() {
 
@@ -175,28 +180,25 @@ public class Bug extends Monster {
         return "Bug";
     }
 
-    int spriteStage = 0;
-
-
     @Override
     protected void spriteHandler(){
 
         if(previousSpriteArray != determineSpriteArray()){
-            spriteCounter = 0;
-            spriteStage = 0;
+            spriteFrameTimeCounter = 0;
+            spriteFrame = 0;
             previousSpriteArray = determineSpriteArray();
         }
-        spriteCounter++;
+        spriteFrameTimeCounter++;
 
-        if(spriteCounter == (spriteArrayCoordinateCount[determineSpriteArray()]-1 ) * SpriteSettings.ANIMATION_LENGTH){
-            spriteCounter = 0;
-            spriteStage = 0;
+        if(spriteFrameTimeCounter == (spriteArrayCoordinateCount[determineSpriteArray()]-1 ) * SpriteSettings.ANIMATION_LENGTH){
+            spriteFrameTimeCounter = 0;
+            spriteFrame = 0;
         }
 
-        if(spriteCounter % SpriteSettings.ANIMATION_LENGTH == 0){
-            spriteStage++;
+        if(spriteFrameTimeCounter % SpriteSettings.ANIMATION_LENGTH == 0){
+            spriteFrame++;
         }
-        System.out.println(spriteStage);
+        System.out.println(spriteFrame);
 
     }
 
@@ -209,8 +211,7 @@ public class Bug extends Monster {
     //Setting to final seems to have done the trick
     private BufferedImage returnSprite(){
         //int x = spriteCoordinateWalking[0][0].col;
-        SpriteCoordinate temp =  spriteCoordinates[determineSpriteArray()][spriteStage];
-
+        SpriteCoordinate temp =  spriteCoordinates[determineSpriteArray()][spriteFrame];
 
         BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
         //BufferedImage subImage = image.getSubimage(21,56,48,48);
@@ -218,6 +219,5 @@ public class Bug extends Monster {
         return subImage;
 
     }
-
 
 }

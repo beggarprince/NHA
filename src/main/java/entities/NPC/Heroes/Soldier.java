@@ -6,11 +6,8 @@ import main.java.graphics.ScreenSettings;
 
 public class Soldier extends Hero{
 
-   // BufferedImage image =  ImgLoader.getImageResource("knight_mvRight.png");
-
     public Soldier(int health, int x, int y){
         super(96, x, y);
-        //TODO I really need to fix the constructor to handle health
         this.health = 96;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;
@@ -28,18 +25,12 @@ public class Soldier extends Hero{
     public void behavior() {
 
         //Ideally something
-            moveNpcAndSignal();
-            //setSprite(); // Move this to the movement function or something idek anymore
+        moveNpcAndSignal();
 
        // if(cooldown != 0 )cooldown--;
 
     }
 
-    //TODO make this an abstract function
-    private void setSprite(){
-        //if(this.currDirection == Direction.RIGHT) this.image = ImgLoader.getImageResource("sprites/hero/knight_mvRight.png");
-       // else if(this.currDirection == Direction.LEFT) this.image = ImgLoader.getImageResource("knight_mvLeft.png");
-    }
 
     @Override
     public void destroy() {
