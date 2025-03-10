@@ -9,17 +9,21 @@ import java.awt.image.BufferedImage;
 public class Slime extends Monster {
 
     static BufferedImage image = ImgLoader.getImageResource("sprites/monster/slime.png");
+    static final String metamorphosisValue = "Slime_Flower";
+    public static final int basicAttackStrength = 1;
+    public static final int maxHunger = 12;
+   // public static final NPCType type = NPCType.Slime;
+    public static final int slimeLifespan = ScreenSettings.FPS * 30;
 
     public Slime(int x, int y) {
         super(12, x, y); // Slime has a default health of 1
         this.hunger = 0;
         this.movementSpeed = 1;
         //this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
-        this.lifespan = ScreenSettings.FPS * 45;
-        this.basicAttackStrength = 1;
-        this.maxHunger = 12;
+        this.lifespan = slimeLifespan;
+        //this.basicAttackStrength = 1;
+        //this.maxHunger = 12;
         this.movementCycle = 0;
-        this.metamorphosisValue = "Slime_Flower";
         this.type = NPCType.Slime;
     }
 

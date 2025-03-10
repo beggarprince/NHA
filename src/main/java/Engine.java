@@ -103,7 +103,6 @@ public class Engine implements Runnable {
             public void run() {
                 sound.setMusic(0);
                 sound.loop();
-                System.out.println("outside while loop");
                 while(musicThread != null){
 
                 }

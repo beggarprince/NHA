@@ -101,16 +101,18 @@ public class Bug extends Monster {
     };
 
     static final BufferedImage image =  ImgLoader.getImageResource("sprites/monster/bug.png");
+    static final int bugLifespan = ScreenSettings.FPS * 45;
+    static final String metamorphosisValue = "Slime_Flower";
+    static final int hungerDecCounter = 5;
 
     public Bug( int x, int y) {
         super(32, x, y);
-
         // setImage();
         this.hunger = 0;
         this.movementSpeed = 1;
-        this.lifespan = ScreenSettings.FPS * 45;
+        this.lifespan = bugLifespan;
         this.hasFullStomach = false;
-        this.maxHunger = 32;
+        this.maxHunger = 60;
         this.basicAttackStrength = 4;
         this.type = NPCType.Bug;
     }
@@ -143,13 +145,33 @@ public class Bug extends Monster {
             return;
         }
 
+        //decrease hunger every 5 frames
+        if(this.hunger % 5 == 0){
+            hunger--;
+            if(hunger < maxHunger / 2){
+                //System.out.println("The bug became hungry");
+                hasFullStomach = false;
+            }
+        }
+
         //check if they can eat
-        if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)){
-            eat();
+        if(!hasFullStomach) {
+            if (checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)) {
+                //System.out.println("The bug shall engage in eating");
+                eat();
+            }
+            else {
+                //System.out.println("The bug did not find any food");
+                moveNpcAndSignal();
+            }
         }
+        //Wonky code. If the bug is not hungry i'm not checking lists, that doesn't mean we don't move
+        //We also don't want to move if eat() runs, like at all.
         else {
-            if (moveNpcAndSignal()) ;
+            //System.out.println("The bug is not hungry");
+            moveNpcAndSignal();
         }
+
 
     }
 
@@ -158,6 +180,9 @@ public class Bug extends Monster {
         this.startAnimation();
         this.hunger += basicAttackStrength;
         this.health += basicAttackStrength;
+        if(this.hunger == maxHunger) {
+            hasFullStomach = true;
+        }
     }
 
     @Override
@@ -165,7 +190,7 @@ public class Bug extends Monster {
         lifespan--;
         if(lifespan == 0){
             //There needs to be code  here to determine whether the slime reproduces or just dies
-            metamorphosisReady = false;
+            if(this.hunger >= this.maxHunger/2 )metamorphosisReady = true;
         }
     }
 
@@ -198,7 +223,7 @@ public class Bug extends Monster {
         if(spriteFrameTimeCounter % SpriteSettings.ANIMATION_LENGTH == 0){
             spriteFrame++;
         }
-        System.out.println(spriteFrame);
+        //System.out.println(spriteFrame);
 
     }
 
