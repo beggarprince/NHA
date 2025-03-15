@@ -8,6 +8,9 @@ import main.java.level.Level;
 import main.java.level.Tile;
 import main.java.level.TileType;
 import main.java.util.Coordinate;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
@@ -67,6 +70,8 @@ public class HeroPathfinder extends Movement {
     }
 
     private Direction selectUnvisitedTile(){
+        List<Direction> directions = new ArrayList<>();
+
         Direction direction = Direction.NOT_MOVING;
 
         //0 means unvisited btw
@@ -74,33 +79,51 @@ public class HeroPathfinder extends Movement {
                 visitedMap[currHero.tilePositionY-1][currHero.tilePositionX] == 0 &&
         Level.getInstance().tileData.get(currHero.tilePositionY-1).get(currHero.tilePositionX).walkable){
             direction = Direction.UP;
+            directions.add(Direction.UP);
         }
-        else if(
+         if(
                 currHero.tilePositionY < Level.levelRows-1 &&
                 visitedMap[currHero.tilePositionY+1][currHero.tilePositionX] == 0 &&
                 Level.getInstance().tileData.get(currHero.tilePositionY+1).get(currHero.tilePositionX).walkable){
             direction = Direction.DOWN;
+            directions.add(Direction.DOWN);
         }
-        else if(currHero.tilePositionX >0 &&
+         if(currHero.tilePositionX >0 &&
                 visitedMap[currHero.tilePositionY][currHero.tilePositionX-1] == 0 &&
                 Level.getInstance().tileData.get(currHero.tilePositionY).get(currHero.tilePositionX-1).walkable){
             direction = Direction.LEFT;
+            directions.add(Direction.LEFT);
         }
-        else if(
+         if(
                 currHero.tilePositionX < Level.levelColumns-1&&
                 visitedMap[currHero.tilePositionY][currHero.tilePositionX+1] == 0 &&
                 Level.getInstance().tileData.get(currHero.tilePositionY).get(currHero.tilePositionX+1).walkable){
             direction = Direction.RIGHT;
+            directions.add(Direction.RIGHT);
         }
 
+        //There are no new paths available
         if(direction != Direction.NOT_MOVING){
            // System.out.println("Found appropriate unexplored direction to move into thus currentlyBacktracking is false");
             currentlyBacktracking = false;
         }
         else{
-            //System.out.println("Could not find appropriate direction to move into");
+            return direction;
         }
-        return direction;
+
+        if(directions.size() ==1) return direction;
+
+        else{
+            if(directions.size() ==0){
+                System.out.println(direction);
+                System.out.println("what the fuck");
+            }
+
+            int index = random.nextInt(directions.size());
+
+            System.out.println(index);
+            return directions.get(index);
+        }
     }
 
     public Direction determineNextMoveBacktracking(){
