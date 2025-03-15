@@ -30,40 +30,39 @@ public class HeroPathfinder extends Movement {
     }
 
     //This responsibility is solely to get a new direction for the hero to move into
-    public Direction determinePath(){
+    public Direction determinePath(boolean hasMvp){
         //check to see that we don't hae any adjacent unvisited tiles
+        Direction potentialDirection;
 
         //Initially we check if there are any new paths available and return the direction towards the new path
-        Direction potentialDirection = selectUnvisitedTile();
-        if(potentialDirection != Direction.NOT_MOVING) return potentialDirection;
+        if(!hasMvp) {
+             potentialDirection = selectUnvisitedTile();
+            if (potentialDirection != Direction.NOT_MOVING) return potentialDirection;
+        }
 
         //If not then we have to backtrack
         potentialDirection = determineNextMoveBacktracking();
+
         if(potentialDirection == Direction.NOT_MOVING){
-            System.out.println("We attempted to backtrack and were unable to find an path");
+            System.out.println("BACKTRACKING COULD NOT FIND DIR");
         }
         return potentialDirection;
     }
 
 
     //Call this on every move not on backtrack
-    public void logPath(){
-        //We do not want to log backtracking
-        if(currentlyBacktracking) {
-          //  dfs.pop();
+    public void logPath(boolean hasMvp){
+        //We do not want to log backtracking or when we have the mvp in tow
+        if(currentlyBacktracking ) {
             return;
         }
-
-//        if(!dfs.isEmpty()) {
-//            if(currHero.tilePositionY == dfs.peek().y && currHero.tilePositionX == dfs.peek().x)return;
-//        }
-       // System.out.println("LOGGING "+currHero.tilePositionX+ " " +  currHero.tilePositionY);
         addToLinkedList(new Coordinate(currHero.tilePositionX, currHero.tilePositionY));
         //Log as visited
         visitedMap[currHero.tilePositionY][currHero.tilePositionX] =1 ;
     }
 
     private void addToLinkedList(Coordinate cor){
+        //System.out.println("Adding " + cor.x + ":"+ cor.y +" to list");
         dfs.add(cor);
     }
 
@@ -109,7 +108,7 @@ public class HeroPathfinder extends Movement {
 
         Direction direction = Direction.NOT_MOVING;
 
-        if(dfs.isEmpty()) return direction;
+        if(dfs.isEmpty()) return direction; //Empty stack exception ffs
 
         dfs.pop();
         if(dfs.isEmpty()) return direction;
@@ -120,11 +119,12 @@ public class HeroPathfinder extends Movement {
 
        // System.out.println("Difference x:y = "+ diffX + " " + diffY);
 
-        if(diffX != 0 || diffY !=0){
-            System.out.println("Backtracking");
+        if((diffX == 0 && Math.abs(diffY) == 1)|| (diffY ==0 && Math.abs(diffX) ==1)){
+          //  System.out.println("Backtracking");
         }
+
         else{
-       // System.out.println("No diff in x and y in the last pop");
+        System.out.println("X:Y " + diffX +":"+ diffY);
         }
 
         if(diffY == 0){

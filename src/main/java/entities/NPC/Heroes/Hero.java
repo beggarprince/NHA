@@ -35,6 +35,7 @@ public abstract class Hero extends NPC {
     }
 
     public void kidnap(){
+        System.out.println("Mvp has been kidnapped");
         this.hasMVP = true;
 
     }

@@ -25,6 +25,7 @@ public class Soldier extends Hero{
         this.pathfinding = new HeroPathfinder(this);
         lastTilePosX = tilePositionX;
         lastTilePosY = tilePositionY;
+        this.hasMVP = false;
     }
     int lastTilePosX;
     int lastTilePosY;
@@ -32,32 +33,22 @@ public class Soldier extends Hero{
     @Override
     public void behavior() {
 
-
-        if(this.hasMVP) {
-            pathfinding.currentlyBacktracking = true;
-        }
-
-        if(pathfinding.currentlyBacktracking){
-            moveNpcAndSignalTrueIfWeMove();
-            if (detectNewTile()) {
-                currDirection = pathfinding.determineNextMoveBacktracking();
-            }
-        }
-
-         else if(moveNpcAndSignalTrueIfWeMove()){
+   // System.out.println(this.currDirection);
+          if(moveNpcAndSignalTrueIfWeMove()){
 
             //This is how we know we are at a new tile
             if(detectNewTile()){
-                pathfinding.logPath();
-                if(pathfinding.currentlyBacktracking) {
-                    currDirection = pathfinding.determinePath();
+                pathfinding.logPath(hasMVP);
+
+                if(pathfinding.currentlyBacktracking || hasMVP) {
+                    currDirection = pathfinding.determinePath(hasMVP);
                 }
             }
         }
 
         //This means we hit a wall
         else if(couldNotMoveForward){
-            this.currDirection = pathfinding.determinePath();
+            this.currDirection = pathfinding.determinePath(hasMVP);
             couldNotMoveForward = false;
         }
 

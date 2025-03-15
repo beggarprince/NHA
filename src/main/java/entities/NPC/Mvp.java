@@ -48,11 +48,13 @@ public class Mvp {
             }
             else if(((hero.tilePositionX -1 == tsy) || (hero.tilePositionY + 1 == tsy)) && hero.tilePositionX == tsx){
                 kidnapper = hero;
-                kidnapper.kidnap();
                 kidnapped = true;
             }
         }
-        if(kidnapped) System.out.println("GAAAAAAAAH I'VE BEEN HAD");
+        if(kidnapped){
+            kidnapper.kidnap();
+            System.out.println("MVP kidnapped");
+        }
     }
 
     private void moveMvp(){
