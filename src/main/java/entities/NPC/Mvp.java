@@ -48,6 +48,7 @@ public class Mvp {
             }
             else if(((hero.tilePositionX -1 == tsy) || (hero.tilePositionY + 1 == tsy)) && hero.tilePositionX == tsx){
                 kidnapper = hero;
+                kidnapper.kidnap();
                 kidnapped = true;
             }
         }

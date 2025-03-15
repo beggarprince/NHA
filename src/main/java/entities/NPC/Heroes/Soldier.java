@@ -1,5 +1,6 @@
 package main.java.entities.NPC.Heroes;
 
+import main.java.entities.Direction;
 import main.java.util.ImgLoader;
 import main.java.graphics.ScreenSettings;
 
@@ -31,23 +32,34 @@ public class Soldier extends Hero{
     @Override
     public void behavior() {
 
-        //Ideally something
-        if(moveNpcAndSignalTrueIfWeMove()){ //TODO this is temp until the refactor where i'll use a "atNewTile" boolean
 
-            if(lastTilePosX != tilePositionX || lastTilePosY != tilePositionY){
-                lastTilePosY = tilePositionY;
-                lastTilePosX = tilePositionX;
+        if(this.hasMVP) {
+            pathfinding.currentlyBacktracking = true;
+        }
 
-                System.out.println("At new tile");
-                pathfinding.logPath();
+        if(pathfinding.currentlyBacktracking){
+            moveNpcAndSignalTrueIfWeMove();
+            if (detectNewTile()) {
+                currDirection = pathfinding.determineNextMoveBacktracking();
             }
-
         }
-        else if(changedDirectionInMoveTempBoolean == true){
+
+         else if(moveNpcAndSignalTrueIfWeMove()){
+
+            //This is how we know we are at a new tile
+            if(detectNewTile()){
+                pathfinding.logPath();
+                if(pathfinding.currentlyBacktracking) {
+                    currDirection = pathfinding.determinePath();
+                }
+            }
+        }
+
+        //This means we hit a wall
+        else if(couldNotMoveForward){
             this.currDirection = pathfinding.determinePath();
-            System.out.println(pathfinding.determinePath());
+            couldNotMoveForward = false;
         }
-
 
     }
 

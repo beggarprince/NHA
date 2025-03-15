@@ -20,7 +20,7 @@ public abstract class NPC extends Stats {
 
     public int fxIndex = -1;
 
-    public boolean changedDirectionInMoveTempBoolean = false;
+    public boolean couldNotMoveForward = false;
 
     //Logical position on tile array
     public int tilePositionX;
@@ -66,7 +66,10 @@ public abstract class NPC extends Stats {
 
     //TODO RENAME
     protected boolean moveNpcAndSignalTrueIfWeMove(){
-
+        if(currDirection == Direction.NOT_MOVING){
+            //System.out.println("This " + returnNpcType() +" got stuck moving fr");
+            return false;
+        }
         boolean canMove = true;
 
         //If the movement cycle is not 0 then we know we are still moving in a valid direction so we don't have to check if said direction is valid
@@ -77,7 +80,7 @@ public abstract class NPC extends Stats {
             Movement.move(this);
             Movement.updateWorldPosition(this);
             Movement.signalNewTile(this);
-            changedDirectionInMoveTempBoolean = false;
+            couldNotMoveForward = false;
             //only at new tile do we signal that they moved
             return true;
         }
@@ -87,7 +90,7 @@ public abstract class NPC extends Stats {
             //TODO this should NOT be changing directions NOR signaling at new tile, that ought to be done elsewhere like a boolean at new tile
 
             //TODO for now hero will use this hack until i refactor
-            changedDirectionInMoveTempBoolean = true;
+            couldNotMoveForward = true;
             currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY, this);
 
         }

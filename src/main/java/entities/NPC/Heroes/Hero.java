@@ -1,6 +1,7 @@
 package main.java.entities.NPC.Heroes;
 
 import main.java.entities.NPC.Movement;
+import main.java.entities.NPC.Mvp;
 import main.java.entities.NPC.NPC;
 import main.java.graphics.ScreenSettings;
 
@@ -11,6 +12,7 @@ public abstract class Hero extends NPC {
 
     protected int movementSpeed; // How many pixels an enemy offsets per frame
     protected int movementCycle; // How long it takes before we logically know we are at a new tile without math
+    protected boolean hasMVP = false;
 
     //TODO remove health from this pos
     public Hero(int health, int x, int y){
@@ -30,6 +32,11 @@ public abstract class Hero extends NPC {
     public Image getImage() {
         if(image == null) System.out.println("Error null image");
         return image;
+    }
+
+    public void kidnap(){
+        this.hasMVP = true;
+
     }
 
 }

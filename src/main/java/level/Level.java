@@ -46,7 +46,7 @@ public class Level {
 
     private Level() {
 
-        LevelGenerator levelGenerator = new LevelGenerator(75, 90);
+        LevelGenerator levelGenerator = new LevelGenerator(99, 100);
         levelData = levelGenerator.returnLevel();
 
 

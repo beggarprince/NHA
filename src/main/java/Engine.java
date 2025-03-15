@@ -102,7 +102,7 @@ public class Engine implements Runnable {
             @Override
             public void run() {
                 sound.setMusic(0);
-                sound.loop();
+                //sound.loop();
                 while(musicThread != null){
 
                 }
