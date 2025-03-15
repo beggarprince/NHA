@@ -4,6 +4,7 @@ import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Monsters.Monster;
 import main.java.entities.NPC.Mvp;
 import main.java.entities.Player;
+import main.java.graphics.ui.UIMessages;
 import main.java.graphics.ui.UINumber;
 import main.java.io.KbInput;
 import main.java.level.Tile;
@@ -29,7 +30,9 @@ public class GameCanvas extends JPanel {
     private int startTileX = 0;
     private int endTileY = 0;
     private int endTileX = 0;
-    private final UINumber numberSprite;
+    private final UINumber uiNumber;
+    private final UIMessages uiMessages;
+    private boolean hideMvpState = false;
 
     public GameCanvas(KbInput kb,
                       Player p,
@@ -45,14 +48,16 @@ public class GameCanvas extends JPanel {
         player = p;
         level = levelData;
         camera = c;
-        numberSprite = new UINumber();
+        uiNumber = new UINumber();
+        uiMessages = new UIMessages();
         //gameCanvas.setDoubleBuffered(true);
         //gameCanvas.setPreferredSize(new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT));
     }
 
-    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
+    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList, boolean hidingMVPState){
         monsterList =frameMonsterList;
         heroList = frameHeroList;
+        hideMvpState = hidingMVPState;
         this.repaint();
     }
 
@@ -67,6 +72,7 @@ public class GameCanvas extends JPanel {
         paintHeroes(g2);
         paintBadman(g2);
         paintUIDigPower(g2);
+        if(hideMvpState) paintHideMVPMessage(g2);
         g2.dispose();
 
     }
@@ -178,7 +184,7 @@ public class GameCanvas extends JPanel {
         }
     }
     private void paintUIDigPower(Graphics2D g){
-        var list = numberSprite.determineUINumberDisplay(player.getDigPower());
+        var list = uiNumber.determineUINumberDisplay(player.getDigPower());
 
         for(int i = 0; i < list.size(); i++){
 
@@ -186,5 +192,12 @@ public class GameCanvas extends JPanel {
 
         }
        // g.drawImage(ImgLoader.getImageResource("sprites/ui/0.png"), ScreenSettings.PX_UI_DIGPOWER_X, ScreenSettings.PX_UI_DIGPOWER_Y, null);
+    }
+
+    //TODO handle more than just a single message per function smh
+    private void paintHideMVPMessage(Graphics2D g){
+        g.drawImage(uiMessages.uiHideMVPMessage,
+                uiMessages.uiHideMvpMessageStylizedOffsetX,
+                uiMessages.uiHideMvpMessageStylizedOffsetY, null);
     }
 }

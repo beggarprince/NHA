@@ -129,7 +129,7 @@ public class Engine implements Runnable {
 
         //Update UI
         Runnable renderingThread = () -> {
-            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
+            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes(), (!mvpPlaced && heroSpawnTimer()) );
             // else System.out.println("Can't paint UI, awaiting new frame");
         };
 
