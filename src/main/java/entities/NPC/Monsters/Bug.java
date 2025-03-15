@@ -162,14 +162,14 @@ public class Bug extends Monster {
             }
             else {
                 //System.out.println("The bug did not find any food");
-                moveNpcAndSignal();
+                moveNpcAndSignalTrueIfWeMove();
             }
         }
         //Wonky code. If the bug is not hungry i'm not checking lists, that doesn't mean we don't move
         //We also don't want to move if eat() runs, like at all.
         else {
             //System.out.println("The bug is not hungry");
-            moveNpcAndSignal();
+            moveNpcAndSignalTrueIfWeMove();
         }
 
 

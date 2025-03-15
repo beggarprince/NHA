@@ -62,7 +62,7 @@ public class LizardMan extends Monster{
             return;
         }
         else {
-            if (moveNpcAndSignal());
+            if (moveNpcAndSignalTrueIfWeMove());
         }
     }
 

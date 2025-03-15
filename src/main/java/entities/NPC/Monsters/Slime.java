@@ -58,7 +58,7 @@ public class Slime extends Monster {
         }
 
         //We see if we can move this direction
-        if (moveNpcAndSignal()) ;
+        if (moveNpcAndSignalTrueIfWeMove()) ;
         if (detectNewTile()) eatingCycleReady = true;
         agingCycle();
 

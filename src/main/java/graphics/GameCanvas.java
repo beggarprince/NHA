@@ -46,6 +46,8 @@ public class GameCanvas extends JPanel {
         level = levelData;
         camera = c;
         numberSprite = new UINumber();
+        //gameCanvas.setDoubleBuffered(true);
+        //gameCanvas.setPreferredSize(new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT));
     }
 
     public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){

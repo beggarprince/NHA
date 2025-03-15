@@ -46,7 +46,7 @@ public class Skeleton extends Monster{
 
     @Override
     public void behavior() {
-        moveNpcAndSignal();
+        moveNpcAndSignalTrueIfWeMove();
     }
 
     @Override

@@ -58,7 +58,7 @@ public class Lilith extends Monster{
         if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Spirit)){
             eat();
         }
-        moveNpcAndSignal();
+        moveNpcAndSignalTrueIfWeMove();
     }
 
     @Override

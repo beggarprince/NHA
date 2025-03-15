@@ -20,6 +20,8 @@ public abstract class NPC extends Stats {
 
     public int fxIndex = -1;
 
+    public boolean changedDirectionInMoveTempBoolean = false;
+
     //Logical position on tile array
     public int tilePositionX;
     public int tilePositionY;
@@ -63,7 +65,7 @@ public abstract class NPC extends Stats {
 
 
     //TODO RENAME
-    protected boolean moveNpcAndSignal(){
+    protected boolean moveNpcAndSignalTrueIfWeMove(){
 
         boolean canMove = true;
 
@@ -75,12 +77,17 @@ public abstract class NPC extends Stats {
             Movement.move(this);
             Movement.updateWorldPosition(this);
             Movement.signalNewTile(this);
+            changedDirectionInMoveTempBoolean = false;
             //only at new tile do we signal that they moved
             return true;
         }
 
         else{
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
+            //TODO this should NOT be changing directions NOR signaling at new tile, that ought to be done elsewhere like a boolean at new tile
+
+            //TODO for now hero will use this hack until i refactor
+            changedDirectionInMoveTempBoolean = true;
             currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY, this);
 
         }
@@ -144,7 +151,7 @@ public abstract class NPC extends Stats {
     // attack ver 3
     // death 4
     protected int determineSpriteArray(){
-        //TODO this only works because i only have one animation, this will not work in the future
+        //TODO this only works because i only have one animation length, this will not work in the future
 
         //ATM this just means we are in combat
         if(animationFrameCounter != defaultAnimationTime){

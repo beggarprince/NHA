@@ -11,7 +11,7 @@ import java.util.Random;
 import static main.java.util.CollisionKt.detectWalkableTile;
 
 public class Movement {
-    static Level levelInstance; //The static might create issues
+    static Level levelInstance;
 
     public static void setLevelInstance(){
         levelInstance = Level.getInstance("res/levelTest.csv");

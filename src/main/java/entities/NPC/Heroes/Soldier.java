@@ -1,10 +1,12 @@
 package main.java.entities.NPC.Heroes;
 
-import main.java.entities.Direction;
 import main.java.util.ImgLoader;
 import main.java.graphics.ScreenSettings;
 
 public class Soldier extends Hero{
+
+    //TODO the rest can have static images, this can't. Figure out why
+  //  public static BufferedImage image =  ImgLoader.getImageResource("sprites/hero/knight_mvRight.png");
 
     public Soldier(int health, int x, int y){
         super(96, x, y);
@@ -19,15 +21,33 @@ public class Soldier extends Hero{
         this.image = ImgLoader.getImageResource("sprites/hero/knight_mvRight.png");
         this.combatCooldown = 60;
         this.fxIndex = 1;
+        this.pathfinding = new HeroPathfinder(this);
+        lastTilePosX = tilePositionX;
+        lastTilePosY = tilePositionY;
     }
+    int lastTilePosX;
+    int lastTilePosY;
 
     @Override
     public void behavior() {
 
         //Ideally something
-        moveNpcAndSignal();
+        if(moveNpcAndSignalTrueIfWeMove()){ //TODO this is temp until the refactor where i'll use a "atNewTile" boolean
 
-       // if(cooldown != 0 )cooldown--;
+            if(lastTilePosX != tilePositionX || lastTilePosY != tilePositionY){
+                lastTilePosY = tilePositionY;
+                lastTilePosX = tilePositionX;
+
+                System.out.println("At new tile");
+                pathfinding.logPath();
+            }
+
+        }
+        else if(changedDirectionInMoveTempBoolean == true){
+            this.currDirection = pathfinding.determinePath();
+            System.out.println(pathfinding.determinePath());
+        }
+
 
     }
 
