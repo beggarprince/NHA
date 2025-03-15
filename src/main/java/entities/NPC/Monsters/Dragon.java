@@ -4,6 +4,7 @@ import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.NPCType;
 import main.java.graphics.ScreenSettings;
 import main.java.util.ImgLoader;
+import main.java.util.StringRes;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +12,7 @@ import static main.java.Game.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Dragon extends Monster{
 
-    static BufferedImage image = ImgLoader.getImageResource("sprites/monster/dragon.png");
+    static BufferedImage image = ImgLoader.getImageResource(StringRes.MONSTER_DRAGON);
 
     public Dragon( int x, int y) {
         super(300, x, y);
@@ -27,7 +28,7 @@ public class Dragon extends Monster{
 
     @Override
     protected void setImage() {
-        image = ImgLoader.getImageResource("sprites/monster/dragon.png");
+        image = ImgLoader.getImageResource(StringRes.MONSTER_DRAGON);
     }
 
     @Override

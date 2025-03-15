@@ -33,6 +33,7 @@ public class GameCanvas extends JPanel {
     private final UINumber uiNumber;
     private final UIMessages uiMessages;
     private boolean hideMvpState = false;
+    private boolean gameOver = false;
 
     public GameCanvas(KbInput kb,
                       Player p,
@@ -54,10 +55,11 @@ public class GameCanvas extends JPanel {
         //gameCanvas.setPreferredSize(new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT));
     }
 
-    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList, boolean hidingMVPState){
+    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList, boolean hidingMVPState, boolean gameLoss){
         monsterList =frameMonsterList;
         heroList = frameHeroList;
         hideMvpState = hidingMVPState;
+        gameOver = gameLoss;
         this.repaint();
     }
 
@@ -73,6 +75,7 @@ public class GameCanvas extends JPanel {
         paintBadman(g2);
         paintUIDigPower(g2);
         if(hideMvpState) paintHideMVPMessage(g2);
+        if(gameOver) paintGameOverMessage(g2);
         g2.dispose();
 
     }
@@ -199,5 +202,12 @@ public class GameCanvas extends JPanel {
         g.drawImage(uiMessages.uiHideMVPMessage,
                 uiMessages.uiHideMvpMessageStylizedOffsetX,
                 uiMessages.uiHideMvpMessageStylizedOffsetY, null);
+    }
+
+    private void paintGameOverMessage(Graphics2D g){
+        g.drawImage(uiMessages.uiGameOver,
+                uiMessages.uiGameOverMessageStylizedOffsetX,
+                uiMessages.uiGameOverMessageStylizedOffsetY,
+                null);
     }
 }

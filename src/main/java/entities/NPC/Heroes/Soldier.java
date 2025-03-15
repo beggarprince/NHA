@@ -52,6 +52,7 @@ public class Soldier extends Hero{
             couldNotMoveForward = false;
         }
 
+
     }
 
 

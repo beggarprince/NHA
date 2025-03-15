@@ -46,6 +46,8 @@ public class Engine implements Runnable {
     private boolean mvpPlaced = false;
     private int xEntry;
     private TimerDebug timerDebug;
+    private boolean gameLoss = false;
+
     // Constructor
     public Engine() {
 
@@ -129,11 +131,10 @@ public class Engine implements Runnable {
 
         //Update UI
         Runnable renderingThread = () -> {
-            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes(), (!mvpPlaced && heroSpawnTimer()) );
+            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes(), (!mvpPlaced && heroSpawnTimer()), gameLoss );
             // else System.out.println("Can't paint UI, awaiting new frame");
         };
 
-        // Create worker threads once
         Thread uiWorker = new Thread(() -> {
             while (gameLifecycle != null) {
                 try {
@@ -155,6 +156,9 @@ public class Engine implements Runnable {
                     synchronized (npcLogicLock) {
                         npcLogicLock.wait(); // Wait for main thread to signal
                         npcLogicThread.run(); // Execute task when signaled
+                        if(Mvp.getInstance().getPositionX() == Level.levelColumns/2 && Mvp.getInstance().getPositionY() ==0 ){
+                            gameLoss = true;
+                        }
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();

@@ -7,6 +7,7 @@ import main.java.entities.SpriteCoordinate;
 import main.java.graphics.ScreenSettings;
 import main.java.graphics.SpriteSettings;
 import main.java.util.ImgLoader;
+import main.java.util.StringRes;
 
 import java.awt.image.BufferedImage;
 
@@ -100,7 +101,7 @@ public class Bug extends Monster {
             }
     };
 
-    static final BufferedImage image =  ImgLoader.getImageResource("sprites/monster/bug.png");
+    static final BufferedImage image =  ImgLoader.getImageResource(StringRes.MONSTER_BUG);
     static final int bugLifespan = ScreenSettings.FPS * 45;
     static final String metamorphosisValue = "Slime_Flower";
     static final int hungerDecCounter = 5;

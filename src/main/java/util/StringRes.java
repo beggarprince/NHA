@@ -18,13 +18,14 @@ public class StringRes {
 
     //PNG image Messages
     public static final String MESSAGE_HIDE_MVP = "sprites/ui/hideMvpMessage.png";
+    public static final String MESSAGE_GAMEOVER = "sprites/ui/gameOver.png";
 
     //Sprites
     //Monsters
     public static final String MONSTER_SLIME = "sprites/monster/slime.png";
     public static final String MONSTER_BUG = "sprites/monster/bug.png";
     public static final String MONSTER_SLIME_FLOWER = "sprites/monster/slime_flower.png";
-    public static final String MONSTER_LIZARD = "sprites/monster/LizardmanSprite.png";
+    public static final String MONSTER_LIZARD = "sprites/monster/lmanSheet.png";
     public static final String MONSTER_LILITH = "sprites/monster/lilith.png";
     public static final String MONSTER_DRAGON = "sprites/monster/dragon.png";
     public static final String MONSTER_SPIRIT = "sprites/monster/spirit.png";

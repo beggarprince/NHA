@@ -4,12 +4,13 @@ import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.util.ImgLoader;
 import main.java.graphics.ScreenSettings;
+import main.java.util.StringRes;
 
 import java.awt.image.BufferedImage;
 
 public class Slime_Flower extends Monster {
     MonsterList monsterListInstance;
-    static BufferedImage image = ImgLoader.getImageResource("sprites/monster/slime_flower.png");
+    static BufferedImage image = ImgLoader.getImageResource(StringRes.MONSTER_SLIME_FLOWER);
 
     public Slime_Flower( int x, int y) {
         super(18, x, y);
@@ -26,7 +27,7 @@ public class Slime_Flower extends Monster {
 
     @Override
     protected void setImage() {
-        image = ImgLoader.getImageResource("sprites/monster/slime_flower.png");
+        image = ImgLoader.getImageResource(StringRes.MONSTER_SLIME_FLOWER);
     }
 
     @Override
