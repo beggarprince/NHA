@@ -23,6 +23,7 @@ public class Soldier extends Hero{
         this.combatCooldown = 60;
         this.fxIndex = 1;
         this.pathfinding = new HeroPathfinder(this);
+        pathfinding.logPath(false);
         lastTilePosX = tilePositionX;
         lastTilePosY = tilePositionY;
         this.hasMVP = false;

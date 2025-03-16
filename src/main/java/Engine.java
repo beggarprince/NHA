@@ -25,7 +25,6 @@ import static main.java.PlayerActions.Dig.dig;
 import static main.java.io.Audio.Sound.getSoundInstance;
 
 public class Engine implements Runnable {
-    private boolean newFrame = false;
     private final Camera camera;
     private final KbInput kb;
     private int kbInputDebugJankTimer = 60;
@@ -156,7 +155,7 @@ public class Engine implements Runnable {
                     synchronized (npcLogicLock) {
                         npcLogicLock.wait(); // Wait for main thread to signal
                         npcLogicThread.run(); // Execute task when signaled
-                        if(Mvp.getInstance().getPositionX() == Level.levelColumns/2 && Mvp.getInstance().getPositionY() ==0 ){
+                        if(Mvp.getInstance().mvpAtEntrance()){
                             gameLoss = true;
                         }
                     }

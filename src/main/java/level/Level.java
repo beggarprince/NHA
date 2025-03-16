@@ -1,6 +1,7 @@
 package main.java.level;
 
 import main.java.graphics.ScreenSettings;
+import main.java.util.Coordinate;
 
 import java.util.ArrayList;
 
@@ -19,12 +20,13 @@ public class Level {
     //Higher scale will mean that the map will have less of the nutrient per block
     //Say l3 distribution for mana is 98, then out of we get a number 0-100 and only 98/99/100 assign it that main.java.level
     //Goes to the highest main.java.level, so if not 97 then l2 mana block. If below l1 requirement it's just a block
-    public static int manaL2Distribution = 90;
-    public static int manaL3Distribution = 95;
-    public static int nutrientL2Distribution = 70;
-    public static int nutrientL3Distribution = 95;
+    public static int manaL2Distribution = 95;
+    public static int manaL3Distribution = 100;
+    public static int nutrientL2Distribution = 99;
+    public static int nutrientL3Distribution = 101;
 
-
+    public static Coordinate initialMVPCoordinate = new Coordinate(0,0);
+    public static Coordinate entryPoint = new Coordinate(0,0);
     //Distribution is the balance out of 100.
     //Nutrient has to be less than mana
     //mana priority, if above mana distribution value it's a mana, if above nutrient then nutrient, otherwise empty tile
@@ -46,7 +48,7 @@ public class Level {
 
     private Level() {
 
-        LevelGenerator levelGenerator = new LevelGenerator(99, 100);
+        LevelGenerator levelGenerator = new LevelGenerator(85, 97);
         levelData = levelGenerator.returnLevel();
 
 
@@ -80,6 +82,9 @@ public class Level {
     private void createInitialPath(){
         int y = 0;
         int x = Level.levelColumns /2;
+        entryPoint.x = x;
+        entryPoint.y = y;
+
         levelData.get(y).set(x,3); // leveldata goes from int to enum to tile smh
         levelData.get(y++).set(x,3);
         levelData.get(y++).set(x,3);
@@ -88,6 +93,8 @@ public class Level {
         levelData.get(y).set(x,3);
         levelData.get(y).set(x+1,3);
 
+        initialMVPCoordinate.x = x+1;
+        initialMVPCoordinate.y = y;
     }
 
 

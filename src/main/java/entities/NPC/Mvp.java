@@ -4,6 +4,7 @@ import main.java.entities.Direction;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.graphics.ScreenSettings;
+import main.java.level.Level;
 import main.java.util.ImgLoader;
 
 import java.awt.image.BufferedImage;
@@ -26,7 +27,7 @@ public class Mvp {
     int yd = 108;
 
     private Mvp(){
-
+        setXY(Level.initialMVPCoordinate.x, Level.initialMVPCoordinate.y);
     }
 
     public void runMVPLogic(){
@@ -178,6 +179,13 @@ public class Mvp {
 
         BufferedImage img = image.getSubimage(x  , y, 68,68);
         return img;
+    }
+
+    public boolean mvpAtEntrance(){
+        if(!kidnapped) return false;
+        if(kidnapper.tilePositionX == Level.entryPoint.x && kidnapper.tilePositionY == Level.entryPoint.y) return true;
+     //   System.out.println(kidnapper.tilePositionX + " " + kidnapper.tilePositionY);
+        return false;
     }
 }
 
