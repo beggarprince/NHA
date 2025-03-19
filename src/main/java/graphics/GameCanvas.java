@@ -1,6 +1,8 @@
 package main.java.graphics;
 
+import main.java.GameState;
 import main.java.Menu.PauseMenu;
+import main.java.State;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Monsters.Monster;
 import main.java.entities.NPC.Mvp;
@@ -33,8 +35,6 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
     private final UINumber uiNumber;
     private final UIMessages uiMessages;
-    private boolean hideMvpState = false;
-    private boolean gameOver = false;
 
     public GameCanvas(KbInputInGame kb,
                       Player p,
@@ -56,11 +56,10 @@ public class GameCanvas extends JPanel {
         //gameCanvas.setPreferredSize(new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT));
     }
 
-    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList, boolean hidingMVPState, boolean gameLoss){
+    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
         monsterList =frameMonsterList;
         heroList = frameHeroList;
-        hideMvpState = hidingMVPState;
-        gameOver = gameLoss;
+
         this.repaint();
     }
 
@@ -75,11 +74,10 @@ public class GameCanvas extends JPanel {
         paintHeroes(g2);
         paintBadman(g2);
         paintUIDigPower(g2);
-        PauseMenu.GrayRectangleBackground(g2);
-
+        //PauseMenu.GrayRectangleBackground(g2);
         //TODO replace this with some state code instead of booleans
-        if(hideMvpState) paintHideMVPMessage(g2);
-        if(gameOver) paintGameOverMessage(g2);
+        if(GameState.hidingMvp) paintHideMVPMessage(g2);
+        if(GameState.gameState == State.GAMEOVER) paintGameOverMessage(g2);
         g2.dispose();
 
     }

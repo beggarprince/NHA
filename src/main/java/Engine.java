@@ -37,15 +37,13 @@ public class Engine implements Runnable {
     private final HeroFactory heroFactory;
     private final HeroList heroList;
     //private final NPCLogic logic;
-    private final SpatialHash spatialHash;
+    //private final SpatialHash spatialHash;
     Sound sound;
     private boolean heroActive = false;
     private final int heroSpawnTimer = 600 * 1; // Ten seconds for now, 60 after *
-    private int heroFrameCount = 0;
-    private boolean mvpPlaced = false;
+    private int heroSpawnCountdown = 0;
     private int xEntry;
     private TimerDebug timerDebug;
-    private boolean gameLoss = false;
 
     // Constructor
     public Engine() {
@@ -53,7 +51,7 @@ public class Engine implements Runnable {
         sound =  getSoundInstance();
         //World creation
         this.level = Level.getInstance();
-        this.spatialHash = SpatialHash.getInstance();
+       // this.spatialHash = SpatialHash.getInstance();
 
         Movement.setLevelInstance();
         Combat.setLevelInstance();
@@ -129,7 +127,7 @@ public class Engine implements Runnable {
 
         //Update UI
         Runnable renderingThread = () -> {
-            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes(), (!mvpPlaced && heroSpawnTimer()), gameLoss );
+            gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
             // else System.out.println("Can't paint UI, awaiting new frame");
         };
 
@@ -155,7 +153,7 @@ public class Engine implements Runnable {
                         npcLogicLock.wait(); // Wait for main thread to signal
                         npcLogicThread.run(); // Execute task when signaled
                         if(Mvp.getInstance().mvpAtEntrance()){
-                            gameLoss = true;
+                            GameState.gameLoss();
                         }
                     }
                 } catch (InterruptedException e) {
@@ -187,9 +185,10 @@ public class Engine implements Runnable {
                 //Check for hero spawn if the timer is set to equal the spawn timer
                     //We still need to advance frames but i don't want the player to be able to do anything but pan
                     //No npc logic either
-                if(!mvpPlaced && heroSpawnTimer()){
+                if(heroReadyToSpawn()){
+                    //GameState.currentlyHidingMvp();
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
-                    mvpPlaced = placeMVP();
+                    placeMVP();
                     //this prevents the loop to run monster logic
                     //gamePanel.paintFrame(monsterList.getMonsters(), heroList.getHeroes());
                     synchronized (uiLock){
@@ -211,7 +210,7 @@ public class Engine implements Runnable {
                 //It does have minor effects, things going into negative hp zones and acting or not being able to move to a newly made PATH for 1 frame
 
 
-                if(!heroActive)heroFrameCount++;
+                if(!heroActive) heroSpawnCountdown++;
                 if(heroActive){
                     Mvp.getInstance().runMVPLogic();
                 }
@@ -277,9 +276,10 @@ public class Engine implements Runnable {
 
     }
 
-    private boolean heroSpawnTimer(){
-        if(heroSpawnTimer <= heroFrameCount){
+    private boolean heroReadyToSpawn(){
+        if(heroSpawnTimer <= heroSpawnCountdown){
             heroActive = true;
+            GameState.currentlyHidingMvp();
             return true;
         }
         return false;
@@ -334,11 +334,11 @@ public class Engine implements Runnable {
     private boolean placeMVP(){
 
         if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
-            mvpPlaced = true;
             heroActive = true;
-            heroFrameCount = 0;
+            heroSpawnCountdown = 0;
             Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
             spawnHeroAtEntry();
+            GameState.mvpSuccesfullyHidden();
             return true;
         }
         return false;
