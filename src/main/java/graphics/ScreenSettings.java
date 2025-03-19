@@ -2,15 +2,15 @@ package main.java.graphics;
 //Screen settings that will be used across the game
 public class ScreenSettings {
     // Screen settings
-    public static final int ORIGINAL_TILE_SIZE = 16; // 16x16
+    public static final int ORIGINAL_TILE_SIZE = 48; // 16x16
     //TODO implement way to get resolution and set to 3 at 4k and 2 below
-    public static final int SCALE = 3;
+    public static final int SCALE = 1;
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
     public static final int STYLE_OFFSET = TILE_SIZE * 2; // Mainly for testing but keeping this allows us to draw a background
 
     //Tiles system
     //Amount of tiles rendered on window
-    //27x15 is cute 32x24 is just a bit too much information
+    //27x15 is cute 32x24 is just a bit too much informationdd
     public static final int TS_X = 27;
     public static final int TS_Y = 15;
 

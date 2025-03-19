@@ -49,10 +49,8 @@ public class Engine implements Runnable {
 
     // Constructor
     public Engine() {
-
         //Audio
         sound =  getSoundInstance();
-
         //World creation
         this.level = Level.getInstance();
         this.spatialHash = SpatialHash.getInstance();
@@ -98,6 +96,7 @@ public class Engine implements Runnable {
         gameLifecycle = new Thread(this);
         gameLifecycle.start();
     }
+
     public void startMainMusicThread(){
         Runnable musicRunnable = new Runnable() {
             @Override
