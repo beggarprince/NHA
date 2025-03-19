@@ -15,7 +15,7 @@ import main.java.graphics.ScreenSettings;
 import main.java.io.Audio.Sound;
 import main.java.io.KBInputAccelerator;
 import main.java.level.Level;
-import main.java.io.KbInput;
+import main.java.io.KbInputInGame;
 import main.java.graphics.GameCanvas;
 import main.java.level.TileType;
 import main.java.util.Coordinate;
@@ -26,7 +26,7 @@ import static main.java.io.Audio.Sound.getSoundInstance;
 
 public class Engine implements Runnable {
     private final Camera camera;
-    private final KbInput kb;
+    private final KbInputInGame kb;
     private int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
     private Thread musicThread;
@@ -59,7 +59,7 @@ public class Engine implements Runnable {
         Combat.setLevelInstance();
 
         //Player and player inputs
-        this.kb = new KbInput();
+        this.kb = new KbInputInGame();
         this.player = new Player();
         player.setDigPower(250);
         xEntry = player.playerTilePositionX;

@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 //TODO make this a Singleton
-public class KbInput implements KeyListener {
+public class KbInputInGame implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     public boolean debug = false;
     public boolean dig = false;

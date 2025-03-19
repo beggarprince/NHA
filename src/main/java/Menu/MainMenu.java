@@ -17,7 +17,8 @@ public class MainMenu implements Runnable{
     //Position for title
     final BufferedImage titleImage = ImgLoader.getImageResource(StringRes.MESSAGE_GAMEOVER); // Just a temp
     //  Divided by 2 is center, good for width but not height. .3 might work
-    final int centerScreenX = (ScreenSettings.PX_SCREEN_WIDTH / 2) - (titleImage.getWidth() / 2);
+    final int centerScreenX = (ScreenSettings.PX_SCREEN_WIDTH / 2) ;
+    final int tileImagePosX = centerScreenX - (titleImage.getWidth() / 2);
     final int titleImagePosY = (ScreenSettings.PX_SCREEN_HEIGHT * 3 / 10) - (titleImage.getHeight() / 2);
 
     //Positions for buttons

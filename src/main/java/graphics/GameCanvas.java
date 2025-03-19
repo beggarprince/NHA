@@ -1,12 +1,13 @@
 package main.java.graphics;
 
+import main.java.Menu.PauseMenu;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Monsters.Monster;
 import main.java.entities.NPC.Mvp;
 import main.java.entities.Player;
 import main.java.graphics.ui.UIMessages;
 import main.java.graphics.ui.UINumber;
-import main.java.io.KbInput;
+import main.java.io.KbInputInGame;
 import main.java.level.Tile;
 
 import javax.swing.*;
@@ -35,7 +36,7 @@ public class GameCanvas extends JPanel {
     private boolean hideMvpState = false;
     private boolean gameOver = false;
 
-    public GameCanvas(KbInput kb,
+    public GameCanvas(KbInputInGame kb,
                       Player p,
                       ArrayList<ArrayList<Tile>> levelData,
                       Camera c, ArrayList<Hero> h, ArrayList<Monster> m) {
@@ -74,6 +75,9 @@ public class GameCanvas extends JPanel {
         paintHeroes(g2);
         paintBadman(g2);
         paintUIDigPower(g2);
+        PauseMenu.GrayRectangleBackground(g2);
+
+        //TODO replace this with some state code instead of booleans
         if(hideMvpState) paintHideMVPMessage(g2);
         if(gameOver) paintGameOverMessage(g2);
         g2.dispose();
