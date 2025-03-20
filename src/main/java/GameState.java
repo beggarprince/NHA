@@ -14,9 +14,15 @@ public class GameState {
     public static void gamePaused(){
         gameState = State.PAUSE;
     }
+
+    public static void gameUnpaused(){
+        gameState = State.GAMERUNNING;
+    }
+
     public static void resumeGame(){
         gameState = State.GAMERUNNING;
     }
+
     public static void startMenu(){
         gameState = State.MENU;
     }

@@ -1,5 +1,6 @@
 package main.java.io;
 
+import main.java.GameState;
 import main.java.io.Audio.Sound;
 
 import java.awt.event.KeyEvent;
@@ -13,6 +14,7 @@ public class KbInputInGame implements KeyListener {
     public boolean spawnDebug = false;
     public boolean maxSpeed = false;
     private boolean volumeLock;
+    public boolean pausedGame = false;
     public int currentDirection = 0;
 
 
@@ -96,6 +98,15 @@ public class KbInputInGame implements KeyListener {
         }
         else if (code == KeyEvent.VK_M){
             Sound.muteMusicToggle();
+        }
+        else if (code == KeyEvent.VK_Q){
+            if(pausedGame == false){
+                GameState.gamePaused();
+            }
+            else{
+                GameState.gameUnpaused();
+            }
+            pausedGame = !pausedGame;
         }
 
 
