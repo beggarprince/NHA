@@ -14,6 +14,7 @@ import main.java.graphics.Camera;
 import main.java.graphics.ScreenSettings;
 import main.java.io.Audio.Sound;
 import main.java.io.KBInputAccelerator;
+import main.java.io.KBInputMenu;
 import main.java.level.Level;
 import main.java.io.KbInputInGame;
 import main.java.graphics.GameCanvas;
@@ -27,6 +28,7 @@ import static main.java.io.Audio.Sound.getSoundInstance;
 public class Engine implements Runnable {
     private final Camera camera;
     private final KbInputInGame kb;
+    private final KBInputMenu kbmenu;
     private int kbInputDebugJankTimer = 60;
     private Thread gameLifecycle;
     private Thread musicThread;
@@ -47,6 +49,7 @@ public class Engine implements Runnable {
 
     // Constructor
     public Engine() {
+        this.kbmenu = new KBInputMenu();
         //Audio
         sound =  getSoundInstance();
         //World creation
@@ -136,7 +139,6 @@ public class Engine implements Runnable {
                 try {
                     synchronized (uiLock) {
                         uiLock.wait(); // Wait for main thread to signal
-
                         renderingThread.run(); // Execute task when signaled
                     }
                 } catch (InterruptedException e) {
@@ -185,7 +187,18 @@ public class Engine implements Runnable {
                 //Check for hero spawn if the timer is set to equal the spawn timer
                     //We still need to advance frames but i don't want the player to be able to do anything but pan
                     //No npc logic either
-                if(heroReadyToSpawn()){
+                if(GameState.gameState == State.PAUSE){
+                    //run pause logic
+                    if(kb.pausedGame == false){
+                        GameState.gameUnpaused();
+                    }
+                    synchronized (uiLock){
+                        uiLock.notify();
+                    }
+                    continue;
+                }
+
+                else if(heroReadyToSpawn()){
                     //GameState.currentlyHidingMvp();
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
                     placeMVP();
