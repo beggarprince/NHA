@@ -1,5 +1,6 @@
 package main.java.entities.NPC.Heroes;
 
+import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import main.java.entities.NPC.Movement;
 import main.java.entities.NPC.Mvp;
 import main.java.entities.NPC.NPC;
@@ -35,9 +36,12 @@ public abstract class Hero extends NPC {
     }
 
     public void kidnap(){
-        System.out.println("Mvp has been kidnapped");
+     //   System.out.println("Mvp has been kidnapped");
         this.hasMVP = true;
 
     }
+
+
+
 
 }

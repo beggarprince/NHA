@@ -205,11 +205,6 @@ public class Engine implements Runnable {
                     npcLogicLock.notify();
                 }
 
-                //Remove references to res so the garbage collector can remove, must be done after UI update
-                //Deferred so we can have access the same list without worrying about null in multiple threads
-                //It does have minor effects, things going into negative hp zones and acting or not being able to move to a newly made PATH for 1 frame
-
-
                 if(!heroActive) heroSpawnCountdown++;
                 if(heroActive){
                     Mvp.getInstance().runMVPLogic();
@@ -227,14 +222,6 @@ public class Engine implements Runnable {
                     break; // Exit loop if thread is interrupted
                 }
             }
-
-//            try{
-//                System.out.println("Joining threads");
-//                renderingThread.join();
-//                npcLogicThread.join();
-//            }catch (InterruptedException e){
-//                Thread.currentThread().interrupt();
-//            }
 
         }
 
@@ -302,7 +289,6 @@ public class Engine implements Runnable {
             }
         }
         else if (kb.debug ) {
-            //Sound.getSoundInstance().playFXClip(1);
             debugAddHero();
         }
         else if(kb.spawnDebug){
@@ -321,7 +307,6 @@ public class Engine implements Runnable {
             }
             else {
                 kba.accelerateInput();
-                // System.out.println(kba.getState());
                 if (kba.readyToMovePlayer()) {
                     player.movePlayer(player, camera, kb.returnMovementType() );
                 }

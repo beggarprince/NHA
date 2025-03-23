@@ -2,14 +2,19 @@ package main.java.entities.NPC.Monsters;
 
 import main.java.entities.NPC.NPCType;
 import main.java.graphics.ScreenSettings;
+import main.java.util.ImgLoader;
+import main.java.util.StringRes;
 
 import java.awt.image.BufferedImage;
 
 public class Skeleton extends Monster{
 
+    static BufferedImage image = ImgLoader.getImageResource(StringRes.MONSTER_SKELETON);
 
     public Skeleton(int health, int x, int y) {
         super(health, x, y);
+
+        this.image = ImgLoader.getImageResource("sprites/monster/skeleton.png");
         this.basicAttackStrength = 24;
         this.hunger = 0;
         this.movementSpeed = 1;
@@ -26,7 +31,7 @@ public class Skeleton extends Monster{
 
     @Override
     public BufferedImage getImage() {
-        return null;
+        return image;
     }
 
     @Override

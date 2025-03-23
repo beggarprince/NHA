@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 public class Slime extends Monster {
 
     static BufferedImage image = ImgLoader.getImageResource(StringRes.MONSTER_SLIME);
+
     static final String metamorphosisValue = "Slime_Flower";
     public static final int basicAttackStrength = 1;
     public static final int maxHunger = 12;

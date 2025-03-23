@@ -33,7 +33,8 @@ public class LizardMan extends Monster{
     }
 
     @Override
-    public BufferedImage getImage() {
+    public BufferedImage getImage()
+    {
         return  image.getSubimage(29, 69, 68, 68);
     }
 

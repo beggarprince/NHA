@@ -36,7 +36,12 @@ public class Spawn {
 
     public static void spawnEnemyAtPlayerDebug(MonsterList eList, Tile tile){
 
-        var reqMonster = "Slime";
+        var reqMonster = "Dragon";
         eList.addEnemy( MonsterFactory.createMonster(reqMonster, tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE ));
+    }
+
+    public static void spawnEnemyAtPosition(String requestedMonster,  int x, int y){
+
+        MonsterList.getInstance().addEnemy(MonsterFactory.createMonster(requestedMonster, x *ScreenSettings.TILE_SIZE, y * ScreenSettings.TILE_SIZE));
     }
 }

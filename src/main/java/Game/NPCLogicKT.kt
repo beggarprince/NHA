@@ -13,14 +13,14 @@ import main.java.entities.NPC.NPCType
         for (i in enemies.indices) {
             val e = enemies[i]
             //spatialHash.updateNPCZone(e)
-            e.genericBehavior()
+            e.genericNPCBehavior()
         }
     }
 
     private fun runHeroBehavior(heroes: List<Hero>, monsters: List<Monster>) {
         for (i in heroes.indices) {
             checkCollisionsMonsters(heroes[i], monsters)
-            heroes[i].genericBehavior()
+            heroes[i].genericNPCBehavior()
         }
     }
 
