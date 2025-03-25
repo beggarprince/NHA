@@ -10,6 +10,7 @@ import main.java.entities.NPC.Movement;
 import main.java.entities.NPC.Mvp;
 import main.java.entities.Player;
 import main.java.graphics.Camera;
+import main.java.graphics.Cinema;
 import main.java.graphics.ScreenSettings;
 import main.java.io.Audio.Sound;
 import main.java.io.keyboard.KBInputAccelerator;
@@ -42,7 +43,6 @@ public class Engine implements Runnable {
     //private final NPCLogic logic;
     //private final SpatialHash spatialHash;
     Sound sound;
-    private boolean heroActive = false;
     private final int heroSpawnTimer = 600 * 1; // Ten seconds for now, 60 after *
     private int heroSpawnCountdown = 0;
     private int xEntry;
@@ -182,6 +182,32 @@ public class Engine implements Runnable {
 
                 //timerDebug.start();
 
+                decrementHeroTimer();
+                //System.out.println(GameState.gameState);
+
+                //Cinematics atm just hero entry
+                //Cinematic will run for X amount of frames being counted
+                //Player input will not be taken into account until we finish the cinematic
+                //Ui will still update and some logic tied to the cinematic will run
+                if(GameState.gameState == State.CINEMATIC){
+                    Cinema.cinematicActive = true;
+                    Cinema.handler();
+
+                    synchronized (uiLock){
+                        uiLock.notify();
+                    }
+                    continue;
+                }
+
+                //Awaiting input press ENTER
+                if(GameState.gameState == State.AWAITING_INPUT){
+                    if(kb.enterPressed) GameState.gameState = State.GAMERUNNING;
+                    synchronized (uiLock){
+                        uiLock.notify();
+                    }
+                    continue;
+                }
+
                 //Player camera movement
                 playerMovement(kba);
 
@@ -199,7 +225,6 @@ public class Engine implements Runnable {
                     continue;
                 }
 
-                decrementHeroTimer();
 
                  if(GameState.hidingMvp){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
@@ -220,8 +245,8 @@ public class Engine implements Runnable {
                     npcLogicLock.notify();
                 }
 
-                if(!heroActive) heroSpawnCountdown++;
-                if(heroActive){
+                if(!GameState.heroActive) heroSpawnCountdown++;
+                if(GameState.heroActive){
                     Mvp.getInstance().runMVPLogic();
                 }
 
@@ -279,8 +304,11 @@ public class Engine implements Runnable {
     }
 
     private void decrementHeroTimer(){
+        if(GameState.heroActive) return;
         if(heroSpawnTimer <= heroSpawnCountdown){
-            heroActive = true;
+            GameState.heroActive = true;
+            //GameState.gameState = State.AWAITING_INPUT;
+            HeroEntryScript.run("Soldier", heroList, camera);
             GameState.currentlyHidingMvp();
         }
     }
@@ -323,14 +351,15 @@ public class Engine implements Runnable {
     private void attemptToPlaceMVPAndCheckIfSuccessful(){
 
         if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
-            heroActive = true;
+            GameState.heroActive = true;
             heroSpawnCountdown = 0;
             Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
 
-            HeroEntryScript.run("Soldier", heroList);
-
             //TODO change this to battle state or something
             GameState.mvpSuccesfullyHidden();
+            if(GameState.hidingMvp == false){
+
+            }
         }
     }
 

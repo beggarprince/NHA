@@ -11,6 +11,7 @@ import main.java.graphics.ui.UIMessages;
 import main.java.graphics.ui.UINumber;
 import main.java.io.keyboard.KbInputInGame;
 import main.java.level.Tile;
+import main.java.util.Coordinate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +36,7 @@ public class GameCanvas extends JPanel {
     private int endTileX = 0;
     private final UINumber uiNumber;
     private final UIMessages uiMessages;
+    private Coordinate MasterCoordinate;
 
     public GameCanvas(KbInputInGame kb,
                       Player p,
@@ -54,6 +56,7 @@ public class GameCanvas extends JPanel {
         uiMessages = new UIMessages();
         //gameCanvas.setDoubleBuffered(true);
         //gameCanvas.setPreferredSize(new Dimension(ScreenSettings.PX_SCREEN_WIDTH, ScreenSettings.PX_SCREEN_HEIGHT));
+        MasterCoordinate = camera.topLeftCrn;
     }
 
     public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
@@ -64,10 +67,12 @@ public class GameCanvas extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
+        updateMasterCoordinate();
+
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(Color.white);
+        //g2.setColor(Color.white);
         paintTileBackground(g2);
         paintPlayer(g2);
         paintEnemies(g2);
@@ -86,8 +91,8 @@ public class GameCanvas extends JPanel {
     private void setCornerTiles() {
 
         // Calculate starting tile indices based on the camera's top-left corner
-        startTileY = camera.topLeftCrn.y / ScreenSettings.TILE_SIZE;
-        startTileX = camera.topLeftCrn.x / ScreenSettings.TILE_SIZE;
+        startTileY = MasterCoordinate.y / ScreenSettings.TILE_SIZE;
+        startTileX = MasterCoordinate.x / ScreenSettings.TILE_SIZE;
         // Calculate the ending tile indices to cover the visible screen area
         endTileY = startTileY + ScreenSettings.TS_Y;
         endTileX = startTileX + ScreenSettings.TS_X;
@@ -133,8 +138,8 @@ public class GameCanvas extends JPanel {
 
     private void paintBadman(Graphics2D g){
         g.drawImage(Mvp.getInstance().getSpriteFromSheet(),
-                Mvp.getInstance().returnScreenPositionX() - camera.topLeftCrn.x,
-                Mvp.getInstance().returnScreenPositionY() - camera.topLeftCrn.y,
+                Mvp.getInstance().returnScreenPositionX() - MasterCoordinate.x,
+                Mvp.getInstance().returnScreenPositionY() - MasterCoordinate.y,
                 ScreenSettings.TILE_SIZE ,
                 ScreenSettings.TILE_SIZE ,
                 null  );
@@ -151,8 +156,8 @@ public class GameCanvas extends JPanel {
                 //if(e.currDirection != Direction.RIGHT && e.currDirection != Direction.DOWN) {
                 try {
                     g.drawImage(e.getImage(),
-                            e.screenPositionX - camera.topLeftCrn.x,
-                            e.screenPositionY - camera.topLeftCrn.y,
+                            e.screenPositionX - MasterCoordinate.x,
+                            e.screenPositionY - MasterCoordinate.y,
                             ScreenSettings.TILE_SIZE,
                             ScreenSettings.TILE_SIZE,
                             null);
@@ -183,7 +188,7 @@ public class GameCanvas extends JPanel {
             //If in camera view
             if ((h.tilePositionX >= startTileX && h.tilePositionX < endTileX) && (h.tilePositionY >= startTileY && h.tilePositionY < endTileY)) {
                 //Draw according to offset
-                g.drawImage(h.getImage(), h.screenPositionX - camera.topLeftCrn.x , h.screenPositionY - camera.topLeftCrn.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+                g.drawImage(h.getImage(), h.screenPositionX - MasterCoordinate.x , h.screenPositionY - MasterCoordinate.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
 
             }
         }
@@ -211,4 +216,18 @@ public class GameCanvas extends JPanel {
                 uiMessages.uiGameOverMessageStylizedOffsetY,
                 null);
     }
+
+    private void updateMasterCoordinate(){
+
+        if(GameState.gameState == State.GAMEOVER || GameState.gameState == State.CINEMATIC){
+           // System.out.println("Cinematic camera");
+            MasterCoordinate = camera.cinematicCamera;
+        }
+        else {
+          //  System.out.println("Normal camera");
+            MasterCoordinate = camera.topLeftCrn;
+        }
+    }
+
+
 }

@@ -4,5 +4,8 @@ public enum State {
     GAMERUNNING,
     MENU,
     PAUSE,
-    GAMEOVER
+    GAMEOVER,
+    AWAITING_INPUT,
+    CINEMATIC,
+    UPGRADEMENU
 }

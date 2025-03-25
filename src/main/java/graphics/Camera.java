@@ -17,9 +17,11 @@ public class Camera {
     public Coordinate topLeftCrn;
     public int offsetX = 0;
     public int offsetY = 0;
+    public Coordinate cinematicCamera;
 
     public Camera(Coordinate tl) {
         this.topLeftCrn = tl;
+        this.cinematicCamera = new Coordinate(0,0);
     }
 
     public boolean attemptCameraPan( int movementType) {
@@ -100,7 +102,6 @@ public class Camera {
                 yWithinLowerBound;
     }
 
-    //TODO
 
     public void centerCameraOnPlayer(Player player) {
         // Half the screen width/height in pixels
@@ -142,5 +143,10 @@ public class Camera {
 
         offsetX = topLeftCrn.x / ScreenSettings.TILE_SIZE;
         offsetY = topLeftCrn.y / ScreenSettings.TILE_SIZE;
+    }
+
+    public void setCinematicCamera(int x, int y){
+        cinematicCamera.x = x;
+        cinematicCamera.y = y;
     }
 }

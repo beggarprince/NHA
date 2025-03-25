@@ -6,6 +6,8 @@ public class GameState {
     //These are just to signal throughout the system what is going on to avoid passing around a ton of booleans or having tons of canvas/audio calls everywhere
     public static boolean mvpCaptured = false;
     public static boolean hidingMvp = false;
+    public static boolean heroActive = false;
+
     //TODO i should really fix some of this public stuff, but they are separate functions as to add more functionality later on when state changes
 
     public static void gameLoss(){

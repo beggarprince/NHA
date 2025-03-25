@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 //TODO make this a Singleton
 public class KbInputInGame implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean enterPressed = false;
     public boolean debug = false;
     public boolean dig = false;
     public boolean spawnDebug = false;
@@ -85,6 +86,12 @@ public class KbInputInGame implements KeyListener {
         else if(code == KeyEvent.VK_D ){
             resetWASD(2);
             rightPressed = true;
+        }
+
+        //We don't care about released, it is up to the game to set enterPressed to false
+        //since we only accept input when we are specifically awaiting input like in text
+        else if(code == KeyEvent.VK_ENTER){
+            enterPressed = true;
         }
 
         // i don't want this to SPIKE in volume because the user held
