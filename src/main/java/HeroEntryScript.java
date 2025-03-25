@@ -1,21 +1,42 @@
 package main.java;
 
 import main.java.entities.NPC.Heroes.Hero;
+import main.java.entities.NPC.Heroes.HeroFactory;
 import main.java.entities.NPC.Heroes.HeroList;
+import main.java.io.Audio.Sound;
+import main.java.level.Level;
+import main.java.util.AudioConstants;
+import main.java.util.Coordinate;
 
+import javax.sound.sampled.AudioSystem;
 import java.util.List;
 //Todo need a list of heroes and their stats to then simply add here with a script
 public class HeroEntryScript {
+
     //Coordinate for camera to make follow animation
 
     //take in heroes and spawn them
 
-    public HeroEntryScript(){
-
+    //This is not a constructor, this is the only call you can make to run said script
+    public static void run(List<String> heroList, HeroList mainList){
+        for (String requestedHero : heroList) {
+            spawnHero(requestedHero, mainList);
+        }
     }
 
-    public void spawnHero(){
+    public static void run(String hero, HeroList mainList){
+        spawnHero(hero, mainList);
+        setEntryMusic();
+    }
 
+    private static void spawnHero(String hero,  HeroList heroList){
+        try {
+            heroList.addHero(HeroFactory.getInstance().createHero(hero,
+                    Level.entryPoint.x,
+                    Level.entryPoint.y));
+        }catch (Exception e){
+            System.out.println("Could not spawn hero");
+        }
     }
 
     private void addHeroesToList(List<Hero> heroList) {
@@ -23,5 +44,10 @@ public class HeroEntryScript {
             HeroList.getInstance().addHero(l1);
         }
     }
+
+    private static void setEntryMusic(){
+        Sound.setMusic(AudioConstants.MUS_HERO_ENTRY);
+    }
+
 
 }

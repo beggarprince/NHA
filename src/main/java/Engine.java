@@ -1,7 +1,6 @@
 package main.java;
 
 import main.java.Game.NPCLogicKTKt;
-import main.java.Game.SpatialHash;
 import main.java.PlayerActions.Spawn;
 import main.java.entities.Combat;
 import main.java.entities.NPC.Heroes.HeroFactory;
@@ -13,17 +12,19 @@ import main.java.entities.Player;
 import main.java.graphics.Camera;
 import main.java.graphics.ScreenSettings;
 import main.java.io.Audio.Sound;
-import main.java.io.KBInputAccelerator;
-import main.java.io.KBInputMenu;
+import main.java.io.keyboard.KBInputAccelerator;
+import main.java.io.keyboard.KBInputMenu;
 import main.java.level.Level;
-import main.java.io.KbInputInGame;
+import main.java.io.keyboard.KbInputInGame;
 import main.java.graphics.GameCanvas;
 import main.java.level.TileType;
+import main.java.util.AudioConstants;
 import main.java.util.Coordinate;
 import main.java.util.TimerDebug;
 
 import static main.java.PlayerActions.Dig.dig;
 import static main.java.io.Audio.Sound.getSoundInstance;
+
 
 public class Engine implements Runnable {
     private final Camera camera;
@@ -102,8 +103,8 @@ public class Engine implements Runnable {
         Runnable musicRunnable = new Runnable() {
             @Override
             public void run() {
-                sound.setMusic(0);
-                //sound.loop();
+                sound.setMusic(AudioConstants.MUS_DUNGEON_IDLE_2);
+
                 while(musicThread != null){
 
                 }
@@ -198,10 +199,11 @@ public class Engine implements Runnable {
                     continue;
                 }
 
-                else if(heroReadyToSpawn()){
-                    //GameState.currentlyHidingMvp();
+                decrementHeroTimer();
+
+                 if(GameState.hidingMvp){
                     //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
-                    placeMVP();
+                    attemptToPlaceMVPAndCheckIfSuccessful();
                     //this prevents the loop to run monster logic
                     //gamePanel.paintFrame(monsterList.getMonsters(), heroList.getHeroes());
                     synchronized (uiLock){
@@ -276,24 +278,13 @@ public class Engine implements Runnable {
 
     }
 
-    private boolean heroReadyToSpawn(){
+    private void decrementHeroTimer(){
         if(heroSpawnTimer <= heroSpawnCountdown){
             heroActive = true;
             GameState.currentlyHidingMvp();
-            return true;
         }
-        return false;
     }
 
-    private void spawnHeroAtEntry(){
-        try {
-            heroList.addHero(heroFactory.createHero("knight",
-                    xEntry,
-                    0));
-        }catch (Exception e){
-            System.out.println("Could not spawn hero");
-        }
-    }
 
     private void checkPlayerInputActiveStage(){
         if (kb.dig) {
@@ -329,17 +320,18 @@ public class Engine implements Runnable {
         }
     }
 
-    private boolean placeMVP(){
+    private void attemptToPlaceMVPAndCheckIfSuccessful(){
 
         if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
             heroActive = true;
             heroSpawnCountdown = 0;
             Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
-            spawnHeroAtEntry();
+
+            HeroEntryScript.run("Soldier", heroList);
+
+            //TODO change this to battle state or something
             GameState.mvpSuccesfullyHidden();
-            return true;
         }
-        return false;
     }
 
     private void updateNPCLists(){

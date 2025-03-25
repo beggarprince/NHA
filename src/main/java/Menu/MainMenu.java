@@ -1,21 +1,16 @@
 package main.java.Menu;
 
-import main.java.Game.NPCLogicKTKt;
-import main.java.Main;
-import main.java.entities.NPC.Heroes.HeroList;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.entities.NPC.Mvp;
 import main.java.graphics.ScreenSettings;
-import main.java.io.KBInputAccelerator;
+import main.java.io.keyboard.KBInputAccelerator;
 import main.java.util.ImgLoader;
-import main.java.util.StringRes;
+import main.java.util.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
 public class MainMenu implements Runnable{
     //Assuming menu is 60% title 40% options in a tiny square where the user can really only cycle through 2-5 options via kb
     //Position for title
-    final BufferedImage titleImage = ImgLoader.getImageResource(StringRes.MESSAGE_GAMEOVER); // Just a temp
+    final BufferedImage titleImage = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER); // Just a temp
     //  Divided by 2 is center, good for width but not height. .3 might work
     final int centerScreenX = (ScreenSettings.PX_SCREEN_WIDTH / 2) ;
     final int tileImagePosX = centerScreenX - (titleImage.getWidth() / 2);
@@ -23,9 +18,9 @@ public class MainMenu implements Runnable{
 
     //Positions for buttons
     //Center of 40 then separated by an offset of, say, 5% screen space
-    final BufferedImage option1 = ImgLoader.getImageResource(StringRes.MESSAGE_GAMEOVER);
-    final BufferedImage option2 = ImgLoader.getImageResource(StringRes.MESSAGE_GAMEOVER);
-    final BufferedImage option3 = ImgLoader.getImageResource(StringRes.MESSAGE_GAMEOVER);
+    final BufferedImage option1 = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
+    final BufferedImage option2 = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
+    final BufferedImage option3 = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
     final int buttonHeightSpacing = ScreenSettings.PX_SCREEN_HEIGHT * 5 / 100;
 
     //Start it at 70 and make our way down

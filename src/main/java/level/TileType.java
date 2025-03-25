@@ -25,8 +25,7 @@ public enum TileType {
     }
 
     // Method to get the image associated with the tile type
-    //TODO This broke the purpose of TileType only returning the correct image in an elegant manner, it needs to be moved to Tile class
-    public BufferedImage getImage(Tile t) {
+  public BufferedImage getImage(Tile t) {
         if(t.type == TileType.NUTRIENT){
             if(t.getNutrients() <= t.nutrientL2Min){
                 return image;

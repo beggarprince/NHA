@@ -4,7 +4,7 @@ import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.NPCType;
 import main.java.graphics.ScreenSettings;
 import main.java.util.ImgLoader;
-import main.java.util.StringRes;
+import main.java.util.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
@@ -13,7 +13,7 @@ import static main.java.Game.NPCLogicKTKt.checkCollisionsEAT;
 public class LizardMan extends Monster{
 
 
-    static final BufferedImage image =  ImgLoader.getImageResource(StringRes.MONSTER_LIZARD);
+    static final BufferedImage image =  ImgLoader.getImageResource(SpriteConstants.MONSTER_LIZARD);
 
     public LizardMan(int x, int y){
         super(64, x, y);

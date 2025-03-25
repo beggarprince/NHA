@@ -3,6 +3,7 @@ package main.java.entities;
 import main.java.entities.NPC.NPC;
 import main.java.io.Audio.Sound;
 import main.java.level.Level;
+import main.java.util.AudioConstants;
 
 public class Combat {
 
@@ -35,7 +36,7 @@ public class Combat {
             npc.combatCooldown += npc.basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
             if(npc.fxIndex != -1){
-                Sound.getSoundInstance().playFXClip(npc.fxIndex);
+                Sound.getSoundInstance().playFXClip(AudioConstants.FX_SWORD_SLASH);
             }
 
             //Check if dead

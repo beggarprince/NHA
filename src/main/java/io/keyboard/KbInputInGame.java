@@ -1,4 +1,4 @@
-package main.java.io;
+package main.java.io.keyboard;
 
 import main.java.GameState;
 import main.java.io.Audio.Sound;

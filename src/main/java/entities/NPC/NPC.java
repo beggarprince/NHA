@@ -66,8 +66,7 @@ public abstract class NPC extends Stats {
         animationFrameCounter = 0;
     }
 
-    protected void spawnSkeletonAtDeath(){
-        System.out.println("Spawning skeleton at " + this.tilePositionX + " " + this.tilePositionY);
+    public void spawnSkeletonAtDeath(){
         int prev = MonsterList.getInstance().getMonsters().size();
         Spawn.spawnEnemyAtPosition("Skeleton",this.tilePositionX, this.tilePositionY);
         if(prev == MonsterList.getInstance().getMonsters().size()) System.out.println("Could not add skeleton to the list");
@@ -132,14 +131,13 @@ public abstract class NPC extends Stats {
         //behavior - Movement, reproduction, etc
         //TODO at the moment it either attacks or runs logic, i should probably separate logic into two categories so i can run some logic 100% of the time regardless if in combat or not
         else {
-            ///System.out.println("Moving " + returnNpcType());
             behavior();
         }
 
         ///System.out.println(returnNpcType() + " health is " + health);
         if (health <= 0) {
             //i could probably add deathBehavior or something
-            spawnSkeletonAtDeath();
+            //spawnSkeletonAtDeath();
             isDead = true;
         }
     }

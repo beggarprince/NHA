@@ -9,7 +9,7 @@ import main.java.entities.NPC.Mvp;
 import main.java.entities.Player;
 import main.java.graphics.ui.UIMessages;
 import main.java.graphics.ui.UINumber;
-import main.java.io.KbInputInGame;
+import main.java.io.keyboard.KbInputInGame;
 import main.java.level.Tile;
 
 import javax.swing.*;
@@ -199,7 +199,6 @@ public class GameCanvas extends JPanel {
        // g.drawImage(ImgLoader.getImageResource("sprites/ui/0.png"), ScreenSettings.PX_UI_DIGPOWER_X, ScreenSettings.PX_UI_DIGPOWER_Y, null);
     }
 
-    //TODO handle more than just a single message per function smh
     private void paintHideMVPMessage(Graphics2D g){
         g.drawImage(uiMessages.uiHideMVPMessage,
                 uiMessages.uiHideMvpMessageStylizedOffsetX,

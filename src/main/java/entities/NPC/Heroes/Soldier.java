@@ -34,7 +34,12 @@ public class Soldier extends Hero{
     @Override
     public void behavior() {
 
-   // System.out.println(this.currDirection);
+        if(this.health <= 0){
+            isDead = true;
+
+            return;
+        }
+
           if(moveNpcAndSignalTrueIfWeMove()){
 
             //This is how we know we are at a new tile

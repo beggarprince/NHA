@@ -1,6 +1,6 @@
 package main.java.util;
 
-public class StringRes {
+public class SpriteConstants {
     public static final String WELCOME_MESSAGE = "Welcome to the application!";
 
     //Numbers

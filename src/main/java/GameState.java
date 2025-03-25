@@ -26,6 +26,7 @@ public class GameState {
     public static void startMenu(){
         gameState = State.MENU;
     }
+
     public static void currentlyHidingMvp(){
         hidingMvp = true;
     }

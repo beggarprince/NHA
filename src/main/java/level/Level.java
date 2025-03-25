@@ -27,6 +27,7 @@ public class Level {
 
     public static Coordinate initialMVPCoordinate = new Coordinate(0,0);
     public static Coordinate entryPoint = new Coordinate(0,0);
+
     //Distribution is the balance out of 100.
     //Nutrient has to be less than mana
     //mana priority, if above mana distribution value it's a mana, if above nutrient then nutrient, otherwise empty tile

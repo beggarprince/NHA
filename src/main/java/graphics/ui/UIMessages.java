@@ -2,13 +2,13 @@ package main.java.graphics.ui;
 
 import main.java.graphics.ScreenSettings;
 import main.java.util.ImgLoader;
-import main.java.util.StringRes;
+import main.java.util.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
 public class UIMessages {
-    public final BufferedImage uiHideMVPMessage = ImgLoader.getImageResource(StringRes.MESSAGE_HIDE_MVP);
-    public final BufferedImage uiGameOver = ImgLoader.getImageResource(StringRes.MESSAGE_GAMEOVER);
+    public final BufferedImage uiHideMVPMessage = ImgLoader.getImageResource(SpriteConstants.MESSAGE_HIDE_MVP);
+    public final BufferedImage uiGameOver = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
 
     private final int centerScreenWidth = ScreenSettings.PX_SCREEN_WIDTH /2;
     private final int centerScreenHeight = ScreenSettings.PX_SCREEN_HEIGHT /2;

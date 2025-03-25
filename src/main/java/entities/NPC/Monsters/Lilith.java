@@ -4,7 +4,7 @@ import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.NPCType;
 import main.java.graphics.ScreenSettings;
 import main.java.util.ImgLoader;
-import main.java.util.StringRes;
+import main.java.util.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
@@ -12,7 +12,7 @@ import static main.java.Game.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Lilith extends Monster{
 
-    static BufferedImage image = ImgLoader.getImageResource(StringRes.MONSTER_LILITH);
+    static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_LILITH);
 
     public Lilith( int x, int y) {
         super(48, x, y);
@@ -28,7 +28,7 @@ public class Lilith extends Monster{
 
     @Override
     protected void setImage() {
-        image = ImgLoader.getImageResource(StringRes.MONSTER_LILITH);
+        image = ImgLoader.getImageResource(SpriteConstants.MONSTER_LILITH);
     }
 
     @Override

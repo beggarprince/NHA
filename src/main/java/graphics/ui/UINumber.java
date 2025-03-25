@@ -1,7 +1,7 @@
 package main.java.graphics.ui;
 
 import main.java.util.ImgLoader;
-import main.java.util.StringRes;
+import main.java.util.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -16,25 +16,25 @@ public class UINumber {
 
 
     private void setNumberArray(){
-        numberSprites[0] = ImgLoader.getImageResource(StringRes.NUM0);
+        numberSprites[0] = ImgLoader.getImageResource(SpriteConstants.NUM0);
 
-        numberSprites[1] = ImgLoader.getImageResource(StringRes.NUM1);
+        numberSprites[1] = ImgLoader.getImageResource(SpriteConstants.NUM1);
 
-        numberSprites[2] = ImgLoader.getImageResource(StringRes.NUM2);
+        numberSprites[2] = ImgLoader.getImageResource(SpriteConstants.NUM2);
 
-        numberSprites[3] = ImgLoader.getImageResource(StringRes.NUM3);
+        numberSprites[3] = ImgLoader.getImageResource(SpriteConstants.NUM3);
 
-        numberSprites[4] = ImgLoader.getImageResource(StringRes.NUM4);
+        numberSprites[4] = ImgLoader.getImageResource(SpriteConstants.NUM4);
 
-        numberSprites[5] = ImgLoader.getImageResource(StringRes.NUM5);
+        numberSprites[5] = ImgLoader.getImageResource(SpriteConstants.NUM5);
 
-        numberSprites[6] = ImgLoader.getImageResource(StringRes.NUM6);
+        numberSprites[6] = ImgLoader.getImageResource(SpriteConstants.NUM6);
 
-        numberSprites[7] = ImgLoader.getImageResource(StringRes.NUM7);
+        numberSprites[7] = ImgLoader.getImageResource(SpriteConstants.NUM7);
 
-        numberSprites[8] = ImgLoader.getImageResource(StringRes.NUM8);
+        numberSprites[8] = ImgLoader.getImageResource(SpriteConstants.NUM8);
 
-        numberSprites[9] = ImgLoader.getImageResource(StringRes.NUM9);
+        numberSprites[9] = ImgLoader.getImageResource(SpriteConstants.NUM9);
 
     }
 

@@ -1,26 +1,40 @@
 package main.java.io.Audio;
 
+import main.java.util.AudioConstants;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.net.URL;
+import java.util.HashMap;
 
 public class Sound {
     static Clip musicClip;
     static Sound instance;
     private static boolean musicMuted = false;
     private static float musicMutePreviousSoundLevel;
-    final static String audioPath = "/main/resources/";
-    URL[] music ;
-    URL[] fx;
+
+    private static HashMap<String, URL> AudioResources;
 
     private Sound(){
-        music = new URL[30];
-        fx = new URL[100];
+        AudioResources = new HashMap<>();
+        AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_1, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_1));
+        AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_2, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_2));
+        AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_3, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_3));
+        AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_4, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_4));
+        AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_5, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_5));
+        AudioResources.put(AudioConstants.MUS_ALERT_CAPTURED, getClass().getResource(AudioConstants.MUS_ALERT_CAPTURED));
+        AudioResources.put(AudioConstants.MUS_BATTLE_PHASE, getClass().getResource(AudioConstants.MUS_BATTLE_PHASE));
+        AudioResources.put(AudioConstants.MUS_GAME_OVER, getClass().getResource(AudioConstants.MUS_GAME_OVER));
+        AudioResources.put(AudioConstants.MUS_HERO_ENTRY, getClass().getResource(AudioConstants.MUS_HERO_ENTRY));
+        AudioResources.put(AudioConstants.MUS_HERO_PREVIEW, getClass().getResource(AudioConstants.MUS_HERO_PREVIEW));
+        AudioResources.put(AudioConstants.MUS_LEVEL_VICTORY, getClass().getResource(AudioConstants.MUS_LEVEL_VICTORY));
+        AudioResources.put(AudioConstants.MUS_ROUND_VICTORY, getClass().getResource(AudioConstants.MUS_ROUND_VICTORY));
+        AudioResources.put(AudioConstants.MUS_TITLE, getClass().getResource(AudioConstants.MUS_TITLE));
 
-        music[0] = getClass().getResource(audioPath+"/Music/dungeonIdleTrack2.wav");
-        fx[1] = getClass().getResource(audioPath+"/Sound/swordslash.wav");
+        //FX
+        AudioResources.put(AudioConstants.FX_SWORD_SLASH, getClass().getResource(AudioConstants.FX_SWORD_SLASH));
     }
 
     public static Sound getSoundInstance(){
@@ -30,14 +44,19 @@ public class Sound {
         return instance;
     }
 
-    public void setMusic(int i){
+    public static void setMusic(String requestedMusic){
         try{
-            AudioInputStream ais = AudioSystem.getAudioInputStream(music[i]);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(AudioResources.get(requestedMusic));
+            if(musicClip != null && musicClip.isOpen()){
+                musicClip.stop();
+                musicClip.close();
+            }
             musicClip = AudioSystem.getClip();
             musicClip.open(ais);
+            musicClip.loop(Clip.LOOP_CONTINUOUSLY);
 
         }catch (Exception e ){
-            System.out.println("Could not find sound resource at " + i);
+            System.out.println("Could not find sound resource " + requestedMusic);
         }
     }
 
@@ -96,15 +115,15 @@ public class Sound {
     }
 
 
-   public void playFXClip(int i){
+   public void playFXClip(String requestedFX){
         try{
-            AudioInputStream ais = AudioSystem.getAudioInputStream(fx[i]);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(AudioResources.get(requestedFX));
             var fxclip =  AudioSystem.getClip();
             fxclip.open(ais);
             fxclip.start();
         }
         catch (Exception e){
-            System.out.println("Could not find sound resource at fx["+i+"]");
+            System.out.println("Could not find sound resource "+ requestedFX);
         }
    }
 
