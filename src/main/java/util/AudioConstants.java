@@ -2,7 +2,7 @@ package main.java.util;
 
 public class AudioConstants {
     private static final String MUSIC_FOLDER = "/main/resources/Music/";
-    private static final String FX_FOLDER = "main/resources/Fx/";
+    private static final String FX_FOLDER = "/main/resources/Fx/";
 
     //Music
     public static String MUS_ALERT_CAPTURED = MUSIC_FOLDER + "dungeonIdleTrack2.wav";

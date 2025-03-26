@@ -68,7 +68,7 @@ public class GameCanvas extends JPanel {
 
     public void paintComponent(Graphics g) {
         updateMasterCoordinate();
-        System.out.println(MasterCoordinate.x + ":"+ MasterCoordinate.y);
+       // System.out.println(MasterCoordinate.x + ":"+ MasterCoordinate.y);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
@@ -81,7 +81,7 @@ public class GameCanvas extends JPanel {
         paintUIDigPower(g2);
         if(GameState.gameState == State.PAUSE)PauseMenu.GrayRectangleBackground(g2);
         //TODO replace this with some state code instead of booleans
-        if(GameState.hidingMvp) paintHideMVPMessage(g2);
+        if(GameState.hidingMvp && GameState.gameState != State.CINEMATIC) paintHideMVPMessage(g2);
         if(GameState.gameState == State.GAMEOVER) paintGameOverMessage(g2);
         g2.dispose();
 
@@ -175,7 +175,7 @@ public class GameCanvas extends JPanel {
                 }catch (Exception l1){
                     System.out.println("L1: Failed to paint enemy");
                   //  System.out.println(e.worldPositionX + ":" + e.worldPositionY + "\n" + e.health + " and is " + e.inCombat + " combat");
-                    System.out.println();
+                  //  System.out.println();
                 }
 
 //                }
@@ -230,7 +230,9 @@ public class GameCanvas extends JPanel {
 
     private void updateMasterCoordinate(){
 
-        if(GameState.gameState == State.GAMEOVER || GameState.gameState == State.CINEMATIC){
+        //TODO atm it is cinematic when awaiting input, cinematic camera and awaiting input state should be able to be differentiated
+        if(GameState.gameState == State.GAMEOVER ||
+                GameState.gameState == State.CINEMATIC ){
           //  System.out.println("Cinematic camera");
             MasterCoordinate = camera.getCinematicCamera();
         }

@@ -7,6 +7,7 @@ public class GameState {
     public static boolean mvpCaptured = false;
     public static boolean hidingMvp = false;
     public static boolean heroActive = false;
+    public static int INPUT_STATE = 0;
 
     //TODO i should really fix some of this public stuff, but they are separate functions as to add more functionality later on when state changes
 

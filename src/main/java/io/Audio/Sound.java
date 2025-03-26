@@ -14,7 +14,7 @@ public class Sound {
     static Sound instance;
     private static boolean musicMuted = false;
     private static float musicMutePreviousSoundLevel;
-    private static float lastTrackMusicLevel =-30.0f;
+    private static float lastTrackMusicLevel =0.0f;
 
     private static HashMap<String, URL> AudioResources;
 
@@ -50,7 +50,7 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(AudioResources.get(requestedMusic));
             if(musicClip != null && musicClip.isOpen()){
                 musicClip.stop();
-                musicClip.close();
+              //  musicClip.close();
             }
             musicClip = AudioSystem.getClip();
             musicClip.open(ais);
@@ -69,7 +69,7 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(AudioResources.get(requestedMusic));
             if(musicClip != null && musicClip.isOpen()){
                 musicClip.stop();
-                musicClip.close();
+            //    musicClip.close();
             }
             musicClip = AudioSystem.getClip();
             musicClip.open(ais);

@@ -23,19 +23,25 @@ public class HeroEntryScript {
 
     //This is not a constructor, this is the only call you can make to run said script
     public static void run(List<String> heroList, HeroList mainList, Camera camera){
-        GameState.gameState = State.CINEMATIC;
-        setEntryMusic();
-
+        script(camera);
         for (String requestedHero : heroList) {
             spawnHero(requestedHero, mainList);
         }
+
     }
 
     public static void run(String hero, HeroList mainList, Camera camera){
-        GameState.gameState = State.CINEMATIC;
+        script(camera);
         spawnHero(hero, mainList);
+    }
+
+    private static void script(Camera camera){
         setEntryMusic();
         setCinematicCamera(camera);
+        //1 is atm a placeholder since we don't have the raw data rn
+        GameState.INPUT_STATE += (1+getAmountOfTextBoxes());
+        GameState.gameState = State.CINEMATIC;
+
     }
 
     private static void spawnHero(String hero,  HeroList heroList){
@@ -55,7 +61,7 @@ public class HeroEntryScript {
     }
 
     private static void setEntryMusic(){
-        Sound.setAndLoopMusic(AudioConstants.MUS_HERO_ENTRY);
+        Sound.setMusic(AudioConstants.MUS_HERO_ENTRY);
     }
 
     //28 and -2 xy
@@ -64,6 +70,11 @@ public class HeroEntryScript {
         //-Styleoffset is causing issues
            camera.setCinematicCamera(ScreenSettings.PX_WORLD_WIDTH / 2 - ScreenSettings.PX_CAMERA_OFFSET_X + ScreenSettings.TILE_SIZE ,
                    -ScreenSettings.STYLE_OFFSET);
+    }
+
+    private static int getAmountOfTextBoxes(){
+        //ATM it will access data from level or something which will have the raw numbers for this
+        return 0;
     }
 
 }

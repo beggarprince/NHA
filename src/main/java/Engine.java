@@ -156,6 +156,7 @@ public class Engine implements Runnable {
                         npcLogicLock.wait(); // Wait for main thread to signal
                         npcLogicThread.run(); // Execute task when signaled
                         if(Mvp.getInstance().mvpAtEntrance()){
+                            PlayerDefeat.run();
                             GameState.gameLoss();
                         }
                     }
@@ -182,7 +183,14 @@ public class Engine implements Runnable {
 
                 //timerDebug.start();
 
-                decrementHeroTimer();
+                if(!GameState.heroActive)decrementHeroTimer();
+                else{
+                    if(heroList.getHeroes().isEmpty()){
+                        //We won this round
+                        PlayerVictory.run();
+                        heroSpawnCountdown = 0;
+                    }
+                }
                 //System.out.println(GameState.gameState);
 
                 //Cinematics atm just hero entry
@@ -201,7 +209,12 @@ public class Engine implements Runnable {
 
                 //Awaiting input press ENTER
                 if(GameState.gameState == State.AWAITING_INPUT){
-                    if(kb.enterPressed) GameState.gameState = State.GAMERUNNING;
+                    if(kb.enterPressed){
+                        GameState.INPUT_STATE--;
+                         if(GameState.INPUT_STATE == 0){
+                            GameState.gameState = State.GAMERUNNING;
+                        }
+                    }
                     synchronized (uiLock){
                         uiLock.notify();
                     }
@@ -245,7 +258,7 @@ public class Engine implements Runnable {
                     npcLogicLock.notify();
                 }
 
-                if(!GameState.heroActive) heroSpawnCountdown++;
+
                 if(GameState.heroActive){
                     Mvp.getInstance().runMVPLogic();
                 }
@@ -304,10 +317,9 @@ public class Engine implements Runnable {
     }
 
     private void decrementHeroTimer(){
-        if(GameState.heroActive) return;
+        heroSpawnCountdown++;
         if(heroSpawnTimer <= heroSpawnCountdown){
             GameState.heroActive = true;
-            //GameState.gameState = State.AWAITING_INPUT;
             HeroEntryScript.run("Soldier", heroList, camera);
             GameState.currentlyHidingMvp();
         }
@@ -358,7 +370,7 @@ public class Engine implements Runnable {
             //TODO change this to battle state or something
             GameState.mvpSuccesfullyHidden();
             if(GameState.hidingMvp == false){
-
+                BattleBeginScript.run();
             }
         }
     }

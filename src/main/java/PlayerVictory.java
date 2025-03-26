@@ -1,9 +1,20 @@
 package main.java;
 
+import main.java.io.Audio.Sound;
+import main.java.util.AudioConstants;
+
 public class PlayerVictory {
+
+    public static void run(){
+        GameState.heroActive = false;
+        setMusic();
+        cycleVictoryDialogue();
+        showUpgradeMenu();
+    }
 
     private static void setMusic(){
         //set the appropriate music
+        Sound.setMusic(AudioConstants.MUS_ROUND_VICTORY);
     }
 
     private static void cycleVictoryDialogue(){

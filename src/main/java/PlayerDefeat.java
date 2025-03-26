@@ -1,13 +1,23 @@
 package main.java;
 
-public class PlayerDefeat {
-    //Animation of the player getting dragged out of the dungeon + stats or something
+import main.java.io.Audio.Sound;
+import main.java.util.AudioConstants;
 
-    public static void setDefeatMusic(){
-        //change music
+public class PlayerDefeat {
+
+    public static void run(){
+        setDefeatMusic();
+        playDefeatAnimation();
     }
 
-    public static void playDefeatAnimation(){
+    //Animation of the player getting dragged out of the dungeon + stats or something
+
+    private static void setDefeatMusic(){
+        //change music
+        Sound.setMusic(AudioConstants.MUS_GAME_OVER);
+    }
+
+    private static void playDefeatAnimation(){
         //where the player is dragged out of the dungeon or sm
     }
 }
