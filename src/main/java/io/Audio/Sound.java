@@ -14,6 +14,7 @@ public class Sound {
     static Sound instance;
     private static boolean musicMuted = false;
     private static float musicMutePreviousSoundLevel;
+    private static float lastTrackMusicLevel =-30.0f;
 
     private static HashMap<String, URL> AudioResources;
 
@@ -44,6 +45,25 @@ public class Sound {
         return instance;
     }
 
+    public static void setAndLoopMusic(String requestedMusic){
+        try{
+            AudioInputStream ais = AudioSystem.getAudioInputStream(AudioResources.get(requestedMusic));
+            if(musicClip != null && musicClip.isOpen()){
+                musicClip.stop();
+                musicClip.close();
+            }
+            musicClip = AudioSystem.getClip();
+            musicClip.open(ais);
+            if(lastTrackMusicLevel != 0.0f){
+                adjustMusicVolume(lastTrackMusicLevel);
+            }
+            musicClip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        }catch (Exception e ){
+            System.out.println("Could not find sound resource " + requestedMusic);
+        }
+    }
+
     public static void setMusic(String requestedMusic){
         try{
             AudioInputStream ais = AudioSystem.getAudioInputStream(AudioResources.get(requestedMusic));
@@ -53,21 +73,27 @@ public class Sound {
             }
             musicClip = AudioSystem.getClip();
             musicClip.open(ais);
-            musicClip.loop(Clip.LOOP_CONTINUOUSLY);
-
+            if(lastTrackMusicLevel != 0.0f){
+                adjustMusicVolume(lastTrackMusicLevel);
+            }
+            musicClip.start();
         }catch (Exception e ){
             System.out.println("Could not find sound resource " + requestedMusic);
         }
     }
 
+
     public static void adjustMusicVolume(float adjustment){
+
         if(musicClip != null && musicClip.isOpen()){
             try{
                 FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
-                if(gainControl.getValue() + adjustment > gainControl.getMaximum() || gainControl.getValue() + adjustment < gainControl.getMinimum()){
+                if(gainControl.getValue() + adjustment > gainControl.getMaximum()
+                        || gainControl.getValue() + adjustment < gainControl.getMinimum()){
                     System.out.println("Volume already at peak/low");
                     return;
                 }
+                lastTrackMusicLevel += adjustment;
                 gainControl.setValue(gainControl.getValue() + adjustment);
             }
             catch (IllegalArgumentException e){

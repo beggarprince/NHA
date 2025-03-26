@@ -15,9 +15,21 @@ import main.java.util.Coordinate;
 //TODO make this a singleton, when are we ever going to have two cameras?
 public class Camera {
     public Coordinate topLeftCrn;
+    //OFFSET
+    /*
+    *   The offsets are just the position of the tile at topLeftCorner
+    *   For example, at the far left corner offsets are 0,0
+    *  at the y styleoffset of Coordinate.Y == -96 the offset is -2
+    *   This is because a single tile is -48, *2 is -96, this we are offset by -2
+    *   For the x offset 27 is the screen size,
+    *   At 81 when we halve and remove half the screen width we are at 27
+    * */
+
     public int offsetX = 0;
     public int offsetY = 0;
-    public Coordinate cinematicCamera;
+    private Coordinate cinematicCamera;
+    public int cinematicCameraOffsetX = 0;
+    public int cinematicCameraOffsetY = 0;
 
     public Camera(Coordinate tl) {
         this.topLeftCrn = tl;
@@ -145,8 +157,24 @@ public class Camera {
         offsetY = topLeftCrn.y / ScreenSettings.TILE_SIZE;
     }
 
+    //done manually
+    public void setCinematicCamera(int x, int y, int cinematicCameraOffsetX, int cinematicCameraOffsetY){
+        this.cinematicCameraOffsetX = cinematicCameraOffsetX;
+        this.cinematicCameraOffsetY = cinematicCameraOffsetY;
+        cinematicCamera.x = x;
+        cinematicCamera.y = y;
+    }
+
+    //done mathematically
     public void setCinematicCamera(int x, int y){
         cinematicCamera.x = x;
         cinematicCamera.y = y;
+        this.cinematicCameraOffsetX = x / ScreenSettings.TILE_SIZE;
+        this.cinematicCameraOffsetY = y / ScreenSettings.TILE_SIZE;
+
+    }
+
+    public Coordinate getCinematicCamera(){
+        return cinematicCamera;
     }
 }

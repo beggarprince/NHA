@@ -13,6 +13,8 @@ public class ScreenSettings {
     //27x15 is cute 32x24 is just a bit too much informationdd
     public static final int TS_X = 27;
     public static final int TS_Y = 15;
+    public static final int TS_SCREEN_TILES = TS_X * TS_Y;
+
 
     //Amount of tiles in world
     //TS tile system
@@ -25,6 +27,12 @@ public class ScreenSettings {
     //PX pixel system
     public static final int PX_SCREEN_WIDTH = TS_X * TILE_SIZE;
     public static final int PX_SCREEN_HEIGHT = TS_Y * TILE_SIZE;
+    public static final int PX_WORLD_WIDTH = TS_World_X * TILE_SIZE;
+    public static final int PX_WORLD_HEIGHT = TS_World_Y * TILE_SIZE;
+    public static final int PX_CENTER_X = PX_SCREEN_WIDTH / 2;
+    public static final int PX_CENTER_Y = PX_SCREEN_HEIGHT / 2;
+    public static final int PX_CAMERA_OFFSET_X = PX_SCREEN_WIDTH / 2;
+
 
     //Down right ui should be 6x and 4y tiles
 

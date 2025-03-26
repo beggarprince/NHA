@@ -68,7 +68,7 @@ public class GameCanvas extends JPanel {
 
     public void paintComponent(Graphics g) {
         updateMasterCoordinate();
-
+        System.out.println(MasterCoordinate.x + ":"+ MasterCoordinate.y);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
@@ -100,10 +100,21 @@ public class GameCanvas extends JPanel {
 
     //Changes the world position to a screen position consistent with the camera location
     private int offsetTileX(int tileX) {
+        if(GameState.gameState == State.CINEMATIC){
+          //  System.out.println("Offset for x is " + camera.cinematicCameraOffsetX);
+            return tileX * ScreenSettings.TILE_SIZE - (camera.cinematicCameraOffsetX * ScreenSettings.TILE_SIZE);
+        }
+      //  System.out.println("Offset for x is " + camera.offsetX);
         return tileX * ScreenSettings.TILE_SIZE - (camera.offsetX * ScreenSettings.TILE_SIZE)  ;
     }
 
     private int offsetTileY(int tileY) {
+        if(GameState.gameState == State.CINEMATIC){
+          //  System.out.println("Offset for y is " + camera.cinematicCameraOffsetY);
+            return tileY * ScreenSettings.TILE_SIZE - (camera.cinematicCameraOffsetY * ScreenSettings.TILE_SIZE);
+        }
+
+       // System.out.println("Offset for y is " + camera.offsetY);
         return tileY * ScreenSettings.TILE_SIZE - (camera.offsetY * ScreenSettings.TILE_SIZE);
     }
 
@@ -119,7 +130,9 @@ public class GameCanvas extends JPanel {
 
             // Loop over the horizontal tiles
             for (int tileX = startTileX; tileX < endTileX && tileX < level.get(tileY).size(); tileX++) {
-                if(tileX <0) continue;
+                if(tileX <0){
+                    continue;
+                }
                 g.drawImage(level.get(tileY).get(tileX).type.getImage(level.get(tileY).get(tileX)),
                         offsetTileX(tileX), offsetTileY(tileY),
                         ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE,
@@ -130,8 +143,6 @@ public class GameCanvas extends JPanel {
     }
 
     private void paintPlayer(Graphics2D g) {
-        //get player state
-
         //paint by image
         g.drawImage(player.playerImage, player.playerScreenPosition.x, player.playerScreenPosition.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
     }
@@ -220,8 +231,8 @@ public class GameCanvas extends JPanel {
     private void updateMasterCoordinate(){
 
         if(GameState.gameState == State.GAMEOVER || GameState.gameState == State.CINEMATIC){
-           // System.out.println("Cinematic camera");
-            MasterCoordinate = camera.cinematicCamera;
+          //  System.out.println("Cinematic camera");
+            MasterCoordinate = camera.getCinematicCamera();
         }
         else {
           //  System.out.println("Normal camera");

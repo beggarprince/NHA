@@ -35,6 +35,7 @@ public class HeroEntryScript {
         GameState.gameState = State.CINEMATIC;
         spawnHero(hero, mainList);
         setEntryMusic();
+        setCinematicCamera(camera);
     }
 
     private static void spawnHero(String hero,  HeroList heroList){
@@ -54,8 +55,15 @@ public class HeroEntryScript {
     }
 
     private static void setEntryMusic(){
-        Sound.setMusic(AudioConstants.MUS_HERO_ENTRY);
+        Sound.setAndLoopMusic(AudioConstants.MUS_HERO_ENTRY);
     }
 
+    //28 and -2 xy
+    private static void setCinematicCamera(Camera camera){
+        //This seems to be a single tile off
+        //-Styleoffset is causing issues
+           camera.setCinematicCamera(ScreenSettings.PX_WORLD_WIDTH / 2 - ScreenSettings.PX_CAMERA_OFFSET_X + ScreenSettings.TILE_SIZE ,
+                   -ScreenSettings.STYLE_OFFSET);
+    }
 
 }

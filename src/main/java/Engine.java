@@ -103,7 +103,7 @@ public class Engine implements Runnable {
         Runnable musicRunnable = new Runnable() {
             @Override
             public void run() {
-                sound.setMusic(AudioConstants.MUS_DUNGEON_IDLE_2);
+                sound.setAndLoopMusic(AudioConstants.MUS_DUNGEON_IDLE_2);
 
                 while(musicThread != null){
 
