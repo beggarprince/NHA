@@ -1,4 +1,4 @@
-package main.java;
+package main.java.Game;
 
 public class GameState {
     public static State gameState = State.GAMERUNNING;

@@ -1,15 +1,13 @@
-package main.java.Game
+package main.java.entities.NPC
 
 import main.java.entities.Combat
 import main.java.entities.NPC.Heroes.Hero
 import main.java.entities.NPC.Monsters.MonsterLogic.Metamorphosis
 import main.java.entities.NPC.Monsters.Monster
 import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList
-import main.java.entities.NPC.NPC
-import main.java.entities.NPC.NPCType
 
 
-    private fun runEnemyBehavior(enemies: List<Monster>) {
+private fun runEnemyBehavior(enemies: List<Monster>) {
         for (i in enemies.indices) {
             val e = enemies[i]
             //spatialHash.updateNPCZone(e)

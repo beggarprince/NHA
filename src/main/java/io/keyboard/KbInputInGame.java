@@ -1,6 +1,6 @@
 package main.java.io.keyboard;
 
-import main.java.GameState;
+import main.java.Game.GameState;
 import main.java.io.Audio.Sound;
 
 import java.awt.event.KeyEvent;

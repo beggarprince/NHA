@@ -1,5 +1,7 @@
-package main.java;
+package main.java.Game.Scripts;
 
+import main.java.Game.GameState;
+import main.java.Game.State;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Heroes.HeroFactory;
 import main.java.entities.NPC.Heroes.HeroList;
@@ -8,16 +10,10 @@ import main.java.graphics.ScreenSettings;
 import main.java.io.Audio.Sound;
 import main.java.level.Level;
 import main.java.util.AudioConstants;
-import main.java.util.Coordinate;
 
 import java.util.List;
 //Todo need a list of heroes and their stats to then simply add here with a script
 public class HeroEntryScript {
-
-    //Coordinate for camera to make follow animation
-    private static Coordinate heroEntryCameraPosition = new Coordinate(
-            (Level.entryPoint.x * ScreenSettings.TILE_SIZE) - (ScreenSettings.PX_SCREEN_WIDTH / 2),
-            (Level.entryPoint.y * ScreenSettings.TILE_SIZE) - (ScreenSettings.PX_SCREEN_HEIGHT / 2));
 
     //take in heroes and spawn them
 

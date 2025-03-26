@@ -1,8 +1,8 @@
 package main.java.graphics;
 
-import main.java.GameState;
+import main.java.Game.GameState;
 import main.java.Menu.PauseMenu;
-import main.java.State;
+import main.java.Game.State;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Monsters.Monster;
 import main.java.entities.NPC.Mvp;

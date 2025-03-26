@@ -8,7 +8,7 @@ import main.java.util.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
-import static main.java.Game.NPCLogicKTKt.checkCollisionsEAT;
+import static main.java.entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
 public class LizardMan extends Monster{
 

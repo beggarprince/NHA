@@ -1,5 +1,6 @@
-package main.java;
+package main.java.Game.Scripts;
 
+import main.java.Game.GameState;
 import main.java.io.Audio.Sound;
 import main.java.util.AudioConstants;
 

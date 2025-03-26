@@ -1,4 +1,4 @@
-package main.java;
+package main.java.Game.Scripts;
 
 import main.java.level.Level;
 

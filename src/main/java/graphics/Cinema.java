@@ -1,7 +1,7 @@
 package main.java.graphics;
 
-import main.java.GameState;
-import main.java.State;
+import main.java.Game.GameState;
+import main.java.Game.State;
 
 public class Cinema {
     private static final int cinematicLength = ScreenSettings.FPS * 5;
