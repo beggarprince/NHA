@@ -1,5 +1,6 @@
 package main.java.entities.NPC;
 
+import main.java.Game.Scripts.MVPCaptured;
 import main.java.entities.Direction;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Heroes.HeroList;
@@ -20,7 +21,6 @@ public class Mvp {
     private int psx = 0;
     private int psy = 0;
 
-    public boolean dragged = false;
     int counter = 0;
     int x = 32;
     int y = 68;
@@ -54,6 +54,7 @@ public class Mvp {
         }
         if(kidnapped){
             kidnapper.kidnap();
+            MVPCaptured.run();
             System.out.println("MVP kidnapped");
         }
     }
@@ -186,6 +187,10 @@ public class Mvp {
         if(kidnapper.tilePositionX == Level.entryPoint.x && kidnapper.tilePositionY == Level.entryPoint.y) return true;
      //   System.out.println(kidnapper.tilePositionX + " " + kidnapper.tilePositionY);
         return false;
+    }
+
+    public boolean mvpIsCaptured(){
+        return kidnapped;
     }
 }
 

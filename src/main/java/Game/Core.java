@@ -1,5 +1,6 @@
 package main.java.Game;
 
+import main.java.Game.Scripts.MVPCaptured;
 import main.java.Game.Scripts.PlayerVictory;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.entities.NPC.Mvp;
@@ -118,6 +119,7 @@ public class Core extends CoreHelper{
 
             if(GameState.heroActive){
                 Mvp.getInstance().runMVPLogic();
+
             }
 
             //  timerDebug.stopMicros();

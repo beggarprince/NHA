@@ -21,6 +21,7 @@ public class MainMenu implements Runnable{
     final BufferedImage option1 = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
     final BufferedImage option2 = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
     final BufferedImage option3 = ImgLoader.getImageResource(SpriteConstants.MESSAGE_GAMEOVER);
+
     final int buttonHeightSpacing = ScreenSettings.PX_SCREEN_HEIGHT * 5 / 100;
 
     //Start it at 70 and make our way down

@@ -5,7 +5,7 @@ public class AudioConstants {
     private static final String FX_FOLDER = "/main/resources/Fx/";
 
     //Music
-    public static String MUS_ALERT_CAPTURED = MUSIC_FOLDER + "dungeonIdleTrack2.wav";
+    public static String MUS_ALERT_CAPTURED = MUSIC_FOLDER + "alertCapture.wav";
     public static String MUS_BATTLE_PHASE = MUSIC_FOLDER + "battlePhase.wav";
     public static String MUS_DUNGEON_IDLE_1 = MUSIC_FOLDER + "dungeonIdleTrack1.wav";
     public static String MUS_DUNGEON_IDLE_2 = MUSIC_FOLDER + "dungeonIdleTrack2.wav";
