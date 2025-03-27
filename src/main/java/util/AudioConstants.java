@@ -11,7 +11,7 @@ public class AudioConstants {
     public static String MUS_DUNGEON_IDLE_2 = MUSIC_FOLDER + "dungeonIdleTrack2.wav";
     public static String MUS_DUNGEON_IDLE_3 = MUSIC_FOLDER + "dungeonIdleTrack3.wav";
     public static String MUS_DUNGEON_IDLE_4 = MUSIC_FOLDER + "dungeonIdleTrack4.wav";
-    public static String MUS_DUNGEON_IDLE_5 = MUSIC_FOLDER + "dungeonIdleTrack5.wav";
+    public static String MUS_HIDE_MVP = MUSIC_FOLDER + "dungeonIdleTrack5.wav";
     public static String MUS_GAME_OVER = MUSIC_FOLDER + "gameOver.wav";
     public static String MUS_HERO_ENTRY = MUSIC_FOLDER + "heroEntry.wav";
     public static String MUS_HERO_PREVIEW = MUSIC_FOLDER + "heroPreview.wav";

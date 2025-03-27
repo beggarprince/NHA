@@ -24,7 +24,7 @@ public class Sound {
         AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_2, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_2));
         AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_3, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_3));
         AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_4, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_4));
-        AudioResources.put(AudioConstants.MUS_DUNGEON_IDLE_5, getClass().getResource(AudioConstants.MUS_DUNGEON_IDLE_5));
+        AudioResources.put(AudioConstants.MUS_HIDE_MVP, getClass().getResource(AudioConstants.MUS_HIDE_MVP));
         AudioResources.put(AudioConstants.MUS_ALERT_CAPTURED, getClass().getResource(AudioConstants.MUS_ALERT_CAPTURED));
         AudioResources.put(AudioConstants.MUS_BATTLE_PHASE, getClass().getResource(AudioConstants.MUS_BATTLE_PHASE));
         AudioResources.put(AudioConstants.MUS_GAME_OVER, getClass().getResource(AudioConstants.MUS_GAME_OVER));

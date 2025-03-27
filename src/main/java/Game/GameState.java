@@ -5,7 +5,7 @@ public class GameState {
 
     //These are just to signal throughout the system what is going on to avoid passing around a ton of booleans or having tons of canvas/audio calls everywhere
     public static boolean mvpCaptured = false;
-    public static boolean hidingMvp = false;
+    private static boolean hidingMvp = false;
     public static boolean heroActive = false;
     public static int INPUT_STATE = 0;
 
@@ -30,10 +30,15 @@ public class GameState {
         gameState = State.MENU;
     }
 
-    public static void currentlyHidingMvp(){
+    public static void setMvpHiding(){
         hidingMvp = true;
     }
+
     public static void mvpSuccesfullyHidden(){
         hidingMvp = false;
+    }
+
+    public static boolean stateHidingMvp(){
+        return hidingMvp;
     }
 }

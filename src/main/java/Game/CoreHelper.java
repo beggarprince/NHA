@@ -69,7 +69,7 @@ public class CoreHelper {
         if(heroSpawnTimer <= heroSpawnCountdown){
             GameState.heroActive = true;
             HeroEntryScript.run("Soldier", HeroList.getInstance(), camera);
-            GameState.currentlyHidingMvp();
+            //GameState.setMvpHiding();
         }
         return heroSpawnCountdown;
     }
@@ -120,7 +120,7 @@ public class CoreHelper {
 
             //TODO change this to battle state or something
             GameState.mvpSuccesfullyHidden();
-            if(GameState.hidingMvp == false){
+            if(!GameState.stateHidingMvp()){
                 BattleBeginScript.run();
             }
         }
@@ -130,5 +130,12 @@ public class CoreHelper {
         MonsterList.getInstance().destroyEnemies();
         HeroList.getInstance().destroyHeroes();
     }
+
+    protected static void setMvpHiding(){
+        if(GameState.heroActive ){
+
+        }
+    }
+
     //end of helper functions
 }

@@ -1,6 +1,7 @@
 package main.java.graphics;
 
 import main.java.Game.GameState;
+import main.java.Game.Scripts.HideMvp;
 import main.java.Game.State;
 
 public class Cinema {
@@ -25,7 +26,7 @@ public class Cinema {
         cinematicActive = false;
        // System.out.println("Cinematic is finisheddddddddddddddddddddddddddd dddddddddd");
         GameState.gameState = State.AWAITING_INPUT;
-
+        HideMvp.run();
         currentFrame = 0;
     }
 }

@@ -81,7 +81,7 @@ public class GameCanvas extends JPanel {
         paintUIDigPower(g2);
         if(GameState.gameState == State.PAUSE)PauseMenu.GrayRectangleBackground(g2);
         //TODO replace this with some state code instead of booleans
-        if(GameState.hidingMvp && GameState.gameState != State.CINEMATIC) paintHideMVPMessage(g2);
+        if(GameState.stateHidingMvp() && GameState.gameState != State.CINEMATIC) paintHideMVPMessage(g2);
         if(GameState.gameState == State.GAMEOVER) paintGameOverMessage(g2);
         g2.dispose();
 

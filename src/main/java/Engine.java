@@ -97,9 +97,9 @@ public class Engine implements Runnable {
             public void run() {
                 sound.setAndLoopMusic(AudioConstants.MUS_DUNGEON_IDLE_2);
 
-                while (musicThread != null) {
-
-                }
+//                while (musicThread != null) {
+//
+//                }
             }
         };
         musicThread = new Thread(musicRunnable);

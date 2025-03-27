@@ -37,7 +37,6 @@ public class HeroEntryScript {
         //1 is atm a placeholder since we don't have the raw data rn
         GameState.INPUT_STATE += (1+getAmountOfTextBoxes());
         GameState.gameState = State.CINEMATIC;
-
     }
 
     private static void spawnHero(String hero,  HeroList heroList){

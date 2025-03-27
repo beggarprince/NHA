@@ -1,6 +1,5 @@
 package main.java.Game;
 
-import main.java.Game.Scripts.MVPCaptured;
 import main.java.Game.Scripts.PlayerVictory;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.entities.NPC.Mvp;
@@ -14,10 +13,8 @@ import main.java.util.TimerDebug;
 public class Core extends CoreHelper{
 
     private long frameRatePrevTime;
-    private int kbDebugInputDelayTimer = 60;
     private final int timeUntilHeroSpawn = 600 * 1; // Ten seconds for now, 60 after *
     private int heroSpawnCountdown = 0;
-    long getFrameRatePrevTime;
     KBInputAccelerator keyboardInputAccelerator;
 
     private TimerDebug timerDebug;
@@ -40,7 +37,9 @@ public class Core extends CoreHelper{
 
             //timerDebug.start();
 
-            if(!GameState.heroActive)heroSpawnCountdown = decrementHeroTimer(timeUntilHeroSpawn, heroSpawnCountdown, camera);
+            if(!GameState.heroActive){
+                heroSpawnCountdown = decrementHeroTimer(timeUntilHeroSpawn, heroSpawnCountdown, camera);
+            }
 
             else{
                 if(HeroList.getInstance().getHeroes().isEmpty()){
@@ -79,8 +78,6 @@ public class Core extends CoreHelper{
                 return;
             }
 
-            //Player camera movement
-            playerMovement(keyboardInputAccelerator, kb, player, camera);
 
             //Check for hero spawn if the timer is set to equal the spawn timer
             //We still need to advance frames but i don't want the player to be able to do anything but pan
@@ -96,8 +93,11 @@ public class Core extends CoreHelper{
                 return;
             }
 
+            //Player camera movement
+            playerMovement(keyboardInputAccelerator, kb, player, camera);
 
-            if(GameState.hidingMvp){
+
+            if(GameState.stateHidingMvp()){
                 //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
                 attemptToPlaceMVPAndCheckIfSuccessful(kb, player, timeUntilHeroSpawn, heroSpawnCountdown, camera);
                 //this prevents the loop to run monster logic
@@ -108,6 +108,7 @@ public class Core extends CoreHelper{
                 return;
             }
 
+            int kbDebugInputDelayTimer = 60;
             checkPlayerInputActiveStage(kb, player, kbDebugInputDelayTimer);
             synchronized (uiLock){
                 uiLock.notify();
