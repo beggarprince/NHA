@@ -1,7 +1,6 @@
 package main.java.entities.NPC.Heroes;
 
-import main.java.entities.Direction;
-import main.java.util.ImgLoader;
+import main.java.graphics.Sprite.ImgLoader;
 import main.java.graphics.ScreenSettings;
 
 public class Soldier extends Hero{

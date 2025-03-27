@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.io.Audio;
 
 public class AudioConstants {
     private static final String MUSIC_FOLDER = "/main/resources/Music/";

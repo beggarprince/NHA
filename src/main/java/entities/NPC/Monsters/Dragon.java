@@ -4,8 +4,8 @@ import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.NPCType;
 import main.java.entities.SpriteCoordinate;
 import main.java.graphics.ScreenSettings;
-import main.java.util.ImgLoader;
-import main.java.util.SpriteConstants;
+import main.java.graphics.Sprite.ImgLoader;
+import main.java.graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

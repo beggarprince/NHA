@@ -9,7 +9,7 @@ import main.java.graphics.Camera;
 import main.java.graphics.ScreenSettings;
 import main.java.io.Audio.Sound;
 import main.java.level.Level;
-import main.java.util.AudioConstants;
+import main.java.io.Audio.AudioConstants;
 
 import java.util.List;
 //Todo need a list of heroes and their stats to then simply add here with a script

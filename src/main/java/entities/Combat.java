@@ -3,7 +3,7 @@ package main.java.entities;
 import main.java.entities.NPC.NPC;
 import main.java.io.Audio.Sound;
 import main.java.level.Level;
-import main.java.util.AudioConstants;
+import main.java.io.Audio.AudioConstants;
 
 public class Combat {
 

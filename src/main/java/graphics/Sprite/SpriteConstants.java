@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.graphics.Sprite;
 
 public class SpriteConstants {
     public static final String WELCOME_MESSAGE = "Welcome to the application!";

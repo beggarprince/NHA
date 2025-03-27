@@ -1,17 +1,14 @@
 package main.java.entities.NPC.Monsters;
 
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.NPCType;
 import main.java.entities.SpriteCoordinate;
 import main.java.graphics.ScreenSettings;
 import main.java.graphics.SpriteSettings;
-import main.java.util.ImgLoader;
-import main.java.util.SpriteConstants;
+import main.java.graphics.Sprite.ImgLoader;
+import main.java.graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
-
-import static main.java.entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Bug extends Monster {
     int spriteFrameTimeCounter = 0;

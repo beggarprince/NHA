@@ -6,7 +6,7 @@ import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.graphics.ScreenSettings;
 import main.java.level.Level;
-import main.java.util.ImgLoader;
+import main.java.graphics.Sprite.ImgLoader;
 
 import java.awt.image.BufferedImage;
 
@@ -63,6 +63,7 @@ public class Mvp {
         //check if kidnapper is alive
         if(kidnapper.health <= 0){
             kidnapped = false;
+            MVPCaptured.reset();
             return;
         }
         mvpMoveWithKidnapper();
@@ -185,7 +186,7 @@ public class Mvp {
     public boolean mvpAtEntrance(){
         if(!kidnapped) return false;
         if(kidnapper.tilePositionX == Level.entryPoint.x && kidnapper.tilePositionY == Level.entryPoint.y) return true;
-     //   System.out.println(kidnapper.tilePositionX + " " + kidnapper.tilePositionY);
+
         return false;
     }
 

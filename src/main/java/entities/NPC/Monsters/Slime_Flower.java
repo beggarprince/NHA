@@ -2,9 +2,9 @@ package main.java.entities.NPC.Monsters;
 
 import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.util.ImgLoader;
+import main.java.graphics.Sprite.ImgLoader;
 import main.java.graphics.ScreenSettings;
-import main.java.util.SpriteConstants;
+import main.java.graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

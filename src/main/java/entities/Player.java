@@ -2,7 +2,7 @@ package main.java.entities;
 
 import main.java.graphics.Camera;
 import main.java.graphics.ScreenSettings;
-import main.java.util.ImgLoader;
+import main.java.graphics.Sprite.ImgLoader;
 import main.java.level.Level;
 import main.java.util.Coordinate;
 

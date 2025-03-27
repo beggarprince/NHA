@@ -15,7 +15,7 @@ import main.java.io.Audio.Sound;
 import main.java.level.Level;
 import main.java.io.keyboard.KbInputInGame;
 import main.java.graphics.GameCanvas;
-import main.java.util.AudioConstants;
+import main.java.io.Audio.AudioConstants;
 import main.java.util.Coordinate;
 
 import static main.java.Game.CoreHelper.updateNPCLists;

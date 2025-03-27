@@ -4,7 +4,6 @@ public class GameState {
     public static State gameState = State.GAMERUNNING;
 
     //These are just to signal throughout the system what is going on to avoid passing around a ton of booleans or having tons of canvas/audio calls everywhere
-    public static boolean mvpCaptured = false;
     private static boolean hidingMvp = false;
     public static boolean heroActive = false;
     public static int INPUT_STATE = 0;

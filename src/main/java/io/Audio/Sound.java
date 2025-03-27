@@ -1,16 +1,14 @@
 package main.java.io.Audio;
 
-import main.java.util.AudioConstants;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 
 public class Sound {
     static Clip musicClip;
+    static Clip overrideClip;
+
     static Sound instance;
     private static boolean musicMuted = false;
     private static float musicMutePreviousSoundLevel;
@@ -82,6 +80,39 @@ public class Sound {
         }
     }
 
+    public static void overrideMusic(String requestedMusic){
+
+        //Stop but don't close so we can resume
+        if(musicClip != null && musicClip.isOpen()){
+            musicClip.stop();
+        }
+
+        try {
+            AudioInputStream l = AudioSystem.getAudioInputStream(AudioResources.get(requestedMusic));
+            overrideClip = AudioSystem.getClip();
+            overrideClip.open(l);
+            if(lastTrackMusicLevel != 0.0f){
+                adjustMusicVolume(lastTrackMusicLevel);
+            }
+            overrideClip.start();
+
+        } catch (UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void resumeMusic(){
+        if(overrideClip != null && overrideClip.isOpen()){
+            overrideClip.stop();
+            overrideClip.close();
+        }
+        musicClip.start();
+    }
 
     public static void adjustMusicVolume(float adjustment){
 

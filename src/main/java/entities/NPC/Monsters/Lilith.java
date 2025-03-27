@@ -1,14 +1,11 @@
 package main.java.entities.NPC.Monsters;
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.NPCType;
 import main.java.graphics.ScreenSettings;
-import main.java.util.ImgLoader;
-import main.java.util.SpriteConstants;
+import main.java.graphics.Sprite.ImgLoader;
+import main.java.graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
-
-import static main.java.entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Lilith extends Monster{
 
@@ -38,9 +35,7 @@ public class Lilith extends Monster{
 
     @Override
     public void eat() {
-        this.startAnimation();
-        this.hunger += basicAttackStrength;
-        this.health += basicAttackStrength;
+        basicPredatorEat(this);
     }
 
     @Override
@@ -56,10 +51,10 @@ public class Lilith extends Monster{
     @Override
     public void behavior() {
 
-        if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Spirit)){
-            eat();
+        if(!hasFullStomach) basicPredation(NPCType.Spirit);
+        else {
+            moveNpcAndSignalTrueIfWeMove();
         }
-        moveNpcAndSignalTrueIfWeMove();
     }
 
     @Override
