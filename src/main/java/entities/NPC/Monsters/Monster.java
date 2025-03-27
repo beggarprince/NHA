@@ -1,10 +1,14 @@
 package main.java.entities.NPC.Monsters;
 
+import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.Movement;
 import main.java.entities.NPC.NPC;
+import main.java.entities.NPC.NPCType;
 import main.java.graphics.ScreenSettings;
 import java.util.Random;
 import java.awt.image.BufferedImage;
+
+import static main.java.entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
 
 //TODO REFACTOR THIS, SPLIT INTO DIFFERENT FILES, GET LOGIC OUT OF NPC
@@ -102,8 +106,27 @@ public abstract class Monster extends NPC {
 
 
     //public abstract void attack();
+    protected void basicPredatorEat(Monster monster){
+        monster.startAnimation();
+        monster.hunger += monster.basicAttackStrength;
+        monster.health += monster.basicAttackStrength;
+        if(monster.hunger <= monster.maxHunger / 2) {
+            monster.hasFullStomach = true;
+        }
+    }
 
+    protected void basicPredation(NPCType prey){
+        //check if they can eat
+            if (checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), prey)) {
+                //System.out.println("The bug shall engage in eating");
+                eat();
+            }
+            else {
+                //If they eat we do not want them moving
+                //System.out.println("The bug did not find any food");
+                moveNpcAndSignalTrueIfWeMove();
+            }
 
-
+    }
 
 }

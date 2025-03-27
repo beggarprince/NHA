@@ -125,9 +125,7 @@ public class Dragon extends Monster{
 
     @Override
     public void eat() {
-        this.startAnimation();
-        this.hunger += basicAttackStrength;
-        this.health += basicAttackStrength;
+        basicPredatorEat(this);
     }
 
     @Override

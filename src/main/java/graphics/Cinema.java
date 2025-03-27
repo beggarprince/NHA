@@ -24,7 +24,6 @@ public class Cinema {
 
     private static void resetCinematic(){
         cinematicActive = false;
-       // System.out.println("Cinematic is finisheddddddddddddddddddddddddddd dddddddddd");
         GameState.gameState = State.AWAITING_INPUT;
         HideMvp.run();
         currentFrame = 0;

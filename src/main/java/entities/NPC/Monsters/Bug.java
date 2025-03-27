@@ -17,6 +17,10 @@ public class Bug extends Monster {
     int spriteFrameTimeCounter = 0;
     int spriteFrame = 0;
     private int previousSpriteArray = 0;
+    static final BufferedImage image =  ImgLoader.getImageResource(SpriteConstants.MONSTER_BUG);
+    static final int bugLifespan = ScreenSettings.FPS * 45;
+    static final String metamorphosisValue = "";
+    static final int hungerDecCounter = 5;
 
 //col row width height
 
@@ -101,11 +105,6 @@ public class Bug extends Monster {
             }
     };
 
-    static final BufferedImage image =  ImgLoader.getImageResource(SpriteConstants.MONSTER_BUG);
-    static final int bugLifespan = ScreenSettings.FPS * 45;
-    static final String metamorphosisValue = "Slime_Flower";
-    static final int hungerDecCounter = 5;
-
     public Bug( int x, int y) {
         super(32, x, y);
         // setImage();
@@ -150,22 +149,11 @@ public class Bug extends Monster {
         if(this.hunger % 5 == 0){
             hunger--;
             if(hunger < maxHunger / 2){
-                //System.out.println("The bug became hungry");
                 hasFullStomach = false;
             }
         }
 
-        //check if they can eat
-        if(!hasFullStomach) {
-            if (checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Slime)) {
-                //System.out.println("The bug shall engage in eating");
-                eat();
-            }
-            else {
-                //System.out.println("The bug did not find any food");
-                moveNpcAndSignalTrueIfWeMove();
-            }
-        }
+        if(!hasFullStomach)basicPredation(NPCType.Slime);
         //Wonky code. If the bug is not hungry i'm not checking lists, that doesn't mean we don't move
         //We also don't want to move if eat() runs, like at all.
         else {
@@ -178,12 +166,7 @@ public class Bug extends Monster {
 
     @Override
     public void eat() {
-        this.startAnimation();
-        this.hunger += basicAttackStrength;
-        this.health += basicAttackStrength;
-        if(this.hunger == maxHunger) {
-            hasFullStomach = true;
-        }
+       basicPredatorEat(this);
     }
 
     @Override

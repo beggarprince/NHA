@@ -44,8 +44,6 @@ private fun runEnemyBehavior(enemies: List<Monster>) {
             ///Instead of combat they will attack once and that's it
             if(monsters[i].type == prey){
                 Combat.targetedAttack(monsters[i], monster)
-
-                //TODO should probably heal the predator
                 return true
             }
         }

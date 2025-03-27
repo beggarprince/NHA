@@ -13,7 +13,9 @@ public class EatingSystem {
     //TODO getting possible directions should be it's own method since it's being used 3 times in different methods
     //TODO handle out of bounds in collision as well
 
-    public static boolean l1EatOrPoopNutrient(Monster monster, TileType tileDiet){
+
+    //TODO l1 monsters always eat this should be modified
+    public static boolean L1checkIfHungryAndEat(Monster monster, TileType tileDiet){
         boolean eatStatus = false;
 
         //Eat
@@ -89,8 +91,10 @@ public class EatingSystem {
         return false;
     }
 
-    public static boolean eatSurroundingMonster(Monster m, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){
-        Level level = Level.getInstance("");
+    public static boolean eatSurroundingMonster(Monster m,
+                                                List<Direction> possibleDirections,
+                                                int worldPositionX,
+                                                int worldPositionY){
 
         return false;
     }

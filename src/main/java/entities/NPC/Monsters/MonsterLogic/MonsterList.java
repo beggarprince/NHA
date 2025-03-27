@@ -1,7 +1,7 @@
 package main.java.entities.NPC.Monsters.MonsterLogic;
 
 import main.java.Game.SpatialHash;
-import main.java.entities.NPC.Monsters.Monster;
+import main.java.entities.NPC.Monsters.*;
 
 import java.util.ArrayList;
 
@@ -15,10 +15,20 @@ public class MonsterList {
 
     //TODO change this into a 2d array with linkedlist so we can just check tile XY instead of iterating throughout the entire list
     private  ArrayList<Monster> monsters;      // Instance variable for the list
+
+    //These are made so we can quickly access specified monsters
+//    private static ArrayList<Slime> SlimeList;
+//    private static ArrayList<Bug> BugList;
+//    private static ArrayList<LizardMan> LizardManList;
+//    private static ArrayList<Spirit> SpiritList;
+//    private static ArrayList<Lilith> LilithList;
+//    private static ArrayList<Dragon> DragonList;
+//    private static ArrayList<Skeleton> SkeletonList;
+
     private SpatialHash init;
     // Private constructor for singleton
-    private MonsterList() {
 
+    private MonsterList() {
         monsters = new ArrayList<>();
         init = SpatialHash.getInstance();
     }

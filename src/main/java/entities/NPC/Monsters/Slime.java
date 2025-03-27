@@ -56,7 +56,7 @@ public class Slime extends Monster {
         }
 
         if(eatingCycleReady) {
-            if (EatingSystem.l1EatOrPoopNutrient(this, TileType.NUTRIENT))
+            if (EatingSystem.L1checkIfHungryAndEat(this, TileType.NUTRIENT))
                 return; // we have acted and thus we need a slight cooldown before we act again
         }
 

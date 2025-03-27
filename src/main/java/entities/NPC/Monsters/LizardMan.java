@@ -29,7 +29,6 @@ public class LizardMan extends Monster{
     @Override
     protected void setImage() {
         //this.image = ImgLoader.getImageResource("lmanSheet.png");
-
     }
 
     @Override
@@ -40,9 +39,7 @@ public class LizardMan extends Monster{
 
     @Override
     public void eat() {
-        this.startAnimation();
-        this.hunger += basicAttackStrength;
-        this.health += basicAttackStrength;
+        basicPredatorEat(this);
     }
 
     @Override
@@ -58,14 +55,12 @@ public class LizardMan extends Monster{
     @Override
     public void behavior() {
 
-        //check if they can eat
-        if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.Bug)){
-            eat();
-            return;
-        }
+        if(!hasFullStomach)basicPredation(NPCType.Bug);
+
         else {
-            if (moveNpcAndSignalTrueIfWeMove());
+            moveNpcAndSignalTrueIfWeMove();
         }
+
     }
 
     @Override
