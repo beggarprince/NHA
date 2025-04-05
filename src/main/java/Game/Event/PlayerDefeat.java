@@ -1,4 +1,4 @@
-package main.java.Game.Scripts;
+package main.java.Game.Event;
 
 import main.java.Game.GameState;
 import main.java.Game.State;
@@ -19,6 +19,7 @@ public class PlayerDefeat {
 
         GameState.gameState = State.GAMEOVER;
         //change music
+        Sound.resumeMusic();
         Sound.setMusic(AudioConstants.MUS_GAME_OVER);
     }
 

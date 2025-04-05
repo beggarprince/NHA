@@ -1,7 +1,7 @@
 package main.java.Game;
 
-import main.java.Game.Scripts.BattleBeginScript;
-import main.java.Game.Scripts.HeroEntryScript;
+import main.java.Game.Event.BattleBeginScript;
+import main.java.Game.Event.HeroEntryScript;
 import main.java.PlayerActions.Spawn;
 import main.java.entities.NPC.Heroes.HeroFactory;
 import main.java.entities.NPC.Heroes.HeroList;
@@ -19,7 +19,7 @@ import static main.java.PlayerActions.Dig.dig;
 
 public class CoreHelper {
 
-    static Level level;// i hate typing get instance
+    static Level level;
     public CoreHelper(){
         level = Level.getInstance();
     }

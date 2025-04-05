@@ -57,7 +57,7 @@ public class EatingSystem {
 
     //Is given surrounding tiles, then eats
     public static boolean eatSurroundingTile(TileType t, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){
-        Level level = Level.getInstance("");
+        Level level = Level.getInstance();
 
         for(Direction d : possibleDirections){
             if (d == Direction.UP && worldPositionY > 0) {
@@ -101,7 +101,7 @@ public class EatingSystem {
 
 
     public static boolean depositSurroundingTile(TileType t, List<Direction> possibleDirections, int worldPositionX, int worldPositionY){
-        Level level = Level.getInstance("");
+        Level level = Level.getInstance();
 
         // Since we can only eat non-walkable directions we remove if validateWalkableDirection returns true
         // possibleDirections.removeIf(direction -> validateWalkableDirection(direction, worldPosX, worldPosY));

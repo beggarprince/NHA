@@ -14,7 +14,7 @@ public class Movement {
     static Level levelInstance;
 
     public static void setLevelInstance(){
-        levelInstance = Level.getInstance("res/levelTest.csv");
+        levelInstance = Level.getInstance();
     }
 
 

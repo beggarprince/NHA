@@ -47,9 +47,10 @@ public class Level {
         createTileData();
     }
 
-    private Level() {
+    private Level(int nutrientDistribution, int manaDistribution) {
 
-        LevelGenerator levelGenerator = new LevelGenerator(85, 97);
+        LevelGenerator levelGenerator = new LevelGenerator(nutrientDistribution, manaDistribution);
+
         levelData = levelGenerator.returnLevel();
 
 
@@ -65,20 +66,29 @@ public class Level {
 
 
     // Public static method to provide access to the single instance
-    //TODO override it so we don't always need a string
-    public static Level getInstance(String levelFilePath) {
+
+//    public static Level getInstance(String levelFilePath) {
+//        if (instance == null) {
+//            instance = new Level(levelFilePath);
+//        }
+//        return instance;
+//    }
+
+
+    public static Level getInstance(int nutrientDistribution, int manaDistribution) {
         if (instance == null) {
-            instance = new Level(levelFilePath);
+            instance = new Level(nutrientDistribution, manaDistribution);
         }
         return instance;
     }
 
     public static Level getInstance() {
         if (instance == null) {
-            instance = new Level();
+            instance = new Level(0, 0);
         }
         return instance;
     }
+
 
     private void createInitialPath(){
         int y = 0;

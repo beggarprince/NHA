@@ -1,6 +1,6 @@
 package main.java.entities.NPC;
 
-import main.java.Game.Scripts.MVPCaptured;
+import main.java.Game.Event.MVPCaptured;
 import main.java.entities.Direction;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Heroes.HeroList;

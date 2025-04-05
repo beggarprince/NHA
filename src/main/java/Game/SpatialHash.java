@@ -6,7 +6,7 @@ import main.java.graphics.ScreenSettings;
 import java.util.ArrayList;
 
 //This may not even be used, but meant for multithreading
-
+//TODO was in fact not used
 public class SpatialHash {
     private static SpatialHash instance;
     private final int scale;

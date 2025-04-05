@@ -9,7 +9,7 @@ public class Combat {
 
     public static Level level;
     public static void setLevelInstance(){
-        level = Level.getInstance("res/levelTest.csv");
+        level = Level.getInstance();
     }
     //TODO make sure there is no possibility of null calls to combatTarget
     public static void basicAttack(NPC npc){

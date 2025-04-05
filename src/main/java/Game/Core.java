@@ -1,6 +1,6 @@
 package main.java.Game;
 
-import main.java.Game.Scripts.PlayerVictory;
+import main.java.Game.Event.PlayerVictory;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.entities.NPC.Mvp;
 import main.java.entities.Player;

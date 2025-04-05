@@ -1,7 +1,7 @@
 package main.java.graphics;
 
 import main.java.Game.GameState;
-import main.java.Game.Scripts.HideMvp;
+import main.java.Game.Event.HideMvp;
 import main.java.Game.State;
 
 public class Cinema {
