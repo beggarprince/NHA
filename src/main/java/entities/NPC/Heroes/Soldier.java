@@ -9,7 +9,7 @@ public class Soldier extends Hero{
   //  public static BufferedImage image =  ImgLoader.getImageResource("sprites/hero/knight_mvRight.png");
 
     public Soldier(int health, int x, int y){
-        super( health, x, y);
+        super( health, x, y, "TEMP_NAME");
         this.health = 96;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;

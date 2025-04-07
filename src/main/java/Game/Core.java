@@ -38,8 +38,6 @@ public class Core extends CoreHelper{
 
     public void coreGameLoop(Object uiLock, Object npcLogicLock, KbInputInGame kb, Player player, Camera camera){
 
-
-
         ///Run one game cycle, 1 frame
         if (timeForNewFrame()) {
             runGameLoop(npcLogicLock, kb, player, camera);

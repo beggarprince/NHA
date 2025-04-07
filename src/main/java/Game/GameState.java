@@ -1,6 +1,7 @@
 package main.java.Game;
 
 public class GameState {
+    //Logically, what state is the game in rn
     public static State gameState = State.GAMERUNNING;
 
     //These are just to signal throughout the system what is going on to avoid passing around a ton of booleans or having tons of canvas/audio calls everywhere

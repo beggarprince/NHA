@@ -2,6 +2,7 @@ package main.java;
 
 import main.java.Game.Core;
 import main.java.Game.Event.PlayerDefeat;
+import main.java.Game.LevelState;
 import main.java.entities.Combat;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
@@ -16,6 +17,7 @@ import main.java.io.keyboard.KbInputInGame;
 import main.java.graphics.GameCanvas;
 import main.java.io.Audio.AudioConstants;
 import main.java.util.Coordinate;
+import main.java.Game.LevelState.GameLevel;
 
 import static main.java.Game.CoreHelper.updateNPCLists;
 import static main.java.io.Audio.Sound.getSoundInstance;
@@ -31,6 +33,7 @@ public class Engine implements Runnable {
     public GameCanvas gamePanel;
     private int xEntry;
     private Core core;
+    private GameLevel currentLevel;
     //private final NPCLogic logic;
     //private final SpatialHash spatialHash;
     Sound sound;
@@ -38,8 +41,11 @@ public class Engine implements Runnable {
 
     // Constructor
     public Engine() {
+        //Setting level data
+        currentLevel = new LevelState().requestLevel(0);
+
         //World creation
-        this.level = Level.getInstance(85, 97);
+        this.level = Level.getInstance(currentLevel.nutrientDistribution, currentLevel.manaDistribution);
 
         core = new Core();
         //Audio
