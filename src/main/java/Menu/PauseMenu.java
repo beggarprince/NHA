@@ -21,11 +21,12 @@ public class PauseMenu extends JFrame {
     static final int pauseMenuTopY = ScreenSettings.PX_SCREEN_HEIGHT * 3 /10;
     final static int pauseMenuTopX = centerScreenX - (pauseMenuWidth / 2);
     final static int menuSpacing = ScreenSettings.PX_SCREEN_HEIGHT * 5 /100;
-    final static Font l1 = new Font("Arial", Font.PLAIN, 16);
+    final static Font l1 = new Font("Arial", Font.PLAIN, 24);
     //We now just add spacing to create the menu
     final static String paused = "Game paused" ;
     static int textWidth = 0;
-    public static void GrayRectangleBackground( Graphics2D g){
+
+    public static void inGamePause(Graphics2D g){
 
         //Rectangle
         g.setColor(Color.GRAY);
@@ -47,6 +48,7 @@ public class PauseMenu extends JFrame {
         g.drawString(paused, (centerScreenX - textWidth), (pauseMenuTopY + menuSpacing));
     }
 
+    //This allows us to center the text by starting at the center and then subtracting half the width
     private static  void initTextWidth(Graphics2D g){
         FontMetrics m = g.getFontMetrics(l1);
         textWidth = m.stringWidth(paused) / 2;

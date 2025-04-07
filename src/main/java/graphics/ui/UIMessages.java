@@ -13,7 +13,7 @@ public class UIMessages {
     private final int centerScreenWidth = ScreenSettings.PX_SCREEN_WIDTH /2;
     private final int centerScreenHeight = ScreenSettings.PX_SCREEN_HEIGHT /2;
 
-    //tbh i don't know why we'd need the widths and heights in this state
+    //tbh i don't know why we'd need the widths and heights
     private final int uiHideMVPMessageWidth = uiHideMVPMessage.getWidth();
     private final int UiHideMVPMessageHeight = uiHideMVPMessage.getHeight();
 
