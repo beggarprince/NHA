@@ -15,6 +15,8 @@ public class TextBox extends JFrame {
 
     static final int textBoxOriginX = centerScreenX - (textBoxWidth / 2);
     static final int textBoxOriginY = textBoxHeight;
+    static final int textBoxMarginX = 16;
+    static final int textBoxMarginY = 16;
     static final int textLineSpace = ScreenSettings.PX_SCREEN_HEIGHT * 1/10; //This really needs to be tested
     static int getTextBoxWidth = 0;
 
@@ -26,6 +28,10 @@ public class TextBox extends JFrame {
         BOLD      // Maps to BOLD_FONT
     }
 
+
+
+    //TODO make some character count to split the text into two lines
+    //Upon calling this will not decide whether or not to split the text, rather it will do that in a diff fun
     public static void textBox(Graphics2D g, Font font, String text){
         //Box
         g.setColor(Color.GRAY);
@@ -40,7 +46,6 @@ public class TextBox extends JFrame {
         g.setColor(Color.BLACK);
         FontMetrics metrics = g.getFontMetrics(font);
         int textWidth = metrics.stringWidth(text) /2;
-        //TODO make some character count to split the text into two lines
         g.drawString(text, (centerScreenX  -textWidth), (textBoxOriginY + textLineSpace));
     }
 

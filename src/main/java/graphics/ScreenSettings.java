@@ -42,6 +42,7 @@ public class ScreenSettings {
     public static final int PX_UI_NUMBER_OFFSET = 16;
 
 
+
     //Refresh rate settings
     public static final int FPS_DELAY = 3;
     public static final int FPS = 60;

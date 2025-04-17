@@ -23,7 +23,7 @@ public class PauseMenu extends JFrame {
     final static int menuSpacing = ScreenSettings.PX_SCREEN_HEIGHT * 5 /100;
     final static Font l1 = new Font("Arial", Font.PLAIN, 24);
     //We now just add spacing to create the menu
-    final static String paused = "Game paused" ;
+    final static String paused = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" ;
     static int textWidth = 0;
 
     public static void inGamePause(Graphics2D g){
@@ -51,6 +51,14 @@ public class PauseMenu extends JFrame {
     //This allows us to center the text by starting at the center and then subtracting half the width
     private static  void initTextWidth(Graphics2D g){
         FontMetrics m = g.getFontMetrics(l1);
+        //With the current setup paused width is 151
+        //At 24 font
+        //W_ = 31
+        //W = 24
+        //l = 5
+        //50 W is greater than 1296 and too much because the screen width is only 1296 but shows length as 1296
+        //Holy shit i just accidentally guessed the max screen width, 51 is 1320 and too many Ws, 50 W fits
+        System.out.println(m.stringWidth(paused));
         textWidth = m.stringWidth(paused) / 2;
     }
 }
