@@ -42,6 +42,7 @@ public class DialogueSystem {
                     //take of a char and see if it fits
                     String sub = segmentString.substring(0, j);
 
+                    //As soon as we're at <= max we create the break
                     if (m.stringWidth(sub) <= max) {
                         breakPos = j;
                         if (segmentString.charAt(j) == ' ') {
