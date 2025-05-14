@@ -19,7 +19,9 @@ import main.java.io.Audio.AudioConstants;
 import main.java.util.Coordinate;
 import main.java.Game.LevelState.GameLevel;
 
-import static main.java.Game.CoreHelper.updateNPCLists;
+import java.util.ArrayList;
+
+import static main.java.Game.Core.updateNPCLists;
 import static main.java.io.Audio.Sound.getSoundInstance;
 
 
@@ -45,9 +47,9 @@ public class Engine implements Runnable {
         currentLevel = new LevelState().requestLevel(0);
 
         //World creation
-        this.level = Level.getInstance(currentLevel.nutrientDistribution, currentLevel.manaDistribution);
+        this.level = Level.getInstance(currentLevel.getNutrientDistribution(), currentLevel.getManaDistribution());
 
-        core = new Core();
+        core = new Core(currentLevel.getCurrentLevelHeroes());
         //Audio
         sound = getSoundInstance();
 

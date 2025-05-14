@@ -1,7 +1,13 @@
 package main.java.Game;
 
+import main.java.Game.Event.BattleBeginScript;
+import main.java.Game.Event.HeroEntryScript;
 import main.java.Game.Event.PlayerVictory;
+import main.java.PlayerActions.Spawn;
+import main.java.entities.NPC.Heroes.Hero;
+import main.java.entities.NPC.Heroes.HeroFactory;
 import main.java.entities.NPC.Heroes.HeroList;
+import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.Mvp;
 import main.java.entities.Player;
 import main.java.graphics.Camera;
@@ -9,26 +15,49 @@ import main.java.graphics.Cinema;
 import main.java.graphics.ScreenSettings;
 import main.java.io.keyboard.KBInputAccelerator;
 import main.java.io.keyboard.KbInputInGame;
+import main.java.level.TileType;
 import main.java.util.TimerDebug;
+
+import java.util.ArrayList;
+
+import static main.java.PlayerActions.Dig.dig;
 
 public class Core extends CoreHelper{
 
     private long frameRatePrevTime;
     private final int timeUntilHeroSpawn = 600 * 1; // Ten seconds for now, 60 after *
     private int heroSpawnCountdown = 0;
+    private static int currentRound = 0;
+    private static int finalRound;
+    private static ArrayList<ArrayList<LevelState.HeroData>> currentLevelHeroes; //List of heroes separated by rounds
     KBInputAccelerator keyboardInputAccelerator;
 
     private TimerDebug timerDebug;
 
-    public Core(){
+    public Core(ArrayList<ArrayList<LevelState.HeroData>> levelHeroes){
         frameRatePrevTime = System.nanoTime();
          keyboardInputAccelerator = KBInputAccelerator.getInstance();
+         currentLevelHeroes = levelHeroes;
+         finalRound = levelHeroes.size()-1;
+         int count = 1;
+        for (ArrayList<LevelState.HeroData> heroList : levelHeroes) {
+
+            System.out.println("Round " + count +" heroes:");
+
+            for (LevelState.HeroData hero : heroList) {
+                System.out.println( hero.temp + " " + hero.heroName);
+            }
+            count++;
+        }
+        System.out.println("The first hero ought to be" +
+                currentLevelHeroes.get(0).get(0).heroName
+        );
     }
 
     private boolean timeForNewFrame(){
         //Check if we can move frame forward
         long frameRateCurrentTime = System.nanoTime();
-        if( CoreHelper.checkTimer(frameRateCurrentTime, frameRatePrevTime)){
+        if( checkTimer(frameRateCurrentTime, frameRatePrevTime)){
             //Set new time
             frameRatePrevTime = frameRateCurrentTime;
             return true;
@@ -75,6 +104,7 @@ public class Core extends CoreHelper{
 
         //Awaiting input press ENTER
         if(GameState.gameState == State.AWAITING_INPUT){
+            //TODO put some type of message for the player to know they need to press enter
             if(kb.enterPressed){
                 GameState.INPUT_STATE--;
                 if(GameState.INPUT_STATE == 0){
@@ -108,9 +138,6 @@ public class Core extends CoreHelper{
             return;
         }
 
-
-
-
         checkPlayerInputActiveStage(kb, player, 60);
 
         synchronized (npcLogicLock) {
@@ -131,6 +158,10 @@ public class Core extends CoreHelper{
             if(HeroList.getInstance().getHeroes().isEmpty()){
                 //We won this round
                 PlayerVictory.run();
+                currentRound++;
+                if(currentRound > finalRound) {
+                    System.out.println("you have won");
+                }
                 heroSpawnCountdown = 0;
             }
         }
@@ -142,5 +173,130 @@ public class Core extends CoreHelper{
             uiLock.notify();
         }
     }
+
+
+    protected static boolean checkTimer(long currentTime, long previousTime){
+        return ((currentTime - previousTime) >= ScreenSettings.INTERVAL);
+    }
+
+    protected static boolean attemptDig(Player player){
+        if (dig(level.tileData,
+                level.tileData.get(player.playerTilePositionY)
+                        .get(player.playerTilePositionX),
+                player.playerTilePositionX,
+                player.playerTilePositionY
+        )) {
+            Spawn.spawnEnemyAtPlayer(level.tileData
+                            .get(player.playerTilePositionY)
+                            .get(player.playerTilePositionX),
+                    MonsterList.getInstance());
+            level.tileData.get(player.playerTilePositionY)
+                    .get(player.playerTilePositionX).digDestruct();
+            return true;
+        }
+        return false;
+    }
+
+    protected static void debugAddHero(int kbInputDebugJankTimer, Player player){
+        if( kbInputDebugJankTimer != 60){
+            System.out.println("Debug timer on cooldown");
+            return;
+        }
+
+        kbInputDebugJankTimer = 0;
+        HeroList.getInstance().addHero(HeroFactory.getInstance().createHero("knight",
+                player.playerTilePositionX,
+                player.playerTilePositionY));
+
+    }
+
+    //We should separate the spawning and the decrement
+    protected static int decrementHeroTimer(int heroSpawnTimer, int heroSpawnCountdown, Camera camera){
+        heroSpawnCountdown++;
+//        try {
+//            System.out.println("Hero spawn countdown: " + heroSpawnCountdown);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        if(heroSpawnTimer <= heroSpawnCountdown){
+            //TODO add rounds here
+            System.out.println("We are at round number " + currentRound);
+
+            GameState.heroActive = true;
+
+            //HeroEntryScript.run("Soldier", HeroList.getInstance(), camera);
+            HeroEntryScript.run(currentLevelHeroes.get(currentRound), HeroList.getInstance(), camera);
+
+            //currentRound++;
+            //GameState.setMvpHiding();
+        }
+        return heroSpawnCountdown;
+    }
+
+
+
+
+    protected static void checkPlayerInputActiveStage(KbInputInGame kb,
+                                                      Player player,
+                                                      int kbInputDebugJankTimer){
+        if (kb.dig) {
+            if(player.getDigPower() >0){
+                if(attemptDig(player))player.digPowerDecrement();
+            }
+        }
+        else if (kb.debug ) {
+            debugAddHero(kbInputDebugJankTimer, player);
+        }
+        else if(kb.spawnDebug){
+            Spawn.spawnEnemyAtPlayerDebug(MonsterList.getInstance(), level.tileData
+                    .get(player.playerTilePositionY)
+                    .get(player.playerTilePositionX));
+        }
+
+        if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;
+    }
+
+    protected static void playerMovement(KBInputAccelerator kba, KbInputInGame kb, Player player, Camera camera){
+        if (kb.kbCheckIfPlayerMoving() ) {
+            if(kb.maxSpeed){
+                player.movePlayer(player, camera,  kb.returnMovementType());
+            }
+            else {
+                kba.accelerateInput();
+                if (kba.readyToMovePlayer()) {
+                    player.movePlayer(player, camera, kb.returnMovementType() );
+                }
+            }
+        }else{
+            kba.resetAcceleration();
+        }
+    }
+
+    protected static void attemptToPlaceMVPAndCheckIfSuccessful(KbInputInGame kb, Player player, int heroSpawnTimer, int heroSpawnCountdown, Camera camera){
+
+        if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
+            GameState.heroActive = true;
+            heroSpawnCountdown = 0;
+            Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
+
+            //TODO change this to battle state or something
+            GameState.mvpSuccesfullyHidden();
+            if(!GameState.stateHidingMvp()){
+                BattleBeginScript.run();
+            }
+        }
+    }
+
+    public static void updateNPCLists(){
+        MonsterList.getInstance().destroyEnemies();
+        HeroList.getInstance().destroyHeroes();
+    }
+
+    protected static void setMvpHiding(){
+        if(GameState.heroActive ){
+
+        }
+    }
+
 }
 

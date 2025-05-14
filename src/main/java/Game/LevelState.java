@@ -9,23 +9,38 @@ import java.util.List;
 public class LevelState {
 
     public class GameLevel {
-         public int nutrientDistribution;
-         public int manaDistribution;
+         private int nutrientDistribution;
+         private int manaDistribution;
          public int digPower;
-        ArrayList<ArrayList<HeroData>> currentLevelHeroes; //List of heroes separated by rounds
+         public int round =0;
+
+        private ArrayList<ArrayList<HeroData>> currentLevelHeroes; //List of heroes separated by rounds
 
         GameLevel(int nutrientDistribution, int manaDistribution, int digPower, int level ){
             this.nutrientDistribution = nutrientDistribution;
             this.manaDistribution = manaDistribution;
             this.digPower = digPower;
-
             this.currentLevelHeroes = levelHeroes.get(level);
         }
 
-        public  ArrayList<HeroData> returnCurrentRoundHeroes(int currentRound){
+        //tbh this shouldn't be here
+        public ArrayList<HeroData> returnCurrentRoundHeroes(int currentRound){
             return currentLevelHeroes.get(currentRound);
         }
+        public ArrayList<ArrayList<HeroData>> getCurrentLevelHeroes(){
 
+            return currentLevelHeroes;
+        }
+
+        public int getNutrientDistribution() {
+            System.out.println("The nutrient distribution is " + nutrientDistribution);
+            return nutrientDistribution;
+        }
+
+        public int getManaDistribution() {
+            System.out.println("The mana distribution is " + manaDistribution);
+            return manaDistribution;
+        }
     }
 
     public GameLevel requestLevel(int requestedLevel){
@@ -36,18 +51,19 @@ public class LevelState {
     //We have to choose the base class, a hero name, and we can change the health if we want
     //The engine will handle this outside, reading from the hero data and creating heroes with the factory
     public class HeroData {
-        NPCType Hero;
+        public NPCType heroType;
         int health;
-        String heroName;
+        public String heroName;
+        public String temp = "Soldier";
 
         HeroData(NPCType Hero, int health, String heroName){
-            this.Hero = Hero;
+            this.heroType = Hero;
             this.health = health;
             this.heroName = heroName;
         }
     }
 
-
+    //TODO find a more appropriate spot for this
     //This is level initialization settings. It tells the engine
     // How much nutrient vs mana and by extension empty blocks there will be
     //Player starting dig power
@@ -58,14 +74,20 @@ public class LevelState {
             new ArrayList<>(Arrays.asList(
                     // Round 0
                     new ArrayList<>(Arrays.asList(
-                            new HeroData(NPCType.Soldier, 24, "Max"),
-                            new HeroData(NPCType.Soldier, 24, "Min")
+                            new HeroData(NPCType.Soldier, 24, "Jakob"),
+                            new HeroData(NPCType.Soldier, 24, "Felicia")
                     )),
                     // Round 1
                     new ArrayList<>(Arrays.asList(
-                            new HeroData(NPCType.Soldier, 68, "Max"),
-                            new HeroData(NPCType.Soldier, 68, "Min"),
-                            new HeroData(NPCType.Soldier, 68, "Fin")
+                            new HeroData(NPCType.Soldier, 68, "Elise"),
+                            new HeroData(NPCType.Soldier, 68, "Effie"),
+                            new HeroData(NPCType.Soldier, 68, "Arthur")
+                    )),
+                    //Round 2
+                    new ArrayList<>(Arrays.asList(
+                            new HeroData(NPCType.Soldier, 68, "Camilla"),
+                            new HeroData(NPCType.Soldier, 68, "Selena"),
+                            new HeroData(NPCType.Soldier, 68, "Beruka")
                     ))
             )),
             // Level 1
@@ -84,6 +106,9 @@ public class LevelState {
             ))
     ));
 
+    //This is how we retrieve levels, these numbers are all that is needed to generate the level.
+    // the arguments are nutrientDistribution, manaDistribution, digPower, and level int that will map to the appropriate element in the enemy array
+    //such that we can programmatically retrieve it only knowing the hardcoded value and all the enemies will be created as such
     private final List<GameLevel> GAME_LEVEL = Arrays.asList(
             new GameLevel(85, 97, 450, 0),
             new GameLevel(75, 90, 450, 1)

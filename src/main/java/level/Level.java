@@ -49,9 +49,9 @@ public class Level {
 
     private Level(int nutrientDistribution, int manaDistribution) {
 
-        LevelGenerator levelGenerator = new LevelGenerator(nutrientDistribution, manaDistribution);
+        WorldGenerator worldGenerator = new WorldGenerator(nutrientDistribution, manaDistribution);
 
-        levelData = levelGenerator.returnLevel();
+        levelData = worldGenerator.returnLevel();
 
 
         levelRows = levelData.size(); // Size of column

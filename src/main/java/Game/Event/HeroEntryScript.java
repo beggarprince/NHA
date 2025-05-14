@@ -1,6 +1,7 @@
 package main.java.Game.Event;
 
 import main.java.Game.GameState;
+import main.java.Game.LevelState;
 import main.java.Game.State;
 import main.java.entities.NPC.Heroes.Hero;
 import main.java.entities.NPC.Heroes.HeroFactory;
@@ -11,6 +12,7 @@ import main.java.io.Audio.Sound;
 import main.java.level.Level;
 import main.java.io.Audio.AudioConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 //Todo need a list of heroes and their stats to then simply add here with a script
 public class HeroEntryScript {
@@ -18,10 +20,12 @@ public class HeroEntryScript {
     //take in heroes and spawn them
 
     //This is not a constructor, this is the only call you can make to run said script
-    public static void run(List<String> heroList, HeroList mainList, Camera camera){
+    public static void run(ArrayList<LevelState.HeroData> heroList, HeroList mainList, Camera camera){
         script(camera);
-        for (String requestedHero : heroList) {
-            spawnHero(requestedHero, mainList);
+
+        for (LevelState.HeroData requestedHero : heroList) {
+            System.out.println("Spawning the [adjective] " + requestedHero.heroName);
+            spawnHero(requestedHero.temp , mainList);
         }
 
     }
@@ -39,6 +43,7 @@ public class HeroEntryScript {
         GameState.gameState = State.CINEMATIC;
     }
 
+    //TODO fix this to work with enums
     private static void spawnHero(String hero,  HeroList heroList){
         try {
             heroList.addHero(HeroFactory.getInstance().createHero(hero,

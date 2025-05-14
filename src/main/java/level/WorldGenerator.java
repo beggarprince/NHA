@@ -8,14 +8,14 @@ import java.util.Random;
 
 //Purpose is to create a random array of tiles given instructions
 //This is for when we don't load from a csv file
-public class LevelGenerator {
+public class WorldGenerator {
     Random random;
     int nutrientDistribution;
     int manaDistribution;
 
     private  ArrayList<ArrayList<Integer>> initialLevel;
     //Nutrient
-    public LevelGenerator(int nutrientDistribution, int manaDistribution){
+    public WorldGenerator(int nutrientDistribution, int manaDistribution){
         initialLevel = new ArrayList<>();
         this.nutrientDistribution = nutrientDistribution;
         this.manaDistribution = manaDistribution;
