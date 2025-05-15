@@ -33,6 +33,7 @@ public class TextBox extends JFrame {
     //TODO make some character count to split the text into two lines
     //Upon calling this will not decide whether or not to split the text, rather it will do that in a diff fun
     public static void textBox(Graphics2D g, Font font, String text){
+
         //Box
         g.setColor(Color.GRAY);
         g.fillRect(textBoxOriginX, textBoxOriginY, textBoxWidth, textBoxHeight);
@@ -47,6 +48,7 @@ public class TextBox extends JFrame {
         FontMetrics metrics = g.getFontMetrics(font);
         int textWidth = metrics.stringWidth(text) /2;
         g.drawString(text, (centerScreenX  -textWidth), (textBoxOriginY + textLineSpace));
+
     }
 
 }

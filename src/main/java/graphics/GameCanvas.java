@@ -17,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static main.java.graphics.ui.EnemyUITextBox.enemyUITextBox;
+
 //main.java.Engine is the main game loop
 //Updates Screen and handles input
 
@@ -79,7 +81,15 @@ public class GameCanvas extends JPanel {
         paintHeroes(g2);
         paintBadman(g2);
         paintUIDigPower(g2);
+       ////TODO same as below
         if(GameState.gameState == State.PAUSE)PauseMenu.inGamePause(g2);
+
+        //TODO i need to move this out so the paint component function is not deciding whether or not to draw the heroes
+        if(GameState.heroActive == true){
+            for(int count = 0; count < 4; count++){
+                enemyUITextBox(g2, "NAMETH", count);
+            }
+        }
         //TODO replace this with some state code instead of booleans
         if(GameState.stateHidingMvp() && GameState.gameState != State.CINEMATIC) paintHideMVPMessage(g2);
         if(GameState.gameState == State.GAMEOVER) paintGameOverMessage(g2);

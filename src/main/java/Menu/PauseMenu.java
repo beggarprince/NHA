@@ -23,7 +23,7 @@ public class PauseMenu extends JFrame {
     final static int menuSpacing = ScreenSettings.PX_SCREEN_HEIGHT * 5 /100;
     final static Font l1 = new Font("Arial", Font.PLAIN, 24);
     //We now just add spacing to create the menu
-    final static String paused = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" ;
+    final static String paused = "Game Paused type shit" ;
     static int textWidth = 0;
 
     public static void inGamePause(Graphics2D g){
