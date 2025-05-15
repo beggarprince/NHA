@@ -2,6 +2,7 @@ package main.java;
 
 import main.java.Game.Core;
 import main.java.Game.Event.PlayerDefeat;
+import main.java.Game.GameState;
 import main.java.Game.LevelState;
 import main.java.entities.Combat;
 import main.java.entities.NPC.Heroes.HeroList;
@@ -39,6 +40,7 @@ public class Engine implements Runnable {
     //private final NPCLogic logic;
     //private final SpatialHash spatialHash;
     Sound sound;
+    ArrayList<ArrayList<LevelState.HeroData>> levelHeroes;
 
 
     // Constructor
@@ -48,8 +50,9 @@ public class Engine implements Runnable {
 
         //World creation
         this.level = Level.getInstance(currentLevel.getNutrientDistribution(), currentLevel.getManaDistribution());
+        levelHeroes = currentLevel.getCurrentLevelHeroes();
 
-        core = new Core(currentLevel.getCurrentLevelHeroes());
+        core = new Core(levelHeroes);
         //Audio
         sound = getSoundInstance();
 
@@ -115,8 +118,10 @@ public class Engine implements Runnable {
 
     //Update UI
     Runnable renderingThread = () -> {
-        gamePanel.paintFrame(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
+        gamePanel.setMonsterListInCanvas(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
         // else System.out.println("Can't paint UI, awaiting new frame");
+
+        gamePanel.repaint();
     };
 
     Thread uiWorker = new Thread(() -> {

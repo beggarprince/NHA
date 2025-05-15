@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+//This predates the game,is made to create the level itself. GameState has information on
 public class LevelState {
 
     public class GameLevel {
@@ -16,6 +18,7 @@ public class LevelState {
 
         private ArrayList<ArrayList<HeroData>> currentLevelHeroes; //List of heroes separated by rounds
 
+        //TODO i probably should just return this data in the call to create the level i am no long er sure what having an entire object for this data does except condense stuff
         GameLevel(int nutrientDistribution, int manaDistribution, int digPower, int level ){
             this.nutrientDistribution = nutrientDistribution;
             this.manaDistribution = manaDistribution;
@@ -28,7 +31,6 @@ public class LevelState {
             return currentLevelHeroes.get(currentRound);
         }
         public ArrayList<ArrayList<HeroData>> getCurrentLevelHeroes(){
-
             return currentLevelHeroes;
         }
 
@@ -54,7 +56,7 @@ public class LevelState {
         public NPCType heroType;
         int health;
         public String heroName;
-        public String temp = "Soldier";
+        public String type = "Soldier";
 
         HeroData(NPCType Hero, int health, String heroName){
             this.heroType = Hero;

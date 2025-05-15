@@ -4,8 +4,6 @@ import main.java.Game.Event.BattleBeginScript;
 import main.java.Game.Event.HeroEntryScript;
 import main.java.Game.Event.PlayerVictory;
 import main.java.PlayerActions.Spawn;
-import main.java.entities.NPC.Heroes.Hero;
-import main.java.entities.NPC.Heroes.HeroFactory;
 import main.java.entities.NPC.Heroes.HeroList;
 import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
 import main.java.entities.NPC.Mvp;
@@ -45,13 +43,11 @@ public class Core extends CoreHelper{
             System.out.println("Round " + count +" heroes:");
 
             for (LevelState.HeroData hero : heroList) {
-                System.out.println( hero.temp + " " + hero.heroName);
+                System.out.println( hero.type + " " + hero.heroName);
             }
             count++;
         }
-        System.out.println("The first hero ought to be" +
-                currentLevelHeroes.get(0).get(0).heroName
-        );
+
     }
 
     private boolean timeForNewFrame(){
@@ -204,9 +200,9 @@ public class Core extends CoreHelper{
         }
 
         kbInputDebugJankTimer = 0;
-        HeroList.getInstance().addHero(HeroFactory.getInstance().createHero("knight",
-                player.playerTilePositionX,
-                player.playerTilePositionY));
+//        HeroList.getInstance().addHero(HeroFactory.getInstance().createHero("knight",
+//                player.playerTilePositionX,
+//                player.playerTilePositionY));
 
     }
 

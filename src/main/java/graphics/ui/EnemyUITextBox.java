@@ -39,7 +39,7 @@ public class EnemyUITextBox extends JFrame {
 
     //TODO make some character count to split the text into two lines
     //Upon calling this will not decide whether or not to split the text, rather it will do that in a diff fun
-    public static void enemyUITextBox(Graphics2D g, String text, int nHeroCount){
+    public static void enemyUITextBox(Graphics2D g, String text, int nHeroCount, String hp){
 
         int xOrigin;
         if(nHeroCount == 0){
@@ -68,9 +68,9 @@ public class EnemyUITextBox extends JFrame {
         //Name
         g.drawString(text, xOrigin + uiTextSpacing  , (textBoxOriginY + uiTextSpacing) );
         //HP
-        g.drawString("HP", xOrigin + uiTextSpacing  , (textBoxOriginY + uiTextSpacing + 32));
+        g.drawString( hp , xOrigin + uiTextSpacing  , (textBoxOriginY + uiTextSpacing + 32));
         //Mana
-        g.drawString("MANA IDK", xOrigin + uiTextSpacing  , (textBoxOriginY + uiTextSpacing) + 64);
+        g.drawString("STATUS", xOrigin + uiTextSpacing  , (textBoxOriginY + uiTextSpacing) + 64);
     }
 
 }

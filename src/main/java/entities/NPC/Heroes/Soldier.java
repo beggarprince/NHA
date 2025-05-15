@@ -8,8 +8,9 @@ public class Soldier extends Hero{
     //TODO the rest can have static images, this can't. Figure out why
   //  public static BufferedImage image =  ImgLoader.getImageResource("sprites/hero/knight_mvRight.png");
 
-    public Soldier(int health, int x, int y){
-        super( health, x, y, "TEMP_NAME");
+    public Soldier(int health, int x, int y, String name){
+        super( health, x, y, name);
+        this.name = name;
         this.health = 96;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;

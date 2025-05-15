@@ -1,6 +1,7 @@
 package main.java.graphics;
 
 import main.java.Game.GameState;
+import main.java.Game.LevelState;
 import main.java.Menu.PauseMenu;
 import main.java.Game.State;
 import main.java.entities.NPC.Heroes.Hero;
@@ -39,6 +40,7 @@ public class GameCanvas extends JPanel {
     private final UINumber uiNumber;
     private final UIMessages uiMessages;
     private Coordinate MasterCoordinate;
+    Graphics2D g2Master;
 
     public GameCanvas(KbInputInGame kb,
                       Player p,
@@ -61,19 +63,24 @@ public class GameCanvas extends JPanel {
         MasterCoordinate = camera.topLeftCrn;
     }
 
-    public void paintFrame(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
+    public void repaintCanvas(){
+        this.repaint();
+    }
+
+    public void setMonsterListInCanvas(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
         monsterList =frameMonsterList;
         heroList = frameHeroList;
 
-        this.repaint();
+        //this.repaint();
     }
+
 
     public void paintComponent(Graphics g) {
         updateMasterCoordinate();
        // System.out.println(MasterCoordinate.x + ":"+ MasterCoordinate.y);
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-
+        g2Master = g2;
         //g2.setColor(Color.white);
         paintTileBackground(g2);
         paintPlayer(g2);
@@ -84,10 +91,10 @@ public class GameCanvas extends JPanel {
        ////TODO same as below
         if(GameState.gameState == State.PAUSE)PauseMenu.inGamePause(g2);
 
-        //TODO i need to move this out so the paint component function is not deciding whether or not to draw the heroes
+//        //TODO i need to move this out so the paint component function is not deciding whether or not to draw the heroes
         if(GameState.heroActive == true){
-            for(int count = 0; count < 4; count++){
-                enemyUITextBox(g2, "NAMETH", count);
+            for(int i = 0; i < heroList.size(); i++){
+                enemyUITextBox(g2, heroList.get(i).name , i, String.valueOf(heroList.get(i).health));
             }
         }
         //TODO replace this with some state code instead of booleans
@@ -96,6 +103,7 @@ public class GameCanvas extends JPanel {
         g2.dispose();
 
     }
+
 
     //Takes in a logical tile location and moves it to fit camera
     private void setCornerTiles() {
