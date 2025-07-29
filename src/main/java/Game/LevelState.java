@@ -1,6 +1,6 @@
-package main.java.Game;
+package Game;
 
-import main.java.entities.NPC.NPCType;
+import   entities.NPC.NPCType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

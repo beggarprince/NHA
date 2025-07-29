@@ -1,8 +1,8 @@
-package main.java.Game.Event;
+package Game.Event;
 
-import main.java.Game.GameState;
-import main.java.io.Audio.Sound;
-import main.java.io.Audio.AudioConstants;
+import   Game.GameState;
+import   io.Audio.Sound;
+import   io.Audio.AudioConstants;
 
 public class HideMvp {
     public static void run(){

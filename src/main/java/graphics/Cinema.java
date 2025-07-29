@@ -1,8 +1,8 @@
-package main.java.graphics;
+package graphics;
 
-import main.java.Game.GameState;
-import main.java.Game.Event.HideMvp;
-import main.java.Game.State;
+import   Game.GameState;
+import   Game.Event.HideMvp;
+import   Game.State;
 
 public class Cinema {
     private static final int cinematicLength = ScreenSettings.FPS * 5;

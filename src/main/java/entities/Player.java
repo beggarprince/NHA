@@ -1,10 +1,9 @@
-package main.java.entities;
-
-import main.java.graphics.Camera;
-import main.java.graphics.ScreenSettings;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.level.Level;
-import main.java.util.Coordinate;
+package entities;
+import   graphics.Camera;
+import   graphics.ScreenSettings;
+import   graphics.Sprite.ImgLoader;
+import   level.Level;
+import   util.Coordinate;
 
 import java.awt.image.BufferedImage;
 

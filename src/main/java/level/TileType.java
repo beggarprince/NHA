@@ -1,6 +1,6 @@
-package main.java.level;
+package level;
 
-import main.java.graphics.Sprite.ImgLoader;
+import   graphics.Sprite.ImgLoader;
 
 import java.awt.image.BufferedImage;
 

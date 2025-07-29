@@ -1,7 +1,6 @@
-package main.java.Menu;
+package Menu;
 
-
-import main.java.graphics.ScreenSettings;
+import   graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
 

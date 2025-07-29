@@ -1,7 +1,6 @@
-package main.java.level;
+package level;
 
-
-import main.java.graphics.ScreenSettings;
+import   graphics.ScreenSettings;
 
 import java.util.ArrayList;
 import java.util.Random;

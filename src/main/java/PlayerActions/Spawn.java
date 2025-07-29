@@ -1,10 +1,10 @@
-package main.java.PlayerActions;
+package PlayerActions;
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.graphics.ScreenSettings;
-import main.java.level.TileType;
-import main.java.level.Tile;
+import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import   graphics.ScreenSettings;
+import   level.TileType;
+import   level.Tile;
 
 public class Spawn {
 

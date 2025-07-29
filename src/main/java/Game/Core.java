@@ -1,24 +1,24 @@
-package main.java.Game;
+package Game;
 
-import main.java.Game.Event.BattleBeginScript;
-import main.java.Game.Event.HeroEntryScript;
-import main.java.Game.Event.PlayerVictory;
-import main.java.PlayerActions.Spawn;
-import main.java.entities.NPC.Heroes.HeroList;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.entities.NPC.Mvp;
-import main.java.entities.Player;
-import main.java.graphics.Camera;
-import main.java.graphics.Cinema;
-import main.java.graphics.ScreenSettings;
-import main.java.io.keyboard.KBInputAccelerator;
-import main.java.io.keyboard.KbInputInGame;
-import main.java.level.TileType;
-import main.java.util.TimerDebug;
+import   Game.Event.BattleBeginScript;
+import   Game.Event.HeroEntryScript;
+import   Game.Event.PlayerVictory;
+import   PlayerActions.Spawn;
+import   entities.NPC.Heroes.HeroList;
+import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import   entities.NPC.Mvp;
+import   entities.Player;
+import   graphics.Camera;
+import   graphics.Cinema;
+import   graphics.ScreenSettings;
+import   io.keyboard.KBInputAccelerator;
+import   io.keyboard.KbInputInGame;
+import   level.TileType;
+import   util.TimerDebug;
 
 import java.util.ArrayList;
 
-import static main.java.PlayerActions.Dig.dig;
+import static   PlayerActions.Dig.dig;
 
 public class Core extends CoreHelper{
 

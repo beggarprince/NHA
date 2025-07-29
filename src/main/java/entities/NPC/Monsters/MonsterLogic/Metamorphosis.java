@@ -1,6 +1,6 @@
-package main.java.entities.NPC.Monsters.MonsterLogic;
+package entities.NPC.Monsters.MonsterLogic;
 
-import main.java.entities.NPC.Monsters.Monster;
+import   entities.NPC.Monsters.Monster;
 
 public class Metamorphosis {
 

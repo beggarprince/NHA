@@ -1,7 +1,9 @@
-package main.java.entities.NPC.Heroes;
+package entities.NPC.Heroes;
 
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.ScreenSettings;
+import   graphics.Sprite.ImgLoader;
+import   graphics.ScreenSettings;
+
+import static entities.NPC.NPCType.Hero;
 
 public class Soldier extends Hero{
 

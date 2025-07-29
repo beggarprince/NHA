@@ -1,5 +1,4 @@
-package main.java.entities.NPC;
-
+package entities.NPC;
 
 //Rename this stupid ass class
 public enum NPCType {

@@ -1,10 +1,9 @@
-package main.java.entities.NPC
-
-import main.java.entities.Combat
-import main.java.entities.NPC.Heroes.Hero
-import main.java.entities.NPC.Monsters.MonsterLogic.Metamorphosis
-import main.java.entities.NPC.Monsters.Monster
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList
+package entities.NPC;
+import   entities.Combat
+import   entities.NPC.Heroes.Hero
+import entities.NPC.Monsters.MonsterLogic.Metamorphosis
+import entities.NPC.Monsters.Monster
+import   entities.NPC.Monsters.MonsterLogic.MonsterList
 
 
 private fun runEnemyBehavior(enemies: List<Monster>) {

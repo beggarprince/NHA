@@ -1,8 +1,8 @@
-package main.java.io.Audio;
+package io.Audio;
 
 public class AudioConstants {
-    private static final String MUSIC_FOLDER = "/main/resources/Music/";
-    private static final String FX_FOLDER = "/main/resources/Fx/";
+    private static final String MUSIC_FOLDER = "/Music/";  // ""/main/resources/Music/";
+    private static final String FX_FOLDER = "/Fx/" ; //""/main/resources/Fx/";
 
     //Music
     public static String MUS_ALERT_CAPTURED = MUSIC_FOLDER + "alertCapture.wav";

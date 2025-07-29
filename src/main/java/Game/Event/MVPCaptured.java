@@ -1,7 +1,7 @@
-package main.java.Game.Event;
+package Game.Event;
 
-import main.java.io.Audio.Sound;
-import main.java.io.Audio.AudioConstants;
+import   io.Audio.Sound;
+import   io.Audio.AudioConstants;
 
 public class MVPCaptured {
     //this is going to have some other effects later atm just music change

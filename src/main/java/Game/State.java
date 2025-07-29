@@ -1,4 +1,4 @@
-package main.java.Game;
+package Game;
 
 public enum State {
     GAMERUNNING,

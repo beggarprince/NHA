@@ -1,7 +1,7 @@
-package main.java.PlayerActions;
+package PlayerActions;
 
-import main.java.level.TileType;
-import main.java.level.Tile;
+import   level.TileType;
+import   level.Tile;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package main.java.io.keyboard;
+package io.keyboard;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

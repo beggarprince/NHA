@@ -1,4 +1,4 @@
-package main.java.level;
+package level;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ public class Tile {
 
     private static final Random random = new Random(); // Initialized once
 
-    //Min values to main.java.level up the tile
+    //Min values to   level up the tile
     public final static int nutrientL2Min = 4;
     public final static int nutrientL3Min = 9;
     public final static int manaL2Min = 4;

@@ -1,7 +1,7 @@
 //import com.google.gson.Gson
 //import com.google.gson.reflect.TypeToken
 //import java.nio.file.Paths
-//import kotlin.main.java.io.path.readText
+//import kotlin.  io.path.readText
 //
 //data class Sprite(val name: String, val path: String)
 //

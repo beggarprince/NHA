@@ -1,14 +1,14 @@
-package main.java.entities.NPC.Monsters;
+package entities.NPC.Monsters;
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.entities.NPC.Movement;
-import main.java.entities.NPC.NPC;
-import main.java.entities.NPC.NPCType;
-import main.java.graphics.ScreenSettings;
+import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import   entities.NPC.Movement;
+import   entities.NPC.NPC;
+import   entities.NPC.NPCType;
+import   graphics.ScreenSettings;
 import java.util.Random;
 import java.awt.image.BufferedImage;
 
-import static main.java.entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
+import static   entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
 
 //TODO REFACTOR THIS, SPLIT INTO DIFFERENT FILES, GET LOGIC OUT OF NPC

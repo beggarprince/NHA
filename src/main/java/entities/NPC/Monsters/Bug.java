@@ -1,12 +1,11 @@
-package main.java.entities.NPC.Monsters;
+package entities.NPC.Monsters;
 
-
-import main.java.entities.NPC.NPCType;
-import main.java.entities.SpriteCoordinate;
-import main.java.graphics.ScreenSettings;
-import main.java.graphics.SpriteSettings;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.Sprite.SpriteConstants;
+import   entities.NPC.NPCType;
+import   entities.SpriteCoordinate;
+import   graphics.ScreenSettings;
+import   graphics.SpriteSettings;
+import   graphics.Sprite.ImgLoader;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

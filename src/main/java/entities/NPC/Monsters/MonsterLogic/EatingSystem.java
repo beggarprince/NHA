@@ -1,10 +1,10 @@
-package main.java.entities.NPC.Monsters.MonsterLogic;
+package entities.NPC.Monsters.MonsterLogic;
 
-import main.java.entities.Direction;
-import main.java.entities.NPC.Monsters.Monster;
-import main.java.entities.NPC.Movement;
-import main.java.level.Level;
-import main.java.level.TileType;
+import   entities.Direction;
+import   entities.NPC.Monsters.Monster;
+import   entities.NPC.Movement;
+import   level.Level;
+import   level.TileType;
 import java.util.List;
 
 public class EatingSystem {

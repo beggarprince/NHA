@@ -1,14 +1,14 @@
-package main.java.entities.NPC;
+package entities.NPC;
 
-import main.java.entities.Direction;
-import main.java.graphics.ScreenSettings;
-import main.java.level.Level;
+import   entities.Direction;
+import   graphics.ScreenSettings;
+import   level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static main.java.util.CollisionKt.detectWalkableTile;
+import static   util.CollisionKt.detectWalkableTile;
 
 public class Movement {
     static Level levelInstance;

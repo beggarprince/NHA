@@ -1,7 +1,7 @@
-package main.java.entities.WorldObjects;
+package   entities.WorldObjects;
 
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.Sprite.SpriteConstants;
+import   graphics.Sprite.ImgLoader;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

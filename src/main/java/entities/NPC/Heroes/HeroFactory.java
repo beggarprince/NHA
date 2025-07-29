@@ -1,6 +1,6 @@
-package main.java.entities.NPC.Heroes;
+package entities.NPC.Heroes;
 
-import main.java.graphics.ScreenSettings;
+import   graphics.ScreenSettings;
 
 public class HeroFactory {
     private static HeroFactory instance;

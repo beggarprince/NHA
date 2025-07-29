@@ -1,4 +1,4 @@
-package main.java.entities.NPC.Monsters.MonsterLogic;
+package entities.NPC.Monsters.MonsterLogic;
 
 public class DungeonIQ {
     DungeonIQ instance;

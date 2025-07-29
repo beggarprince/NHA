@@ -1,6 +1,6 @@
-package main.java.Game.Event;
+package Game.Event;
 
-import main.java.level.Level;
+import   level.Level;
 
 public class InitializeLevel {
     private Level level;

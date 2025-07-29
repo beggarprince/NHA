@@ -1,4 +1,4 @@
-package main.java.io.keyboard;
+package io.keyboard;
 
 public class KBInputAccelerator {
     private int acceleration = 0;

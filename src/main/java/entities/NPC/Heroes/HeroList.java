@@ -1,4 +1,4 @@
-package main.java.entities.NPC.Heroes;
+package entities.NPC.Heroes;
 
 import java.util.ArrayList;
 

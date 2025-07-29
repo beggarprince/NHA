@@ -1,7 +1,7 @@
-package main.java.entities.NPC.Monsters.MonsterLogic;
+package   entities.NPC.Monsters.MonsterLogic;
 
-import main.java.Game.SpatialHash;
-import main.java.entities.NPC.Monsters.*;
+import   Game.SpatialHash;
+import   entities.NPC.Monsters.*;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
-package main.java.entities;
+package entities;
 
-import main.java.entities.NPC.NPC;
-import main.java.io.Audio.Sound;
-import main.java.level.Level;
-import main.java.io.Audio.AudioConstants;
+import   entities.NPC.NPC;
+import   io.Audio.Sound;
+import   level.Level;
+import   io.Audio.AudioConstants;
 
 public class Combat {
 
@@ -24,6 +24,9 @@ public class Combat {
         }
 
            // int l1 = target.health;
+        if(npc.basicAttackStrength <= 0) {
+            System.out.println("NPC attack strength is zero");
+        }
             //Hit
             target.health -= npc.basicAttackStrength;
 
@@ -35,6 +38,7 @@ public class Combat {
 
             npc.combatCooldown += npc.basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
+        //TODO this is temp for now but in the future we'll always have fxIndex pointing at sounds. It's just not everything has a sound so it'll crash, or i wont be able to properly differentiate them if they use the same noises
             if(npc.fxIndex != -1){
                 Sound.getSoundInstance().playFXClip(AudioConstants.FX_SWORD_SLASH);
             }

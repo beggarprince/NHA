@@ -1,6 +1,5 @@
-package main.java.level;
-
-//All main.java.level loader will do is load in a TXT file, csv or not idk
+package level;
+//All   level loader will do is load in a TXT file, csv or not idk
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

@@ -1,13 +1,13 @@
-package main.java.entities.NPC.Heroes;
+package entities.NPC.Heroes;
 
-import main.java.entities.Direction;
-import main.java.entities.NPC.Movement;
-import main.java.entities.NPC.NPC;
-import main.java.graphics.ScreenSettings;
-import main.java.level.Level;
-import main.java.level.Tile;
-import main.java.level.TileType;
-import main.java.util.Coordinate;
+import   entities.Direction;
+import   entities.NPC.Movement;
+import   entities.NPC.NPC;
+import   graphics.ScreenSettings;
+import   level.Level;
+import   level.Tile;
+import   level.TileType;
+import   util.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;

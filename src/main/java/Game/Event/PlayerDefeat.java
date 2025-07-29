@@ -1,9 +1,9 @@
-package main.java.Game.Event;
+package Game.Event;
 
-import main.java.Game.GameState;
-import main.java.Game.State;
-import main.java.io.Audio.Sound;
-import main.java.io.Audio.AudioConstants;
+import   Game.GameState;
+import   Game.State;
+import   io.Audio.Sound;
+import   io.Audio.AudioConstants;
 
 public class PlayerDefeat {
 

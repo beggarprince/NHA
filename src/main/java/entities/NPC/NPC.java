@@ -1,11 +1,11 @@
-package main.java.entities.NPC;
+package entities.NPC;
 
-import main.java.PlayerActions.Spawn;
-import main.java.entities.Combat;
-import main.java.entities.Direction;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.graphics.ScreenSettings;
+import   PlayerActions.Spawn;
+import   entities.Combat;
+import   entities.Direction;
+import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import   graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
 import java.util.*;

@@ -1,4 +1,4 @@
-package main.java.util;
+package util;
 
 public class Coordinate {
     public int x;

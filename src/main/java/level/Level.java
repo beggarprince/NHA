@@ -1,12 +1,12 @@
-package main.java.level;
+package level;
 
-import main.java.graphics.ScreenSettings;
-import main.java.util.Coordinate;
+import   graphics.ScreenSettings;
+import   util.Coordinate;
 
 import java.util.ArrayList;
 
-// Level will take in the information gathered from main.java.level loader and translate it to
-// a usable array or list that GameCanvas can translate into a main.java.level
+// Level will take in the information gathered from   level loader and translate it to
+// a usable array or list that GameCanvas can translate into a   level
 
 public class Level {
     // Private static instance variable to hold the single instance
@@ -18,8 +18,8 @@ public class Level {
 
     //These are part of the tile init for initial resources as the max
     //Higher scale will mean that the map will have less of the nutrient per block
-    //Say l3 distribution for mana is 98, then out of we get a number 0-100 and only 98/99/100 assign it that main.java.level
-    //Goes to the highest main.java.level, so if not 97 then l2 mana block. If below l1 requirement it's just a block
+    //Say l3 distribution for mana is 98, then out of we get a number 0-100 and only 98/99/100 assign it that   level
+    //Goes to the highest   level, so if not 97 then l2 mana block. If below l1 requirement it's just a block
     public static int manaL2Distribution = 95;
     public static int manaL3Distribution = 100;
     public static int nutrientL2Distribution = 99;

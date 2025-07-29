@@ -1,4 +1,4 @@
-package main.java.Game;
+package Game;
 
 public class GameSettings {
     public static final int combatSpeed = 16;

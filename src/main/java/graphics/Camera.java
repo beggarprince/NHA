@@ -1,8 +1,8 @@
-package main.java.graphics;
+package graphics;
 
-import main.java.entities.Player;
-import main.java.level.Level;
-import main.java.util.Coordinate;
+import   entities.Player;
+import   level.Level;
+import   util.Coordinate;
 
 // Updated Camera class with Coordinate pairs for each corner
 /*
@@ -10,7 +10,7 @@ import main.java.util.Coordinate;
 * It is able to increment/decrement it's corner values to move the camera
 * It tracks offsets so the GameCanvas will shift tiles around to create different view perspective
 * It checks boundaries and prevents camera from going out of bounds
-* Returns a boolean to signal the main.java.Engine that the topLeft corner is unchanged and the player will instead have to move away from the center position of the screen
+* Returns a boolean to signal the   Engine that the topLeft corner is unchanged and the player will instead have to move away from the center position of the screen
 * */
 //TODO make this a singleton, when are we ever going to have two cameras?
 public class Camera {
@@ -128,7 +128,7 @@ public class Camera {
         int idealX = playerX - halfWidth;
         int idealY = playerY - halfHeight;
 
-        // Clamp the ideal positions so we don't go outside the main.java.level boundaries
+        // Clamp the ideal positions so we don't go outside the   level boundaries
         // Minimum possible top-left x/y is 0
         if (idealX < 0) {
             idealX = 0;

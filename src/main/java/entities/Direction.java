@@ -1,4 +1,4 @@
-package main.java.entities;
+package entities;
 
 public enum Direction {
     LEFT,

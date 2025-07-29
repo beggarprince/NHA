@@ -1,29 +1,28 @@
-package main.java;
 
-import main.java.Game.Core;
-import main.java.Game.Event.PlayerDefeat;
-import main.java.Game.GameState;
-import main.java.Game.LevelState;
-import main.java.entities.Combat;
-import main.java.entities.NPC.Heroes.HeroList;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.entities.NPC.Movement;
-import main.java.entities.NPC.Mvp;
-import main.java.entities.NPC.NPCLogicKTKt;
-import main.java.entities.Player;
-import main.java.graphics.Camera;
-import main.java.io.Audio.Sound;
-import main.java.level.Level;
-import main.java.io.keyboard.KbInputInGame;
-import main.java.graphics.GameCanvas;
-import main.java.io.Audio.AudioConstants;
-import main.java.util.Coordinate;
-import main.java.Game.LevelState.GameLevel;
+import Game.Core;
+import  Game.Event.PlayerDefeat;
+import  Game.GameState;
+import  Game.LevelState;
+import  entities.Combat;
+import  entities.NPC.Heroes.HeroList;
+import  entities.NPC.Monsters.MonsterLogic.MonsterList;
+import  entities.NPC.Movement;
+import  entities.NPC.Mvp;
+import  entities.NPC.NPCLogicKTKt;
+import  entities.Player;
+import  graphics.Camera;
+import  io.Audio.Sound;
+import  level.Level;
+import  io.keyboard.KbInputInGame;
+import  graphics.GameCanvas;
+import  io.Audio.AudioConstants;
+import  util.Coordinate;
+import  Game.LevelState.GameLevel;
 
 import java.util.ArrayList;
 
-import static main.java.Game.Core.updateNPCLists;
-import static main.java.io.Audio.Sound.getSoundInstance;
+import static   Game.Core.updateNPCLists;
+import static   io.Audio.Sound.getSoundInstance;
 
 
 public class Engine implements Runnable {
@@ -32,7 +31,7 @@ public class Engine implements Runnable {
     private Thread gameLifecycle;
     private Thread musicThread;
     private final Player player;
-    private Level level; // Not set as final for now even though there is  only one main.java.level
+    private Level level; // Not set as final for now even though there is  only one   level
     public GameCanvas gamePanel;
     private int xEntry;
     private Core core;
@@ -73,7 +72,7 @@ public class Engine implements Runnable {
         this.camera = new Camera(leftTop);
 
         //TODO jank until i fix the center function, there was 1 instance where the camera did not move up and the player went out of bounds but i can't replicate it
-        //We can replace main.java.level.levelColumns with preferred X position or something that we can pass in and then move
+        //We can replace   level.levelColumns with preferred X position or something that we can pass in and then move
         while (player.playerTilePositionX < Level.levelColumns / 2) {
             kb.rightPressed = true;
 

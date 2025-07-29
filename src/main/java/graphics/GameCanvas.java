@@ -1,31 +1,31 @@
-package main.java.graphics;
+package graphics;
 
-import main.java.Game.GameState;
-import main.java.Game.LevelState;
-import main.java.Menu.PauseMenu;
-import main.java.Game.State;
-import main.java.entities.NPC.Heroes.Hero;
-import main.java.entities.NPC.Monsters.Monster;
-import main.java.entities.NPC.Mvp;
-import main.java.entities.Player;
-import main.java.graphics.ui.UIMessages;
-import main.java.graphics.ui.UINumber;
-import main.java.io.keyboard.KbInputInGame;
-import main.java.level.Tile;
-import main.java.util.Coordinate;
+import   Game.GameState;
+import   Game.LevelState;
+import   Menu.PauseMenu;
+import   Game.State;
+import   entities.NPC.Heroes.Hero;
+import   entities.NPC.Monsters.Monster;
+import   entities.NPC.Mvp;
+import   entities.Player;
+import   graphics.ui.UIMessages;
+import   graphics.ui.UINumber;
+import   io.keyboard.KbInputInGame;
+import   level.Tile;
+import   util.Coordinate;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static main.java.graphics.ui.EnemyUITextBox.enemyUITextBox;
+import static   graphics.ui.EnemyUITextBox.enemyUITextBox;
 
-//main.java.Engine is the main game loop
+//  Engine is the main game loop
 //Updates Screen and handles input
 
 public class GameCanvas extends JPanel {
 
-    //main.java.Game canvas should not have access to the original lists, since it will be decoupled so logic and ui can run in separate threads
+    //  Game canvas should not have access to the original lists, since it will be decoupled so logic and ui can run in separate threads
     GameCanvas gameCanvas;
     Camera camera;
     Player player;

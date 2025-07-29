@@ -1,7 +1,6 @@
-package main.java.entities.NPC.Monsters.MonsterLogic;
+package entities.NPC.Monsters.MonsterLogic;
 
-
-import main.java.entities.NPC.Monsters.*;
+import   entities.NPC.Monsters.*;
 
 public class MonsterFactory {
 

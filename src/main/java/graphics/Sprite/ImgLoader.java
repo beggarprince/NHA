@@ -1,4 +1,4 @@
-package main.java.graphics.Sprite;
+package graphics.Sprite;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ImgLoader {
 
-    final static String path = "main/resources/";
+    final static String path = ""; // This used to be main/resources but maven doesn't need it
     //These need to be stored by kvp of
         // StringPath, Buffered image
     //To avoid loading resources

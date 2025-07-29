@@ -1,6 +1,6 @@
-package main.java.entities.WorldObjects;
+package   entities.WorldObjects;
 
-import main.java.graphics.ScreenSettings;
+import   graphics.ScreenSettings;
 
 import java.awt.image.BufferedImage;
 

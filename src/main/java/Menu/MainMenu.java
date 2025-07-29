@@ -1,9 +1,9 @@
-package main.java.Menu;
+package Menu;
 
-import main.java.graphics.ScreenSettings;
-import main.java.io.keyboard.KBInputAccelerator;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.Sprite.SpriteConstants;
+import   graphics.ScreenSettings;
+import   io.keyboard.KBInputAccelerator;
+import   graphics.Sprite.ImgLoader;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

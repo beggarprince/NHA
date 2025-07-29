@@ -1,10 +1,11 @@
-package main.java.entities.NPC.Monsters;
-import main.java.entities.NPC.Monsters.MonsterLogic.EatingSystem;
-import main.java.entities.NPC.NPCType;
-import main.java.graphics.ScreenSettings;
-import main.java.level.TileType;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.Sprite.SpriteConstants;
+package entities.NPC.Monsters;
+
+import   entities.NPC.Monsters.MonsterLogic.EatingSystem;
+import   entities.NPC.NPCType;
+import   graphics.ScreenSettings;
+import   level.TileType;
+import   graphics.Sprite.ImgLoader;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
@@ -13,6 +14,7 @@ public class Slime extends Monster {
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SLIME);
 
     static final String metamorphosisValue = "Slime_Flower";
+    //TODO bug causing 0 damage
     public static final int basicAttackStrength = 1;
     public static final int maxHunger = 12;
    // public static final NPCType type = NPCType.Slime;

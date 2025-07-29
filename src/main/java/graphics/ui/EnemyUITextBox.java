@@ -1,6 +1,6 @@
-package main.java.graphics.ui;
+package   graphics.ui;
 
-import main.java.graphics.ScreenSettings;
+import   graphics.ScreenSettings;
 
 import javax.swing.*;
 import java.awt.*;

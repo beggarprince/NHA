@@ -1,6 +1,6 @@
-package main.java.entities.NPC;
+package entities.NPC;
 
-import main.java.entities.Direction;
+import   entities.Direction;
 
 public class Stats {
     public int health;

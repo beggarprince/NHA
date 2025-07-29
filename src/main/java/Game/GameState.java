@@ -1,5 +1,4 @@
-package main.java.Game;
-
+package Game;
 
 //This is a static class, there can only ever be one gamestate so this information is used across
 public class GameState {

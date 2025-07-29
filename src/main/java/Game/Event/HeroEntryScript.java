@@ -1,16 +1,16 @@
-package main.java.Game.Event;
+package Game.Event;
 
-import main.java.Game.GameState;
-import main.java.Game.LevelState;
-import main.java.Game.State;
-import main.java.entities.NPC.Heroes.Hero;
-import main.java.entities.NPC.Heroes.HeroFactory;
-import main.java.entities.NPC.Heroes.HeroList;
-import main.java.graphics.Camera;
-import main.java.graphics.ScreenSettings;
-import main.java.io.Audio.Sound;
-import main.java.level.Level;
-import main.java.io.Audio.AudioConstants;
+import   Game.GameState;
+import   Game.LevelState;
+import   Game.State;
+import   entities.NPC.Heroes.Hero;
+import   entities.NPC.Heroes.HeroFactory;
+import   entities.NPC.Heroes.HeroList;
+import   graphics.Camera;
+import   graphics.ScreenSettings;
+import   io.Audio.Sound;
+import   level.Level;
+import   io.Audio.AudioConstants;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,15 +1,15 @@
-package main.java.entities.NPC.Monsters;
+package entities.NPC.Monsters;
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.entities.NPC.NPCType;
-import main.java.entities.SpriteCoordinate;
-import main.java.graphics.ScreenSettings;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.Sprite.SpriteConstants;
+import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import   entities.NPC.NPCType;
+import   entities.SpriteCoordinate;
+import   graphics.ScreenSettings;
+import   graphics.Sprite.ImgLoader;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 
-import static main.java.entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
+import static   entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
 public class Dragon extends Monster{
 

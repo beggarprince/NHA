@@ -1,6 +1,6 @@
-package main.java.Menu;
+package Menu;
 
-import main.java.graphics.ScreenSettings;
+import   graphics.ScreenSettings;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,5 @@
-package main.java.graphics;
+package graphics;
+
 //Screen settings that will be used across the game
 public class ScreenSettings {
     // Screen settings
@@ -9,14 +10,14 @@ public class ScreenSettings {
     public static final int STYLE_OFFSET = TILE_SIZE * 2; // Mainly for testing but keeping this allows us to draw a background
 
     //Tiles system
-    //Amount of tiles rendered on window
+    //Number of tiles rendered on window
     //27x15 is cute 32x24 is just a bit too much informationdd
     public static final int TS_X = 27;
     public static final int TS_Y = 15;
     public static final int TS_SCREEN_TILES = TS_X * TS_Y;
 
 
-    //Amount of tiles in world
+    //Number of tiles in world
     //TS tile system
     public static final int TS_WorldScale_X = 3;
     public static final int TS_World_Scale_Y = 5;
@@ -34,7 +35,7 @@ public class ScreenSettings {
     public static final int PX_CAMERA_OFFSET_X = PX_SCREEN_WIDTH / 2;
 
 
-    //Down right ui should be 6x and 4y tiles
+    //Bottom right ui should be 6x and 4y tiles
 
     //For now, dig power will aim towards the middle. 3x from the right 2y
     public static final int PX_UI_DIGPOWER_X = (TS_X -3) * TILE_SIZE;

@@ -1,8 +1,8 @@
-package main.java.graphics.ui;
+package   graphics.ui;
 
-import main.java.graphics.ScreenSettings;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.Sprite.SpriteConstants;
+import   graphics.ScreenSettings;
+import   graphics.Sprite.ImgLoader;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

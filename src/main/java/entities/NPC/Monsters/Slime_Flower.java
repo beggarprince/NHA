@@ -1,10 +1,10 @@
-package main.java.entities.NPC.Monsters;
+package entities.NPC.Monsters;
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterList;
-import main.java.graphics.Sprite.ImgLoader;
-import main.java.graphics.ScreenSettings;
-import main.java.graphics.Sprite.SpriteConstants;
+import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import   graphics.Sprite.ImgLoader;
+import   graphics.ScreenSettings;
+import   graphics.Sprite.SpriteConstants;
 
 import java.awt.image.BufferedImage;
 

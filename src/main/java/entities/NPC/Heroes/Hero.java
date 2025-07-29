@@ -1,10 +1,10 @@
-package main.java.entities.NPC.Heroes;
+package entities.NPC.Heroes;
 
-import main.java.entities.NPC.Monsters.MonsterLogic.MonsterFactory;
-import main.java.entities.NPC.Movement;
-import main.java.entities.NPC.Mvp;
-import main.java.entities.NPC.NPC;
-import main.java.graphics.ScreenSettings;
+import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
+import   entities.NPC.Movement;
+import   entities.NPC.Mvp;
+import   entities.NPC.NPC;
+import   graphics.ScreenSettings;
 
 import java.awt.*;
 import java.util.Random;

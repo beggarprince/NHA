@@ -1,12 +1,12 @@
-package main.java.entities.NPC;
+package entities.NPC;
 
-import main.java.Game.Event.MVPCaptured;
-import main.java.entities.Direction;
-import main.java.entities.NPC.Heroes.Hero;
-import main.java.entities.NPC.Heroes.HeroList;
-import main.java.graphics.ScreenSettings;
-import main.java.level.Level;
-import main.java.graphics.Sprite.ImgLoader;
+import   Game.Event.MVPCaptured;
+import   entities.Direction;
+import   entities.NPC.Heroes.Hero;
+import   entities.NPC.Heroes.HeroList;
+import   graphics.ScreenSettings;
+import   level.Level;
+import   graphics.Sprite.ImgLoader;
 
 import java.awt.image.BufferedImage;
 
