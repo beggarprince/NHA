@@ -2,6 +2,7 @@ package entities.NPC.Monsters;
 
 import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import entities.NPC.NPCType;
 import   graphics.Sprite.ImgLoader;
 import   graphics.ScreenSettings;
 import   graphics.Sprite.SpriteConstants;
@@ -22,6 +23,7 @@ public class Slime_Flower extends Monster {
         this.lifespan = ScreenSettings.FPS * 30;
         this.basicAttackStrength = 2;
         this.hunger = hunger;
+        this.type = NPCType.Slime_Flower;
         maxHunger = 12;
     }
 
@@ -37,6 +39,8 @@ public class Slime_Flower extends Monster {
 
     @Override
     public void behavior() {
+        assert this.basicAttackStrength != 0 : "Attack strength is 0";
+
         if(health <= 0) {
             isDead = true;
             return;

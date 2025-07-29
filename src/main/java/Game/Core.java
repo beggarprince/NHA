@@ -13,6 +13,7 @@ import   graphics.Cinema;
 import   graphics.ScreenSettings;
 import   io.keyboard.KBInputAccelerator;
 import   io.keyboard.KbInputInGame;
+import level.Level;
 import   level.TileType;
 import   util.TimerDebug;
 
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 import static   PlayerActions.Dig.dig;
 
-public class Core extends CoreHelper{
+public class Core {
 
     private long frameRatePrevTime;
     private final int timeUntilHeroSpawn = 600 * 1; // Ten seconds for now, 60 after *
@@ -29,25 +30,35 @@ public class Core extends CoreHelper{
     private static int finalRound;
     private static ArrayList<ArrayList<LevelState.HeroData>> currentLevelHeroes; //List of heroes separated by rounds
     KBInputAccelerator keyboardInputAccelerator;
+    private static Level level;
 
     private TimerDebug timerDebug;
 
     public Core(ArrayList<ArrayList<LevelState.HeroData>> levelHeroes){
+        level = Level.getInstance();
         frameRatePrevTime = System.nanoTime();
          keyboardInputAccelerator = KBInputAccelerator.getInstance();
          currentLevelHeroes = levelHeroes;
          finalRound = levelHeroes.size()-1;
          int count = 1;
+
+        printHeroes(levelHeroes, count);
+
+    }
+
+    private static void printHeroes(ArrayList<ArrayList<LevelState.HeroData>> levelHeroes, int count) {
         for (ArrayList<LevelState.HeroData> heroList : levelHeroes) {
 
             System.out.println("Round " + count +" heroes:");
 
+            StringBuilder formattedHeroString = new StringBuilder();
             for (LevelState.HeroData hero : heroList) {
-                System.out.println( hero.type + " " + hero.heroName);
+                formattedHeroString.append(hero.type).append(" ").append(hero.heroName).append(" | ");
+           //     System.out.println( hero.type + " " + hero.heroName);
             }
+            System.out.println(formattedHeroString);
             count++;
         }
-
     }
 
     private boolean timeForNewFrame(){

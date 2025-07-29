@@ -15,5 +15,6 @@ public enum NPCType {
     Mage,
     Knight,
     Berserker,
-    Priest
+    Priest,
+    NULL_TYPE
 }

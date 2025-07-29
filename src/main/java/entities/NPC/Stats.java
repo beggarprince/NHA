@@ -11,5 +11,5 @@ public class Stats {
     public Direction currDirection;
     public int combatCooldown = 0; // 0 means ready to attack
     public int basicAttackCooldown = 60; // Change this, default 60 i guess
-    public int basicAttackStrength;
+    public int basicAttackStrength ;
 }

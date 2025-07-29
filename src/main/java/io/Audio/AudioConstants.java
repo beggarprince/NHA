@@ -1,6 +1,7 @@
 package io.Audio;
 
 public class AudioConstants {
+    //Maven messed up the project structure a bit so don't mind the legacy mess commented out
     private static final String MUSIC_FOLDER = "/Music/";  // ""/main/resources/Music/";
     private static final String FX_FOLDER = "/Fx/" ; //""/main/resources/Fx/";
 

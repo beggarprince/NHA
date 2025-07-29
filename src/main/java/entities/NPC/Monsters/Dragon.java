@@ -143,7 +143,7 @@ public class Dragon extends Monster{
         if(checkCollisionsEAT(this, MonsterList.getInstance().getMonsters(), NPCType.LizardMan)){
             eat();
         }
-        moveNpcAndSignalTrueIfWeMove();
+        npcHasMoved();
     }
 
     @Override

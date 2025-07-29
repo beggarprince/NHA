@@ -3,8 +3,6 @@ package entities.NPC.Heroes;
 import   graphics.Sprite.ImgLoader;
 import   graphics.ScreenSettings;
 
-import static entities.NPC.NPCType.Hero;
-
 public class Soldier extends Hero{
 
     //TODO the rest can have static images, this can't. Figure out why
@@ -42,7 +40,7 @@ public class Soldier extends Hero{
             return;
         }
 
-          if(moveNpcAndSignalTrueIfWeMove()){
+          if(npcHasMoved()){
 
             //This is how we know we are at a new tile
             if(detectNewTile()){
@@ -55,9 +53,9 @@ public class Soldier extends Hero{
         }
 
         //This means we hit a wall
-        else if(couldNotMoveForward){
+        else if(movementBlocked){
             this.currDirection = pathfinding.determinePath(hasMVP);
-            couldNotMoveForward = false;
+            movementBlocked = false;
         }
 
 

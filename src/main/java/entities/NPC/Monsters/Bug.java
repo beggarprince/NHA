@@ -154,7 +154,7 @@ public class Bug extends Monster {
         //We also don't want to move if eat() runs, like at all.
         else {
             //System.out.println("The bug is not hungry");
-            moveNpcAndSignalTrueIfWeMove();
+            npcHasMoved();
         }
 
 
@@ -208,12 +208,7 @@ public class Bug extends Monster {
     }
 
 
-    // bug where this returns null
-    //It has nothing to do with the image being out of bounds as a hardcoded 21,56,48,48 fails to paint
-    //It also has nothing to do with spriteStage since we weren't using it when hardcoding, or the array for the sprite data points
-    //It has nothing to do with the bug being dead since they're always at full health when i try to kill them
-    //It has nothing to do with image being null or something because i initialized it in the constructor and it still failed to paint
-    //Setting to final seems to have done the trick
+
     private BufferedImage returnSprite(){
         //int x = spriteCoordinateWalking[0][0].col;
         SpriteCoordinate temp =  spriteCoordinates[determineSpriteArray()][spriteFrame];

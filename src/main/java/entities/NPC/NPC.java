@@ -3,7 +3,6 @@ package entities.NPC;
 import   PlayerActions.Spawn;
 import   entities.Combat;
 import   entities.Direction;
-import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
 import   graphics.ScreenSettings;
 
@@ -21,9 +20,10 @@ public abstract class NPC extends Stats {
     //Jank because i can't do abstract String
     public abstract String returnNpcType();
 
+
     public int fxIndex = -1;
 
-    public boolean couldNotMoveForward = false;
+    public boolean movementBlocked = false;
 
     //Logical position on tile array
     public int tilePositionX;
@@ -73,33 +73,33 @@ public abstract class NPC extends Stats {
     }
 
     //TODO RENAME holy shit
-    protected boolean moveNpcAndSignalTrueIfWeMove() {
+    protected boolean npcHasMoved() {
+
         if (currDirection == Direction.NOT_MOVING) {
-            //System.out.println("This " + returnNpcType() +" got stuck moving fr");
             return false;
         }
-        boolean canMove = true;
 
-        //If the movement cycle is not 0 then we know we are still moving in a valid direction so we don't have to check if said direction is valid
-        //If 0 we just need to check the next tile
-        if (movementCycle == 0) canMove = Movement.tileIsNotWalkable(currDirection, tilePositionX, tilePositionY);
+        boolean pathIsNotBlocked = true;
 
-        if (canMove) {
+        //If the movement cycle is not 0 we are not determining new direction, skip check
+        // If 0 we just need to check the next tile
+        if (movementCycle == 0) {
+            pathIsNotBlocked = Movement.tileIsWalkable(currDirection, tilePositionX, tilePositionY);
+        }
+
+        if (pathIsNotBlocked) {
             Movement.move(this);
             Movement.updateWorldPosition(this);
             Movement.signalNewTile(this);
-            couldNotMoveForward = false;
+            movementBlocked = false;
             //only at new tile do we signal that they moved
             return true;
         } else {
             //Get random dir but don't move, this will create it to be still for the entire time until there is a valid dir
-            //TODO this should NOT be changing directions NOR signaling at new tile, that ought to be done elsewhere like a boolean at new tile
-
-            //TODO for now hero will use this hack until i refactor
-            couldNotMoveForward = true;
+            movementBlocked = true; // This is solely for hero backtracking
             currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY, this);
-
         }
+
         return false;
     }
 
@@ -161,22 +161,25 @@ public abstract class NPC extends Stats {
     // attack ver 3
     // death 4
     protected int determineSpriteArray() {
-        //TODO this only works because i only have one animation length, this will not work in the future
 
+        if (this.health <= 0) {
+            return 4;
+        }
         //ATM this just means we are in combat
-        if (animationFrameCounter != defaultAnimationTime) {
+        else if (inCombat) {
             if (currDirection == Direction.LEFT || currDirection == Direction.RIGHT) {
                 return 2;
             } else if (currDirection == Direction.UP || currDirection == Direction.DOWN) {
                 return 3;
             }
-        } else if (currDirection == Direction.LEFT || currDirection == Direction.RIGHT) {
+        }
+
+        else if (currDirection == Direction.LEFT || currDirection == Direction.RIGHT) {
             return 0;
         } else if (currDirection == Direction.UP || currDirection == Direction.DOWN) {
             return 1;
-        } else if (this.health <= 0) {
-            return 4;
         }
+
         return 0; //default to walking
     }
 

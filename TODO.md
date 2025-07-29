@@ -20,10 +20,6 @@
 - Dragon
 - Dragon Egg
 
-## Mercenaries/Villains
-- Can be purchased and aid the player's dungeon
-- Does not reproduce
-- Subclass of hero
 
 ## Runes
 - Special enemy Demon summons when meeting certain criteria.
@@ -68,7 +64,7 @@
 - Needs to reproduce.
 - Needs to walk slower.
 
-# World/  Game Additions
+# World/Game Additions
 
 ## GUI
 - Needs to be implemented to display useful information such as creature count or dig power

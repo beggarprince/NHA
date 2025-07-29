@@ -3,12 +3,11 @@ package entities.NPC;
 import   entities.Direction;
 import   graphics.ScreenSettings;
 import   level.Level;
+import util.CollisionKt;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static   util.CollisionKt.detectWalkableTile;
 
 public class Movement {
     static Level levelInstance;
@@ -35,11 +34,11 @@ public class Movement {
         //Will remove if the tiles are not walkable, this one is used to EAT as you can't eat PATH
         //Moving is a control variable, if we are not moving then we are eating in this function, thus we remove walkable tiles
         //This is because we eat nutrients in tiles, so we remove any path since there is nothing to eat
-        if(!moving)  possibleDirections.removeIf(direction -> tileIsNotWalkable(direction, n.tilePositionX, n.tilePositionY));
+        if(!moving)  possibleDirections.removeIf(direction -> tileIsWalkable(direction, n.tilePositionX, n.tilePositionY));
         else {
             //If  walkable it is a candidate for movement, handles out of bounds as well
             //Here moving is true so we want to remove unwalkable tiles
-            possibleDirections.removeIf(direction -> !tileIsNotWalkable(direction, n.tilePositionX, n.tilePositionY));
+            possibleDirections.removeIf(direction -> !tileIsWalkable(direction, n.tilePositionX, n.tilePositionY));
         }
         return possibleDirections;
     }
@@ -93,24 +92,25 @@ public class Movement {
 
 
     //When checking if false it can be used to check bounds
-    public static boolean tileIsNotWalkable(Direction dir, int x, int y) {
+    public static boolean tileIsWalkable(Direction dir, int x, int y)
+    {
 
         //Returns true if walkable, false if not
         if (dir == Direction.UP) {
             if (y > 0) {
-                return detectWalkableTile(levelInstance.tileData.get(y - 1).get(x));
+                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y - 1).get(x));
             }
         } else if (dir == Direction.DOWN) {
             if (y < Level.levelRows - 1) {
-                return detectWalkableTile(levelInstance.tileData.get(y + 1).get(x));
+                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y + 1).get(x));
             }
         } else if (dir == Direction.LEFT) {
             if (x > 0) {
-                return detectWalkableTile(levelInstance.tileData.get(y).get(x - 1));
+                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y).get(x - 1));
             }
         } else if (dir == Direction.RIGHT) {
             if (x < Level.levelColumns - 1) {
-                return detectWalkableTile(levelInstance.tileData.get(y).get(x + 1));
+                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y).get(x + 1));
             }
         }
         return false; // If all checks fail, the move is invalid.

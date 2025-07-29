@@ -14,8 +14,6 @@ public class Slime extends Monster {
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SLIME);
 
     static final String metamorphosisValue = "Slime_Flower";
-    //TODO bug causing 0 damage
-    public static final int basicAttackStrength = 1;
     public static final int maxHunger = 12;
    // public static final NPCType type = NPCType.Slime;
     public static final int slimeLifespan = ScreenSettings.FPS * 30;
@@ -26,7 +24,7 @@ public class Slime extends Monster {
         this.movementSpeed = 1;
         //this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = slimeLifespan;
-        //this.basicAttackStrength = 1;
+        this.basicAttackStrength = 1;
         //this.maxHunger = 12;
         this.movementCycle = 0;
         this.type = NPCType.Slime;
@@ -63,7 +61,8 @@ public class Slime extends Monster {
         }
 
         //We see if we can move this direction
-        if (moveNpcAndSignalTrueIfWeMove()) ;
+        if (npcHasMoved()) ;
+
         if (detectNewTile()) eatingCycleReady = true;
         agingCycle();
 

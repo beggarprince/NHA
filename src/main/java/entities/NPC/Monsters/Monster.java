@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage;
 
 import static   entities.NPC.NPCLogicKTKt.checkCollisionsEAT;
 
-
-//TODO REFACTOR THIS, SPLIT INTO DIFFERENT FILES, GET LOGIC OUT OF NPC
 public abstract class Monster extends NPC {
 
     protected int lifespan;
@@ -40,7 +38,6 @@ public abstract class Monster extends NPC {
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.hasFullStomach = false;
-
         this.currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY,this);//This will give it a random starting dir that is valid
     }
 
@@ -124,7 +121,7 @@ public abstract class Monster extends NPC {
             else {
                 //If they eat we do not want them moving
                 //System.out.println("The bug did not find any food");
-                moveNpcAndSignalTrueIfWeMove();
+                npcHasMoved();
             }
 
     }

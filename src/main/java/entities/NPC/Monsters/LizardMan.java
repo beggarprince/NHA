@@ -54,7 +54,7 @@ public class LizardMan extends Monster{
         if(!hasFullStomach)basicPredation(NPCType.Bug);
 
         else {
-            moveNpcAndSignalTrueIfWeMove();
+            npcHasMoved();
         }
 
     }

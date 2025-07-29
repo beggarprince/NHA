@@ -4,20 +4,35 @@ import   entities.NPC.NPC;
 import   io.Audio.Sound;
 import   level.Level;
 import   io.Audio.AudioConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 public class Combat {
+
+    private static final Logger logger = LoggerFactory.getLogger(Combat.class);
 
     public static Level level;
     public static void setLevelInstance(){
         level = Level.getInstance();
     }
     //TODO make sure there is no possibility of null calls to combatTarget
+    //This function does not take in a target. The npc has a list of it's combat targets and will choose from there.
     public static void basicAttack(NPC npc){
-        while(!npc.combatTarget.isEmpty() && npc.combatTarget.peek() == null) npc.combatTarget.poll(); //remove dead targets
+
+        while(!npc.combatTarget.isEmpty() &&
+                npc.combatTarget.peek() == null){
+            npc.combatTarget.poll(); //remove dead targets
+        }
 
         NPC target = npc.combatTarget.peek();
+        if(target == null){
+            npc.inCombat = false;
+            return;
+        }
 
-        //Check if on cooldown
+        //Check if attack is on cooldown
         if(npc.combatCooldown > 0){
             npc.combatCooldown--;
             return;
@@ -27,14 +42,13 @@ public class Combat {
         if(npc.basicAttackStrength <= 0) {
             System.out.println("NPC attack strength is zero");
         }
-            //Hit
+            int l1 = target.health;
             target.health -= npc.basicAttackStrength;
 
-//            if(l1 == target.health) System.out.println("Error, enemy did not take damage");
-//
-//            else {
-//                System.out.println(target.returnNpcType()+ " has " + target.health  + " hp");
-//            }
+            if(l1 == target.health) {
+                logger.error("Enemy {} did not take damage - current: {}, expected {}", target.returnNpcType(),l1, (l1- npc.basicAttackStrength));
+                logger.error("The attacker is a {} and has {} attack", npc.returnNpcType(), npc.basicAttackStrength);
+            }
 
             npc.combatCooldown += npc.basicAttackCooldown; //Assuming basic attack
             //System.out.println(this.returnNpcType() + " attacked " + combatTarget.peek().returnNpcType() + " for " + basicAttackStrength +" damage");
@@ -43,14 +57,21 @@ public class Combat {
                 Sound.getSoundInstance().playFXClip(AudioConstants.FX_SWORD_SLASH);
             }
 
-            //Check if dead
-            if (target.health <= 0) {
-               int l1 = npc.combatTarget.size();
-                npc.combatTarget.poll();
-                if(npc.combatTarget.size() == l1){
-                    System.out.println("Error, did not pol");
-                }
+        // Check if dead
+        if (target.health <= 0) {
+            int sizeBeforePoll = npc.combatTarget.size();
+            NPC removed = npc.combatTarget.poll();
+
+            if (removed == null) {
+                logger.error("Failed to remove dead target {} from combat queue - queue was empty",
+                        target.returnNpcType());
+            } else if (npc.combatTarget.size() == sizeBeforePoll) {
+                logger.error("Combat target queue size unchanged after poll - expected removal of {}",
+                        target.returnNpcType());
+            } else {
+                logger.debug("Removed dead target {} from combat queue", target.returnNpcType());
             }
+        }
 
 
         //Cycle ot next or move, outside of cooldown just in case something else kills it

@@ -53,7 +53,7 @@ public class Lilith extends Monster{
 
         if(!hasFullStomach) basicPredation(NPCType.Spirit);
         else {
-            moveNpcAndSignalTrueIfWeMove();
+            npcHasMoved();
         }
     }
 

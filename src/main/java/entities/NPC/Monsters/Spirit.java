@@ -53,7 +53,7 @@ public class Spirit extends Monster {
         }
 
         //We see if we can move this direction
-        if (moveNpcAndSignalTrueIfWeMove()) ;
+        if (npcHasMoved()) ;
         if (detectNewTile()) eatingCycleReady = true;
         agingCycle();
 
