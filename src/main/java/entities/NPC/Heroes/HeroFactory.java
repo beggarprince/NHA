@@ -16,9 +16,9 @@ public class HeroFactory {
 
     }
 
-    public Hero createHero(String heroType, int positionx, int positiony, String name){
-        Hero hero = new Soldier(1, positionx * ScreenSettings.TILE_SIZE,
-                positiony * ScreenSettings.TILE_SIZE, name);
+    public Hero createHero(String heroType, int positionX, int positionY, String name){
+        Hero hero = new Soldier(1, positionX * ScreenSettings.TILE_SIZE,
+                positionY * ScreenSettings.TILE_SIZE, name);
         if(heroType == "Soldier"){
             return hero;
         }

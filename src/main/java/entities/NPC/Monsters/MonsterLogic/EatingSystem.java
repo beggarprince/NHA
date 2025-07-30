@@ -10,11 +10,6 @@ import java.util.List;
 public class EatingSystem {
 
 
-    //TODO getting possible directions should be it's own method since it's being used 3 times in different methods
-    //TODO handle out of bounds in collision as well
-
-
-    //TODO l1 monsters always eat this should be modified
     public static boolean L1checkIfHungryAndEat(Monster monster, TileType tileDiet){
         boolean eatStatus = false;
 

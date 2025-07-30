@@ -13,8 +13,7 @@ public class MonsterList {
     private static MonsterList instance;     // Singleton instance
 
 
-    //TODO change this into a 2d array with linkedlist so we can just check tile XY instead of iterating throughout the entire list
-    private  ArrayList<Monster> monsters;      // Instance variable for the list
+    private ArrayList<Monster> monsters;      // Instance variable for the list
 
     //These are made so we can quickly access specified monsters
 //    private static ArrayList<Slime> SlimeList;
@@ -68,7 +67,7 @@ public class MonsterList {
     }
 
     //TODO implement a metamorphosis list that just holds the indexes so we can iterate that instead of the array
-    public void metamorphosizeEnemy(Monster e, int index){
+    public void metamorphoseEnemy(Monster e, int index){
         monsters.set(index, e);
         if(monsters.get(index) != e){
             System.out.println("Enemy was not properly set by metamorphosis function");

@@ -65,6 +65,7 @@ public class Camera {
         }
 
         panCamera(movementType);
+
         return cameraPanEligible; //this is always true
     }
 

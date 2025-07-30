@@ -12,6 +12,7 @@ public class SkeletonHead extends WorldObject{
     private int manaLevel = 0;
 
     public SkeletonHead(int tilePositionX, int tilePositionY) {
+
         super(tilePositionX, tilePositionY);
     }
 
