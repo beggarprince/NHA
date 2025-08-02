@@ -35,16 +35,24 @@ public class TextBox extends JFrame {
     public static void textBox(Graphics2D g, Font font, String text){
 
         //Box
-        g.setColor(Color.GRAY);
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+        UIConstants.setTransparent(g);
+
+        g.setColor(UIConstants.boxColor);
         g.fillRect(textBoxOriginX, textBoxOriginY, textBoxWidth, textBoxHeight);
 
+
+
+        UIConstants.setOpaque(g);
+
         //Outline
-        g.setColor(Color.BLACK);
+        g.setColor(UIConstants.boxOutline);
         g.drawRect(textBoxOriginX, textBoxOriginY, textBoxWidth, textBoxHeight);
 
         //Set font and color
         g.setFont(font);
-        g.setColor(Color.BLACK);
+        g.setColor(UIConstants.boxTextColor);
+
         FontMetrics metrics = g.getFontMetrics(font);
         int textWidth = metrics.stringWidth(text) /2;
         g.drawString(text, (centerScreenX  -textWidth), (textBoxOriginY + textLineSpace));

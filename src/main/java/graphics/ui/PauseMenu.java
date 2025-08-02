@@ -1,4 +1,4 @@
-package Menu;
+package graphics.ui;
 
 import   graphics.ScreenSettings;
 
@@ -28,18 +28,20 @@ public class PauseMenu extends JFrame {
 
     public static void inGamePause(Graphics2D g){
 
+        UIConstants.setTransparent(g);
         //Rectangle
-        g.setColor(Color.GRAY);
+        g.setColor(UIConstants.boxColor);
         //x y width height
         g.fillRect(pauseMenuTopX, pauseMenuTopY, pauseMenuWidth, pauseMenuHeight);
 
+        UIConstants.setOpaque(g);
         //Outline
-        g.setColor(Color.BLACK);
+        g.setColor(UIConstants.boxOutline);
         g.drawRect(pauseMenuTopX, pauseMenuTopY,pauseMenuWidth,pauseMenuHeight);
 
         // Set the font and color for the text
         g.setFont(l1);
-        g.setColor(Color.BLACK);
+        g.setColor(UIConstants.boxTextColor);
         if(textWidth == 0){
             initTextWidth(g);
         }

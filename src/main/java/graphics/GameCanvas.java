@@ -1,8 +1,7 @@
 package graphics;
 
 import   Game.GameState;
-import   Game.LevelState;
-import   Menu.PauseMenu;
+import graphics.ui.PauseMenu;
 import   Game.State;
 import   entities.NPC.Heroes.Hero;
 import   entities.NPC.Monsters.Monster;
@@ -222,6 +221,7 @@ public class GameCanvas extends JPanel {
             }
         }
     }
+
     private void paintUIDigPower(Graphics2D g){
         var list = uiNumber.determineUINumberDisplay(player.getDigPower());
 

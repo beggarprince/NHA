@@ -20,7 +20,6 @@ public class UIMessages {
     private final int uiGameOverWidth = uiGameOver.getWidth();
     private final int uiGameOverHeight = uiGameOver.getHeight();
 
-    //No function that does the math since i'll access this a lot and it never changes so i want final
     public final int uiHideMvpMessageStylizedOffsetX = centerScreenWidth - uiHideMVPMessageWidth /2;
     public final int uiHideMvpMessageStylizedOffsetY = centerScreenHeight - UiHideMVPMessageHeight /2;
 

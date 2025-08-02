@@ -127,7 +127,7 @@ public class Core {
         //No npc logic either
         if(GameState.gameState == State.PAUSE){
             //run pause logic
-            if(kb.pausedGame == false){
+            if(!kb.pausedGame){
                 GameState.gameUnpaused();
             }
             return;

@@ -49,17 +49,21 @@ public class EnemyUITextBox extends JFrame {
             xOrigin = textBoxOriginX + (nHeroCount * (uiMarginX + uiDimensionsWidth));
         }
 
+        UIConstants.setTransparent(g);
         //Box
-        g.setColor(Color.GRAY);
+        g.setColor(UIConstants.boxColor);
         g.fillRect(xOrigin, textBoxOriginY, uiDimensionsWidth, uiDimensionsHeight);
 
+
+        UIConstants.setOpaque(g);
+
         //Outline
-        g.setColor(Color.BLACK);
+        g.setColor(UIConstants.boxOutline);
         g.drawRect(xOrigin, textBoxOriginY, uiDimensionsWidth, uiDimensionsHeight);
 
         //Set font and color
         g.setFont(TEXT_FONT);
-        g.setColor(Color.BLACK);
+        g.setColor(UIConstants.boxTextColor);
 
         //I'm going to use this to det the height l8r
         //FontMetrics metrics = g.getFontMetrics(TEXT_FONT);
