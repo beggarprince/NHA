@@ -105,6 +105,7 @@ public abstract class NPC extends Stats {
 
     protected abstract void spriteHandler();
 
+    //Setting sprites, checking if it can attack, checking if it needs to be destroyed
     public void genericNPCBehavior() {
         spriteHandler();
 
@@ -131,13 +132,19 @@ public abstract class NPC extends Stats {
         //behavior - Movement, reproduction, etc
         //TODO at the moment it either attacks or runs logic, i should probably separate logic into two categories so i can run some logic 100% of the time regardless if in combat or not
         else {
+            //Individual unique entity behavior
             behavior();
         }
 
         ///System.out.println(returnNpcType() + " health is " + health);
+
+        //ATM, there might be some death behavior i want so this is a last resort handle but it's handled in behavior()
+        //Like die->spawn skull or explode, or notify listener
+
         if (health <= 0) {
             //i could probably add deathBehavior or something
             //spawnSkeletonAtDeath();
+            //This is generic behavior shared with monsters, skeleton death would not go here
             isDead = true;
         }
     }

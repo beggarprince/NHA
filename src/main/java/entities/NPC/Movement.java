@@ -98,19 +98,19 @@ public class Movement {
         //Returns true if walkable, false if not
         if (dir == Direction.UP) {
             if (y > 0) {
-                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y - 1).get(x));
+                return CollisionKt.tileIsPath(levelInstance.tileData.get(y - 1).get(x));
             }
         } else if (dir == Direction.DOWN) {
             if (y < Level.levelRows - 1) {
-                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y + 1).get(x));
+                return CollisionKt.tileIsPath(levelInstance.tileData.get(y + 1).get(x));
             }
         } else if (dir == Direction.LEFT) {
             if (x > 0) {
-                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y).get(x - 1));
+                return CollisionKt.tileIsPath(levelInstance.tileData.get(y).get(x - 1));
             }
         } else if (dir == Direction.RIGHT) {
             if (x < Level.levelColumns - 1) {
-                return CollisionKt.tileIsWalkable(levelInstance.tileData.get(y).get(x + 1));
+                return CollisionKt.tileIsPath(levelInstance.tileData.get(y).get(x + 1));
             }
         }
         return false; // If all checks fail, the move is invalid.
@@ -132,7 +132,6 @@ public class Movement {
         }
 
         npc.movementCycle += npc.movementSpeed;
-
 
     }
 

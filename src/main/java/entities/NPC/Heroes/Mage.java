@@ -1,25 +1,20 @@
 package entities.NPC.Heroes;
 
-import   graphics.Sprite.ImgLoader;
-import   graphics.ScreenSettings;
+import graphics.Sprite.ImgLoader;
+import graphics.ScreenSettings;
 
-public class Soldier extends Hero{
+public class Mage extends Hero {
 
-    //TODO the rest can have static images, this can't. Figure out why
-  //  public static BufferedImage image =  ImgLoader.getImageResource("sprites/hero/knight_mvRight.png");
+    public Mage(int health,
+                int x,
+                int y,
+                String name) {
 
-
-    //TODO i really need to be able to send stats if i want to. This could be the default, but i could use a diff const with more arguments
-    public Soldier(int health,
-                   int x,
-                   int y,
-                   String name){
-
-        super( health, x, y, name);
+        super(health, x, y, name);
         this.name = name;
         this.health = 96;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
-        this.tilePositionY =y / ScreenSettings.TILE_SIZE;
+        this.tilePositionY = y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.movementSpeed = 1;
@@ -34,6 +29,7 @@ public class Soldier extends Hero{
         lastTilePosY = tilePositionY;
         this.hasMVP = false;
     }
+
     int lastTilePosX;
     int lastTilePosY;
 
@@ -45,9 +41,8 @@ public class Soldier extends Hero{
             return;
         }
 
-          if(npcHasMoved()){
+        if(npcHasMoved()){
 
-            //This is how we know we are at a new tile
             if(detectNewTile()){
                 pathfinding.logPath(hasMVP);
 
@@ -57,7 +52,6 @@ public class Soldier extends Hero{
             }
         }
 
-        //This means we hit a wall
         else if(movementBlocked){
             this.currDirection = pathfinding.determinePath(hasMVP);
             movementBlocked = false;
@@ -65,14 +59,13 @@ public class Soldier extends Hero{
 
     }
 
-
     @Override
     public void destroy() {
         image = null;
     }
 
     public String returnNpcType(){
-        return "Soldier";
+        return "Mage";
     }
 
     @Override
