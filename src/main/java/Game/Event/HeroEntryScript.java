@@ -26,14 +26,14 @@ public class HeroEntryScript {
 
         for (LevelState.HeroData requestedHero : heroList) {
             System.out.println("Spawning the [adjective] " + requestedHero.heroName);
-            spawnHero(requestedHero.heroType, mainList, requestedHero.heroName);
+            spawnHero(requestedHero , mainList, requestedHero.heroName);
         }
 
     }
 
-    public static void run(NPCType heroType, HeroList mainList, Camera camera, String name){
+    public static void run(LevelState.HeroData heroData, HeroList mainList, Camera camera, String name){
         script(camera);
-        spawnHero(heroType, mainList, name);
+        spawnHero(heroData, mainList, name);
     }
 
     private static void script(Camera camera){
@@ -44,16 +44,14 @@ public class HeroEntryScript {
         GameState.gameState = State.CINEMATIC;
     }
 
-    //TODO fix this to work with enums
-    private static void spawnHero(NPCType heroType,
+    private static void spawnHero(LevelState.HeroData heroType,
                                   HeroList heroList,
                                   String name){
         try {
             heroList.addHero(HeroFactory.getInstance().createHero(
                     heroType,
                     Level.entryPoint.x,
-                    Level.entryPoint.y,
-                    name
+                    Level.entryPoint.y
             ));
         }catch (Exception e){
             System.out.println("Could not spawn hero");

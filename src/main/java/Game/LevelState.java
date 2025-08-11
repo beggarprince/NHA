@@ -54,7 +54,7 @@ public class LevelState {
     //The engine will handle this outside, reading from the hero data and creating heroes with the factory
     public class HeroData {
         public NPCType heroType;
-        int health;
+        public int health;
         public String heroName;
 
         HeroData(NPCType Hero,

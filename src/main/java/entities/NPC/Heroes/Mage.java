@@ -18,7 +18,6 @@ public class Mage extends Hero {
 
         super(health, x, y, name);
         this.name = name;
-        this.health = 96;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY = y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
