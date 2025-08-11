@@ -53,7 +53,7 @@ public class Core {
 
             StringBuilder formattedHeroString = new StringBuilder();
             for (LevelState.HeroData hero : heroList) {
-                formattedHeroString.append(hero.type).append(" ").append(hero.heroName).append(" | ");
+                formattedHeroString.append(hero.heroType).append(" ").append(hero.heroName).append(" | ");
            //     System.out.println( hero.type + " " + hero.heroName);
             }
             System.out.println(formattedHeroString);

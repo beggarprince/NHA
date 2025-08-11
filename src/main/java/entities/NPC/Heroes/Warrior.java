@@ -4,7 +4,6 @@ import entities.SpriteCoordinate;
 import graphics.Sprite.ImgLoader;
 import graphics.ScreenSettings;
 import graphics.Sprite.SpriteType;
-import graphics.SpriteSettings;
 
 import java.awt.image.BufferedImage;
 import java.util.EnumMap;
@@ -35,7 +34,7 @@ public class Warrior extends Hero{
         this.combatCooldown = 60;
         this.fxIndex = 1;
         this.pathfinding = new HeroPathfinder(this);
-        this.spriteType = SpriteType.WALK_RIGHT;
+        spriteType = SpriteType.WALK_DOWN;
         pathfinding.logPath(false);
         lastTilePosX = tilePositionX;
         lastTilePosY = tilePositionY;
@@ -46,85 +45,138 @@ public class Warrior extends Hero{
     int lastTilePosY;
 
 
-
-    // Walking animation sprite coordinates
-//
-
-    private final static int[] spriteArrayCoordinateCount = {
-            4, //left
-            4, // Right
-            4, //Up
-            4 //Down
-    };
-
-
     // Sprite animation coordinates using EnumMap
+    //private static final Map<SpriteType, SpriteCoordinate[]> SPRITE_ANIMATIONS = new EnumMap<>(SpriteType.class);
+// These are messed up i mixed 2 i didn't realize one was male the other female
+//    static {
+//        // Walk animations
+//        SPRITE_ANIMATIONS.put(SpriteType.WALK_UP, new SpriteCoordinate[]{
+//                new SpriteCoordinate(38, 8, 15, 16),
+//                new SpriteCoordinate(38, 29, 15, 16),
+//                new SpriteCoordinate(54, 8, 15, 16),
+//                new SpriteCoordinate(54, 29, 15, 16)
+//        });
+//
+//        SPRITE_ANIMATIONS.put(SpriteType.WALK_DOWN, new SpriteCoordinate[]{
+//                new SpriteCoordinate(6, 8, 15, 16),
+//                new SpriteCoordinate(6, 29, 15, 16),
+//                new SpriteCoordinate(22, 8, 15, 16),
+//                new SpriteCoordinate(22, 29, 15, 16)
+//        });
+//
+//        SPRITE_ANIMATIONS.put(SpriteType.WALK_LEFT, new SpriteCoordinate[]{
+//                new SpriteCoordinate(69, 8, 15, 16),
+//                new SpriteCoordinate(69, 29, 15, 16),
+//                new SpriteCoordinate(84, 8, 15, 16),
+//                new SpriteCoordinate(82, 29, 15, 16)
+//        });
+//
+//        SPRITE_ANIMATIONS.put(SpriteType.WALK_RIGHT, new SpriteCoordinate[]{
+//                new SpriteCoordinate(98, 8, 15, 16),
+//                new SpriteCoordinate(96, 29, 15, 16),
+//                new SpriteCoordinate(112, 8, 15, 16),
+//                new SpriteCoordinate(110, 29, 15, 16)
+//        });
+//
+//
+//        //TODO replace down animations
+//        SPRITE_ANIMATIONS.put(SpriteType.ATTACK_LEFT, new SpriteCoordinate[]{
+//                new SpriteCoordinate(98, 8, 15, 16),
+//                new SpriteCoordinate(96, 29, 15, 16),
+//                new SpriteCoordinate(112, 8, 15, 16),
+//                new SpriteCoordinate(110, 29, 15, 16)
+//        });
+//
+//        SPRITE_ANIMATIONS.put(SpriteType.ATTACK_RIGHT, new SpriteCoordinate[]{
+//                new SpriteCoordinate(98, 8, 15, 16),
+//                new SpriteCoordinate(96, 29, 15, 16),
+//                new SpriteCoordinate(112, 8, 15, 16),
+//                new SpriteCoordinate(110, 29, 15, 16)
+//        });
+//
+//        SPRITE_ANIMATIONS.put(SpriteType.ATTACK_UP, new SpriteCoordinate[]{
+//                new SpriteCoordinate(98, 8, 15, 16),
+//                new SpriteCoordinate(96, 29, 15, 16),
+//                new SpriteCoordinate(112, 8, 15, 16),
+//                new SpriteCoordinate(110, 29, 15, 16)
+//        });
+//
+//        SPRITE_ANIMATIONS.put(SpriteType.ATTACK_DOWN, new SpriteCoordinate[]{
+//                new SpriteCoordinate(98, 8, 15, 16),
+//                new SpriteCoordinate(96, 29, 15, 16),
+//                new SpriteCoordinate(112, 8, 15, 16),
+//                new SpriteCoordinate(110, 29, 15, 16)
+//        });
+//
+//        // Death animation (placeholder coordinates - update with your actual values)
+//        SPRITE_ANIMATIONS.put(SpriteType.DEATH, new SpriteCoordinate[]{
+//
+//        });
+//    }
+
+    // Warrior Male sprite coordinates
     private static final Map<SpriteType, SpriteCoordinate[]> SPRITE_ANIMATIONS = new EnumMap<>(SpriteType.class);
 
     static {
-        // Walk animations
-        SPRITE_ANIMATIONS.put(SpriteType.WALK_UP, new SpriteCoordinate[]{
-                new SpriteCoordinate(38, 8, 15, 16),
-                new SpriteCoordinate(38, 29, 15, 16),
-                new SpriteCoordinate(54, 8, 15, 16),
-                new SpriteCoordinate(54, 29, 15, 16)
+        SPRITE_ANIMATIONS.put(SpriteType.WALK_DOWN, new SpriteCoordinate[]{
+                new SpriteCoordinate(6, 50, 16, 16),
+                new SpriteCoordinate(23, 50, 16, 16),
+                new SpriteCoordinate(6, 50, 16, 16),
+                new SpriteCoordinate(23, 50, 16, 16)
         });
 
-        SPRITE_ANIMATIONS.put(SpriteType.WALK_DOWN, new SpriteCoordinate[]{
-                new SpriteCoordinate(6, 8, 15, 16),
-                new SpriteCoordinate(6, 29, 15, 16),
-                new SpriteCoordinate(22, 8, 15, 16),
-                new SpriteCoordinate(22, 29, 15, 16)
+        SPRITE_ANIMATIONS.put(SpriteType.WALK_UP, new SpriteCoordinate[]{
+                new SpriteCoordinate(40, 50, 16, 16),
+                new SpriteCoordinate(57, 50, 16, 16),
+                new SpriteCoordinate(40, 50, 16, 16),
+                new SpriteCoordinate(57, 50, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.WALK_LEFT, new SpriteCoordinate[]{
-                new SpriteCoordinate(69, 8, 15, 16),
-                new SpriteCoordinate(69, 29, 15, 16),
-                new SpriteCoordinate(84, 8, 15, 16),
-                new SpriteCoordinate(82, 29, 15, 16)
+                new SpriteCoordinate(73, 50, 16, 16),
+                new SpriteCoordinate(88, 50, 16, 16),
+                new SpriteCoordinate(73, 50, 16, 16),
+                new SpriteCoordinate(88, 50, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.WALK_RIGHT, new SpriteCoordinate[]{
-                new SpriteCoordinate(98, 8, 15, 16),
-                new SpriteCoordinate(96, 29, 15, 16),
-                new SpriteCoordinate(112, 8, 15, 16),
-                new SpriteCoordinate(110, 29, 15, 16)
+                new SpriteCoordinate(103, 50, 16, 16),
+                new SpriteCoordinate(118, 50, 16, 16),
+                new SpriteCoordinate(103, 50, 16, 16),
+                new SpriteCoordinate(118, 50, 16, 16)
         });
-
 
         //TODO replace down animations
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_LEFT, new SpriteCoordinate[]{
-                new SpriteCoordinate(98, 8, 15, 16),
-                new SpriteCoordinate(96, 29, 15, 16),
-                new SpriteCoordinate(112, 8, 15, 16),
-                new SpriteCoordinate(110, 29, 15, 16)
+                new SpriteCoordinate(73, 50, 16, 16),
+                new SpriteCoordinate(88, 50, 16, 16),
+                new SpriteCoordinate(73, 50, 16, 16),
+                new SpriteCoordinate(88, 50, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_RIGHT, new SpriteCoordinate[]{
-                new SpriteCoordinate(98, 8, 15, 16),
-                new SpriteCoordinate(96, 29, 15, 16),
-                new SpriteCoordinate(112, 8, 15, 16),
-                new SpriteCoordinate(110, 29, 15, 16)
+                new SpriteCoordinate(103, 50, 16, 16),
+                new SpriteCoordinate(118, 50, 16, 16),
+                new SpriteCoordinate(103, 50, 16, 16),
+                new SpriteCoordinate(118, 50, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_UP, new SpriteCoordinate[]{
-                new SpriteCoordinate(98, 8, 15, 16),
-                new SpriteCoordinate(96, 29, 15, 16),
-                new SpriteCoordinate(112, 8, 15, 16),
-                new SpriteCoordinate(110, 29, 15, 16)
+                new SpriteCoordinate(40, 50, 16, 16),
+                new SpriteCoordinate(57, 50, 16, 16),
+
+                new SpriteCoordinate(40, 50, 16, 16),
+                new SpriteCoordinate(57, 50, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_DOWN, new SpriteCoordinate[]{
-                new SpriteCoordinate(98, 8, 15, 16),
-                new SpriteCoordinate(96, 29, 15, 16),
-                new SpriteCoordinate(112, 8, 15, 16),
-                new SpriteCoordinate(110, 29, 15, 16)
+                new SpriteCoordinate(6, 50, 16, 16),
+                new SpriteCoordinate(23, 50, 16, 16),
+                new SpriteCoordinate(6, 50, 16, 16),
+                new SpriteCoordinate(23, 50, 16, 16)
         });
 
-        // Death animation (placeholder coordinates - update with your actual values)
-        SPRITE_ANIMATIONS.put(SpriteType.DEATH, new SpriteCoordinate[]{
 
-        });
     }
 
 
@@ -156,10 +208,9 @@ public class Warrior extends Hero{
 
     }
 
-    //What the fuck am i overriding
     @Override
     public BufferedImage getImage(){
-        return returnSprite();
+        return getSpriteFromCoordinate(SPRITE_ANIMATIONS.get(spriteType)[spriteFrame]);
     }
 
     @Override
@@ -173,40 +224,7 @@ public class Warrior extends Hero{
 
     @Override
     protected void spriteHandler() {
-        spriteHandlerNew();
+        spriteHandlerFull(SPRITE_ANIMATIONS.get(spriteType).length);
     }
 
-    private void spriteHandlerNew(){
-
-        SpriteType currentSpriteArray = determineSpriteArrayFull();
-        // We don't need this since we have the advanced sprite array
-        //spriteArrayIndex = simpleSpriteToArray(currentSpriteArray);
-
-        if(spriteType != currentSpriteArray){
-            spriteFrameTimeCounter = 0;
-            spriteFrame = 0;
-            spriteType = currentSpriteArray;
-        }
-        spriteFrameTimeCounter++;
-
-        if(spriteFrameTimeCounter == (spriteArrayCoordinateCount[spriteArrayIndex] -1) * SpriteSettings.ANIMATION_LENGTH){
-            spriteFrameTimeCounter = 0;
-            spriteFrame = 0;
-        }
-
-        if(spriteFrameTimeCounter % SpriteSettings.ANIMATION_LENGTH == 0){
-            spriteFrame++;
-        }
-
-    };
-
-    private BufferedImage returnSprite(){
-
-        System.out.println("Trying to access " + spriteType + " at frame " + spriteFrame);
-        SpriteCoordinate temp = SPRITE_ANIMATIONS.get(spriteType)[spriteFrame];
-        //SpriteCoordinate temp =  new SpriteCoordinate(38, 8, 15, 16);
-                BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
-
-        return subImage;
-    }
 }

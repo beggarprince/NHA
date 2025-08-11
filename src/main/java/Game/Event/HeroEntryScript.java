@@ -6,6 +6,7 @@ import   Game.State;
 import   entities.NPC.Heroes.Hero;
 import   entities.NPC.Heroes.HeroFactory;
 import   entities.NPC.Heroes.HeroList;
+import entities.NPC.NPCType;
 import   graphics.Camera;
 import   graphics.ScreenSettings;
 import   io.Audio.Sound;
@@ -25,14 +26,14 @@ public class HeroEntryScript {
 
         for (LevelState.HeroData requestedHero : heroList) {
             System.out.println("Spawning the [adjective] " + requestedHero.heroName);
-            spawnHero(requestedHero.type, mainList, requestedHero.heroName);
+            spawnHero(requestedHero.heroType, mainList, requestedHero.heroName);
         }
 
     }
 
-    public static void run(String hero, HeroList mainList, Camera camera, String name){
+    public static void run(NPCType heroType, HeroList mainList, Camera camera, String name){
         script(camera);
-        spawnHero(hero, mainList, name);
+        spawnHero(heroType, mainList, name);
     }
 
     private static void script(Camera camera){
@@ -44,9 +45,12 @@ public class HeroEntryScript {
     }
 
     //TODO fix this to work with enums
-    private static void spawnHero(String hero,  HeroList heroList, String name){
+    private static void spawnHero(NPCType heroType,
+                                  HeroList heroList,
+                                  String name){
         try {
-            heroList.addHero(HeroFactory.getInstance().createHero(hero,
+            heroList.addHero(HeroFactory.getInstance().createHero(
+                    heroType,
                     Level.entryPoint.x,
                     Level.entryPoint.y,
                     name

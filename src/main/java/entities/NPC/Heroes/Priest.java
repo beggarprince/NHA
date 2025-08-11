@@ -1,5 +1,4 @@
 package entities.NPC.Heroes;
-
 import entities.SpriteCoordinate;
 import graphics.Sprite.ImgLoader;
 import graphics.ScreenSettings;
@@ -9,9 +8,9 @@ import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class Mage extends Hero {
+public class Priest extends Hero {
 
-    public Mage(int health,
+    public Priest(int health,
                 int x,
                 int y,
                 String name) {
@@ -34,57 +33,56 @@ public class Mage extends Hero {
         lastTilePosX = tilePositionX;
         lastTilePosY = tilePositionY;
         this.hasMVP = false;
+        spriteType = SpriteType.WALK_DOWN;
     }
 
     int lastTilePosX;
     int lastTilePosY;
 
 
-    // Mage Male sprite coordinates
+    // Priest Female sprite coordinates
     private static final Map<SpriteType, SpriteCoordinate[]> SPRITE_ANIMATIONS = new EnumMap<>(SpriteType.class);
 
     static {
         SPRITE_ANIMATIONS.put(SpriteType.WALK_DOWN, new SpriteCoordinate[]{
-                new SpriteCoordinate(6, 176, 16, 16),
-                new SpriteCoordinate(22, 176, 16, 16)
+                new SpriteCoordinate(5, 155, 16, 16),
+                new SpriteCoordinate(20, 155, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.WALK_UP, new SpriteCoordinate[]{
-                new SpriteCoordinate(38, 176, 16, 16),
-                new SpriteCoordinate(54, 176, 16, 16)
+                new SpriteCoordinate(35, 155, 16, 16),
+                new SpriteCoordinate(50, 155, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.WALK_LEFT, new SpriteCoordinate[]{
-                new SpriteCoordinate(70, 176, 16, 16),
-                new SpriteCoordinate(86, 176, 16, 16)
+                new SpriteCoordinate(65, 155, 15, 16),
+                new SpriteCoordinate(79, 155, 14, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.WALK_RIGHT, new SpriteCoordinate[]{
-                new SpriteCoordinate(103, 176, 16, 16),
-                new SpriteCoordinate(119, 176, 16, 16)
+                new SpriteCoordinate(92, 155, 14, 16),
+                new SpriteCoordinate(106, 155, 14, 16)
         });
 
-        // Attack animations using the same coordinates as walk animations
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_DOWN, new SpriteCoordinate[]{
-                new SpriteCoordinate(6, 176, 16, 16),
-                new SpriteCoordinate(22, 176, 16, 16)
+                new SpriteCoordinate(5, 155, 16, 16),
+                new SpriteCoordinate(20, 155, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_UP, new SpriteCoordinate[]{
-                new SpriteCoordinate(38, 176, 16, 16),
-                new SpriteCoordinate(54, 176, 16, 16)
+                new SpriteCoordinate(35, 155, 16, 16),
+                new SpriteCoordinate(50, 155, 16, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_LEFT, new SpriteCoordinate[]{
-                new SpriteCoordinate(70, 176, 16, 16),
-                new SpriteCoordinate(86, 176, 16, 16)
+                new SpriteCoordinate(65, 155, 15, 16),
+                new SpriteCoordinate(79, 155, 14, 16)
         });
 
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_RIGHT, new SpriteCoordinate[]{
-                new SpriteCoordinate(103, 176, 16, 16),
-                new SpriteCoordinate(119, 176, 16, 16)
+                new SpriteCoordinate(92, 155, 14, 16),
+                new SpriteCoordinate(106, 155, 14, 16)
         });
-
 
 
     }
@@ -96,7 +94,7 @@ public class Mage extends Hero {
             isDead = true;
             return;
         }
-
+//TODO this behavior is common amongst all NPC.Hero, move up this snippet and share later not in the mood to clean
         if(npcHasMoved()){
 
             if(detectNewTile()){
@@ -121,7 +119,7 @@ public class Mage extends Hero {
     }
 
     public String returnNpcType(){
-        return "Mage";
+        return "Priest";
     }
 
     @Override

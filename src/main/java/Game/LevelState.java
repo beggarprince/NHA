@@ -56,9 +56,10 @@ public class LevelState {
         public NPCType heroType;
         int health;
         public String heroName;
-        public String type = "Warrior";
 
-        HeroData(NPCType Hero, int health, String heroName){
+        HeroData(NPCType Hero,
+                 int health,
+                 String heroName){
             this.heroType = Hero;
             this.health = health;
             this.heroName = heroName;
@@ -79,13 +80,13 @@ public class LevelState {
                     // Round 0
                     new ArrayList<>(Arrays.asList(
                             new HeroData(NPCType.Warrior, 24, "Jakob"),
-                            new HeroData(NPCType.Warrior, 24, "Felicia")
+                            new HeroData(NPCType.Priest, 24, "Felicia")
                     )),
                     // Round 1
                     new ArrayList<>(Arrays.asList(
-                            new HeroData(NPCType.Soldier, 68, "Elise"),
-                            new HeroData(NPCType.Soldier, 68, "Effie"),
-                            new HeroData(NPCType.Soldier, 68, "Arthur")
+                            new HeroData(NPCType.Priest, 68, "Elise"),
+                            new HeroData(NPCType.Warrior, 68, "Effie"),
+                            new HeroData(NPCType.Joker, 68, "Arthur")
                     )),
                     //Round 2
                     new ArrayList<>(Arrays.asList(

@@ -278,4 +278,40 @@ public abstract class NPC extends Stats {
 //
 //    };
 
+
+
+    //Handle sprite animations for full
+    protected BufferedImage getSpriteFromCoordinate(SpriteCoordinate temp){
+        BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
+        return subImage;
+    }
+
+    protected void spriteHandlerFull(int length){
+        SpriteType currentSpriteArray = determineSpriteArrayFull();
+
+        // We don't need this since we have the advanced sprite array
+        //spriteArrayIndex = simpleSpriteToArray(currentSpriteArray);
+
+
+        //Change sprite state like Walk_Right -> Attack_Right
+        if(spriteType != currentSpriteArray){
+            spriteFrameTimeCounter = 0;
+            spriteFrame = 0;
+            spriteType = currentSpriteArray;
+        }
+
+        if(spriteFrameTimeCounter % SpriteSettings.ANIMATION_LENGTH == 0){
+            spriteFrame++;
+        }
+
+        //Reset frame cycle
+        if(spriteFrame == (length)){
+            spriteFrameTimeCounter = 1;
+            spriteFrame = 0;
+        }
+
+        spriteFrameTimeCounter++;
+
+    }
+
 }

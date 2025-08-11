@@ -17,5 +17,6 @@ public enum NPCType {
     Knight,
     Berserker,
     Priest,
+    Joker,
     NULL_TYPE
 }
