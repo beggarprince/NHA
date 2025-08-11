@@ -17,7 +17,6 @@ public class KBInputMenu implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        System.out.println("n word");
         //Move menu cursor down
         if( code == KeyEvent.VK_S){
             movedDown = true;

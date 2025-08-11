@@ -56,13 +56,15 @@ public class LevelState {
         public NPCType heroType;
         int health;
         public String heroName;
-        public String type = "Soldier";
+        public String type = "Warrior";
 
         HeroData(NPCType Hero, int health, String heroName){
             this.heroType = Hero;
             this.health = health;
             this.heroName = heroName;
+
         }
+
     }
 
     //TODO find a more appropriate spot for this
@@ -76,8 +78,8 @@ public class LevelState {
             new ArrayList<>(Arrays.asList(
                     // Round 0
                     new ArrayList<>(Arrays.asList(
-                            new HeroData(NPCType.Soldier, 24, "Jakob"),
-                            new HeroData(NPCType.Soldier, 24, "Felicia")
+                            new HeroData(NPCType.Warrior, 24, "Jakob"),
+                            new HeroData(NPCType.Warrior, 24, "Felicia")
                     )),
                     // Round 1
                     new ArrayList<>(Arrays.asList(

@@ -1,10 +1,15 @@
 package entities.NPC;
 
+//TODO might need to make separate files and pass arguments, it's getting messy
+
 import   PlayerActions.Spawn;
 import   entities.Combat;
 import   entities.Direction;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
+import entities.SpriteCoordinate;
 import   graphics.ScreenSettings;
+import graphics.Sprite.SpriteType;
+import graphics.SpriteSettings;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -42,6 +47,12 @@ public abstract class NPC extends Stats {
 
     public final int eatingCooldown = 16;
     public int eatingCooldownStage = eatingCooldown;
+
+    //Sprite cycling
+    protected SpriteType spriteType = SpriteType.WALK_HOR;
+    protected int spriteArrayIndex = 0;
+    protected int spriteFrameTimeCounter = 0;
+    protected int spriteFrame = 0;
 
     //Queue to holds all the combat targets so when we kill one we can go to the next
     public Queue<NPC> combatTarget;
@@ -167,28 +178,104 @@ public abstract class NPC extends Stats {
     // attack hor 2
     // attack ver 3
     // death 4
-    protected int determineSpriteArray() {
+    protected SpriteType determineSpriteArray() {
 
         if (this.health <= 0) {
-            return 4;
+            return SpriteType.DEATH;
         }
         //ATM this just means we are in combat
         else if (inCombat) {
             if (currDirection == Direction.LEFT || currDirection == Direction.RIGHT) {
-                return 2;
+                return SpriteType.ATTACK_HOR;
             } else if (currDirection == Direction.UP || currDirection == Direction.DOWN) {
-                return 3;
+                return SpriteType.ATTACK_VER;
             }
         }
 
         else if (currDirection == Direction.LEFT || currDirection == Direction.RIGHT) {
-            return 0;
+            return SpriteType.WALK_HOR;
         } else if (currDirection == Direction.UP || currDirection == Direction.DOWN) {
-            return 1;
+            return SpriteType.WALK_VER;
         }
 
-        return 0; //default to walking
+        return SpriteType.WALK_DOWN; //default to walking
     }
 
+    protected int simpleSpriteToArray(SpriteType type){
+        switch(type){
+            case DEATH: return 4;
+            case WALK_HOR: return 0;
+            case WALK_VER: return 1;
+            case ATTACK_HOR: return 2;
+            case ATTACK_VER: return 3;
+            default: return 1;
+        }
+    }
+
+    protected SpriteType determineSpriteArrayFull(){
+        if(currDirection == Direction.LEFT){
+            if(inCombat){
+                return SpriteType.ATTACK_LEFT;
+            }
+            return SpriteType.WALK_LEFT;
+        }
+        else if(currDirection == Direction.RIGHT){
+            if(inCombat){
+                return SpriteType.ATTACK_RIGHT;
+            }
+            return SpriteType.WALK_RIGHT;
+        }
+        else if(currDirection == Direction.DOWN){
+            if(inCombat){
+                return SpriteType.ATTACK_DOWN;
+            }
+            return SpriteType.WALK_DOWN;
+        }
+        else if(currDirection == Direction.UP){
+            if(inCombat){
+                return SpriteType.ATTACK_UP;
+            }
+            return SpriteType.WALK_UP;
+        }
+
+        return SpriteType.WALK_DOWN; //default to walking
+    }
+
+    //Alternative to simple check
+    //Can be used in conjunction with full, if the sprite [] size is 0 we could just cast.
+    //Alt i could literally just set the rows to walk horizontally as a placeholder and stomach
+    protected SpriteType castType(){
+            if( spriteType == SpriteType.WALK_DOWN || spriteType == SpriteType.WALK_UP) return SpriteType.WALK_HOR;
+            if( spriteType == SpriteType.WALK_LEFT || spriteType == SpriteType.WALK_RIGHT) return SpriteType.WALK_VER;
+            if( spriteType == SpriteType.ATTACK_LEFT || spriteType == SpriteType.ATTACK_RIGHT) return SpriteType.ATTACK_HOR;
+            else return SpriteType.ATTACK_VER;
+    }
+
+
+    //This doesn't work because not every npc has a spriteArrayCoordinateCount, and those are not yet uniform anyway
+//    protected void defaultSpriteHandler(){
+//        SpriteType currentSpriteArray = determineSpriteArray();
+//        spriteArrayIndex = simpleSpriteToArray(currentSpriteArray);
+//
+//        if(spriteType != currentSpriteArray){
+//            System.out.println("Changing to " + currentSpriteArray + ":" + spriteArrayIndex);
+//            //reset the frame counters
+//            spriteFrameTimeCounter = 0;
+//            spriteFrame = 0;
+//            spriteType =  currentSpriteArray;
+//        }
+//        spriteFrameTimeCounter++;
+//
+//        if(spriteFrameTimeCounter == (spriteArrayCoordinateCount[spriteArrayIndex]-1 )
+//                * SpriteSettings.ANIMATION_LENGTH){
+//            spriteFrameTimeCounter = 0;
+//            spriteFrame = 0;
+//        }
+//
+//        if(spriteFrameTimeCounter % SpriteSettings.ANIMATION_LENGTH == 0){
+//            spriteFrame++;
+//        }
+//
+//    };
 
 }

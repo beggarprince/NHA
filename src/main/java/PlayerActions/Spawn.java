@@ -9,7 +9,7 @@ import   level.Tile;
 public class Spawn {
 
     public static void spawnEnemyAtPlayer( Tile tile, MonsterList eList){
-
+    //TODO use ENUM i made for monsters not the old string method
         String reqMonster = "";
 
         if(tile.type == TileType.NUTRIENT){
@@ -34,10 +34,9 @@ public class Spawn {
         //eList.addEnemy(MonsterFactory.createMonster(reqMonster, tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE));
     }
 
-    public static void spawnEnemyAtPlayerDebug(MonsterList eList, Tile tile){
+    public static void spawnEnemyAtPlayerDebug(MonsterList eList, Tile tile, String requestedMonster){
 
-        var reqMonster = "Dragon";
-        eList.addEnemy( MonsterFactory.createMonster(reqMonster, tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE ));
+        eList.addEnemy( MonsterFactory.createMonster(requestedMonster, tile.x * ScreenSettings.TILE_SIZE, tile.y * ScreenSettings.TILE_SIZE ));
     }
 
     public static void spawnEnemyAtPosition(String requestedMonster,  int x, int y){

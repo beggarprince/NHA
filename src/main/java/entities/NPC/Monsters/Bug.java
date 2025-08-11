@@ -3,6 +3,7 @@ package entities.NPC.Monsters;
 import   entities.NPC.NPCType;
 import   entities.SpriteCoordinate;
 import   graphics.ScreenSettings;
+import graphics.Sprite.SpriteType;
 import   graphics.SpriteSettings;
 import   graphics.Sprite.ImgLoader;
 import   graphics.Sprite.SpriteConstants;
@@ -10,19 +11,19 @@ import   graphics.Sprite.SpriteConstants;
 import java.awt.image.BufferedImage;
 
 public class Bug extends Monster {
-    int spriteFrameTimeCounter = 0;
-    int spriteFrame = 0;
-    private int previousSpriteArray = 0;
+
+
     static final BufferedImage image =  ImgLoader.getImageResource(SpriteConstants.MONSTER_BUG);
     static final int bugLifespan = ScreenSettings.FPS * 45;
     static final String metamorphosisValue = "";
     static final int hungerDecCounter = 5;
 
+
 //col row width height
 
     //105, 7 stages for now
     //48*48
-    //Walking left
+    //Walking le
     //21, 56 - 91, 160, 232
     //16, 108 - 90, 165, 237
 
@@ -188,14 +189,20 @@ public class Bug extends Monster {
     @Override
     protected void spriteHandler(){
 
-        if(previousSpriteArray != determineSpriteArray()){
+        SpriteType currentSpriteArray = determineSpriteArray();
+        spriteArrayIndex = simpleSpriteToArray(currentSpriteArray);
+
+        if(spriteType != currentSpriteArray){
+            System.out.println("Changing to " + currentSpriteArray + ":" + spriteArrayIndex);
+            //reset the frame counters
             spriteFrameTimeCounter = 0;
             spriteFrame = 0;
-            previousSpriteArray = determineSpriteArray();
+            spriteType =  currentSpriteArray;
         }
         spriteFrameTimeCounter++;
 
-        if(spriteFrameTimeCounter == (spriteArrayCoordinateCount[determineSpriteArray()]-1 ) * SpriteSettings.ANIMATION_LENGTH){
+        if(spriteFrameTimeCounter == (spriteArrayCoordinateCount[spriteArrayIndex]-1 )
+                * SpriteSettings.ANIMATION_LENGTH){
             spriteFrameTimeCounter = 0;
             spriteFrame = 0;
         }
@@ -203,7 +210,6 @@ public class Bug extends Monster {
         if(spriteFrameTimeCounter % SpriteSettings.ANIMATION_LENGTH == 0){
             spriteFrame++;
         }
-        //System.out.println(spriteFrame);
 
     }
 
@@ -211,7 +217,7 @@ public class Bug extends Monster {
 
     private BufferedImage returnSprite(){
         //int x = spriteCoordinateWalking[0][0].col;
-        SpriteCoordinate temp =  spriteCoordinates[determineSpriteArray()][spriteFrame];
+        SpriteCoordinate temp =  spriteCoordinates[spriteArrayIndex][spriteFrame];
 
         BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
         //BufferedImage subImage = image.getSubimage(21,56,48,48);

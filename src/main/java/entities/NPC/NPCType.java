@@ -12,6 +12,7 @@ public enum NPCType {
     Lilith,
     Skeleton,
     Soldier,
+    Warrior,
     Mage,
     Knight,
     Berserker,

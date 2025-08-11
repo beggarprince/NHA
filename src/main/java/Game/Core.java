@@ -257,7 +257,8 @@ public class Core {
         else if(kb.spawnDebug){
             Spawn.spawnEnemyAtPlayerDebug(MonsterList.getInstance(), level.tileData
                     .get(player.playerTilePositionY)
-                    .get(player.playerTilePositionX));
+                    .get(player.playerTilePositionX),
+                    "Bug");
         }
 
         if (kbInputDebugJankTimer != 60) kbInputDebugJankTimer++;

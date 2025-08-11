@@ -93,3 +93,4 @@ private fun runEnemyBehavior(enemies: List<Monster>) {
 
         checkSetMetamorphosis()
     }
+
