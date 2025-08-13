@@ -99,7 +99,8 @@ public abstract class NPC extends Stats {
         }
 
         if (pathIsNotBlocked) {
-            Movement.move(this);
+            Movement.moveOnScreen(this);
+
             Movement.updateWorldPosition(this);
             Movement.signalNewTile(this);
             movementBlocked = false;

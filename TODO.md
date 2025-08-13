@@ -64,7 +64,7 @@
 - Needs to reproduce.
 - Needs to walk slower.
 
-# World/Game Additions
+# world/Game Additions
 
 ## GUI
 - Needs to be implemented to display useful information such as creature count or dig power
@@ -124,7 +124,7 @@
 # Architecture
 - Create a state within the engine to interrupt the game loop with menus.
   - There needs to be an NPC class that both the heroes and the enemies inherit from and contains basic info like
-    - World/screen position
+    - world/screen position
     - Movement
     - Boundary checking
     - Health

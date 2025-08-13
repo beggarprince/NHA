@@ -5,6 +5,8 @@ import   entities.NPC.Movement;
 import   entities.NPC.NPC;
 import   entities.NPC.NPCType;
 import   graphics.ScreenSettings;
+import world.World;
+
 import java.util.Random;
 import java.awt.image.BufferedImage;
 
@@ -39,6 +41,9 @@ public abstract class Monster extends NPC {
         this.screenPositionY = y;
         this.hasFullStomach = false;
         this.currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY,this);//This will give it a random starting dir that is valid
+
+        //Some of these "this" do not belong
+        World.INSTANCE.addMonsterToTile(this);
     }
 
     // Getter and setter methods

@@ -5,6 +5,7 @@ import   entities.NPC.Movement;
 import   entities.NPC.Mvp;
 import   entities.NPC.NPC;
 import   graphics.ScreenSettings;
+import world.World;
 
 import java.awt.*;
 import java.util.Random;
@@ -27,6 +28,7 @@ public abstract class Hero extends NPC {
         this.movementCycle = 0;
         this.movementSpeed = 1;
         this.currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY, this);//This will give it a random starting dir that is valid
+        World.INSTANCE.addHeroToTile(this);
     }
 
     private final static Random random = new Random();

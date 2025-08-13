@@ -1,6 +1,7 @@
 package entities.WorldObjects;
 
 import entities.Direction;
+import entities.SpriteCoordinate;
 import graphics.ScreenSettings;
 import level.Level;
 import util.CollisionKt;
@@ -146,4 +147,15 @@ public class Projectile extends WorldObject{
             tilePositionX++;
         }
     }
+
+    //fireball animation
+    private static final SpriteCoordinate[] FIREBALL = {
+        new SpriteCoordinate(3, 16, 96, 96),
+        new SpriteCoordinate(133, 16, 96, 96),
+        new SpriteCoordinate(5, 144, 96, 96),
+        new SpriteCoordinate(135, 144, 96, 96)
+
+    };
+
+
 }

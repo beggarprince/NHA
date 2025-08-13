@@ -11,9 +11,9 @@ public class SimpleTest {
 
     @Test
     public void testStringOperations() {
-        String greeting = "Hello" + " " + "World";
+        String greeting = "Hello" + " " + "world";
         Assertions.assertEquals("Hello World", greeting);
-        Assertions.assertTrue(greeting.contains("World"));
+        Assertions.assertTrue(greeting.contains("world"));
         Assertions.assertFalse(greeting.isEmpty());
     }
 

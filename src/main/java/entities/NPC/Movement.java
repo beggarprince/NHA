@@ -4,6 +4,7 @@ import   entities.Direction;
 import   graphics.ScreenSettings;
 import   level.Level;
 import util.CollisionKt;
+import world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +120,7 @@ public class Movement {
 
 
     //If we are here we are good to move in our direction of choice
-    public static void move(NPC npc) {
+    public static void moveOnScreen(NPC npc) {
 
         if (npc.currDirection == Direction.UP) {
             npc.screenPositionY -= npc.movementSpeed;
@@ -137,17 +138,31 @@ public class Movement {
 
 
     protected static void updateWorldPosition(NPC npc) {
-        if (npc.screenPositionX % 16 == 0) {
+
+        if (npc.screenPositionX % ScreenSettings.ORIGINAL_TILE_SIZE == 0 && npc.screenPositionX != 0) {
+            int a = npc.tilePositionX;
             npc.tilePositionX = npc.screenPositionX / ScreenSettings.TILE_SIZE;
+            if(a == npc.tilePositionX) System.out.println("Error updating x");
+            else{
+                World.INSTANCE.addNPC(npc);
+            }
         }
-        if (npc.screenPositionY % 16 == 0) {
+        if (npc.screenPositionY % ScreenSettings.ORIGINAL_TILE_SIZE == 0 & npc.screenPositionY != 0) {
+            int a = npc.tilePositionY;
             npc.tilePositionY = npc.screenPositionY / ScreenSettings.TILE_SIZE;
+            if(a == npc.tilePositionY) System.out.println("Error updating y");
+            else{
+                World.INSTANCE.addNPC(npc);
+            }
         }
     }
 
     protected static void signalNewTile(NPC npc){
         if(npc.movementCycle >= ScreenSettings.TILE_SIZE){
+            //World.INSTANCE.removeNPC(npc);
             npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
+            //World.INSTANCE.addNPC(npc);
+            World.INSTANCE.printWorld();
         }
     }
 

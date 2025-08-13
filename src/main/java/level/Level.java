@@ -2,6 +2,7 @@ package level;
 
 import   graphics.ScreenSettings;
 import   util.Coordinate;
+import world.World;
 
 import java.util.ArrayList;
 
@@ -53,10 +54,11 @@ public class Level {
 
         levelData = worldGenerator.returnLevel();
 
-
         levelRows = levelData.size(); // Size of column
         levelColumns = levelData.get(0).size(); // Size of row
         createInitialPath();
+        World.INSTANCE.initialize();
+
 
 
         if(levelColumns != ScreenSettings.TS_World_X) System.out.println("Not enough columns made");
