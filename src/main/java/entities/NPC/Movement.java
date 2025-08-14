@@ -139,48 +139,35 @@ public class Movement {
     }
 
 
+    //This bottom one works
     protected static void updateWorldPosition(NPC npc) {
 
-        //int len = (MonsterList.getInstance().getMonsters().size() + HeroList.getInstance().getHeroes().size());
-
-        if (npc.screenPositionX % 16
-                //ScreenSettings.ORIGINAL_TILE_SIZE
-                == 0 //&& npc.screenPositionX != 0
-        ) {
-            int pos = npc.screenPositionX / ScreenSettings.TILE_SIZE;
-
-            if(pos != npc.tilePositionX) {
-                World.INSTANCE.removeNPC(npc);
-                npc.tilePositionX = pos;
-                World.INSTANCE.addNPC(npc);
-                npc.movementCycle = 0;
-            }
-        }
-        if (npc.screenPositionY % 16
-                //ScreenSettings.ORIGINAL_TILE_SIZE
-                == 0
-        ) {
-            int pos = npc.screenPositionY / ScreenSettings.TILE_SIZE;
-
-            if(pos != npc.screenPositionY){
-                World.INSTANCE.removeNPC(npc);
-                npc.tilePositionY = pos;
-                World.INSTANCE.addNPC(npc);
-                npc.movementCycle = 0;
-            }
+        if (npc.screenPositionX % ScreenSettings.ORIGINAL_TILE_SIZE == 0) {
+            World.INSTANCE.removeNPC(npc);
+            npc.tilePositionX = npc.screenPositionX / ScreenSettings.TILE_SIZE;
+            World.INSTANCE.addNPC(npc);
+            signalNewTile(npc);
         }
 
-       // assert len == (MonsterList.getInstance().getMonsters().size() + HeroList.getInstance().getHeroes().size()) : "Added/Removed from list";
+        if (npc.screenPositionY % ScreenSettings.ORIGINAL_TILE_SIZE == 0) {
+            World.INSTANCE.removeNPC(npc);
+            npc.tilePositionY = npc.screenPositionY / ScreenSettings.TILE_SIZE;
+            World.INSTANCE.addNPC(npc);
+            signalNewTile(npc);
+        }
 
     }
 
-//    protected static void signalNewTile(NPC npc){
-//        if(npc.movementCycle >= ScreenSettings.TILE_SIZE){
-//            //World.INSTANCE.removeNPC(npc);
-//            npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
-//            //World.INSTANCE.addNPC(npc);
-//            //World.INSTANCE.printWorld();
-//        }
-//    }
+
+    protected static void signalNewTile(NPC npc){
+
+        if(npc.movementCycle >= ScreenSettings.TILE_SIZE){
+
+            npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
+
+        }
+
+    }
+
 
 }

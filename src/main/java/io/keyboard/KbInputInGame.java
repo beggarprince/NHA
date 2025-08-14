@@ -2,6 +2,7 @@ package io.keyboard;
 
 import   Game.GameState;
 import   io.Audio.Sound;
+import util.HeroDebug;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,6 +15,7 @@ public class KbInputInGame implements KeyListener {
     public boolean dig = false;
     public boolean spawnDebug = false;
     public boolean maxSpeed = false;
+    public boolean heroDetailDebug;
     private boolean volumeLock;
     public boolean pausedGame = false;
     public int currentDirection = 0;
@@ -161,6 +163,10 @@ public class KbInputInGame implements KeyListener {
         else if(code == KeyEvent.VK_UP){
             volumeLock = false;
         }
+
+         else if(code == KeyEvent.VK_Z){
+             HeroDebug.Companion.printHeroDetails();
+         }
 
     }
 

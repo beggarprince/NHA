@@ -35,72 +35,75 @@ public class Bug extends Monster {
             9 // death
     };
 
-    private static final SpriteCoordinate[][] spriteCoordinates = {
+
+    private static final BufferedImage[][] spriteSubsets = {
             //Walking horizontally - 0
             {
-                    new SpriteCoordinate(21,56,48,48),
-                    new SpriteCoordinate(91,56,48,48),
-                    new SpriteCoordinate(160,56,48,48),
-                    new SpriteCoordinate(232,56,48,48),
-                    new SpriteCoordinate(16,108,48,48),
-                    new SpriteCoordinate(90,108,48,48),
-                    new SpriteCoordinate(165,108,48,48),
-                    new SpriteCoordinate(237,108,48,48)
+                    image.getSubimage(21,56,48,48),
+                    image.getSubimage(91,56,48,48),
+                    image.getSubimage(160,56,48,48),
+                    image.getSubimage(232,56,48,48),
+                    image.getSubimage(16,108,48,48),
+                    image.getSubimage(90,108,48,48),
+                    image.getSubimage(165,108,48,48),
+                    image.getSubimage(237,108,48,48)
             },
             //Walking vertically - 1
             {
-                    new SpriteCoordinate(10, 182, 24, 42),
-                    new SpriteCoordinate(34, 182, 24, 42),
-                    new SpriteCoordinate(58, 182, 24, 42),
-                    new SpriteCoordinate(82, 182, 24, 42),
-                    new SpriteCoordinate(106, 182, 24, 42),
-                    new SpriteCoordinate(130, 182, 24, 42),
-                    new SpriteCoordinate(154, 182, 24, 42),
-                    new SpriteCoordinate(178, 182, 24, 42)
+                    image.getSubimage(10, 182, 24, 42),
+                    image.getSubimage(34, 182, 24, 42),
+                    image.getSubimage(58, 182, 24, 42),
+                    image.getSubimage(82, 182, 24, 42),
+                    image.getSubimage(106, 182, 24, 42),
+                    image.getSubimage(130, 182, 24, 42),
+                    image.getSubimage(154, 182, 24, 42),
+                    image.getSubimage(178, 182, 24, 42)
             },
             //Attack Horizontally - 2
             {
-                    new SpriteCoordinate(27, 300, 39, 24),
-                    new SpriteCoordinate(97, 300, 39, 24),
-                    new SpriteCoordinate(171, 297, 39, 27),
-                    new SpriteCoordinate(247, 291, 33, 29),
-                    new SpriteCoordinate(313, 279, 39, 39),
-                    new SpriteCoordinate(376, 291, 48, 33),
-                    new SpriteCoordinate(27, 366, 37, 20),
-                    new SpriteCoordinate(103, 351, 33, 31),
-                    new SpriteCoordinate(169, 339, 39, 39),
-                    new SpriteCoordinate(232, 351, 48, 33),
-                    new SpriteCoordinate(315, 365, 37, 21),
-                    new SpriteCoordinate(385, 360, 40, 24)
+                    image.getSubimage(27, 300, 39, 24),
+                    image.getSubimage(97, 300, 39, 24),
+                    image.getSubimage(171, 297, 39, 27),
+                    image.getSubimage(247, 291, 33, 29),
+                    image.getSubimage(313, 279, 39, 39),
+                    image.getSubimage(376, 291, 48, 33),
+                    image.getSubimage(27, 366, 37, 20),
+                    image.getSubimage(103, 351, 33, 31),
+                    image.getSubimage(169, 339, 39, 39),
+                    image.getSubimage(232, 351, 48, 33),
+                    image.getSubimage(315, 365, 37, 21),
+                    image.getSubimage(385, 360, 40, 24)
             },
             //Attacking Vertically - 3
             {
-                    new SpriteCoordinate(18, 454, 33, 42),
-                    new SpriteCoordinate(67, 454, 33, 42),
-                    new SpriteCoordinate(112, 454, 33, 42),
-                    new SpriteCoordinate(166, 451, 33, 42),
-                    new SpriteCoordinate(214, 430, 36, 63),
-                    new SpriteCoordinate(256, 427, 36, 66),
-                    new SpriteCoordinate(14, 553, 32, 51),
-                    new SpriteCoordinate(68, 553, 32, 51),
-                    new SpriteCoordinate(118, 541, 36, 60),
-                    new SpriteCoordinate(159, 535, 36, 66),
-                    new SpriteCoordinate(203, 553, 36, 51),
-                    new SpriteCoordinate(262, 568, 24, 36)
+                    image.getSubimage(18, 454, 33, 42),
+                    image.getSubimage(67, 454, 33, 42),
+                    image.getSubimage(112, 454, 33, 42),
+                    image.getSubimage(166, 451, 33, 42),
+                    image.getSubimage(214, 430, 36, 63),
+                    image.getSubimage(256, 427, 36, 66),
+                    image.getSubimage(14, 553, 32, 51),
+                    image.getSubimage(68, 553, 32, 51),
+                    image.getSubimage(118, 541, 36, 60),
+                    image.getSubimage(159, 535, 36, 66),
+                    image.getSubimage(203, 553, 36, 51),
+                    image.getSubimage(262, 568, 24, 36)
             },
             //Death - 4
             {
-                    new SpriteCoordinate(33, 730, 48, 32),
-                    new SpriteCoordinate(130, 723, 48, 32),
-                    new SpriteCoordinate(225, 729, 48, 32),
-                    new SpriteCoordinate(316, 710, 54, 45),
-                    new SpriteCoordinate(409, 680, 60, 60),
-                    new SpriteCoordinate(22, 788, 66, 30),
-                    new SpriteCoordinate(118, 785, 63, 51),
-                    new SpriteCoordinate(208, 800, 72, 63),
-                    new SpriteCoordinate(316, 812, 60, 56)
+                    image.getSubimage(33, 730, 48, 32),
+                    image.getSubimage(130, 723, 48, 32),
+                    image.getSubimage(225, 729, 48, 32),
+                    image.getSubimage(316, 710, 54, 45),
+                    image.getSubimage(409, 680, 60, 60),
+                    image.getSubimage(22, 788, 66, 30),
+                    image.getSubimage(118, 785, 63, 51),
+                    image.getSubimage(208, 800, 72, 63),
+                    image.getSubimage(316, 812, 60, 56)
             }
     };
+
+
 
     public Bug( int x, int y) {
         super(32, x, y);
@@ -193,7 +196,7 @@ public class Bug extends Monster {
         spriteArrayIndex = simpleSpriteToArray(currentSpriteArray);
 
         if(spriteType != currentSpriteArray){
-            System.out.println("Changing to " + currentSpriteArray + ":" + spriteArrayIndex);
+            //System.out.println("Changing to " + currentSpriteArray + ":" + spriteArrayIndex);
             //reset the frame counters
             spriteFrameTimeCounter = 0;
             spriteFrame = 0;
@@ -217,12 +220,10 @@ public class Bug extends Monster {
 
     private BufferedImage returnSprite(){
         //int x = spriteCoordinateWalking[0][0].col;
-        SpriteCoordinate temp =  spriteCoordinates[spriteArrayIndex][spriteFrame];
+        //SpriteCoordinate temp =  spriteCoordinates[spriteArrayIndex][spriteFrame];
+        //BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
 
-        BufferedImage subImage = image.getSubimage(temp.col, temp.row, temp.width, temp.height);
-        //BufferedImage subImage = image.getSubimage(21,56,48,48);
-
-        return subImage;
+        return spriteSubsets[spriteArrayIndex][spriteFrame];
 
     }
 

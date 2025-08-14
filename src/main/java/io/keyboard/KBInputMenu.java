@@ -1,7 +1,10 @@
 package io.keyboard;
 
+import util.HeroDebug;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 
 public class KBInputMenu implements KeyListener {
     public boolean movedUp = false;
@@ -31,6 +34,8 @@ public class KBInputMenu implements KeyListener {
         }
     }
 
+
+    //These are probably really good for simple debugs to get a single instance
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
@@ -47,5 +52,6 @@ public class KBInputMenu implements KeyListener {
         else if (code == KeyEvent.VK_ENTER || code == KeyEvent.VK_F){
             pressedEnter = false;
         }
+
     }
 }

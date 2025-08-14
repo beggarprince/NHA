@@ -50,10 +50,12 @@ object World {
     }
 
     fun addHeroToTile(hero: Hero){
+        return
         world[hero.tilePositionY][hero.tilePositionX].tileHeroes.add(hero);
     }
 
     fun removeHeroFromTile(hero: Hero){
+        return
         world[hero.tilePositionY][hero.tilePositionX].tileHeroes.remove(hero);
     }
 
@@ -95,6 +97,7 @@ object World {
     }
 
     fun removeNPC(npc : NPC){
+        //println("Delete npc");
         if(npc is Hero){
             removeHeroFromTile(npc)
         }
@@ -104,6 +107,7 @@ object World {
     }
 
     fun addNPC(npc: NPC){
+       // println("Write npc")
         if(npc is Hero){
             addHeroToTile(npc)
         }
@@ -126,6 +130,27 @@ object World {
     fun getTileAmountOfEntities( x: Int, y: Int): Int{
         val tile = world[y][x]
         return (tile.tileHeroes.size + tile.tileMonsters.size + tile.tileObjects.size)
+    }
+
+    fun swap(npc: NPC, tPosX: Int, tPosY : Int): Boolean{
+        if(npc.tilePositionX != tPosX){
+            println("Change in x")
+            removeNPC(npc);
+            npc.tilePositionX = tPosX;
+            addNPC(npc)
+
+            return true
+        }
+        else if(npc.tilePositionY != tPosY){
+            println("Change in Y")
+            removeNPC(npc);
+            npc.tilePositionY = tPosY
+            addNPC(npc)
+            return true
+        }
+
+        println("Not true")
+        return false;
     }
 
 }

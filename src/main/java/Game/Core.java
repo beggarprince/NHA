@@ -15,6 +15,7 @@ import   io.keyboard.KBInputAccelerator;
 import   io.keyboard.KbInputInGame;
 import level.Level;
 import   level.TileType;
+import util.HeroDebug;
 import   util.TimerDebug;
 
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class Core {
 
         if(GameState.stateHidingMvp()){
             //As soon as the player places the mvp the timer is set to 0 except it does not increment the spawnTimer until heroActive is false then we have concluded we won the round
-            attemptToPlaceMVPAndCheckIfSuccessful(kb, player, timeUntilHeroSpawn, heroSpawnCountdown, camera);
+            validateMvpPlacement(kb, player, timeUntilHeroSpawn, heroSpawnCountdown, camera);
             //this prevents the loop to run monster logic
             //gamePanel.paintFrame(monsterList.getMonsters(), heroList.getHeroes());
             return;
@@ -280,7 +281,7 @@ public class Core {
         }
     }
 
-    protected static void attemptToPlaceMVPAndCheckIfSuccessful(KbInputInGame kb, Player player, int heroSpawnTimer, int heroSpawnCountdown, Camera camera){
+    protected static void validateMvpPlacement(KbInputInGame kb, Player player, int heroSpawnTimer, int heroSpawnCountdown, Camera camera){
 
         if(kb.dig && level.tileData.get(player.playerTilePositionY).get(player.playerTilePositionX).type == TileType.PATH){ //I'm just going to rename this to ACTION button or something
             GameState.heroActive = true;

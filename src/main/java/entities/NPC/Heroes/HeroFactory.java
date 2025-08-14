@@ -27,12 +27,16 @@ public class HeroFactory {
                     positionY * ScreenSettings.TILE_SIZE, heroData.heroName);
         }
         else if(heroType == NPCType.Warrior){
-            hero = new Warrior(heroData.health , positionX * ScreenSettings.TILE_SIZE,
-                    positionY * ScreenSettings.TILE_SIZE, heroData.heroName);
+            hero = new Warrior(heroData.health ,
+                    positionX * ScreenSettings.TILE_SIZE,
+                    positionY * ScreenSettings.TILE_SIZE,
+                    heroData.heroName);
         }
         else if(heroType == NPCType.Priest){
-            hero = new Priest(heroData.health, positionX * ScreenSettings.TILE_SIZE,
-                    positionY * ScreenSettings.TILE_SIZE, heroData.heroName);
+            hero = new Priest(heroData.health,
+                    positionX * ScreenSettings.TILE_SIZE,
+                    positionY * ScreenSettings.TILE_SIZE,
+                    heroData.heroName);
         }
         else if(heroType == NPCType.Mage){
             hero = new Mage(heroData.health, positionX * ScreenSettings.TILE_SIZE,

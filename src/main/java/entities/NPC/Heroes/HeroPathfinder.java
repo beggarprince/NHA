@@ -47,7 +47,7 @@ public class HeroPathfinder extends Movement {
         potentialDirection = determineNextMoveBacktracking();
 
         if(potentialDirection == Direction.NOT_MOVING){
-            System.out.println("BACKTRACKING COULD NOT FIND DIR");
+            System.out.println(currHero.name +": BACKTRACKING COULD NOT FIND DIR AT " + currHero.tilePositionX +":" +currHero.tilePositionY);
         }
         return potentialDirection;
     }

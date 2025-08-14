@@ -116,6 +116,7 @@ public class Warrior extends Hero{
     // Warrior Male sprite coordinates
     private static final Map<SpriteType, SpriteCoordinate[]> SPRITE_ANIMATIONS = new EnumMap<>(SpriteType.class);
 
+    //TODO change these to image.getSubImage and the map to be in hero and be Map<SpriteType, BufferedImage[]>
     static {
         SPRITE_ANIMATIONS.put(SpriteType.WALK_DOWN, new SpriteCoordinate[]{
                 new SpriteCoordinate(6, 50, 16, 16),
@@ -145,7 +146,7 @@ public class Warrior extends Hero{
                 new SpriteCoordinate(118, 50, 16, 16)
         });
 
-        //TODO replace down animations
+        //TODO replace animations or add some attack effect
         SPRITE_ANIMATIONS.put(SpriteType.ATTACK_LEFT, new SpriteCoordinate[]{
                 new SpriteCoordinate(73, 50, 16, 16),
                 new SpriteCoordinate(88, 50, 16, 16),
@@ -181,7 +182,7 @@ public class Warrior extends Hero{
 
     @Override
     public void behavior() {
-
+        //System.out.println(this.tilePositionX + ":" + this.tilePositionY);
         if(this.health <= 0){
             isDead = true;
             return;

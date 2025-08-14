@@ -20,8 +20,9 @@ public class ScreenSettings {
 
     //Number of tiles in world
     //TS tile system
-    public static final int TS_WorldScale_X = 1;
-    public static final int TS_World_Scale_Y = 1;
+    //3 and 5 are the standard x y
+    public static final int TS_WorldScale_X = 3;
+    public static final int TS_World_Scale_Y = 5;
     public static final int TS_World_X = TS_X * TS_WorldScale_X;
     public static final int TS_World_Y = TS_Y * TS_World_Scale_Y;
 
