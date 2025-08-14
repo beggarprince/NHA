@@ -111,6 +111,7 @@ public class Engine implements Runnable {
     final Object npcLogicLock = new Object();
 
     Runnable npcLogicThread = () -> {
+        System.out.println((MonsterList.getInstance().getMonsters().size()));
         NPCLogicKTKt.run(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
         updateNPCLists();
     };
@@ -143,9 +144,9 @@ public class Engine implements Runnable {
                 synchronized (npcLogicLock) {
                     npcLogicLock.wait(); // Wait for main thread to signal
                     npcLogicThread.run(); // Execute task when signaled
+
                     if (Mvp.getInstance().mvpAtEntrance()) {
                         PlayerDefeat.run();
-
                     }
                 }
             } catch (InterruptedException e) {

@@ -1,6 +1,8 @@
 package entities.NPC;
 
 import   entities.Direction;
+import entities.NPC.Heroes.HeroList;
+import entities.NPC.Monsters.MonsterLogic.MonsterList;
 import   graphics.ScreenSettings;
 import   level.Level;
 import util.CollisionKt;
@@ -139,31 +141,46 @@ public class Movement {
 
     protected static void updateWorldPosition(NPC npc) {
 
-        if (npc.screenPositionX % ScreenSettings.ORIGINAL_TILE_SIZE == 0 && npc.screenPositionX != 0) {
-            int a = npc.tilePositionX;
-            npc.tilePositionX = npc.screenPositionX / ScreenSettings.TILE_SIZE;
-            if(a == npc.tilePositionX) System.out.println("Error updating x");
-            else{
+        //int len = (MonsterList.getInstance().getMonsters().size() + HeroList.getInstance().getHeroes().size());
+
+        if (npc.screenPositionX % 16
+                //ScreenSettings.ORIGINAL_TILE_SIZE
+                == 0 //&& npc.screenPositionX != 0
+        ) {
+            int pos = npc.screenPositionX / ScreenSettings.TILE_SIZE;
+
+            if(pos != npc.tilePositionX) {
+                World.INSTANCE.removeNPC(npc);
+                npc.tilePositionX = pos;
                 World.INSTANCE.addNPC(npc);
+                npc.movementCycle = 0;
             }
         }
-        if (npc.screenPositionY % ScreenSettings.ORIGINAL_TILE_SIZE == 0 & npc.screenPositionY != 0) {
-            int a = npc.tilePositionY;
-            npc.tilePositionY = npc.screenPositionY / ScreenSettings.TILE_SIZE;
-            if(a == npc.tilePositionY) System.out.println("Error updating y");
-            else{
+        if (npc.screenPositionY % 16
+                //ScreenSettings.ORIGINAL_TILE_SIZE
+                == 0
+        ) {
+            int pos = npc.screenPositionY / ScreenSettings.TILE_SIZE;
+
+            if(pos != npc.screenPositionY){
+                World.INSTANCE.removeNPC(npc);
+                npc.tilePositionY = pos;
                 World.INSTANCE.addNPC(npc);
+                npc.movementCycle = 0;
             }
         }
+
+       // assert len == (MonsterList.getInstance().getMonsters().size() + HeroList.getInstance().getHeroes().size()) : "Added/Removed from list";
+
     }
 
-    protected static void signalNewTile(NPC npc){
-        if(npc.movementCycle >= ScreenSettings.TILE_SIZE){
-            //World.INSTANCE.removeNPC(npc);
-            npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
-            //World.INSTANCE.addNPC(npc);
-            World.INSTANCE.printWorld();
-        }
-    }
+//    protected static void signalNewTile(NPC npc){
+//        if(npc.movementCycle >= ScreenSettings.TILE_SIZE){
+//            //World.INSTANCE.removeNPC(npc);
+//            npc.movementCycle = 0; //This needs to be used to determine if they can attack so they don't get stuck in diagonal fights
+//            //World.INSTANCE.addNPC(npc);
+//            //World.INSTANCE.printWorld();
+//        }
+//    }
 
 }

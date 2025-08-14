@@ -3,7 +3,7 @@ package graphics;
 //Screen settings that will be used across the game
 public class ScreenSettings {
     // Screen settings
-    public static final int ORIGINAL_TILE_SIZE = 32; // 16x16
+    public static final int ORIGINAL_TILE_SIZE = 48; // 16x16
     //TODO implement way to get resolution and set to 3 at 4k and 2 below
     public static final int SCALE = 1;
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
@@ -12,8 +12,9 @@ public class ScreenSettings {
     //Tiles system
     //Number of tiles rendered on window
     //27x15 is cute 32x24 is just a bit too much informationdd
-    public static final int TS_X = 8;
-    public static final int TS_Y = 5;
+                //ScreenSettings.ORIGINAL_TILE_SIZE
+    public static final int TS_X = 27;
+    public static final int TS_Y = 15;
     public static final int TS_SCREEN_TILES = TS_X * TS_Y;
 
 

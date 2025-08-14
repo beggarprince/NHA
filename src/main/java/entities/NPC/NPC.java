@@ -102,7 +102,7 @@ public abstract class NPC extends Stats {
             Movement.moveOnScreen(this);
 
             Movement.updateWorldPosition(this);
-            Movement.signalNewTile(this);
+            //Movement.signalNewTile(this);
             movementBlocked = false;
             //only at new tile do we signal that they moved
             return true;
