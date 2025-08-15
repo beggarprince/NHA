@@ -139,7 +139,8 @@ public class Movement {
     }
 
 
-    //This bottom one works
+    //It removes updates every time even if we don't switch, i've tried to do
+    //the swap only on new tiles but it doesn't work for some reason.
     protected static void updateWorldPosition(NPC npc) {
 
         if (npc.screenPositionX % ScreenSettings.ORIGINAL_TILE_SIZE == 0) {

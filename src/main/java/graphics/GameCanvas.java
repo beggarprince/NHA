@@ -1,6 +1,7 @@
 package graphics;
 
 import   Game.GameState;
+import entities.WorldObjects.WorldObject;
 import graphics.ui.PauseMenu;
 import   Game.State;
 import   entities.NPC.Heroes.Hero;
@@ -31,6 +32,7 @@ public class GameCanvas extends JPanel {
     ArrayList<ArrayList<Tile>> level;
     ArrayList<Monster> monsterList;
     ArrayList<Hero> heroList;
+    ArrayList<WorldObject> worldObjectList;
 
     private int startTileY = 0;
     private int startTileX = 0;
@@ -44,7 +46,10 @@ public class GameCanvas extends JPanel {
     public GameCanvas(KbInputInGame kb,
                       Player p,
                       ArrayList<ArrayList<Tile>> levelData,
-                      Camera c, ArrayList<Hero> h, ArrayList<Monster> m) {
+                      Camera c,
+                      ArrayList<Hero> h,
+                      ArrayList<Monster> m
+    ) {
         gameCanvas = this;
         gameCanvas.setPreferredSize((new Dimension(ScreenSettings.PX_SCREEN_WIDTH,
                 ScreenSettings.PX_SCREEN_HEIGHT)));
@@ -66,12 +71,16 @@ public class GameCanvas extends JPanel {
         this.repaint();
     }
 
-    public void setMonsterListInCanvas(ArrayList<Monster> frameMonsterList, ArrayList<Hero> frameHeroList){
+    public void setNPCListInCanvas(ArrayList<Monster> frameMonsterList,
+                                   ArrayList<Hero> frameHeroList,
+                                   ArrayList<WorldObject> frameWorldObjectList
+                                   ){
         monsterList =frameMonsterList;
         heroList = frameHeroList;
-
+        worldObjectList = frameWorldObjectList;
         //this.repaint();
     }
+
 
 
     public void paintComponent(Graphics g) {
@@ -85,6 +94,7 @@ public class GameCanvas extends JPanel {
         paintPlayer(g2);
         paintEnemies(g2);
         paintHeroes(g2);
+        paintObjects(g2);
         paintBadman(g2);
         paintUIDigPower(g2);
        ////TODO same as below
@@ -222,6 +232,20 @@ public class GameCanvas extends JPanel {
         }
     }
 
+    private void paintObjects(Graphics2D g){
+
+        System.out.println("There are " + worldObjectList.size() + " fireballs");
+
+        for(int i = 0; i < worldObjectList.size(); i++){
+            WorldObject w = worldObjectList.get(i);
+            if ((w.tilePositionX >= startTileX && w.tilePositionX < endTileX)
+                    && (w.tilePositionY >= startTileY && w.tilePositionY < endTileY)) {
+
+                g.drawImage(w.getImage(), w.screenPositionX - MasterCoordinate.x , w.screenPositionY - MasterCoordinate.y, ScreenSettings.TILE_SIZE, ScreenSettings.TILE_SIZE, null);
+            }
+            }
+    }
+
     private void paintUIDigPower(Graphics2D g){
         var list = uiNumber.determineUINumberDisplay(player.getDigPower());
 
@@ -246,6 +270,7 @@ public class GameCanvas extends JPanel {
                 null);
     }
 
+    //This takes control away from player to showcase a different part of the map
     private void updateMasterCoordinate(){
 
         //TODO atm it is cinematic when awaiting input, cinematic camera and awaiting input state should be able to be differentiated

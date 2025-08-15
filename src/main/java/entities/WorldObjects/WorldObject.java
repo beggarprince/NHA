@@ -2,6 +2,7 @@ package   entities.WorldObjects;
 
 import   graphics.ScreenSettings;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 
@@ -27,4 +28,6 @@ public abstract class WorldObject {
 
     public abstract void behavior();
 
+
+    public abstract Image getImage();
 }

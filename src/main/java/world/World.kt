@@ -1,11 +1,13 @@
 package world
 
+import entities.Direction
 import entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.Monster
 import entities.NPC.NPC
+import entities.WorldObjects.Projectile
 import entities.WorldObjects.WorldObject
-import level.Tile
-import java.util.LinkedList
+import java.lang.Integer.max
+import kotlin.math.min
 
 object World {
     //What do i need?
@@ -32,16 +34,26 @@ object World {
         val tileObjects: MutableSet<WorldObject> //Not projectiles, like idk a barrel
     )
 
+    fun getProjectiles(x: Int, y: Int): List<Projectile>{
+        val list = mutableListOf<Projectile>()
 
-    private var x: Int = 0
-    private var y:Int = 0
+        for(obj in world[y][x].tileObjects){
+            if(obj is Projectile && obj.projectileActive()){
+                list.add(obj);
+            }
+        }
+        return list;
+    }
+
+    private var columns: Int = 0
+    private var rows:Int = 0
 
     fun initialize(){
 
-        x = level.Level.levelColumns
-        y = level.Level.levelRows
+        columns = level.Level.levelColumns
+        rows = level.Level.levelRows
 
-        world = Array(y) { Array<TileEntities>(x) {
+        world = Array(rows) { Array<TileEntities>(columns) {
             TileEntities(
                 mutableSetOf(),
                 mutableSetOf(),
@@ -69,7 +81,8 @@ object World {
     }
 
     fun addObjectToTile(obj: WorldObject){
-        world[obj.tilePositionY][obj.tilePositionY].tileObjects.add(obj)
+        world[obj.tilePositionY][obj.tilePositionX].tileObjects.add(obj)
+
     }
 
     fun removeObjectFromTile(obj: WorldObject){
@@ -190,5 +203,73 @@ object World {
             return true;
         }
         else return false;
+    }
+
+
+    //Oops i didn't need a list of the monsters
+    fun checkIfMonsterInRange(hero: Hero, range: Int): Boolean{
+        var dis: Int;
+        val targetList: MutableList<Monster> =  mutableListOf();
+
+        when(hero.currDirection){
+            Direction.LEFT -> {
+                dis = max((hero.tilePositionX - range), 0)
+                //get all in range
+                while(dis != hero.tilePositionX){
+                    targetList += world[hero.tilePositionY][dis].tileMonsters;
+                    if(targetList.isNotEmpty()) return true;
+                    dis++;
+                }
+            }
+            Direction.RIGHT -> {
+                dis = min((hero.tilePositionX + range), level.Level.levelColumns -1)
+                while(dis != hero.tilePositionX){
+                    targetList += world[hero.tilePositionY][dis].tileMonsters;
+                    if(targetList.isNotEmpty()) return true;
+
+                    dis--;
+                }
+            }
+            Direction.UP -> {
+                dis = max(0, (hero.tilePositionY - range))
+                while(dis != hero.tilePositionY){
+                    targetList += world[dis][hero.tilePositionX].tileMonsters;
+                    if(targetList.isNotEmpty()) return true;
+                    dis++;
+                }
+            }
+            Direction.DOWN -> {
+                dis = min(level.Level.levelRows -1, (hero.tilePositionY + range))
+                while(dis != hero.tilePositionY){
+                    targetList += world[dis][hero.tilePositionX].tileMonsters
+                    if(targetList.isNotEmpty()) return true;
+                    dis--;
+                }
+            }
+            Direction.NOT_MOVING -> return false
+        }
+       // println("Nothing in range of ${hero.name}")
+        return false;
+    }
+
+    //This could use an instance of and i could add ENEMY or HERO tag to projectiles
+    //Or use a target so slime flowers can kill bugs
+    //This actually runs all the time, since projectiles move even if the npc was still it can get hit
+    fun checkIfProjectiles(npc : NPC){
+
+        if(npc is Monster){
+            //println("Checking for projectiles ");
+            val projectiles = getProjectiles(npc.tilePositionX, npc.tilePositionY)
+
+            for(projectile in projectiles){
+                val prevHealth = npc.health
+                npc.health -= projectile.strength;
+                println("Collision: " +prevHealth + "->" +npc.health)
+
+                projectile.destroyProjectile()
+                if(npc.health <= 0) break;
+            }
+        }
+
     }
 }
