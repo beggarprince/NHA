@@ -121,6 +121,7 @@ public abstract class NPC extends Stats {
     //Setting sprites, checking if it can attack, checking if it needs to be destroyed
     public void genericNPCBehavior() {
         spriteHandler();
+        World.INSTANCE.checkIfProjectiles(this);
 
         if (animationFrameCounter < defaultAnimationTime) {
             animationFrameCounter++;

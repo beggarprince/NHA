@@ -20,8 +20,10 @@ public enum WorldObjectManager {
         projectiles.add(p);
     }
 
-    public void removeProjectile(Projectile p){
+    public void removeProjectile(Projectile p) {
+        int sizeBefore = projectiles.size();
         projectiles.remove(p);
+        assert projectiles.size() < sizeBefore : "Expected list size to decrease after removal";
     }
 
     public void addObject(WorldObject w){
@@ -36,8 +38,8 @@ public enum WorldObjectManager {
         return projectiles;
     }
 
-    public List<WorldObject> getAllObjects(){
-        List<WorldObject> all = new ArrayList<>();
+    public ArrayList<WorldObject> getAllObjects(){
+        ArrayList<WorldObject> all = new ArrayList<>();
         all.addAll(projectiles);
         all.addAll(worldObjects);
         return all;
@@ -47,7 +49,9 @@ public enum WorldObjectManager {
 
     public void WorldObjectLogic(){
         //System.out.println("Running object behavior");
+
         for(WorldObject worldObject : getAllObjects()){
+
             worldObject.behavior();
         }
     }

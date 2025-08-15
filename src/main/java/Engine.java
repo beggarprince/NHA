@@ -1,7 +1,6 @@
 
 import Game.Core;
 import  Game.Event.PlayerDefeat;
-import  Game.GameState;
 import  Game.LevelState;
 import  entities.Combat;
 import  entities.NPC.Heroes.HeroList;
@@ -10,6 +9,7 @@ import  entities.NPC.Movement;
 import  entities.NPC.Mvp;
 import  entities.NPC.NPCLogicKTKt;
 import  entities.Player;
+import entities.WorldObjects.WorldObjectManager;
 import  graphics.Camera;
 import  io.Audio.Sound;
 import  level.Level;
@@ -111,14 +111,16 @@ public class Engine implements Runnable {
     final Object npcLogicLock = new Object();
 
     Runnable npcLogicThread = () -> {
-        System.out.println((MonsterList.getInstance().getMonsters().size()));
+        //System.out.println((MonsterList.getInstance().getMonsters().size()));
         NPCLogicKTKt.run(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
         updateNPCLists();
     };
 
     //Update UI
     Runnable renderingThread = () -> {
-        gamePanel.setMonsterListInCanvas(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
+        gamePanel.setNPCListInCanvas(MonsterList.getInstance().getMonsters(),
+                HeroList.getInstance().getHeroes(),
+                WorldObjectManager.INSTANCE.getAllObjects());
         // else System.out.println("Can't paint UI, awaiting new frame");
 
         gamePanel.repaint();

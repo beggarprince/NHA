@@ -3,6 +3,7 @@ package   entities.WorldObjects;
 import   graphics.Sprite.ImgLoader;
 import   graphics.Sprite.SpriteConstants;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SkeletonHead extends WorldObject{
@@ -24,6 +25,11 @@ public class SkeletonHead extends WorldObject{
     @Override
     public void behavior() {
 
+    }
+
+    @Override
+    public Image getImage() {
+        return null;
     }
 
     public void absorbMana(){

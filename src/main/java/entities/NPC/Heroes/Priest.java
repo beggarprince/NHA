@@ -1,8 +1,10 @@
 package entities.NPC.Heroes;
+import entities.NPC.Heroes.skills.Fireball;
 import entities.SpriteCoordinate;
 import graphics.Sprite.ImgLoader;
 import graphics.ScreenSettings;
 import graphics.Sprite.SpriteType;
+import world.World;
 
 import java.awt.image.BufferedImage;
 import java.util.EnumMap;
@@ -85,7 +87,7 @@ public class Priest extends Hero {
 
 
     }
-
+    int ammo = 10;
     @Override
     public void behavior() {
 
@@ -94,7 +96,18 @@ public class Priest extends Hero {
             return;
         }
 //TODO this behavior is common amongst all NPC.Hero, move up this snippet and share later not in the mood to clean
-        if(npcHasMoved()){
+
+        if(World.INSTANCE.checkIfMonsterInRange(this, 5) && ammo > 0){
+            //System.out.println("Shooting fireball type");
+            new Fireball(tilePositionX,
+                    tilePositionY,
+                    this.currDirection,
+                    20);
+
+            ammo--;
+        }
+
+        else if(npcHasMoved()){
 
             if(detectNewTile()){
                 pathfinding.logPath(hasMVP);

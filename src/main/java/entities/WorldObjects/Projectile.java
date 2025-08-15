@@ -5,22 +5,34 @@ import entities.SpriteCoordinate;
 import graphics.ScreenSettings;
 import level.Level;
 import util.CollisionKt;
+import world.World;
 
 
-public class Projectile extends WorldObject{
+public abstract class Projectile extends WorldObject{
 
     private int movementSpeed = 2;
     private Direction direction;
     private boolean destroyed = false;
     private int collisionHealth = 1;
     private int movementCycle; //Increments to avoid % and division check for new tiles
+    public int strength = 1;
 
+    public boolean projectileActive(){
+        return !destroyed;
+    }
+
+    public void destroyProjectile(){
+        this.destroyed = true;
+    }
 
     public Projectile(int tilePositionX,
                       int tilePositionY,
-                      Direction direction) {
+                      Direction direction,
+                      int strength
+                      ) {
         super(tilePositionX, tilePositionY);
         this.direction = direction;
+        this.strength = strength;
         WorldObjectManager.INSTANCE.determineListEntry(this);
     }
 
@@ -52,20 +64,31 @@ public class Projectile extends WorldObject{
 
     public void projectileMovement(){
         //Check if npc flagged this as having been collided
-        if(destroyed) return;
+        if(destroyed) {
+            World.INSTANCE.removeObjectFromTile(this); //TODO make sure this is the only thing that calls it
+            this.sprite = null;
+            WorldObjectManager.INSTANCE.removeProjectile(this);
+            return;
+        }
 
         //Displace, check if new position is acceptable
         displaceProjectile();
         if(atNewTile())
         {
             //Check world for collisions
+            World.INSTANCE.removeObjectFromTile(this);
 
             if(!newTileIsPath()) {
                 destroyed = true;
                 return;
             }
             updateWorldPosition();
+            World.INSTANCE.addObjectToTile(this);
+            if(World.INSTANCE.getAllWorldObjectsFromTile(this.tilePositionX, this.tilePositionY).isEmpty()){
+                System.out.println("This should not have happened");
+            }
         }
+        //System.out.println(tilePositionX + ":" +tilePositionY);
         //We are on prev/new tile which is a path. We already displaced. We're done
     }
 
@@ -149,6 +172,7 @@ public class Projectile extends WorldObject{
         else if (direction== Direction.RIGHT) {
             tilePositionX++;
         }
+        else System.out.println("Projectile could not update tile position");
     }
 
 
@@ -156,4 +180,6 @@ public class Projectile extends WorldObject{
     public void behavior() {
         projectileMovement();
     }
+
+
 }
