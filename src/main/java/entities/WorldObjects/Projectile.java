@@ -56,7 +56,10 @@ public class Projectile extends WorldObject{
 
         //Displace, check if new position is acceptable
         displaceProjectile();
-        if(atNewTile()){
+        if(atNewTile())
+        {
+            //Check world for collisions
+
             if(!newTileIsPath()) {
                 destroyed = true;
                 return;
@@ -148,14 +151,9 @@ public class Projectile extends WorldObject{
         }
     }
 
-    //fireball animation
-    private static final SpriteCoordinate[] FIREBALL = {
-        new SpriteCoordinate(3, 16, 96, 96),
-        new SpriteCoordinate(133, 16, 96, 96),
-        new SpriteCoordinate(5, 144, 96, 96),
-        new SpriteCoordinate(135, 144, 96, 96)
 
-    };
-
-
+    @Override
+    public void behavior() {
+        projectileMovement();
+    }
 }

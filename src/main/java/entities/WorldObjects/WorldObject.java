@@ -5,7 +5,7 @@ import   graphics.ScreenSettings;
 import java.awt.image.BufferedImage;
 
 
-public class WorldObject {
+public abstract class WorldObject {
     public int tilePositionX;
     public int tilePositionY;
     public int screenPositionX;
@@ -25,6 +25,6 @@ public class WorldObject {
         return sprite;
     }
 
-
+    public abstract void behavior();
 
 }

@@ -21,23 +21,12 @@ public class Warrior extends Hero{
                    String name){
 
         super( health, x, y, name);
-        this.name = name;
-        this.tilePositionX = x / ScreenSettings.TILE_SIZE;
-        this.tilePositionY =y / ScreenSettings.TILE_SIZE;
-        this.screenPositionX = x;
-        this.screenPositionY = y;
-        this.movementSpeed = 1;
-        this.movementCycle = 0;
-        this.basicAttackStrength = 4;
         this.image = ImgLoader.getImageResource("sprites/hero/heroes.png");
-        this.combatCooldown = 60;
-        this.fxIndex = 1;
         this.pathfinding = new HeroPathfinder(this);
         spriteType = SpriteType.WALK_DOWN;
-        pathfinding.logPath(false);
         lastTilePosX = tilePositionX;
         lastTilePosY = tilePositionY;
-        this.hasMVP = false;
+        this.basicAttackStrength = 24;
     }
 
     int lastTilePosX;

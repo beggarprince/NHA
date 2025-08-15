@@ -10,6 +10,7 @@ import entities.SpriteCoordinate;
 import   graphics.ScreenSettings;
 import graphics.Sprite.SpriteType;
 import graphics.SpriteSettings;
+import world.World;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -158,6 +159,7 @@ public abstract class NPC extends Stats {
             //spawnSkeletonAtDeath();
             //This is generic behavior shared with monsters, skeleton death would not go here
             isDead = true;
+            World.INSTANCE.removeNPC(this);
         }
     }
 

@@ -114,7 +114,7 @@ public class HeroPathfinder extends Movement {
         if(directions.size() ==1) return direction;
 
         else{
-            if(directions.size() ==0){
+            if(directions.isEmpty()){
                 System.out.println(direction);
                 System.out.println("what the fuck");
             }

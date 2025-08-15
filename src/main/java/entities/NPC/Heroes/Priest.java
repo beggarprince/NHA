@@ -23,7 +23,7 @@ public class Priest extends Hero {
         this.screenPositionY = y;
         this.movementSpeed = 1;
         this.movementCycle = 0;
-        this.basicAttackStrength = 4;
+        this.basicAttackStrength = 12;
         this.image = ImgLoader.getImageResource("sprites/hero/heroes.png");
         this.combatCooldown = 60;
         this.fxIndex = 1;

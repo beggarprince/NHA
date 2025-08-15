@@ -21,6 +21,11 @@ public class SkeletonHead extends WorldObject{
         return sprite;
     }
 
+    @Override
+    public void behavior() {
+
+    }
+
     public void absorbMana(){
         this.manaLevel += 1;
     }

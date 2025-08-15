@@ -4,6 +4,7 @@ import entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.Monster
 import entities.NPC.NPC
 import entities.WorldObjects.WorldObject
+import level.Tile
 import java.util.LinkedList
 
 object World {
@@ -153,4 +154,41 @@ object World {
         return false;
     }
 
+    fun checkIfMonsterAdjacent(hero : Hero): Boolean{
+        val x = hero.tilePositionX;
+        val y = hero.tilePositionY;
+        //Get tiles Up, down, left, right
+        //I think atp it's best to add multiples into the combat queue
+
+        //Does not add monsters in the same space the hero is standing on into the queue
+
+        val monsterCombatList: MutableList<Monster> =  mutableListOf();
+
+        if( x > 0){
+            monsterCombatList +=  world[y][x-1].tileMonsters;
+        }
+        if(x < level.Level.levelColumns -1){
+            monsterCombatList += world[y][x+1].tileMonsters;
+        }
+        if(y >0){
+            monsterCombatList += world[y-1][x].tileMonsters;
+        }
+        if(y < level.Level.levelRows - 1){
+            monsterCombatList += world[y+1][x].tileMonsters;
+        }
+
+        if(monsterCombatList.isNotEmpty()) {
+            hero.inCombat = true;
+            for (m in monsterCombatList) {
+                if(hero.returnCombatQueue().contains(m)) continue
+
+                hero.addToCombatQueue(m);
+                m.addToCombatQueue(hero);
+                m.inCombat = true;
+            }
+            //Forgot what i meant to do with the boolean
+            return true;
+        }
+        else return false;
+    }
 }

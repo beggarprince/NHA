@@ -36,6 +36,8 @@ public class SpriteConstants {
     public static final String HERO_KNIGHT_MV_R = "sprites/hero/knight_mvRight.png";
     public static final String HERO_KNIGHT_MV_U = "sprites/hero/knight_mvUp.png";
 
+    public static final String HERO_SHEET_DQ = "sprites/hero/heroes.png";
+
     //Tile
     public static final String SPRITE_BRICK = "sprites/tile/brick.png";
     public static final String SPRITE_DIRT = "sprites/tile/dirt.png";
@@ -47,4 +49,7 @@ public class SpriteConstants {
     public static final String SPRITE_NUTRIENTS_L2 = "sprites/tile/nutrientsL2.png";
     public static final String SPRITE_NUTRIENTS_L3 = "sprites/tile/nutrientsl3.png";
 
+
+    //Objects
+    public static final String FIREBALL = "sprites/object/fireball.png";
 }

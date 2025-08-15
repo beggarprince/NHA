@@ -4,6 +4,8 @@ import   entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.MonsterLogic.Metamorphosis
 import entities.NPC.Monsters.Monster
 import   entities.NPC.Monsters.MonsterLogic.MonsterList
+import entities.WorldObjects.WorldObjectManager
+import world.World
 
 
 private fun runEnemyBehavior(enemies: List<Monster>) {
@@ -53,35 +55,49 @@ private fun runEnemyBehavior(enemies: List<Monster>) {
 
     //Heroes initiate combat
     private fun checkCollisionsMonsters(hero: Hero, monsters: List<Monster>) {
-        for (i in monsters.indices) {
 
-            if (checkAdjacent(monsters[i], hero)) {
+//        for (i in monsters.indices) {
+//
+//            //If there is an adjacent monster
+//            if (checkAdjacent(monsters[i], hero)) {
+//
+//                //Check if monster is already in our queue, should probably have checked this first
+//                if(!hero.returnCombatQueue().contains(monsters[i])) {
+//                    //If not change both states to battle, add each other to each other's list
+//                    monsters[i].inCombat = true
+//                    hero.inCombat = true
+//                    monsters[i].addToCombatQueue(hero)
+//                    hero.addToCombatQueue(monsters[i])
+//                }
+//            }
+//        }
 
-                if(!hero.returnCombatQueue().contains(monsters[i])) {
-                    monsters[i].inCombat = true
-                    hero.inCombat = true
-                    monsters[i].addToCombatQueue(hero)
-                    hero.addToCombatQueue(monsters[i])
-                }
-            }
-        }
+        //Going from checking every monster for every hero to just adjacent ones
+
+        //This handles state, no need for the return boolean
+        World.checkIfMonsterAdjacent(hero);
+
     }
 
     private fun checkAdjacent(npc: NPC, target: NPC): Boolean {
         //If on the same axis
 
         if (npc.tilePositionX == target.tilePositionX) {
-            if (npc.tilePositionY == target.tilePositionY + 1 || npc.tilePositionY == target.tilePositionY - 1) {
+            if (npc.tilePositionY == target.tilePositionY + 1
+                || npc.tilePositionY == target.tilePositionY - 1) {
                 return true
             }
         }
         if (npc.tilePositionY == target.tilePositionY) {
-            if (npc.tilePositionX == target.tilePositionX + 1 || npc.tilePositionX == target.tilePositionX - 1) {
+            if (npc.tilePositionX == target.tilePositionX + 1
+                || npc.tilePositionX == target.tilePositionX - 1) {
                 return true
             }
         }
         return false
+
     }
+
 
     fun run(mList: List<Monster>,  hList : List<Hero>) {
         val monsters: List<Monster> = mList
@@ -90,6 +106,7 @@ private fun runEnemyBehavior(enemies: List<Monster>) {
         //Here we should split up the task into 3 separate threads and check for collision
         runHeroBehavior(heroes, monsters)
         runEnemyBehavior(monsters)
+        WorldObjectManager.INSTANCE.WorldObjectLogic();
 
         checkSetMetamorphosis()
     }

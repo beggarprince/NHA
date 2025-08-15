@@ -20,14 +20,20 @@ public abstract class Hero extends NPC {
 
     public Hero(int health, int x, int y, String heroName){
         this.health = health;
-        this.name = name;
+        this.name = heroName;
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY = y/ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;
         this.screenPositionY = y;
         this.movementCycle = 0;
         this.movementSpeed = 1;
+        this.combatCooldown = 60;
         this.currDirection = Movement.getRandomDirection(tilePositionX, tilePositionY, this);//This will give it a random starting dir that is valid
+        this.fxIndex = 1;
+        //this.spriteType =
+        this.pathfinding = new HeroPathfinder(this);
+        pathfinding.logPath(false);
+        this.hasMVP = false;
         //World.INSTANCE.addHeroToTile(this);
     }
 

@@ -43,4 +43,12 @@ public enum WorldObjectManager {
         return all;
     }
 
+    //abstract void behavior();
+
+    public void WorldObjectLogic(){
+        //System.out.println("Running object behavior");
+        for(WorldObject worldObject : getAllObjects()){
+            worldObject.behavior();
+        }
+    }
 }
