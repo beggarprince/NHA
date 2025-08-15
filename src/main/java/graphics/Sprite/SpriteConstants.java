@@ -30,7 +30,7 @@ public class SpriteConstants {
     public static final String MONSTER_DRAGON = "sprites/monster/dragon.png";
     public static final String MONSTER_SPIRIT = "sprites/monster/spirit.png";
     public static final String MVP = "sprites/monster/mvp.png";
-    public static final String MONSTER_SKELETON = "sprites/monster/skeleton.png";
+    public static final String MONSTER_SKELETON = "sprites/monster/skeletonSheet.png";
 
     //Hero
     public static final String HERO_KNIGHT_MV_R = "sprites/hero/knight_mvRight.png";

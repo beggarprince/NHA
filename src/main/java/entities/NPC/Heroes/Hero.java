@@ -4,6 +4,7 @@ import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import   entities.NPC.Movement;
 import   entities.NPC.Mvp;
 import   entities.NPC.NPC;
+import entities.WorldObjects.SkeletonHead;
 import   graphics.ScreenSettings;
 import world.World;
 
@@ -51,7 +52,9 @@ public abstract class Hero extends NPC {
 
     }
 
-
+    protected void spawnSkeletonHead(){
+        new SkeletonHead(this.tilePositionX, this.tilePositionY);
+    }
 
 
 }

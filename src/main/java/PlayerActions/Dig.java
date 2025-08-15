@@ -11,6 +11,7 @@ public class Dig {
                            Tile tile,
                            int x,
                            int y) {
+
         if (tile.type == TileType.PATH) return false;
 
         if (validateDigSite(tileData,x, y) == false) {

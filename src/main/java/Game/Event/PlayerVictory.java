@@ -1,6 +1,8 @@
 package Game.Event;
 
 import   Game.GameState;
+import Game.LevelState;
+import entities.Player;
 import   io.Audio.Sound;
 import   io.Audio.AudioConstants;
 
@@ -16,6 +18,7 @@ public class PlayerVictory {
     private static void setMusic(){
         //set the appropriate music
         Sound.setMusic(AudioConstants.MUS_ROUND_VICTORY);
+        Player.increaseDigPower(125);
     }
 
     private static void cycleVictoryDialogue(){

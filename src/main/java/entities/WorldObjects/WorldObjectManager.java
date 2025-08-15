@@ -1,5 +1,7 @@
 package entities.WorldObjects;
 
+import world.World;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,10 @@ public enum WorldObjectManager {
         if(w instanceof Projectile){
             projectiles.add((Projectile) w);
         }
-        //Add more here
+        else {
+            System.out.println("Adding skeleton head");
+            worldObjects.add(w);
+        }
     }
 
     public void addProjectile(Projectile p){

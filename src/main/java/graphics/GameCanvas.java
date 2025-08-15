@@ -234,7 +234,7 @@ public class GameCanvas extends JPanel {
 
     private void paintObjects(Graphics2D g){
 
-        System.out.println("There are " + worldObjectList.size() + " fireballs");
+        //if(!worldObjectList.isEmpty())System.out.println("There are " + worldObjectList.size() + " world objects");
 
         for(int i = 0; i < worldObjectList.size(); i++){
             WorldObject w = worldObjectList.get(i);

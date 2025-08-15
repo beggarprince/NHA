@@ -87,24 +87,23 @@ public class Priest extends Hero {
 
 
     }
-    int ammo = 10;
     @Override
     public void behavior() {
 
         if(this.health <= 0){
             isDead = true;
+            //spawnSkeletonHead();
             return;
         }
 //TODO this behavior is common amongst all NPC.Hero, move up this snippet and share later not in the mood to clean
 
-        if(World.INSTANCE.checkIfMonsterInRange(this, 5) && ammo > 0){
-            //System.out.println("Shooting fireball type");
+        if(World.INSTANCE.checkIfMonsterInRange(this, 5) && skillCooldown == skillCycle){
+            skillCooldown = 0;
             new Fireball(tilePositionX,
                     tilePositionY,
                     this.currDirection,
                     20);
 
-            ammo--;
         }
 
         else if(npcHasMoved()){

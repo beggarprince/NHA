@@ -33,7 +33,6 @@ public abstract class Projectile extends WorldObject{
         super(tilePositionX, tilePositionY);
         this.direction = direction;
         this.strength = strength;
-        WorldObjectManager.INSTANCE.determineListEntry(this);
     }
 
     public int getMovementSpeed() {

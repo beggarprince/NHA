@@ -1,5 +1,6 @@
 package   entities.WorldObjects;
 
+import entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import   graphics.Sprite.ImgLoader;
 import   graphics.Sprite.SpriteConstants;
 
@@ -8,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class SkeletonHead extends WorldObject{
 
-    public static BufferedImage sprite = ImgLoader.getImageResource(SpriteConstants.MONSTER_SKELETON);
-
+    public static BufferedImage spriteSheet = ImgLoader.getImageResource(SpriteConstants.MONSTER_SKELETON);
+    public static BufferedImage image = spriteSheet.getSubimage(231, 795, 64, 64);
     private int manaLevel = 0;
 
     public SkeletonHead(int tilePositionX, int tilePositionY) {
@@ -29,7 +30,7 @@ public class SkeletonHead extends WorldObject{
 
     @Override
     public Image getImage() {
-        return null;
+        return image;
     }
 
     public void absorbMana(){
@@ -37,6 +38,8 @@ public class SkeletonHead extends WorldObject{
     }
 
     public void spawnSkeleton(){
-        //Spawn skeleton based on absorbed mana or something, we'll make them stronger if they absorb more idek
+        //Spawn here, delete object
+        MonsterFactory.createMonster("Skeleton", this.tilePositionX, this.tilePositionY);
+
     }
 }

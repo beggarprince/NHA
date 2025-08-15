@@ -9,6 +9,7 @@ public class MonsterFactory {
 * Does not handle EnemyList anymore
 * */
 //Made as static instead of singleton
+    //TODO replace with ENUM
     public static Monster createMonster(String type, int posx, int posy) {
 
         if (type.equals("Slime")) {

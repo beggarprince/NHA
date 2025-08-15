@@ -19,7 +19,7 @@ public abstract class WorldObject {
         this.tilePositionY = tilePositionY;
         this.screenPositionX = tilePositionX * ScreenSettings.TILE_SIZE;
         this.screenPositionY = tilePositionY * ScreenSettings.TILE_SIZE;
-
+        WorldObjectManager.INSTANCE.determineListEntry(this);
     }
 
     public BufferedImage getSprite(){

@@ -15,7 +15,7 @@ public class Player {
     public int playerTilePositionX = 0;
     public int playerTilePositionY = 0;
 
-    private int digPower;
+    private static int digPower;
 
 
     private int playerXOffset = 0; // Offset from center
@@ -25,8 +25,13 @@ public class Player {
         return digPower;
     }
 
-    public void setDigPower(int digPower) {
-        this.digPower = digPower;
+    public static void increaseDigPower(int increase){
+        digPower += increase;
+
+    }
+
+    public void setDigPower(int startingdp) {
+        digPower = startingdp;
     }
 
     public void digPowerDecrement(){

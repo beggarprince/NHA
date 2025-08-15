@@ -5,8 +5,10 @@ package entities.NPC;
 import   PlayerActions.Spawn;
 import   entities.Combat;
 import   entities.Direction;
+import entities.NPC.Heroes.Hero;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.SpriteCoordinate;
+import entities.WorldObjects.SkeletonHead;
 import   graphics.ScreenSettings;
 import graphics.Sprite.SpriteType;
 import graphics.SpriteSettings;
@@ -37,6 +39,9 @@ public abstract class NPC extends Stats {
 
     public final int defaultAnimationTime = 12;
     public int animationFrameCounter = 12;
+
+    protected final int skillCycle = 300; // This can be overriden in constructor
+    protected int skillCooldown = skillCycle; // 5 seconds
 
     //Where the npc is drawn on the screen, out of bounds enemies from the camera are not rendered
     //World position
@@ -118,10 +123,18 @@ public abstract class NPC extends Stats {
 
     protected abstract void spriteHandler();
 
+    //Setting to
+    private void skillCooldownHandler(){
+        if(skillCooldown == skillCycle) return;
+        skillCooldown++;
+    }
+
     //Setting sprites, checking if it can attack, checking if it needs to be destroyed
+    //This is shared behavior that always applies to each NPC
     public void genericNPCBehavior() {
         spriteHandler();
         World.INSTANCE.checkIfProjectiles(this);
+        skillCooldownHandler();
 
         if (animationFrameCounter < defaultAnimationTime) {
             animationFrameCounter++;
@@ -160,6 +173,7 @@ public abstract class NPC extends Stats {
             //spawnSkeletonAtDeath();
             //This is generic behavior shared with monsters, skeleton death would not go here
             isDead = true;
+            if(this instanceof Hero) new SkeletonHead(this.tilePositionX, this.tilePositionY);
             World.INSTANCE.removeNPC(this);
         }
     }

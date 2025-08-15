@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 
-//This predates the game,is made to create the level itself. GameState has information on
+//This predates the game,is made to create the level itself.
+// //GameState has information on
 public class LevelState {
 
     public class GameLevel {
