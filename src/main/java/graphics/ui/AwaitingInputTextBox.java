@@ -14,7 +14,7 @@ public class AwaitingInputTextBox extends JFrame {
     static final int textBoxHeight = ScreenSettings.PX_SCREEN_HEIGHT * 25 /100;
 
     static final int textBoxOriginX = centerScreenX - (textBoxWidth / 2);
-    static final int textBoxOriginY = textBoxHeight;
+    static final int textBoxOriginY = ScreenSettings.PX_SCREEN_HEIGHT * 7 /10 ;
     static final int textBoxMarginX = 16;
     static final int textBoxMarginY = 16;
     static final int textLineSpace = ScreenSettings.PX_SCREEN_HEIGHT * 1/10; //This really needs to be tested

@@ -5,6 +5,7 @@ public class GameState {
     //Logically, what state is the game in rn
     //TODO make this private and handle conflicting state changes
     public static State gameState = State.GAME_RUNNING;
+    private static State previousState;
 
     //These are just to signal throughout the system what is going on to avoid passing around a ton of booleans or having tons of canvas/audio calls everywhere
     private static boolean hidingMvp = false;
@@ -19,11 +20,12 @@ public class GameState {
         gameState = State.GAME_OVER;
     }
     public static void gamePaused(){
+        previousState = gameState;
         gameState = State.PAUSE;
     }
 
     public static void gameUnpaused(){
-        gameState = State.GAME_RUNNING;
+        gameState = previousState;
     }
 
     public static void resumeGame(){
