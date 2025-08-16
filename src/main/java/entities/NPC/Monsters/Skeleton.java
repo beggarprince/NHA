@@ -1,6 +1,7 @@
 package entities.NPC.Monsters;
 
 import entities.Direction;
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.NPCType;
 import   graphics.ScreenSettings;
 import   graphics.Sprite.ImgLoader;
@@ -28,81 +29,19 @@ public class Skeleton extends Monster{
         return 0;
     }
 
-    //index, frame
-    static BufferedImage[][] spriteSubsets = {
-        //0 Walking left down right
-            {
-                image.getSubimage(5, 81, 53, 53),
-                    image.getSubimage(55, 81, 53, 53),
-                    image.getSubimage(106, 81, 53, 53),
-                    image.getSubimage(154, 81, 53, 53),
-                    image.getSubimage(250, 81, 53, 53)
-            },
 
-            //1 Walking up
-            {
-                    image.getSubimage(55, 214, 53, 53),
-                    image.getSubimage(88, 214, 53, 53),
-                    image.getSubimage(157, 214, 53, 53),
-                    image.getSubimage(230, 214, 53, 53),
-                    image.getSubimage(302, 214, 53, 53),
-                    image.getSubimage(375, 214, 53, 53)
-            },
-            // 2 Attack asd
-            {
-                image.getSubimage(28, 347, 53,53),
-                    image.getSubimage(126, 347, 53,53),
-                    image.getSubimage(216, 347, 53,53),
-                    image.getSubimage(308, 347, 53,53),
-                    image.getSubimage(395, 344, 59,59),
-                    image.getSubimage(502, 347, 53,53),
-                    image.getSubimage(502, 347, 53,53),
 
-            },
-
-            // 3 Attack up
-            {
-                image.getSubimage(19, 479, 53, 53),
-                    image.getSubimage(92, 479, 53, 53),
-                    image.getSubimage(165, 479, 53, 53),
-                    image.getSubimage(239, 479, 53, 53),
-                    image.getSubimage(310, 472, 53, 59),
-                    image.getSubimage(380, 479, 53, 53),
-                    image.getSubimage(452, 479, 53, 53),
-
-            },
-
-            // 4 DEATH
-            {
-                    image.getSubimage(21, 614, 53, 53),
-                    image.getSubimage(89, 614, 53, 53),
-                    image.getSubimage(156, 603, 64, 64),
-
-                    image.getSubimage(233, 603, 64, 64),
-                    image.getSubimage(305, 603, 64, 64),
-
-                    image.getSubimage(15, 698, 64, 64),
-                    image.getSubimage(303, 698, 64, 64),
-
-                    image.getSubimage(15, 798, 64, 64),
-                    image.getSubimage(87, 798, 64, 64),
-                    image.getSubimage(159, 798, 64, 64),
-                    image.getSubimage(231, 795, 64, 64),
-
-            }
-
-    };
+    public static final NPCType type = NPCType.Skeleton;
 
     public Skeleton(int health, int x, int y) {
-        super(health, x, y);
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
         image = ImgLoader.getImageResource("sprites/monster/skeletonSheet.png");
-        this.basicAttackStrength = 24;
         this.hunger = 0;
         this.movementSpeed = 1;
         this.lifespan = ScreenSettings.FPS * 65;
         this.hasFullStomach = false;
         this.maxHunger = 32;
-        this.type = NPCType.Skeleton;
     }
 
     @Override
@@ -163,4 +102,69 @@ public class Skeleton extends Monster{
             if (spriteFrame >= spriteSubsets[index].length) spriteFrame = 0;
         }
     }
+
+    //index, frame
+    static final BufferedImage[][] spriteSubsets = {
+            //0 Walking left down right
+            {
+                    image.getSubimage(5, 81, 53, 53),
+                    image.getSubimage(55, 81, 53, 53),
+                    image.getSubimage(106, 81, 53, 53),
+                    image.getSubimage(154, 81, 53, 53),
+                    image.getSubimage(250, 81, 53, 53)
+            },
+
+            //1 Walking up
+            {
+                    image.getSubimage(55, 214, 53, 53),
+                    image.getSubimage(88, 214, 53, 53),
+                    image.getSubimage(157, 214, 53, 53),
+                    image.getSubimage(230, 214, 53, 53),
+                    image.getSubimage(302, 214, 53, 53),
+                    image.getSubimage(375, 214, 53, 53)
+            },
+            // 2 Attack asd
+            {
+                    image.getSubimage(28, 347, 53,53),
+                    image.getSubimage(126, 347, 53,53),
+                    image.getSubimage(216, 347, 53,53),
+                    image.getSubimage(308, 347, 53,53),
+                    image.getSubimage(395, 344, 59,59),
+                    image.getSubimage(502, 347, 53,53),
+                    image.getSubimage(502, 347, 53,53),
+
+            },
+
+            // 3 Attack up
+            {
+                    image.getSubimage(19, 479, 53, 53),
+                    image.getSubimage(92, 479, 53, 53),
+                    image.getSubimage(165, 479, 53, 53),
+                    image.getSubimage(239, 479, 53, 53),
+                    image.getSubimage(310, 472, 53, 59),
+                    image.getSubimage(380, 479, 53, 53),
+                    image.getSubimage(452, 479, 53, 53),
+
+            },
+
+            // 4 DEATH
+            {
+                    image.getSubimage(21, 614, 53, 53),
+                    image.getSubimage(89, 614, 53, 53),
+                    image.getSubimage(156, 603, 64, 64),
+
+                    image.getSubimage(233, 603, 64, 64),
+                    image.getSubimage(305, 603, 64, 64),
+
+                    image.getSubimage(15, 698, 64, 64),
+                    image.getSubimage(303, 698, 64, 64),
+
+                    image.getSubimage(15, 798, 64, 64),
+                    image.getSubimage(87, 798, 64, 64),
+                    image.getSubimage(159, 798, 64, 64),
+                    image.getSubimage(231, 795, 64, 64),
+
+            }
+
+    };
 }

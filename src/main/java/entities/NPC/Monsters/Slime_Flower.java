@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.Monsters.MonsterLogic.MonsterFactory;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
 import entities.NPC.NPCType;
@@ -12,9 +13,11 @@ import java.awt.image.BufferedImage;
 public class Slime_Flower extends Monster {
     MonsterList monsterListInstance;
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SLIME_FLOWER);
-
+    static final NPCType type = NPCType.Slime_Flower;
     public Slime_Flower( int x, int y) {
-        super(18, x, y);
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+
         monsterListInstance = MonsterList.getInstance();
         this.screenPositionX = x;
         this.screenPositionY = y;
@@ -22,9 +25,8 @@ public class Slime_Flower extends Monster {
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.lifespan = ScreenSettings.FPS * 30;
         this.basicAttackStrength = 2;
-        this.hunger = hunger;
-        this.type = NPCType.Slime_Flower;
-        maxHunger = 12;
+
+        maxHunger = 12; // These should be doing photosynthesis or something
     }
 
     @Override

@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.NPCType;
 import   graphics.ScreenSettings;
 import   graphics.Sprite.ImgLoader;
@@ -11,16 +12,16 @@ public class Lilith extends Monster{
 
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_LILITH);
 
+    static final NPCType type = NPCType.Lilith;
     public Lilith( int x, int y) {
-        super(48, x, y);
-        this.basicAttackStrength = 24;
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
         setImage();
-        this.hunger = 0;
+        this.hunger = 0; // Lilith no eat?
         this.movementSpeed = 1;
         this.lifespan = ScreenSettings.FPS * 65;
         this.hasFullStomach = false;
         this.maxHunger = 32;
-        this.type = NPCType.Lilith;
     }
 
     @Override

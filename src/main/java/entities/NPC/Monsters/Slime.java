@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.Monsters.MonsterLogic.EatingSystem;
 import   entities.NPC.NPCType;
 import   graphics.ScreenSettings;
@@ -14,20 +15,21 @@ public class Slime extends Monster {
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SLIME);
 
     static final String metamorphosisValue = "Slime_Flower";
+    static final NPCType type = NPCType.Slime;
     public static final int maxHunger = 12;
    // public static final NPCType type = NPCType.Slime;
     public static final int slimeLifespan = ScreenSettings.FPS * 30;
 
     public Slime(int x, int y) {
-        super(12, x, y); // Slime has a default health of 1
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+
         this.hunger = 0;
         this.movementSpeed = 1;
         //this.image = ImgLoader.getImageResource("slime.png"); //Default slime preloaded
         this.lifespan = slimeLifespan;
-        this.basicAttackStrength = 1;
         //this.maxHunger = 12;
         this.movementCycle = 0;
-        this.type = NPCType.Slime;
     }
 
     @Override

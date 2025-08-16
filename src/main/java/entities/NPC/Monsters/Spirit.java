@@ -1,6 +1,8 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.Monsters.MonsterLogic.EatingSystem;
+import entities.NPC.NPCType;
 import   graphics.ScreenSettings;
 import   level.TileType;
 import   graphics.Sprite.ImgLoader;
@@ -11,9 +13,11 @@ import java.awt.image.BufferedImage;
 public class Spirit extends Monster {
 
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SPIRIT);
+    static final NPCType type = NPCType.Spirit;
 
     public Spirit(int x, int y) {
-        super(16, x, y); // Slime has a default health of 1
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;

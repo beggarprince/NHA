@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.NPCType;
 import   entities.SpriteCoordinate;
 import   graphics.ScreenSettings;
@@ -17,6 +18,7 @@ public class Bug extends Monster {
     static final int bugLifespan = ScreenSettings.FPS * 45;
     static final String metamorphosisValue = "";
     static final int hungerDecCounter = 5;
+    static final NPCType type = NPCType.Bug;
 
 
 //col row width height
@@ -106,15 +108,14 @@ public class Bug extends Monster {
 
 
     public Bug( int x, int y) {
-        super(32, x, y);
-        // setImage();
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
         this.hunger = 0;
         this.movementSpeed = 1;
         this.lifespan = bugLifespan;
         this.hasFullStomach = false;
         this.maxHunger = 60;
         this.basicAttackStrength = 4;
-        this.type = NPCType.Bug;
     }
 
     //To change sprite, atm not being used bc sprite sheets are now being used instead of individual sprites

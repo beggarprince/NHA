@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
 import   entities.NPC.NPCType;
 import   entities.SpriteCoordinate;
@@ -15,16 +16,17 @@ public class Dragon extends Monster{
 
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_DRAGON);
 
+    public final static NPCType type = NPCType.Dragon;
+
     public Dragon( int x, int y) {
-        super(300, x, y);
-        this.basicAttackStrength = 115;
+        super( DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
         setImage();
         this.hunger = 0;
         this.movementSpeed = 1;
         this.lifespan = ScreenSettings.FPS * 95;
         this.hasFullStomach = false;
-        this.maxHunger = 32;
-        this.type = NPCType.Dragon;
+        this.maxHunger = 32; //This could go in base stats but idc it's not
     }
 
 

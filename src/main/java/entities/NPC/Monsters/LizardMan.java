@@ -1,5 +1,6 @@
 package entities.NPC.Monsters;
 
+import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.NPCType;
 import   graphics.ScreenSettings;
 import   graphics.Sprite.ImgLoader;
@@ -10,13 +11,13 @@ import java.awt.image.BufferedImage;
 public class LizardMan extends Monster{
 
     static final BufferedImage image =  ImgLoader.getImageResource(SpriteConstants.MONSTER_LIZARD);
+    static final NPCType type = NPCType.LizardMan;
 
     public LizardMan(int x, int y){
-        super(64, x, y);
+        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
         setImage();
         this.lifespan = ScreenSettings.FPS * 65;
-        this.basicAttackStrength = 16;
-        this.type = NPCType.LizardMan;
         this.movementSpeed = 1;
         this.hasFullStomach = false;
         this.maxHunger = 32;
