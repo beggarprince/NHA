@@ -1,11 +1,11 @@
 package Game;
 
 public enum State {
-    GAMERUNNING,
+    GAME_RUNNING,
     MENU,
     PAUSE,
-    GAMEOVER,
+    GAME_OVER,
     AWAITING_INPUT,
     CINEMATIC,
-    UPGRADEMENU
+    UPGRADE_MENU
 }

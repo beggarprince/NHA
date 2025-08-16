@@ -31,6 +31,7 @@ public abstract class Projectile extends WorldObject{
                       int strength
                       ) {
         super(tilePositionX, tilePositionY);
+
         this.direction = direction;
         this.strength = strength;
     }
@@ -64,7 +65,6 @@ public abstract class Projectile extends WorldObject{
     public void projectileMovement(){
         //Check if npc flagged this as having been collided
         if(destroyed) {
-            World.INSTANCE.removeObjectFromTile(this); //TODO make sure this is the only thing that calls it
             this.sprite = null;
             WorldObjectManager.INSTANCE.removeProjectile(this);
             return;

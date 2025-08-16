@@ -10,7 +10,7 @@ public class BattleBeginScript {
 
     public static void run(){
         Sound.setAndLoopMusic(AudioConstants.MUS_BATTLE_PHASE);
-        GameState.gameState = State.GAMERUNNING;
+        GameState.gameState = State.GAME_RUNNING;
     }
 
 }

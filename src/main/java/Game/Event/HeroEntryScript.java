@@ -25,7 +25,7 @@ public class HeroEntryScript {
         script(camera);
 
         for (LevelState.HeroData requestedHero : heroList) {
-            System.out.println("Spawning the [adjective] " + requestedHero.heroName);
+            System.out.println("Spawning the "+ requestedHero.heroType+": " + requestedHero.heroName);
             spawnHero(requestedHero , mainList, requestedHero.heroName);
         }
 
@@ -40,6 +40,7 @@ public class HeroEntryScript {
         setEntryMusic();
         setCinematicCamera(camera);
         //1 is atm a placeholder since we don't have the raw data rn
+
         GameState.INPUT_STATE += (1+getAmountOfTextBoxes());
         GameState.gameState = State.CINEMATIC;
     }
@@ -54,7 +55,7 @@ public class HeroEntryScript {
                     Level.entryPoint.y
             ));
         }catch (Exception e){
-            System.out.println("Could not spawn hero");
+            System.out.println("Could not spawn hero: " +name);
         }
     }
 
@@ -65,6 +66,7 @@ public class HeroEntryScript {
     }
 
     private static void setEntryMusic(){
+
         Sound.setMusic(AudioConstants.MUS_HERO_ENTRY);
     }
 

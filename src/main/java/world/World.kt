@@ -3,9 +3,13 @@ package world
 import entities.Direction
 import entities.NPC.Heroes.Hero
 import entities.NPC.Monsters.Monster
+import entities.NPC.Monsters.MonsterLogic.MonsterFactory
+import entities.NPC.Monsters.MonsterLogic.MonsterList
 import entities.NPC.NPC
 import entities.WorldObjects.Projectile
+import entities.WorldObjects.SkeletonHead
 import entities.WorldObjects.WorldObject
+import graphics.ScreenSettings
 import java.lang.Integer.max
 import kotlin.math.min
 
@@ -86,7 +90,7 @@ object World {
     }
 
     fun removeObjectFromTile(obj: WorldObject){
-        world[obj.tilePositionY][obj.tilePositionY].tileObjects.remove(obj)
+        world[obj.tilePositionY][obj.tilePositionX].tileObjects.remove(obj)
     }
 
     fun getAllMonstersFromTile(x: Int, y: Int): List<Monster>{
@@ -270,6 +274,22 @@ object World {
                 if(npc.health <= 0) break;
             }
         }
+
+    }
+
+    fun spawnSkeletonHeadsOnTile(tilePosX: Int, tilePosY : Int){
+
+        val tileObjects = getAllWorldObjectsFromTile(tilePosX, tilePosY);
+
+        for(obj in tileObjects){
+            if(obj is SkeletonHead){
+                //TODO that's not very separation of concerns of me. I should move this elsewhere
+                //There is never an instance when i want to create a monster and not add it to the list, i should start by updating that instead
+                obj.spawnSkeleton(obj.tilePositionX, obj.tilePositionY);
+
+            };
+        }
+
 
     }
 }

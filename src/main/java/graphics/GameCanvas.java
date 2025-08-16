@@ -108,7 +108,7 @@ public class GameCanvas extends JPanel {
         }
         //TODO replace this with some state code instead of booleans
         if(GameState.stateHidingMvp() && GameState.gameState != State.CINEMATIC) paintHideMVPMessage(g2);
-        if(GameState.gameState == State.GAMEOVER) paintGameOverMessage(g2);
+        if(GameState.gameState == State.GAME_OVER) paintGameOverMessage(g2);
         g2.dispose();
 
     }
@@ -274,7 +274,7 @@ public class GameCanvas extends JPanel {
     private void updateMasterCoordinate(){
 
         //TODO atm it is cinematic when awaiting input, cinematic camera and awaiting input state should be able to be differentiated
-        if(GameState.gameState == State.GAMEOVER ||
+        if(GameState.gameState == State.GAME_OVER ||
                 GameState.gameState == State.CINEMATIC ){
           //  System.out.println("Cinematic camera");
             MasterCoordinate = camera.getCinematicCamera();

@@ -1,9 +1,11 @@
 package entities.NPC.Monsters;
 
+import entities.Direction;
 import   entities.NPC.NPCType;
 import   graphics.ScreenSettings;
 import   graphics.Sprite.ImgLoader;
 import   graphics.Sprite.SpriteConstants;
+import graphics.SpriteSettings;
 
 import java.awt.image.BufferedImage;
 
@@ -11,8 +13,24 @@ public class Skeleton extends Monster{
 
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SKELETON);
 
+    //TODO replace this with something uniform, this is due to lack of assets
+    private int index = 0;
+    private int skeletonTempHandler(){
+        if(inCombat){
+            if(currDirection == Direction.UP){
+                return 3;
+            }
+            return 2;
+        }
+        if(currDirection == Direction.UP){
+            return 1;
+        }
+        return 0;
+    }
+
+    //index, frame
     static BufferedImage[][] spriteSubsets = {
-        //Walking left down right
+        //0 Walking left down right
             {
                 image.getSubimage(5, 81, 53, 53),
                     image.getSubimage(55, 81, 53, 53),
@@ -21,7 +39,7 @@ public class Skeleton extends Monster{
                     image.getSubimage(250, 81, 53, 53)
             },
 
-            //Walking up
+            //1 Walking up
             {
                     image.getSubimage(55, 214, 53, 53),
                     image.getSubimage(88, 214, 53, 53),
@@ -30,7 +48,31 @@ public class Skeleton extends Monster{
                     image.getSubimage(302, 214, 53, 53),
                     image.getSubimage(375, 214, 53, 53)
             },
-            //DEATH
+            // 2 Attack asd
+            {
+                image.getSubimage(28, 347, 53,53),
+                    image.getSubimage(126, 347, 53,53),
+                    image.getSubimage(216, 347, 53,53),
+                    image.getSubimage(308, 347, 53,53),
+                    image.getSubimage(395, 344, 59,59),
+                    image.getSubimage(502, 347, 53,53),
+                    image.getSubimage(502, 347, 53,53),
+
+            },
+
+            // 3 Attack up
+            {
+                image.getSubimage(19, 479, 53, 53),
+                    image.getSubimage(92, 479, 53, 53),
+                    image.getSubimage(165, 479, 53, 53),
+                    image.getSubimage(239, 479, 53, 53),
+                    image.getSubimage(310, 472, 53, 59),
+                    image.getSubimage(380, 479, 53, 53),
+                    image.getSubimage(452, 479, 53, 53),
+
+            },
+
+            // 4 DEATH
             {
                     image.getSubimage(21, 614, 53, 53),
                     image.getSubimage(89, 614, 53, 53),
@@ -53,7 +95,6 @@ public class Skeleton extends Monster{
 
     public Skeleton(int health, int x, int y) {
         super(health, x, y);
-
         image = ImgLoader.getImageResource("sprites/monster/skeletonSheet.png");
         this.basicAttackStrength = 24;
         this.hunger = 0;
@@ -71,6 +112,7 @@ public class Skeleton extends Monster{
 
     @Override
     public BufferedImage getImage() {
+
         return image;
     }
 
@@ -92,6 +134,7 @@ public class Skeleton extends Monster{
     @Override
     public void behavior() {
         npcHasMoved();
+        spriteHandler();
     }
 
     @Override
@@ -107,5 +150,17 @@ public class Skeleton extends Monster{
     @Override
     protected void spriteHandler() {
 
+        var t = skeletonTempHandler();
+        if(t != index){
+            index = t;
+            spriteFrame = 0;
+        }
+        image = spriteSubsets[index][spriteFrame];
+        spriteFrameTimeCounter++;
+        if(spriteFrameTimeCounter == SpriteSettings.ANIMATION_LENGTH) {
+            spriteFrame++;
+            spriteFrameTimeCounter = 0;
+            if (spriteFrame >= spriteSubsets[index].length) spriteFrame = 0;
+        }
     }
 }

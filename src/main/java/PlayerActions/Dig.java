@@ -2,6 +2,7 @@ package PlayerActions;
 
 import   level.TileType;
 import   level.Tile;
+import world.World;
 
 import java.util.ArrayList;
 
@@ -12,7 +13,16 @@ public class Dig {
                            int x,
                            int y) {
 
-        if (tile.type == TileType.PATH) return false;
+
+
+        if (tile.type == TileType.PATH) {
+            //Spawn skelly
+            //System.out.println("Dug on path checking for skelly");
+            World.INSTANCE.spawnSkeletonHeadsOnTile(x, y);
+
+            return false;
+        }
+
 
         if (validateDigSite(tileData,x, y) == false) {
             return false;

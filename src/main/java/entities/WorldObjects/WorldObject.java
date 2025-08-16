@@ -1,6 +1,7 @@
 package   entities.WorldObjects;
 
 import   graphics.ScreenSettings;
+import world.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,7 @@ public abstract class WorldObject {
         this.screenPositionX = tilePositionX * ScreenSettings.TILE_SIZE;
         this.screenPositionY = tilePositionY * ScreenSettings.TILE_SIZE;
         WorldObjectManager.INSTANCE.determineListEntry(this);
+        World.INSTANCE.addObjectToTile(this);
     }
 
     public BufferedImage getSprite(){

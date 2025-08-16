@@ -36,7 +36,8 @@ public class MonsterFactory {
             return new Dragon(posx, posy);
         }
         else if (type.equals("Skeleton")){
-            return new Skeleton(200, posx, posy);
+
+            return new Skeleton(44, posx, posy);
         }
 
         else{//This should not be here but there ought to be a return for nothing

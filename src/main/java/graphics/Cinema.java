@@ -10,12 +10,13 @@ public class Cinema {
     public static boolean cinematicActive = false; //tbh i don't think i need this
 
     public static void handler(){
-        if(cinematicActive == false){
+        if(!cinematicActive){
             System.out.println("There was an error handler ran despite not being active");
         }
 
         if(currentFrame <= cinematicLength){
             currentFrame++;
+            System.out.println("Cinema frame: " + currentFrame);
         }
         else{
             resetCinematic();

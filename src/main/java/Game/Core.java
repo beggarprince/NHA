@@ -8,6 +8,8 @@ import   entities.NPC.Heroes.HeroList;
 import   entities.NPC.Monsters.MonsterLogic.MonsterList;
 import   entities.NPC.Mvp;
 import   entities.Player;
+import entities.WorldObjects.WorldObject;
+import entities.WorldObjects.WorldObjectManager;
 import   graphics.Camera;
 import   graphics.Cinema;
 import   graphics.ScreenSettings;
@@ -15,8 +17,8 @@ import   io.keyboard.KBInputAccelerator;
 import   io.keyboard.KbInputInGame;
 import level.Level;
 import   level.TileType;
-import util.HeroDebug;
 import   util.TimerDebug;
+import world.World;
 
 import java.util.ArrayList;
 
@@ -116,7 +118,7 @@ public class Core {
             if(kb.enterPressed){
                 GameState.INPUT_STATE--;
                 if(GameState.INPUT_STATE == 0){
-                    GameState.gameState = State.GAMERUNNING;
+                    GameState.gameState = State.GAME_RUNNING;
                 }
             }
             return;
@@ -188,7 +190,20 @@ public class Core {
     }
 
     protected static boolean attemptDig(Player player){
-        if (dig(level.tileData,
+        {
+            var listOfObjects = WorldObjectManager.INSTANCE.getAllObjects();
+            int ll = 0;
+
+            for(WorldObject l :listOfObjects){
+                System.out.println(++ll + ": " + l.tilePositionX + " " + l.tilePositionY);
+                if(World.INSTANCE.getAllWorldObjectsFromTile(l.tilePositionX, l.tilePositionY).isEmpty()){
+                    System.out.println("Not present in tile entity map");
+                }
+            }
+        }
+
+        if (
+                dig(level.tileData,
                 level.tileData.get(player.playerTilePositionY)
                         .get(player.playerTilePositionX),
                 player.playerTilePositionX,

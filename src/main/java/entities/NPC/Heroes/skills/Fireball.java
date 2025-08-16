@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class Fireball extends Projectile {
     public static BufferedImage sheet = ImgLoader.getImageResource(SpriteConstants.FIREBALL);
 
-    public static BufferedImage set[] = {
+    public static BufferedImage[] set = {
             sheet.getSubimage(3, 16, 96, 96),
             sheet.getSubimage(133, 16, 96, 96),
             sheet.getSubimage(5, 144, 96, 96),

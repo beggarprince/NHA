@@ -27,6 +27,7 @@ public enum WorldObjectManager {
 
     public void removeProjectile(Projectile p) {
         int sizeBefore = projectiles.size();
+        World.INSTANCE.removeObjectFromTile(p); //TODO make sure this is the only thing that calls it
         projectiles.remove(p);
         assert projectiles.size() < sizeBefore : "Expected list size to decrease after removal";
     }
@@ -36,7 +37,11 @@ public enum WorldObjectManager {
     }
 
     public void removeObject(WorldObject w){
+        int sizeBefore = worldObjects.size();
+        World.INSTANCE.removeObjectFromTile(w);
         worldObjects.remove(w);
+        assert worldObjects.size() < sizeBefore : "Expected list size to decrease after removal";
+
     }
 
     public List<Projectile> getProjectiles(){
