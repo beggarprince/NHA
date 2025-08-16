@@ -21,8 +21,8 @@ public class Slime extends Monster {
     public static final int slimeLifespan = ScreenSettings.FPS * 30;
 
     public Slime(int x, int y) {
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
 
         this.hunger = 0;
         this.movementSpeed = 1;

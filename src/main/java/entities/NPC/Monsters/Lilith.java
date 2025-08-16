@@ -14,8 +14,8 @@ public class Lilith extends Monster{
 
     static final NPCType type = NPCType.Lilith;
     public Lilith( int x, int y) {
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
         setImage();
         this.hunger = 0; // Lilith no eat?
         this.movementSpeed = 1;

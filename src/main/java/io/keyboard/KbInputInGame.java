@@ -90,8 +90,6 @@ public class KbInputInGame implements KeyListener {
             rightPressed = true;
         }
 
-        //We don't care about released, it is up to the game to set enterPressed to false
-        //since we only accept input when we are specifically awaiting input like in text
         else if(code == KeyEvent.VK_ENTER){
             enterPressed = true;
         }
@@ -166,6 +164,10 @@ public class KbInputInGame implements KeyListener {
 
          else if(code == KeyEvent.VK_Z){
              HeroDebug.Companion.printHeroDetails();
+         }
+
+         else if(code == KeyEvent.VK_ENTER){
+             enterPressed = false;
          }
 
     }

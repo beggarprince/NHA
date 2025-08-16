@@ -1,6 +1,7 @@
 package Game;
 
 import   entities.NPC.NPCType;
+import level.LevelText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ public class LevelState {
          private int manaDistribution;
          public int digPower;
          public int round =0;
+         private ArrayList<ArrayList<String>> levelText;
 
         private ArrayList<ArrayList<HeroData>> currentLevelHeroes; //List of heroes separated by rounds
 
@@ -25,14 +27,22 @@ public class LevelState {
             this.manaDistribution = manaDistribution;
             this.digPower = digPower;
             this.currentLevelHeroes = levelHeroes.get(level);
+            this.levelText = LevelText.levelTextData.get(level);
         }
 
         //tbh this shouldn't be here
         public ArrayList<HeroData> returnCurrentRoundHeroes(int currentRound){
             return currentLevelHeroes.get(currentRound);
         }
+
+        //The Core logic now has the data, and is responsible for using it. This get is a one time per level get
         public ArrayList<ArrayList<HeroData>> getCurrentLevelHeroes(){
             return currentLevelHeroes;
+        }
+
+        //Same for the level text
+        public ArrayList<ArrayList<String>> getLevelText(){
+            return levelText;
         }
 
         public int getNutrientDistribution() {
@@ -91,9 +101,10 @@ public class LevelState {
                     )),
                     //Round 2
                     new ArrayList<>(Arrays.asList(
-                            new HeroData(NPCType.Soldier, 68, "Camilla"),
-                            new HeroData(NPCType.Soldier, 68, "Selena"),
-                            new HeroData(NPCType.Soldier, 68, "Beruka")
+                            //TODO add females? Tint Camilla?
+                            new HeroData(NPCType.Warrior, 174, "Camilla"),
+                            new HeroData(NPCType.Warrior, 34, "Selena"),
+                            new HeroData(NPCType.Warrior, 68, "Beruka")
                     ))
             )),
             // Level 1

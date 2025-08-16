@@ -34,8 +34,8 @@ public class Skeleton extends Monster{
     public static final NPCType type = NPCType.Skeleton;
 
     public Skeleton(int health, int x, int y) {
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
         image = ImgLoader.getImageResource("sprites/monster/skeletonSheet.png");
         this.hunger = 0;
         this.movementSpeed = 1;

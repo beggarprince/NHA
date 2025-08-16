@@ -15,8 +15,8 @@ public class Slime_Flower extends Monster {
     static BufferedImage image = ImgLoader.getImageResource(SpriteConstants.MONSTER_SLIME_FLOWER);
     static final NPCType type = NPCType.Slime_Flower;
     public Slime_Flower( int x, int y) {
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
 
         monsterListInstance = MonsterList.getInstance();
         this.screenPositionX = x;

@@ -2,7 +2,6 @@ package entities.NPC.Monsters;
 
 import entities.NPC.Monsters.MonsterLogic.DungeonIQ;
 import   entities.NPC.NPCType;
-import   entities.SpriteCoordinate;
 import   graphics.ScreenSettings;
 import graphics.Sprite.SpriteType;
 import   graphics.SpriteSettings;
@@ -108,8 +107,8 @@ public class Bug extends Monster {
 
 
     public Bug( int x, int y) {
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
         this.hunger = 0;
         this.movementSpeed = 1;
         this.lifespan = bugLifespan;

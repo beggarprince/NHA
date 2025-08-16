@@ -2,6 +2,7 @@ package graphics;
 
 import   Game.GameState;
 import entities.WorldObjects.WorldObject;
+import graphics.ui.AwaitingInputTextBox;
 import graphics.ui.PauseMenu;
 import   Game.State;
 import   entities.NPC.Heroes.Hero;
@@ -97,6 +98,11 @@ public class GameCanvas extends JPanel {
         paintObjects(g2);
         paintBadman(g2);
         paintUIDigPower(g2);
+
+        if(GameState.gameState == State.AWAITING_INPUT) paintTextBox(g2);
+
+
+
        ////TODO same as below
         if(GameState.gameState == State.PAUSE)PauseMenu.inGamePause(g2);
 
@@ -111,6 +117,15 @@ public class GameCanvas extends JPanel {
         if(GameState.gameState == State.GAME_OVER) paintGameOverMessage(g2);
         g2.dispose();
 
+    }
+
+    //This was copied from textbox i'm banking on the past me to have a good reason to have done this
+    private static final Font TEXT_FONT = new Font("Arial", Font.PLAIN, 24);
+    private void paintTextBox(Graphics2D g2) {
+        AwaitingInputTextBox.textBox(g2,
+                TEXT_FONT
+                , GameState.getCurrentMessage());
+        System.out.println(GameState.getCurrentMessage());
     }
 
 

@@ -34,7 +34,7 @@ public  class DungeonIQ {
 
 
     // Using EnumMap approach (recommended - similar to your sprite animations)
-    private static final Map<NPCType, NPCState> NPC_STATES = new EnumMap<>(NPCType.class);
+    private static final Map<NPCType, NPCState> MONSTER_STATE = new EnumMap<>(NPCType.class);
 
 
 
@@ -70,23 +70,24 @@ public  class DungeonIQ {
         // Initialize the NPC states map
 
         //Nutrient Family
-        NPC_STATES.put(NPCType.Slime, new NPCState(8, 1));
-        NPC_STATES.put(NPCType.Slime_Flower, new NPCState(8, 0));
-        NPC_STATES.put(NPCType.Bug, new NPCState(24, 8));
-        NPC_STATES.put(NPCType.LizardMan, new NPCState(48, 16));
+        MONSTER_STATE.put(NPCType.Slime, new NPCState(8, 1));
+        MONSTER_STATE.put(NPCType.Slime_Flower, new NPCState(8, 0));
+        MONSTER_STATE.put(NPCType.Bug, new NPCState(24, 8));
+        MONSTER_STATE.put(NPCType.LizardMan, new NPCState(48, 16));
 
         //Mana Family
-        NPC_STATES.put(NPCType.Dragon, new NPCState(300, 34));
-        NPC_STATES.put(NPCType.Lilith, new NPCState(24, 8));
-        NPC_STATES.put(NPCType.Spirit, new NPCState(8, 1));
+        MONSTER_STATE.put(NPCType.Dragon, new NPCState(300, 34));
+        MONSTER_STATE.put(NPCType.Lilith, new NPCState(24, 8));
+        MONSTER_STATE.put(NPCType.Spirit, new NPCState(8, 1));
 
-        NPC_STATES.put(NPCType.Skeleton, new NPCState(30, 30));
-        NPC_STATES.put(NPCType.NULL_TYPE, new NPCState(8, 1));
+        MONSTER_STATE.put(NPCType.Skeleton, new NPCState(30, 30));
+        MONSTER_STATE.put(NPCType.NULL_TYPE, new NPCState(8, 1));
     }
 
     // Method to get NPC state
-    public static NPCState getNPCState(NPCType npcType) {
-        return NPC_STATES.get(npcType);
+    //technically npcs, but this should affect heroes so the naming should help
+    public static NPCState getMonsterState(NPCType npcType) {
+        return MONSTER_STATE.get(npcType);
     }
 
 

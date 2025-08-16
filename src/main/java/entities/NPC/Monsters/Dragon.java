@@ -19,8 +19,8 @@ public class Dragon extends Monster{
     public final static NPCType type = NPCType.Dragon;
 
     public Dragon( int x, int y) {
-        super( DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super( DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
         setImage();
         this.hunger = 0;
         this.movementSpeed = 1;

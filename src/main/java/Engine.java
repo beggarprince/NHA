@@ -28,6 +28,7 @@ import static   io.Audio.Sound.getSoundInstance;
 public class Engine implements Runnable {
     private final Camera camera;
     private final KbInputInGame kb;
+    private final ArrayList<ArrayList<String>> levelText;
     private Thread gameLifecycle;
     private Thread musicThread;
     private final Player player;
@@ -50,8 +51,8 @@ public class Engine implements Runnable {
         //World creation
         this.level = Level.getInstance(currentLevel.getNutrientDistribution(), currentLevel.getManaDistribution());
         levelHeroes = currentLevel.getCurrentLevelHeroes();
-
-        core = new Core(levelHeroes);
+        levelText = currentLevel.getLevelText();
+        core = new Core(levelHeroes, levelText);
         //Audio
         sound = getSoundInstance();
 
@@ -95,7 +96,8 @@ public class Engine implements Runnable {
         Runnable musicRunnable = new Runnable() {
             @Override
             public void run() {
-                sound.setAndLoopMusic(AudioConstants.MUS_DUNGEON_IDLE_2);
+                //8/16 recently changed this to STATIC without testing #lamalasuerte
+                Sound.setAndLoopMusic(AudioConstants.MUS_DUNGEON_IDLE_2);
 
 //                while (musicThread != null) {
 //
@@ -112,7 +114,9 @@ public class Engine implements Runnable {
 
     Runnable npcLogicThread = () -> {
         //System.out.println((MonsterList.getInstance().getMonsters().size()));
-        NPCLogicKTKt.run(MonsterList.getInstance().getMonsters(), HeroList.getInstance().getHeroes());
+        NPCLogicKTKt.run(MonsterList.getInstance().getMonsters(),
+                HeroList.getInstance().getHeroes());
+        //Run the text code here ig
         updateNPCLists();
     };
 

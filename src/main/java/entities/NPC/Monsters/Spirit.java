@@ -16,8 +16,8 @@ public class Spirit extends Monster {
     static final NPCType type = NPCType.Spirit;
 
     public Spirit(int x, int y) {
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
         this.tilePositionX = x / ScreenSettings.TILE_SIZE;
         this.tilePositionY =y / ScreenSettings.TILE_SIZE;
         this.screenPositionX = x;

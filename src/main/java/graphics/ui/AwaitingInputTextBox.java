@@ -5,7 +5,7 @@ import   graphics.ScreenSettings;
 import javax.swing.*;
 import java.awt.*;
 
-public class TextBox extends JFrame {
+public class AwaitingInputTextBox extends JFrame {
     final static int centerScreenX = (ScreenSettings.PX_SCREEN_WIDTH /2);
 
     //The size of the menu

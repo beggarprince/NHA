@@ -14,8 +14,8 @@ public class LizardMan extends Monster{
     static final NPCType type = NPCType.LizardMan;
 
     public LizardMan(int x, int y){
-        super(DungeonIQ.getNPCState(type).getBaseHp(), x, y);
-        this.basicAttackStrength = DungeonIQ.getNPCState(type).getBaseAtt();
+        super(DungeonIQ.getMonsterState(type).getBaseHp(), x, y);
+        this.basicAttackStrength = DungeonIQ.getMonsterState(type).getBaseAtt();
         setImage();
         this.lifespan = ScreenSettings.FPS * 65;
         this.movementSpeed = 1;

@@ -21,9 +21,10 @@ public class HeroEntryScript {
     //take in heroes and spawn them
 
     //This is not a constructor, this is the only call you can make to run said script
-    public static void run(ArrayList<LevelState.HeroData> heroList, HeroList mainList, Camera camera){
+    public static void run(ArrayList<LevelState.HeroData> heroList,
+                           HeroList mainList,
+                           Camera camera) {
         script(camera);
-
         for (LevelState.HeroData requestedHero : heroList) {
             System.out.println("Spawning the "+ requestedHero.heroType+": " + requestedHero.heroName);
             spawnHero(requestedHero , mainList, requestedHero.heroName);
@@ -31,7 +32,10 @@ public class HeroEntryScript {
 
     }
 
-    public static void run(LevelState.HeroData heroData, HeroList mainList, Camera camera, String name){
+    public static void run(LevelState.HeroData heroData,
+                           HeroList mainList,
+                           Camera camera,
+                           String name){
         script(camera);
         spawnHero(heroData, mainList, name);
     }
@@ -41,7 +45,8 @@ public class HeroEntryScript {
         setCinematicCamera(camera);
         //1 is atm a placeholder since we don't have the raw data rn
 
-        GameState.INPUT_STATE += (1+getAmountOfTextBoxes());
+        //GameState.INPUT_STATE += (1+getAmountOfTextBoxes());
+
         GameState.gameState = State.CINEMATIC;
     }
 

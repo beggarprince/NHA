@@ -1,10 +1,13 @@
 package io.keyboard;
 
+//TODO holy shit this should have been static not a singleton
 public class KBInputAccelerator {
     private int acceleration = 0;
     private int accelerationCycle = 60;
     private int currVelocity = 1;
     private int state = 1;
+    private final int textBoxInputLock = 120;
+    private int textInputTimer = 0;
 
     public int getState()
     {
@@ -58,5 +61,12 @@ public class KBInputAccelerator {
     }
 
 
+    public boolean readyToProgressText(){
+        textInputTimer++;
+        return(textInputTimer >= textBoxInputLock);
+    }
+    public void resetTextInputTimer(){
+        textInputTimer = 0;
+    }
 
 }
