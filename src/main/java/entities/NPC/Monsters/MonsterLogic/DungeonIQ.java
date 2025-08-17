@@ -41,9 +41,10 @@ public  class DungeonIQ {
     public static class NPCState {
         private int speciesBaseAttack =1;
         private int speciesBaseHP = 1;
+        private int upgradeCost = 1;
         //Could probably add an enum in here to add different properties
 
-        NPCState( int baseHP, int baseAttack ){
+        NPCState( int baseHP, int baseAttack, int upgradeCost ){
             this.speciesBaseHP = baseHP;
             this.speciesBaseAttack = baseAttack;
         }
@@ -64,24 +65,31 @@ public  class DungeonIQ {
             speciesBaseHP += amountIncrease;
         }
 
+        public int getUpgradeCost() {
+            return upgradeCost;
+        }
+
+        public void setUpgradeCost(int upgradeCost) {
+            this.upgradeCost = upgradeCost;
+        }
     }
 
     static {
         // Initialize the NPC states map
 
         //Nutrient Family
-        MONSTER_STATE.put(NPCType.Slime, new NPCState(8, 1));
-        MONSTER_STATE.put(NPCType.Slime_Flower, new NPCState(8, 0));
-        MONSTER_STATE.put(NPCType.Bug, new NPCState(24, 8));
-        MONSTER_STATE.put(NPCType.LizardMan, new NPCState(48, 16));
+        MONSTER_STATE.put(NPCType.Slime, new NPCState(8, 1, 100));
+        MONSTER_STATE.put(NPCType.Slime_Flower, new NPCState(8, 0, 100));
+        MONSTER_STATE.put(NPCType.Bug, new NPCState(24, 8, 250));
+        MONSTER_STATE.put(NPCType.LizardMan, new NPCState(48, 16, 450));
 
         //Mana Family
-        MONSTER_STATE.put(NPCType.Dragon, new NPCState(300, 34));
-        MONSTER_STATE.put(NPCType.Lilith, new NPCState(24, 8));
-        MONSTER_STATE.put(NPCType.Spirit, new NPCState(8, 1));
+        MONSTER_STATE.put(NPCType.Dragon, new NPCState(300, 34, 700));
+        MONSTER_STATE.put(NPCType.Lilith, new NPCState(24, 8, 500));
+        MONSTER_STATE.put(NPCType.Spirit, new NPCState(8, 1, 200));
 
-        MONSTER_STATE.put(NPCType.Skeleton, new NPCState(30, 30));
-        MONSTER_STATE.put(NPCType.NULL_TYPE, new NPCState(8, 1));
+        MONSTER_STATE.put(NPCType.Skeleton, new NPCState(30, 30, 0));
+        MONSTER_STATE.put(NPCType.NULL_TYPE, new NPCState(8, 1, 0));
     }
 
     // Method to get NPC state

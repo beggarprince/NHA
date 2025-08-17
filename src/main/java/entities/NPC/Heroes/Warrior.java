@@ -103,7 +103,8 @@ public class Warrior extends Hero{
 //    }
 
     // Warrior Male sprite coordinates
-    private static final Map<SpriteType, SpriteCoordinate[]> SPRITE_ANIMATIONS = new EnumMap<>(SpriteType.class);
+    private static final Map<SpriteType, SpriteCoordinate[]> SPRITE_ANIMATIONS =
+            new EnumMap<>(SpriteType.class);
 
     //TODO change these to image.getSubImage and the map to be in hero and be Map<SpriteType, BufferedImage[]>
     static {
