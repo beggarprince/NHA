@@ -99,12 +99,12 @@ public class GameCanvas extends JPanel {
         paintBadman(g2);
         paintUIDigPower(g2);
 
-        if(GameState.gameState == State.AWAITING_INPUT) paintTextBox(g2);
+        if(GameState.getGameState() == State.AWAITING_INPUT) paintTextBox(g2);
 
 
 
        ////TODO same as below
-        if(GameState.gameState == State.PAUSE)PauseMenu.inGamePause(g2);
+        if(GameState.getGameState() == State.PAUSE)PauseMenu.inGamePause(g2);
 
 //        //TODO i need to move this out so the paint component function is not deciding whether or not to draw the heroes
         if(GameState.heroActive == true){
@@ -113,8 +113,8 @@ public class GameCanvas extends JPanel {
             }
         }
         //TODO replace this with some state code instead of booleans
-        if(GameState.stateHidingMvp() && GameState.gameState != State.CINEMATIC) paintHideMVPMessage(g2);
-        if(GameState.gameState == State.GAME_OVER) paintGameOverMessage(g2);
+        if(GameState.stateHidingMvp() && GameState.getGameState() != State.CINEMATIC) paintHideMVPMessage(g2);
+        if(GameState.getGameState() == State.GAME_OVER) paintGameOverMessage(g2);
         g2.dispose();
 
     }
@@ -125,7 +125,7 @@ public class GameCanvas extends JPanel {
         AwaitingInputTextBox.textBox(g2,
                 TEXT_FONT
                 , GameState.getCurrentMessage());
-        System.out.println(GameState.getCurrentMessage());
+        //System.out.println(GameState.getCurrentMessage());
     }
 
 
@@ -142,7 +142,7 @@ public class GameCanvas extends JPanel {
 
     //Changes the world position to a screen position consistent with the camera location
     private int offsetTileX(int tileX) {
-        if(GameState.gameState == State.CINEMATIC){
+        if(GameState.getGameState() == State.CINEMATIC){
           //  System.out.println("Offset for x is " + camera.cinematicCameraOffsetX);
             return tileX * ScreenSettings.TILE_SIZE - (camera.cinematicCameraOffsetX * ScreenSettings.TILE_SIZE);
         }
@@ -151,7 +151,7 @@ public class GameCanvas extends JPanel {
     }
 
     private int offsetTileY(int tileY) {
-        if(GameState.gameState == State.CINEMATIC){
+        if(GameState.getGameState() == State.CINEMATIC){
           //  System.out.println("Offset for y is " + camera.cinematicCameraOffsetY);
             return tileY * ScreenSettings.TILE_SIZE - (camera.cinematicCameraOffsetY * ScreenSettings.TILE_SIZE);
         }
@@ -289,8 +289,8 @@ public class GameCanvas extends JPanel {
     private void updateMasterCoordinate(){
 
         //TODO atm it is cinematic when awaiting input, cinematic camera and awaiting input state should be able to be differentiated
-        if(GameState.gameState == State.GAME_OVER ||
-                GameState.gameState == State.CINEMATIC ){
+        if(GameState.getGameState() == State.GAME_OVER ||
+                GameState.getGameState() == State.CINEMATIC ){
           //  System.out.println("Cinematic camera");
             MasterCoordinate = camera.getCinematicCamera();
         }

@@ -30,8 +30,9 @@ public class Core {
     //Made a ton of hullaballoo making this static,
     // doesn't matter no reason this shouldn't be static
     private static ArrayList<ArrayList<String>> textArray = new ArrayList<>();
-    private static int currentTextArrayIndex = 0;
+    private static int listOfStringsIndex = 0;
     private static List<String> roundMessages ;
+    private static int textState = 0;
 
     private long frameRatePrevTime;
     private final int timeUntilHeroSpawn = 600 * 1; // Ten seconds for now, 60 after *
@@ -47,6 +48,7 @@ public class Core {
 
     public Core(ArrayList<ArrayList<LevelState.HeroData>> levelHeroes,
                 ArrayList<ArrayList<String>> levelText){
+
         level = Level.getInstance();
         frameRatePrevTime = System.nanoTime();
          keyboardInputAccelerator = KBInputAccelerator.getInstance();
@@ -54,30 +56,37 @@ public class Core {
          finalRound = levelHeroes.size()-1;
          int count = 1;
          textArray = levelText;
-        printHeroes(levelHeroes, count);
-
+         printHeroes(levelHeroes, count);
     }
 
-    public static void setRoundText(){
-        currentTextArrayIndex=0;
-        roundMessages = textArray.get(currentRound);
+    //Text goes: Intro->HeroEntrance->PlayerVictory->Shop
+    public static void setTextBoxText(){
+        listOfStringsIndex = 0;
+        roundMessages = textArray.get(textState);
+        System.out.println(GameState.getGameState() + ": "+ roundMessages.size() + " messages to go through");
+        GameState.setGameInputState(roundMessages.size());
         ;//This will init and get the 0
         GameState.setCurrentMessage(getNextTextMessage());
+
+        //If we just call setRoundText at the right time we should be able to not have to keep track of state
+        textState++;
     }
 
     public static String getNextTextMessage(){
 
-        if(currentTextArrayIndex < roundMessages.size()){
-            String l = roundMessages.get(currentTextArrayIndex);
-            currentTextArrayIndex++;
+        if(listOfStringsIndex < roundMessages.size()){
+            String l = roundMessages.get(listOfStringsIndex);
+            listOfStringsIndex++;
             return l;
         }
+        System.out.println("null string");
         return null;
 
     }
 
 
-    private static void printHeroes(ArrayList<ArrayList<LevelState.HeroData>> levelHeroes, int count) {
+    private static void printHeroes(ArrayList<ArrayList<LevelState.HeroData>> levelHeroes,
+                                    int count) {
         for (ArrayList<LevelState.HeroData> heroList : levelHeroes) {
 
             System.out.println("Round " + count +" heroes:");
@@ -109,6 +118,14 @@ public class Core {
         if (timeForNewFrame()) {
             runGameLoop(npcLogicLock, kb, player, camera);
             updateUI(uiLock); //We always update ui
+            //This needs to run last so the first frame gets the required info
+            if(GameState.isBriefingEvent() && GameState.getGameState() != State.AWAITING_INPUT){
+
+                GameState.setGameState(State.AWAITING_INPUT);
+                setTextBoxText();
+                //GameState.setGameInputState(roundMessages.size());
+                GameState.setBriefingEvent(false);
+            }
         }
         //GUI won't need to update for a bit so we can stop checking gameLifecycle bc there is nothing to cycle
         else {
@@ -122,9 +139,19 @@ public class Core {
 
     }
 
+    //TODO implement
+    public void upgradeMenu(){
+        setTextBoxText();
+        GameState.setGameState(  State.AWAITING_INPUT);
+    }
+
 
     //TODO separate the state functionality in separate methods
-    public void runGameLoop( Object npcLogicLock, KbInputInGame kb, Player player, Camera camera){
+    public void runGameLoop(
+            Object npcLogicLock,
+            KbInputInGame kb,
+            Player player,
+            Camera camera){
 
 
         //System.out.println(GameState.gameState);
@@ -133,7 +160,7 @@ public class Core {
         //Cinematic will run for X amount of frames being counted
         //Player input will not be taken into account until we finish the cinematic
         //Ui will still update and some logic tied to the cinematic will run
-        if(GameState.gameState == State.CINEMATIC){
+        if(GameState.getGameState() == State.CINEMATIC){
             Cinema.cinematicActive = true;
             Cinema.startCinemaState();
             return;
@@ -141,23 +168,32 @@ public class Core {
 
 
         //Awaiting input press ENTER
-        if(GameState.gameState == State.AWAITING_INPUT){
-            //TODO put some type of message for the player to know they need to press enter
+        if(GameState.getGameState() == State.AWAITING_INPUT){
             readyToProgressText = KBInputAccelerator.getInstance().readyToProgressText();
 
             if(kb.enterPressed && readyToProgressText){
-                //Now handled in spawn hero functionality
-                //GameState.INPUT_STATE--;
-
                 GameState.decrementInputState();
-                GameState.setCurrentMessage(getNextTextMessage());
-
-                if(GameState.getInputState() == 0){
-                    GameState.gameState = State.GAME_RUNNING;
-                }
                 readyToProgressText = false;
                 KBInputAccelerator.getInstance().resetTextInputTimer();
+                if(GameState.getGameState() == State.AWAITING_INPUT)GameState.setCurrentMessage(getNextTextMessage());
             }
+            return;
+        }
+
+
+        //TODO jank handling end of round pre upgrade screen text
+        if(GameState.getGameState() == State.POST_VICTORY_SPEECH){
+            setTextBoxText();
+            GameState.setGameState ( State.AWAITING_INPUT);
+            GameState.upgradeShopReady = true;
+            return;
+        }
+
+        if(GameState.upgradeShopReady){
+            setTextBoxText();
+            GameState.setGameState ( State.AWAITING_INPUT);
+            GameState.setBriefingEvent(true);
+            GameState.upgradeShopReady = false;
             return;
         }
 
@@ -165,7 +201,7 @@ public class Core {
         //Check for hero spawn if the timer is set to equal the spawn timer
         //We still need to advance frames but i don't want the player to be able to do anything but pan
         //No npc logic either
-        if(GameState.gameState == State.PAUSE){
+        if(GameState.getGameState() == State.PAUSE){
             //run pause logic
             if(!kb.pausedGame){
                 GameState.gameUnpaused();
@@ -287,7 +323,7 @@ public class Core {
             //HeroEntryScript.run("Soldier", HeroList.getInstance(), camera);
             //TODO extract this to make it clean
             HeroEntryScript.run(currentLevelHeroes.get(currentRound), HeroList.getInstance(), camera);
-            setRoundText();
+            setTextBoxText();
             GameState.setGameInputState(roundMessages.size());
             //currentRound++;
             //GameState.setMvpHiding();
@@ -343,7 +379,7 @@ public class Core {
             Mvp.getInstance().setXY(player.playerTilePositionX, player.playerTilePositionY);
 
             //TODO change this to battle state or something
-            GameState.mvpSuccesfullyHidden();
+            GameState.mvpSuccessfullyHidden();
             if(!GameState.stateHidingMvp()){
                 BattleBeginScript.run();
             }

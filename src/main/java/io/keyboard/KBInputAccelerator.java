@@ -6,7 +6,7 @@ public class KBInputAccelerator {
     private int accelerationCycle = 60;
     private int currVelocity = 1;
     private int state = 1;
-    private final int textBoxInputLock = 120;
+    private final int textBoxInputLock = 30;
     private int textInputTimer = 0;
 
     public int getState()

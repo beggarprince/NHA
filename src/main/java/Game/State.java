@@ -7,5 +7,6 @@ public enum State {
     GAME_OVER,
     AWAITING_INPUT,
     CINEMATIC,
-    UPGRADE_MENU
+    LEVEL_VICTORY,
+    POST_VICTORY_SPEECH
 }

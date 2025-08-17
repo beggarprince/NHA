@@ -1,7 +1,7 @@
 package Game.Event;
 
 import   Game.GameState;
-import Game.LevelState;
+import Game.State;
 import entities.Player;
 import   io.Audio.Sound;
 import   io.Audio.AudioConstants;
@@ -12,7 +12,8 @@ public class PlayerVictory {
         GameState.heroActive = false;
         setMusic();
         cycleVictoryDialogue();
-        showUpgradeMenu();
+        //showUpgradeMenu();
+        GameState.setGameState(State.POST_VICTORY_SPEECH);
     }
 
     private static void setMusic(){

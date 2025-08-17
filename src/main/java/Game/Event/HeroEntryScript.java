@@ -47,7 +47,7 @@ public class HeroEntryScript {
 
         //GameState.INPUT_STATE += (1+getAmountOfTextBoxes());
 
-        GameState.gameState = State.CINEMATIC;
+        GameState.setGameState(  State.CINEMATIC);
     }
 
     private static void spawnHero(LevelState.HeroData heroType,

@@ -9,7 +9,7 @@ import   Game.State;
 //Cinema ends on AWAITING_INPUT STATE to make chains of text the player must click through
 //but does not handle setting up the input state, text boxes, or other logic
 public class Cinema {
-    private static final int cinematicLength = ScreenSettings.FPS * 5;
+    private static final int cinematicLength = ScreenSettings.FPS * 2;
     private static int currentFrame = 0;
     public static boolean cinematicActive = false; //tbh i don't think i need this
 
@@ -31,7 +31,7 @@ public class Cinema {
         //The cinema transition requires i get the text
         //Core.setRoundText();
         cinematicActive = false;
-        GameState.gameState = State.AWAITING_INPUT;
+        GameState.setGameState(State.AWAITING_INPUT);
         HideMvp.run();
         currentFrame = 0;
     }

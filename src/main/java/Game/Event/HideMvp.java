@@ -11,6 +11,6 @@ public class HideMvp {
             return;
         }
         GameState.setMvpHiding();
-        Sound.setAndLoopMusic(AudioConstants.MUS_HIDE_MVP);
+        //Sound.setAndLoopMusic(AudioConstants.MUS_HIDE_MVP);
     }
 }

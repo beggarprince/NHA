@@ -15,12 +15,10 @@ public class PlayerDefeat {
     //Animation of the player getting dragged out of the dungeon + stats or something
 
     private static void setDefeatMusic(){
-        if(GameState.gameState == State.GAME_OVER) return; // i only want this to run once
+        if(GameState.getGameState() == State.GAME_OVER) return; // i only want this to run once
 
-        GameState.gameState = State.GAME_OVER;
+        GameState.setGameState( State.GAME_OVER);
         //change music
-        Sound.resumeMusic();
-        Sound.setMusic(AudioConstants.MUS_GAME_OVER);
     }
 
     private static void playDefeatAnimation(){
